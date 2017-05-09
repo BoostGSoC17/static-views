@@ -1,0 +1,11 @@
+{
+    "key": "static_map",
+    "name": "Static Map",
+    "authors": [ "Tom Westerhout" ],
+    "maintainers": [ "Tom Westerhout <kot.tom97 -at- gmail.com>" ],
+    "description": "Compile-time unordered associative container.",
+    "category": [
+        "Containers"
+    ]
+}
+
