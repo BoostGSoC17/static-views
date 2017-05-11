@@ -9,9 +9,6 @@ import count_opcodes
 
 
 def _mk_f(format_string : str):
-    return lambda s : format_string.format(s)
-
-def _mk_f2(format_string : str):
     return lambda s1, s2 : format_string.format(s1, s2)
 
 def _mk_o(initial_ext: str, final_ext : str):
@@ -19,58 +16,75 @@ def _mk_o(initial_ext: str, final_ext : str):
 
 
 
-compilers = \
-    { "posix"   : [ "gcc", "clang" ]
-    , "windows" : ["msvc", "msvc_clang" ]
+_compilers_ = \
+    { "posix"   : ["gcc", "clang"]
+    , "nt"      : ["msvc", "msvc_clang"]
     }
 
-compile_info = \
-    { "gcc"        : (_mk_f("g++ -c -std=c++14 -O3 {}"), _mk_o("cpp", "o"))
-    , "clang"      : (_mk_f("~/Downloads/clang+llvm-4.0.0-x86_64-linux-gnu-debian8/bin/clang++ -c -std=c++14 -O3 {}"), _mk_o("cpp", "o"))
+_compile_info_ = \
+    { "gcc"        : (_mk_f("g++ -std=c++14 -O3 {} -o {}"), _mk_o("cpp", "out"))
+    , "clang"      : (_mk_f("clang++ -std=c++14 -O3 {} -o {}"), _mk_o("cpp", "out"))
     , "msvc"       : (_mk_f("cl /EHsc /c /O2 /GS- /GR /Gy /Zc:inline "
-                           + "/D_UNICODE=1 /DUNICODE=1 %%{}"), _mk_o("cpp", "obj"))
+                           + "/D_UNICODE=1 /DUNICODE=1 {} /Fo{}"), _mk_o("cpp", "obj"))
     , "msvc_clang" : (_mk_f("clang -std=c++14 -c -O3 -fexceptions "
-                           + "-D_UNICODE=1 -DUNICODE=1 %%{}"), _mk_o("cpp", "o"))
+                           + "-D_UNICODE=1 -DUNICODE=1 {} -o {}"), _mk_o("cpp", "out"))
     }
 
-disassemble_info = \
-    { "gcc"        : (_mk_f2("objdump -d -S {} > {}"), _mk_o("o", "gcc.s"))
-    , "clang"      : (_mk_f2("objdump -d -S {} > {}"), _mk_o("o", "clang.s"))
-    , "msvc"       : ( _mk_f2("dumpbin /disasm {} > {}"), _mk_o("obj", "msvc.s"))
-    , "msvc_clang" : ( _mk_f2("dumpbin /disasm {} > {}"), _mk_o("o", "clang_msvc.s"))
+_disassemble_info_ = \
+    { "gcc"        : (_mk_f("objdump -C -d {} > {}"), _mk_o("out", "gcc.s"))
+    , "clang"      : (_mk_f("objdump -C -d {} > {}"), _mk_o("out", "clang.s"))
+    , "msvc"       : (_mk_f("dumpbin /disasm {} > {}"), _mk_o("obj", "msvc.s"))
+    , "msvc_clang" : (_mk_f("dumpbin /disasm {} > {}"), _mk_o("out", "msvc_clang.s"))
     }
 
+#
+# Contains upper bounds on number of ops in the format
+#
+# { 'test1' : { 'gcc' : 10, 'clang' : 8, 'msvc' : 123, 'msvc_clang' : 20 }
+# , 'test2' : { ... }
+# , ...
+# }
+#
 limits = {}
 
 
 
 
 
-
+#
+# Tries to compiler src_file using compiler.
+# On success: returns name of the executable. 
+# On failure: returns None
+#
 def compile(src_file : str, compiler : str) -> str:
     if src_file is None:
         return None
     print("[*] Compiling '" + src_file + "' with " + compiler + "...", 
         file=sys.stderr)
 
-    command, output = compile_info[compiler]
+    command, output = _compile_info_[compiler]
     try:
-        subprocess.check_output(command(src_file), stderr=subprocess.STDOUT, 
-            shell=True)
+        subprocess.check_output(command(src_file, output(src_file)), 
+            stderr=subprocess.STDOUT, shell=True)
     except subprocess.CalledProcessError as e:
         print("[-] Error while compiling: " + e.output.decode('utf-8'), 
             file=sys.stderr)
         return None
     return output(src_file)
 
-
+#
+# Tries to disassemble obj_file using a tool corresponding
+# to compiler. If disassembling suceeds, deletes the obj_file.
+# On success: returns name of the file with asm code. 
+# On failure: returns None
+#
 def disassemble(obj_file : str, compiler : str) -> str:
     if obj_file is None:
         return None
     print("[*] Disassembling '" + obj_file + "' with " + compiler + "...", 
         file=sys.stderr)
 
-    command, output = disassemble_info[compiler]
+    command, output = _disassemble_info_[compiler]
     try:
         subprocess.check_output(command(obj_file, output(obj_file)), 
             stderr=subprocess.STDOUT, shell=True)
@@ -87,21 +101,24 @@ def disassemble(obj_file : str, compiler : str) -> str:
     return output(obj_file)
 
 
-def test_single(src_file : str, compiler : str, indent : int):
+def test_single(func : str, src_file : str, compiler : str, indent : int):
     asm_file = disassemble(compile(src_file, compiler), compiler)
     assert asm_file is not None 
 
     test_name = src_file.replace(".cpp", "")
-    count, opcodes = count_opcodes.count_opcodes(asm_file, count_opcodes.function)
+    count, opcodes = count_opcodes.count_opcodes(asm_file, func)
+    if count == -1:
+        print("[-] No call to " + func + " found.", file=sys.stderr)
+        sys.exit(0)
     try:
         os.remove(asm_file)
     except OSError as e:
         print("[-] Error removing file: " + e.strerror)
     
-    output = "<![CDATA[\n" + "\n".join(opcodes) + "\n]]"
+    output = "<![CDATA[\n" + "\n".join(opcodes) + "\n]]>"
     xml_string = '  '*indent + '<testcase name="' + test_name + '.' + \
         compiler + '">\n'
-    if test_name in limits and limits[test_name] < count:
+    if test_name in limits and limits[test_name][compiler] < count:
         xml_string += '  '*(indent+1) + '<failure message="Opcodes generated ' + \
             count + ' exceeds limit"/>\n'
     xml_string += '  '*(indent+2) + '<system-out>\n' + output + '\n' + \
@@ -117,22 +134,24 @@ def list_src_files():
                os.listdir()))
 
 
-def test_all():
+def test_all(func : str):
     xml_string = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
                  '<testsuite name="constexpr">\n'
     # holds (compiler, name, count) tuples
     csv_data = []
     for src_file in list_src_files():
         print(src_file)
-        for compiler in compilers[os.name]:
-            name, count, xml_output = test_single(src_file, compiler, 1)
+        for compiler in _compilers_[os.name]:
+            name, count, xml_output = test_single(func, 
+                src_file, compiler, 1)
             csv_data.append((compiler, name, count))
             xml_string += xml_output
+    xml_string += '</testsuite>'
 
-    with open("results.xml", "wt") as xml_file:
+    with open("results." + os.name + ".xml", "wt") as xml_file:
         xml_file.write(xml_string)
 
-    for compiler in compilers[os.name]:
+    for compiler in _compilers_[os.name]:
         with open(compiler + ".csv", "wt") as csv_file:
             csv_file.write(','.join( 
                 map(lambda t: t[1], 
@@ -145,4 +164,4 @@ def test_all():
                     csv_data))))
 
 
-test_all()
+test_all('test1')
