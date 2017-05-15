@@ -2,16 +2,67 @@
 
 
 /// \file static_map.hpp 
+/// \detail
+///
+/// *First layer* constructs a node to contain the data user wants
+/// with the specified alignment, layout etc.
+///
+/// *Second layer* adds indices. Suppose we have N nodes. Let IS1 be an indexing
+/// strategy. It adds two things. A `std::size_t orderIS1[N]` data member is
+/// added to the container as a whole such that
+/// `_underlying_C_array_[orderIS1[i]]` allows to obtain the i'th
+/// element as seen by IS1. Each node gets an `std::size_t indexIS1` 
+/// member so that `_underlying_C_array[orderIS1[i]].indexIS1 == i`.
+/// The indexIS1 data member is required to be able to switch between
+/// indexing strategies in O(1). Like in the example you gave about
+/// files sorted by size. This way, we can add as many layers as we like.
+///
+/// The idea is that finally we have:
+///
+/// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/// node _underlying_C_array_[N]
+///     +---------+----+----+-----+
+///     | data0   | i0 | i1 | ... |
+///     +---------+----+----+-----+
+///     | data1   | i0 | i1 | ... |
+///     +---------+----+----+-----+
+///     | data2   | i0 | i1 | ... |
+///     +---------+----+----+-----+
+///     |           ...           |
+///     +---------+----+----+-----+
+///     | dataN-1 | i0 | i1 | ... |
+///     +---------+----+----+-----+
+///
+/// std::size_t _i0_order_[N]
+///     +-------+-------+-----+
+///     | index | index | ... |     Indexing Strategy 0
+///     +-------+-------+-----+
+/// std::size_t _i1_order_[N]
+///     +-------+-------+-----+
+///     | index | index | ... |     Indexing Strategy 1
+///     +-------+-------+-----+
+/// ...
+/// 
+/// std::size_t _i?_order_[N]
+///     +-------+-------+-----+
+///     | index | index | ... |     
+///     +-------+-------+-----+
+/// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+///
+/// And I think we can implement whatever we want with that.
+/// 
 
 
 
 
-
-
+/*
 namespace boost {
 
 
 namespace detail {
+
+
+
 
 /// This is meant to be the base class for all the containers we might want
 /// to implement (`static_map`, `static_set`, `static_multimap` etc.).
@@ -241,3 +292,5 @@ public:
 
 
 } // end namespace boost
+
+*/
