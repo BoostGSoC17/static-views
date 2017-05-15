@@ -4,6 +4,9 @@
 /// \file static_map.hpp 
 /// \detail
 ///
+/// General
+/// -------
+///
 /// *First layer* constructs a node to contain the data user wants
 /// with the specified alignment, layout etc.
 ///
@@ -45,18 +48,78 @@
 /// 
 /// std::size_t _i?_order_[N]
 ///     +-------+-------+-----+
-///     | index | index | ... |     
+///     | index | index | ... |
 ///     +-------+-------+-----+
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ///
 /// And I think we can implement whatever we want with that.
 /// 
+///
+/// Error handling
+/// --------------
+/// I don't think it makes much sense to specify error handling on a per 
+/// function basis. Being able to chose the strategy at container creation
+/// (as a template argument) should suffice.
+///
+/// This only applies to functions that would "want" to return references
+/// to objects.
+///
+/// Here's a general layout of an error policy
+/// ~~~~~~~~~~~~~~{cpp}
+/// struct error_handling_policy {
+///     using reference = /* what to return when a
+///                          reference is "desired" */;
+///     
+///     // Called if a reference had
+///     // been successfully calculated.
+///     constexpr auto success(/*some type*/ &) -> reference;
+///
+///     // Called if an error had occured 
+///     // during calculation. msg contains 
+///     // the error message.
+///     constexpr auto success(char const* msg) -> reference;
+/// };
+/// ~~~~~~~~~~~~~~
+///
+/// For now, I've provided two such policies: boost::use_exceptions that
+/// throws upon errors, and \ref boost::use_nullptrs that returns 
+/// pointers rather than references and `nullptr` upon errors.
+///
+
+
+namespace boost {
+
+    template <class T, class E>
+    struct use_exceptions {
+        static_assert( std::is_same<std::remove_reference_t<T>, T>::value
+                     , "T shouldn't have a reference qualifier." );
+        using reference = T&;
+        
+        constexpr auto success(T& x) noexcept -> reference { return x; }
+        constexpr auto error(char const* msg) -> reference { throw E{msg}; }
+    };
+
+    template <class T>
+    struct use_nullptrs {
+        static_assert( std::is_same<std::remove_reference_t<T>, T>::value
+                     , "T shouldn't have a reference qualifier." );
+        using reference = T*;
+        
+        constexpr auto success(T& x) noexcept -> reference { return &x; }
+        constexpr auto error(char const*) -> reference { return nullptr; }
+    };
+}
+
 
 
 
 
 /*
 namespace boost {
+
+
+
+
 
 
 namespace detail {
