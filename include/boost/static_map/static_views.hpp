@@ -1,6 +1,17 @@
 #ifndef BOOST_STATIC_VIEWS_HPP
 #define BOOST_STATIC_VIEWS_HPP
 
+#include <utility>
+#include <functional>
+#include <tuple>
+#include <array>
+#include <stdexcept>
+
+#include <boost/hana.hpp> // Yes, I use it in a couple of places after all.
+                          // It should be easy to get rid of this dependency
+                          // later, though.
+
+/// \file include/boost/static_map/static_views.hpp
 
 // =============================================================================
 
@@ -20,10 +31,37 @@ struct is_view : std::is_base_of<view_base, V> {};
 template <class V>
 struct is_view<V&> : is_view<V> {};
 
+// =============================================================================
+
+
+struct pipeable_base {};
+
+template <class V>
+struct is_pipeable : std::is_base_of<pipeable_base, V> {};
+
+template <class V>
+struct is_pipeable<V&> : is_pipeable<V> {};
+
 
 // =============================================================================
 
-/// \brief Sequence "type class". We can specialise it for arrays, tuples, etc.
+/// \brief Sequence _type class_. 
+
+/// We can specialise it for arrays, tuples, etc. Now that I've mentioned
+/// tuples, there's a big decision to make. Getter functions may either receive
+/// a `size_t` (as they do now) or a compile time constant. If we choose to
+/// use `integral_constant` and like, we end up requiring everything to be
+/// constant expression. That is, consider the following code
+/// ~~~~~~~~~~~~~~~~~~~~~{cpp}
+/// constexpr auto xs = boost::hana::make_tuple(1, 2, 3, 4, 5);
+/// static_assert(boost::hana::find_if(xs, [](auto&& x){ return x % 2 == 0; })
+///     == boost::hana::just(2));
+/// ~~~~~~~~~~~~~~~~~~~~~
+/// __doesn't compile__, because, although the lambda is constexpr in C++17,
+/// we lose this information the moment we pass it as a function argument. It
+/// can't thus be used as a non-type template argument. If we go the `size_t`
+/// route, we have no way to deal with heterogeneous data. But this was not the
+/// aim of this library anyway.
 template <class Sequence>
 struct sequence_traits;
 
@@ -141,6 +179,14 @@ namespace detail {
     };
 } // end namespace detail
 
+/// \brief Almost `std::ref()` except that it's constexpr and the created
+/// wrapper may also hold the object by value.
+
+/// Idea is that if we get an lvalue of T, we store an lvalue, because
+/// why bother copying? If, however, an rvalue is passed, we move-construct
+/// an object, because otherwise we'll end up with dangling reference.
+///
+/// P.S.: _Does this sound right?_
 template <class T>
 constexpr auto make_wrapper(T&& x) noexcept
 {
@@ -210,6 +256,10 @@ namespace detail {
 
 } // end namespace detail
 
+/// \brief Syntactic sugar for function composition.
+
+/// In C++17 we can create composed functions on the fly using lambdas, but
+/// in C++14 this comes quite handy.
 template <class... Fs>
 constexpr auto compose(Fs&&... fs) noexcept
 {
@@ -246,13 +296,19 @@ namespace detail {
     }
 } // end namespace detail
 
+/// \brief \f$\approx\f$ _fmap_ on arguments.
+
+/// Say, we have
+/// \f[ f : (x_1, x_2, \dots) \mapsto y \f]
+/// Then `mapped_compose`\f$(f, g_1, g_2, \dots)\f$ creates a function
+/// \f[ F : (x_1, x_2, \dots, x_N) \mapsto f((g_1 \circ g_2 \circ \dots)(x_1), 
+/// (g_1 \circ g_2 \circ \dots)(x_2),\dots)) \f]
 template <class F, class... _Fs>
 constexpr auto mapped_compose(F&& f, _Fs&&... fs) noexcept
 {
     return detail::make_mapped_compose_impl(make_wrapper(std::forward<F>(f)),
         make_wrapper(std::forward<_Fs>(fs))...);
 }
-
 
 // =============================================================================
 
@@ -261,9 +317,14 @@ template <class T, class Wrapper>
 struct view_adaptor_base : view_base {
 
     constexpr view_adaptor_base(Wrapper&& wrapper) noexcept
-        : _xs{ wrapper }
+        : _xs{wrapper}
     {
     }
+
+    constexpr view_adaptor_base(view_adaptor_base const&) = default;
+    constexpr view_adaptor_base(view_adaptor_base &&) = default;
+    constexpr view_adaptor_base& operator=(view_adaptor_base const&) = default;
+    constexpr view_adaptor_base& operator=(view_adaptor_base &&) = default;
 
     static constexpr auto capacity() noexcept 
     { return type::capacity(); }
@@ -285,6 +346,7 @@ protected:
     constexpr decltype(auto) _ref() const noexcept { return _xs.get(); }
     constexpr decltype(auto) _ref()       noexcept { return _xs.get(); }
 };
+
 
 // =============================================================================
 
@@ -325,7 +387,7 @@ private:
     Sequence& _xs;
 };
 
-struct make_identity_impl {
+struct make_identity_impl : pipeable_base {
     template <class T>
     constexpr auto operator()(T&& xs) const noexcept
     {
@@ -355,53 +417,57 @@ constexpr detail::make_identity_impl identity{};
 
 
 namespace detail {
-template <class Wrapper>
-struct subset_impl : public view_adaptor_base<subset_impl<Wrapper>, Wrapper> {
-private:
-    using base_type = view_adaptor_base<subset_impl<Wrapper>, Wrapper>;
+    template <class Wrapper>
+    struct subset_impl : public view_adaptor_base<subset_impl<Wrapper>, 
+        Wrapper> {
+    private:
+        using base_type = view_adaptor_base<subset_impl<Wrapper>, Wrapper>;
 
-public:
-    constexpr subset_impl(Wrapper&& xs, std::size_t const b,
-        std::size_t const e) noexcept
-        : base_type{std::move(xs)}, _b{ b }, _e{ e }
-    {
-    }
+    public:
+        constexpr subset_impl(Wrapper&& xs, std::size_t const b,
+            std::size_t const e) noexcept
+            : base_type{std::move(xs)}, _b{ b }, _e{ e }
+        {
+        }
 
-    constexpr subset_impl(subset_impl const&) = default;
-    constexpr subset_impl(subset_impl &&) = default;
-    constexpr subset_impl& operator=(subset_impl const&) = default;
-    constexpr subset_impl& operator=(subset_impl &&) = default;
+        constexpr subset_impl(subset_impl const&) = default;
+        constexpr subset_impl(subset_impl &&) = default;
+        constexpr subset_impl& operator=(subset_impl const&) = default;
+        constexpr subset_impl& operator=(subset_impl &&) = default;
 
 
 
-    constexpr auto size() const noexcept { return _b - _e; }
+        constexpr auto size() const noexcept { return _b - _e; }
 
-    constexpr auto map(std::size_t const i) const noexcept
-    {
-        return (_b + i < _e)
-            ? _b + i
-            : (throw std::out_of_range{"subset_impl::operator(): index "
-                "`i` is out of bounds."}, 0);
-    }
-private:
-    std::size_t _b;
-    std::size_t _e;
-};
+        constexpr auto map(std::size_t const i) const noexcept
+        {
+            return (_b + i < _e)
+                ? _b + i
+                : (throw std::out_of_range{"subset_impl::operator(): index "
+                    "`i` is out of bounds."}, 0);
+        }
+    private:
+        std::size_t _b;
+        std::size_t _e;
+    };
 
-struct make_subset_impl {
-    template <class View>
-    constexpr auto operator()(View&& xs, std::size_t const b, 
-        std::size_t const e) const noexcept
-    {
-        static_assert(is_view<View>::value, "make_subset_impl::operator(): "
-            "View must model the View concept.");
-        auto wrapper = make_wrapper(std::forward<View>(xs));
-        return subset_impl<decltype(wrapper)>(std::move(wrapper), b, e);
-    }
-};
+    struct make_subset_impl : pipeable_base {
+        template <class View>
+        constexpr auto operator()(std::size_t const b, 
+            std::size_t const e, View&& xs) const noexcept
+        {
+            static_assert(is_view<View>::value, "make_subset_impl::operator(): "
+                "View must model the View concept.");
+            auto wrapper = make_wrapper(std::forward<View>(xs));
+            return subset_impl<decltype(wrapper)>(std::move(wrapper), b, e);
+        }
+    };
+    
+
 } // end namespace detail
 
-constexpr detail::make_subset_impl subset{};
+// At this point I got lazy implementing my own FP utilities...
+constexpr auto subset = boost::hana::curry<3>(detail::make_subset_impl{});
 
 
 // =============================================================================
@@ -464,9 +530,9 @@ private:
 
 };
 
-struct make_filter_impl {
+struct make_filter_impl : pipeable_base {
     template <class View, class Predicate>
-    constexpr auto operator()(View&& xs, Predicate&& p) const noexcept
+    constexpr auto operator()(Predicate&& p, View&& xs) const noexcept
     {
         static_assert(is_view<View>::value, "make_subset_impl::operator(): "
             "View must model the View concept.");
@@ -480,10 +546,11 @@ struct make_filter_impl {
 };
 } // end namespace detail
 
-constexpr detail::make_filter_impl filter{};
+constexpr auto filter = boost::hana::curry<2>(detail::make_filter_impl{});
 
 
 // =============================================================================
+
 
 namespace detail {
 
@@ -561,9 +628,9 @@ private:
     std::size_t       _is[sort_impl::capacity()];
 };
 
-struct make_sort_impl {
+struct make_sort_impl : pipeable_base {
     template <class View, class Predicate>
-    constexpr auto operator()(View&& xs, Predicate&& p) const noexcept
+    constexpr auto operator()(Predicate&& p, View&& xs) const noexcept
     {
         static_assert(is_view<View>::value, "make_subset_impl::operator(): "
             "View must model the View concept.");
@@ -577,7 +644,25 @@ struct make_sort_impl {
 };
 } // end namespace detail
 
-constexpr detail::make_sort_impl sort{};
+constexpr auto sort = boost::hana::curry<2>(detail::make_sort_impl{});
 
+
+// =============================================================================
+
+// This is a quick and dirty implementation of piping.
+
+template <class View1, class View2, class = std::enable_if_t<
+    is_view<View1>::value>>
+constexpr decltype(auto) operator|(View1&& xs, View2&& ys) noexcept
+{
+    return ys(std::forward<View1>(xs));
+}
+
+template <class Sequence, class View, class = std::enable_if_t<
+    !is_view<Sequence>::value>>
+constexpr decltype(auto) operator|(Sequence& xs, View&& ys) noexcept
+{
+    return ys(identity(xs));
+}
 
 #endif // BOOST_STATIC_VIEWS_HPP
