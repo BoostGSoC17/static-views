@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.8)
+add_executable(test-static-map main.cpp)
+target_compile_features(test-static-map PUBLIC cxx_std_17)
+if(MSVC)
+  target_compile_options(test-static-map PUBLIC /std:c++latest)
+endif()

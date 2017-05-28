@@ -1,43 +1,52 @@
+#include <array>
+#include <functional>
 #include <iostream>
 #include <stdexcept>
-#include <utility>
-#include <functional>
 #include <tuple>
-#include <array>
+#include <utility>
 
 #include "../include/boost/static_map/static_views.hpp"
 
+struct L {
+  template <class T> constexpr auto operator()(T &&x) const { return x < 4; }
+};
+int main() {
+  constexpr static int xs[] = {1, 2, 3, 4, 5};
+  constexpr static std::array<int, 6> as = {3, -4, 2, -8, -10, 2};
 
-int main()
-{
-    constexpr static int xs[] = {1, 2, 3, 4, 5};
-    constexpr static std::array<int, 6> as = {3, -4, 2, -8, -10, 2};
+  // adopting simple sequences
+  constexpr static auto ys = raw_view(xs);
+  constexpr static auto bs = raw_view(as);
 
-    // adopting simple sequences
-    constexpr static auto ys  = raw_view(xs);
-    constexpr static auto bs  = raw_view(as);
+  // testing for concepts
+  static_assert(is_view<decltype(ys)>::value, "");
+  static_assert(!is_view<decltype(xs)>::value, "");
+  static_assert(is_pipe<decltype(slice(0, 123))>::value, "");
+  static_assert(is_view<decltype(slice(0, 2)(ys))>::value, "");
 
-    // testing for concepts
-    static_assert(is_view<decltype(ys)>::value, "");
-    static_assert(!is_view<decltype(xs)>::value, "");
-    static_assert(is_pipe<decltype(slice(0, 123))>::value, "");
-    static_assert(is_view<decltype(slice(0, 2)(ys))>::value, "");
+  // querying for size and elements
+  static_assert(ys.capacity() == 5, "");
+  static_assert(ys.size() == 5, "");
+  static_assert(ys.at(2) == 3, "");
+  // compile-time error:
+  //     static_assert(ys.at(6) == 3, "");
 
-    // querying for size and elements
-    static_assert(ys.capacity() == 5, "");
-    static_assert(ys.size() == 5, "");
-    static_assert(ys.at(2) == 3, "");
-    // compile-time error:
-    //     static_assert(ys.at(6) == 3, "");
-
-    // some views
-    static_assert((ys | drop(3)).at(0) == 4, "");
-    // notice how we can also pass xs (which is __not__ a view)
-    // to a pipe
-    static_assert((xs | slice(2, 5)).at(1) == 4, "");
-    static_assert((xs | slice(2, 5) | slice(1, 3)).at(0) == 4, "");
-    static_assert((xs | drop_while([](auto&& x) { return x < 4; })).at(0) 
-        == 4, "");
+  // some views
+  static_assert((ys | drop(3)).at(0) == 4, "");
+  // notice how we can also pass xs (which is __not__ a view)
+  // to a pipe
+  static_assert((xs | slice(2, 5)).at(1) == 4, "");
+  static_assert((xs | slice(2, 5) | slice(1, 3)).at(0) == 4, "");
+#ifndef _MSC_VER
+  // VS2017.2 chokes on this
+  static_assert((xs | drop_while([](auto &&x) { return x < 4; })).at(0) == 4,
+                "");
+#else
+  // whilst this is fine. VS2017.3 implements constexpr lambdas,
+  // so this problem will be fixed next few weeks
+  static_assert((xs | drop_while(L())).at(0) == 4);
+#endif
+#if 0
     static_assert((ys | reverse).at(0) == 5, "");
     static_assert((ys | take(2)).size() == 2, "");
     static_assert((ys | take(20)).size() == ys.size(), "");
@@ -61,4 +70,6 @@ int main()
     // static_assert(hashed_as(8) == 0);
     // while this does:
     constexpr auto reversed_ys = ys | reverse;
+#endif
+  return 0;
 }
