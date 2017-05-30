@@ -7,6 +7,27 @@
 #include <array>
 #include <stdexcept>
 
+#include <boost/config.hpp>
+
+#define BOOST_NAMESPACE_STATIC_VIEWS boost::static_views
+
+#define BOOST_BEGIN_NAMESPACE_STATIC_VIEWS \
+    namespace boost { namespace static_views {
+#define BOOST_END_NAMESPACE_STATIC_VIEWS \
+    } /* static_views */ } /* boost */
+
+
+// Notes
+// -----
+//
+// * In deduction of noexcept() use GCC disallows the use of member functions
+// and variables. Use std::declval<...>() instead. Clang and MSVC, however,
+// are OK with members.
+
+
+BOOST_BEGIN_NAMESPACE_STATIC_VIEWS
+
+
 /// \file include/boost/static_map/static_views.hpp
 /// \brief A prototype for the Static Views library.
 /// \detail
@@ -76,6 +97,19 @@ struct is_pipe<V&> : is_pipe<V> {};
 
 // =============================================================================
 
+struct algorithm_base {};
+
+template <class V>
+struct is_algorithm : std::is_base_of<algorithm_base, V> {};
+
+/// \cond
+template <class V>
+struct is_algorithm<V&> : is_algorithm<V> {};
+/// \endcond
+
+
+// =============================================================================
+
 /// \brief Sequence _type class_.
 
 /// This is a common interface through which sequences are accessed. To 
@@ -127,7 +161,6 @@ template <class T, std::size_t N>
 struct sequence_traits<std::array<T, N> const> 
     : sequence_traits<std::array<T, N>> {};
 /// \endcond
-
 
 // =============================================================================
 
@@ -183,7 +216,9 @@ namespace detail {
         constexpr operator T&() const noexcept { return get(); }
 
         template <class... Args>
-        constexpr decltype(auto) operator()(Args&&... args) const noexcept
+        constexpr decltype(auto) operator()(Args&&... args) const 
+            noexcept(noexcept(std::declval<T const&>()(
+                std::declval<Args&&>()...)))
         {
             return (*_payload)(std::forward<Args>(args)...);
         }
@@ -205,16 +240,44 @@ namespace detail {
         constexpr wrapper& operator=(wrapper const&) = default;
         constexpr wrapper& operator=(wrapper&&)      = default;
 
-        constexpr auto get() const& noexcept -> T const& { return _payload; }
-        constexpr auto get() &      noexcept -> T&       { return _payload; }
-        constexpr auto get() &&     noexcept -> T        
-        { return std::move(_payload); }
+#ifdef BOOST_GCC
+        constexpr auto get() const& 
+            noexcept(std::is_nothrow_copy_constructible<T>::value) 
+            -> T
+        { 
+            return _payload; 
+        }
+
+#else
+        constexpr auto get() const& 
+            noexcept(std::is_nothrow_copy_constructible<T>::value) 
+            -> T const&
+        { 
+            return _payload; 
+        }
+
+        constexpr auto get() &      
+            noexcept 
+            -> T&
+        { 
+            return _payload; 
+        }
+#endif
+
+        constexpr auto get() && 
+            noexcept(std::is_nothrow_move_constructible<T>::value)
+            -> T
+        {
+            return std::move(_payload);
+        }
 
         constexpr operator T() const noexcept { return get(); }
         constexpr operator T()       noexcept { return get(); }
 
         template <class... Args>
-        constexpr auto operator()(Args&&... args) const noexcept
+        constexpr auto operator()(Args&&... args) const 
+            noexcept(noexcept(std::declval<T const&>()(
+                std::declval<Args&&>()...)))
         {
             return _payload(std::forward<Args>(args)...);
         }
@@ -242,13 +305,15 @@ namespace detail {
 ///
 /// [make_wrapper implementation]
 template <class T>
-constexpr auto make_wrapper(T&& x) noexcept
+constexpr auto make_wrapper(T&& x) 
+    noexcept
 {
-    return detail::wrapper<
-        std::conditional_t< std::is_lvalue_reference<decltype(x)>::value
-                          , T&
-                          , T&& >
-    >{std::forward<T>(x)};
+    return detail::wrapper<decltype(x)>{std::forward<T>(x)};
+    // return detail::wrapper<
+    //     std::conditional_t< std::is_lvalue_reference<decltype(x)>::value
+    //                       , T&
+    //                       , T&& >
+    // >{std::forward<T>(x)};
 }
 /// [make_wrapper implementation]
 
@@ -256,24 +321,175 @@ constexpr auto make_wrapper(T&& x) noexcept
 // =============================================================================
 
 namespace detail {
+
+    constexpr auto all() noexcept -> bool
+    {
+        return true;
+    }
+
+    template <class... Bools>
+    constexpr auto all(bool x, Bools... xs) noexcept -> bool
+    {
+        return x && all(xs...);
+    }
+
+} // end namespace detail
+
+// =============================================================================
+namespace detail {
+    template <class Maker, class... Args>
+    struct algorithm_impl : algorithm_base {
+
+        constexpr algorithm_impl(Maker make, std::tuple<Args...>&& args) 
+            noexcept(all(
+                std::is_nothrow_move_constructible<Maker>::value,
+                std::is_nothrow_move_constructible<Args>::value...))
+            : _make{std::move(make)}
+            , _args{std::move(args)}
+        {
+        }
+
+        template <class View> 
+        constexpr decltype(auto) operator()(View&& xs) const 
+            noexcept(noexcept( std::declval<algorithm_impl const>().
+                call_impl(std::forward<View>(xs), 
+                std::make_index_sequence<algorithm_impl::_nr_args_()>{}) ))
+        {
+            static_assert(is_view<View>::value, "`View` must model the "
+                "View concept.");
+            return call_impl(std::forward<View>(xs), 
+                std::make_index_sequence<algorithm_impl::_nr_args_()>{});
+        }
+
+        template <class View> 
+        constexpr decltype(auto) operator()(View&& xs)
+            noexcept(noexcept( std::declval<algorithm_impl>().
+                call_impl(std::forward<View>(xs), 
+                std::make_index_sequence<algorithm_impl::_nr_args_()>{}) ))
+        {
+            static_assert(is_view<View>::value, "`View` must model the "
+                "View concept.");
+            return call_impl(std::forward<View>(xs),
+                std::make_index_sequence<algorithm_impl::_nr_args_()>{});
+        }
+
+    private:
+        Maker                _make;
+        std::tuple<Args...>  _args;
+
+        static constexpr auto _nr_args_() noexcept
+        {
+            return sizeof...(Args);
+        }
+
+        template <class View, std::size_t... Is>
+        constexpr decltype(auto) call_impl(View&& xs,
+            std::index_sequence<Is...>) 
+            && 
+            noexcept(noexcept( std::declval<Maker&&>()(
+                make_wrapper(std::forward<View>(xs)),
+                std::declval<Args&&>()...) ))
+        {
+            return std::move(_make)(make_wrapper(std::forward<View>(xs)),
+                std::move(std::get<Is>(_args))...);
+        }
+
+        template <class View, std::size_t... Is>
+        constexpr decltype(auto) call_impl(View&& xs,
+            std::index_sequence<Is...>) 
+            const&
+            noexcept(noexcept( std::declval<Maker const&>()(
+                make_wrapper(std::forward<View>(xs)),
+                std::declval<Args const&>()...) ))
+        {
+            return _make(make_wrapper(std::forward<View>(xs)),
+                std::get<Is>(_args)...);
+        }
+    };
+
+
+    template <class Maker, class... Args>
+    constexpr auto make_algorithm_impl(Maker&& make, Args&&... args)
+        noexcept(noexcept( algorithm_impl<Maker, Args...>{
+            std::forward<Maker>(make),
+            std::make_tuple(std::forward<Args>(args)...)} ))
+    {
+        return algorithm_impl<Maker, Args...>{std::forward<Maker>(make), 
+            std::make_tuple(std::forward<Args>(args)...)};
+    }
+
+
+    template <class Maker>
+    struct algorithm_variable_impl {
+        constexpr algorithm_variable_impl(Maker&& make) 
+            noexcept(noexcept( std::is_nothrow_move_constructible<
+                Maker>::value ))
+            : _make{std::move(make)}
+        {
+        }
+
+        template <class... Args>
+        constexpr auto operator()(Args&&... args) const& 
+            noexcept(noexcept( make_algorithm_impl(std::declval<Maker const&>(),
+                make_wrapper(std::forward<Args>(args))...) ))
+        {
+            return make_algorithm_impl(_make, make_wrapper(
+                std::forward<Args>(args))...);
+        }
+
+        template <class... Args>
+        constexpr auto operator()(Args&&... args) && 
+            noexcept(noexcept( make_algorithm_impl(std::declval<Maker&&>(), 
+                make_wrapper(std::forward<Args>(args))...) ))
+        {
+            return make_algorithm_impl(std::move(_make), make_wrapper(
+                std::forward<Args>(args))...);
+        }
+
+    private:
+        Maker _make;
+    };
+} // end namespace detail
+
+template <class Maker>
+constexpr auto make_algo_variable(Maker&& make)
+    noexcept(noexcept( make_wrapper(std::forward<Maker>(make)) ))
+{
+    auto wrapper = make_wrapper(std::forward<Maker>(make));
+    return detail::algorithm_variable_impl<decltype(wrapper)>{
+        std::move(wrapper)};
+}
+// =============================================================================
+
+/*
+namespace detail {
     template <class Maker, class... Args>
     struct pipe_impl : pipe_base {
-        constexpr pipe_impl(Maker make, std::tuple<Args...>&& args) noexcept
+        constexpr pipe_impl(Maker make, std::tuple<Args...>&& args) 
+            noexcept(all(
+                std::is_nothrow_move_constructible<Maker>::value,
+                std::is_nothrow_move_constructible<Args>::value...))
             : _make{std::move(make)}, _args{std::move(args)}
         {
         }
 
         template <class View> 
-        constexpr auto operator()(View&& xs) const noexcept
+        constexpr auto operator()(View&& xs) const 
+            noexcept(noexcept( std::declval<pipe_impl const>().
+                call_impl(std::forward<View>(xs), 
+                std::make_index_sequence<sizeof...(Args)>{}) ))
         {
-            static_assert(is_view<View>::value, "detail::pipe_impl::operator() "
-                "`View` must model the View concept.");
+            static_assert(is_view<View>::value, "`View` must model the View "
+                "concept.");
             return call_impl(std::forward<View>(xs), std::make_index_sequence<
                 sizeof...(Args)>{});
         }
 
         template <class View> 
-        constexpr auto operator()(View&& xs) noexcept
+        constexpr auto operator()(View&& xs)
+            noexcept(noexcept( std::declval<pipe_impl>().
+                call_impl(std::forward<View>(xs), 
+                std::make_index_sequence<sizeof...(Args)>{}) ))
         {
             static_assert(is_view<View>::value, "detail::pipe_impl::operator() "
                 "`View` must model the View concept.");
@@ -286,16 +502,24 @@ namespace detail {
         std::tuple<Args...>  _args;
 
         template <class View, std::size_t... Is>
-        constexpr auto call_impl(View&& xs, std::index_sequence<Is...>) 
-            && noexcept
+        constexpr auto call_impl(View&& xs, std::index_sequence<Is...>) && 
+            // noexcept(noexcept( _make(std::move(std::get<Is>(_args))..., 
+            // Again, GCC complaining
+            noexcept(noexcept( std::declval<Maker&&>()(
+                std::declval<Args&&>()...,
+                make_wrapper(std::forward<View>(xs))) ))
         {
-            return _make(std::move(std::get<Is>(_args))..., 
+            return std::move(_make)(std::move(std::get<Is>(_args))..., 
                 make_wrapper(std::forward<View>(xs)));
         }
 
         template <class View, std::size_t... Is>
-        constexpr auto call_impl(View&& xs, std::index_sequence<Is...>) 
-            const& noexcept
+        constexpr auto call_impl(View&& xs, std::index_sequence<Is...>) const&
+            // noexcept(noexcept( _make(std::get<Is>(_args)..., 
+            // And again
+            noexcept(noexcept( std::declval<Maker const&>()(
+                std::declval<Args const&>()..., 
+                make_wrapper(std::forward<View>(xs))) ))
         {
             return _make(std::get<Is>(_args)..., 
                 make_wrapper(std::forward<View>(xs)));
@@ -303,7 +527,9 @@ namespace detail {
     };
 
     template <class Maker, class... Args>
-    constexpr auto make_pipe_impl(Maker&& make, Args&&... args) noexcept
+    constexpr auto make_pipe_impl(Maker&& make, Args&&... args) 
+        noexcept(noexcept( pipe_impl<Maker, Args...>{std::forward<Maker>(make),
+            std::make_tuple(std::forward<Args>(args)...)} ))
     {
         return pipe_impl<Maker, Args...>{std::forward<Maker>(make), 
             std::make_tuple(std::forward<Args>(args)...)};
@@ -311,20 +537,28 @@ namespace detail {
 
     template <class Maker>
     struct pipe_variable_impl {
-        constexpr pipe_variable_impl(Maker&& make) noexcept
+        constexpr pipe_variable_impl(Maker&& make) 
+            noexcept(noexcept( std::is_nothrow_move_constructible<
+                Maker>::value ))
             : _make{std::move(make)}
         {
         }
 
         template <class... Args>
-        constexpr auto operator()(Args&&... args) const& noexcept
+        constexpr auto operator()(Args&&... args) const& 
+            // noexcept(noexcept( make_pipe_impl(_make, 
+            // But GCC is unhappy with using member variables at top level...
+            noexcept(noexcept( make_pipe_impl(std::declval<Maker const&>(), 
+                make_wrapper(std::forward<Args>(args))...) ))
         {
             return make_pipe_impl(_make, make_wrapper(
                 std::forward<Args>(args))...);
         }
 
         template <class... Args>
-        constexpr auto operator()(Args&&... args) && noexcept
+        constexpr auto operator()(Args&&... args) && 
+            noexcept(noexcept( make_pipe_impl(std::declval<Maker&&>(), 
+                make_wrapper(std::forward<Args>(args))...) ))
         {
             return make_pipe_impl(std::move(_make), make_wrapper(
                 std::forward<Args>(args))...);
@@ -336,12 +570,17 @@ namespace detail {
 
 /// \brief Creates a pipe.
 template <class Maker>
-constexpr auto make_pipe_variable(Maker&& make) noexcept 
+constexpr auto make_pipe_variable(Maker&& make)
+    // We know that the only thing pipe_variable_impl<T> constructor does
+    // is move construct a T. In this case T it is a wrapper around Maker
+    // which is nothrow constructible if and only if the type it wraps is.
+    noexcept(noexcept( make_wrapper(std::forward<Maker>(make)) ))
 {
-    return detail::pipe_variable_impl<decltype(make_wrapper(
-        std::forward<Maker>(make)))>{make_wrapper(std::forward<Maker>(make))};
+    auto wrapper = make_wrapper(std::forward<Maker>(make));
+    return detail::pipe_variable_impl<decltype(wrapper)>{
+        make_wrapper(std::forward<Maker>(make))};
 }
-
+*/
 
 // =============================================================================
 
@@ -349,13 +588,16 @@ constexpr auto make_pipe_variable(Maker&& make) noexcept
 namespace detail {
     template <class Predicate>
     struct not_fn_impl {
-        constexpr not_fn_impl(Predicate&& p) noexcept
+        constexpr not_fn_impl(Predicate&& p) 
+            noexcept(std::is_nothrow_move_constructible<Predicate>::value)
             : _p{std::move(p)}
         {
         }
         
         template <class... Args>
-        constexpr auto operator()(Args&&... args) const noexcept
+        constexpr auto operator()(Args&&... args) const 
+            noexcept(noexcept( std::declval<Predicate const&>()(
+                std::forward<Args>(args)...) ))
         {
             return !_p(std::forward<Args>(args)...);
         }
@@ -365,7 +607,8 @@ namespace detail {
 
     struct make_not_fn_impl {
         template <class Predicate>
-        constexpr auto operator()(Predicate&& p) const noexcept
+        constexpr auto operator()(Predicate&& p) const 
+            noexcept(noexcept( make_wrapper(std::forward<Predicate>(p)) ))
         {
             auto wrapper = make_wrapper(std::forward<Predicate>(p));
             return not_fn_impl<decltype(wrapper)>{std::move(wrapper)};
@@ -379,12 +622,12 @@ constexpr auto not_fn = detail::make_not_fn_impl{};
 
 // =============================================================================
 
-
 namespace detail {
     template <std::size_t I>
     struct apply_composed_impl_from {
         template <class Tuple, class... Args>
-        constexpr auto operator()(Tuple&& fs, Args&&... args) const noexcept
+        constexpr decltype(auto) operator()(Tuple&& fs, Args&&... args) const 
+            noexcept
         {
             return apply_composed_impl_from<I-1>{}(std::forward<Tuple>(fs),
                 std::get<I>(fs)(std::forward<Args>(args)...));
@@ -394,14 +637,15 @@ namespace detail {
     template <>
     struct apply_composed_impl_from<0> {
         template <class Tuple, class... Args>
-        constexpr auto operator()(Tuple&& fs, Args&&... args) const noexcept
+        constexpr decltype(auto) operator()(Tuple&& fs, Args&&... args) const 
+            noexcept
         {
             return std::get<0>(fs)(std::forward<Args>(args)...);
         }
     };
 
     template <class Tuple, class... Args>
-    constexpr auto apply_composed_impl(Tuple&& fs, Args&&... args) noexcept
+    constexpr decltype(auto) apply_composed_impl(Tuple&& fs, Args&&... args) noexcept
     {
         constexpr auto size = std::tuple_size<std::remove_reference_t<Tuple>>::value;
         static_assert(size > 0, "Tuple of functions shouldn't be empty.");
@@ -417,7 +661,7 @@ namespace detail {
         }
 
         template <class... Args>
-        constexpr auto operator()(Args&&... args) const noexcept
+        constexpr decltype(auto) operator()(Args&&... args) const noexcept
         {
             return apply_composed_impl(_fs, std::forward<Args>(args)...);
         }
@@ -444,7 +688,6 @@ constexpr auto compose(Fs&&... fs) noexcept
     return detail::make_compose_impl(make_wrapper(std::forward<Fs>(fs))...);
 }
 
-
 // =============================================================================
 
 namespace detail {
@@ -456,7 +699,7 @@ namespace detail {
         }
 
         template <class... Args>
-        constexpr auto operator()(Args&&... args) const noexcept
+        constexpr decltype(auto) operator()(Args&&... args) const noexcept
         {
             return _f(_fs(args)...);
         }
@@ -491,7 +734,7 @@ constexpr auto mapped_compose(F&& f, _Fs&&... fs) noexcept
 // =============================================================================
 
 struct view_adaptor_core_access {
-    template <class T, class W> friend class view_adaptor_base;
+    template <class T, class W> friend struct view_adaptor_base;
 
     template <class View>
     static constexpr decltype(auto) map(View const& xs, std::size_t const i) 
@@ -504,8 +747,9 @@ struct view_adaptor_core_access {
 template <class T, class Wrapper>
 struct view_adaptor_base : view_base {
 
-    constexpr view_adaptor_base(Wrapper&& wrapper) noexcept
-        : _xs{wrapper}
+    constexpr view_adaptor_base(Wrapper&& wrapper) 
+        noexcept(std::is_nothrow_move_constructible<Wrapper>::value)
+        : _xs{std::move(wrapper)}
     {
     }
 
@@ -525,6 +769,11 @@ struct view_adaptor_base : view_base {
     }
 
     constexpr decltype(auto) at(std::size_t const i) const noexcept
+    {
+        return _ref().at(view_adaptor_core_access::map(derived(), i));
+    }
+
+    constexpr decltype(auto) at(std::size_t const i) noexcept
     {
         return _ref().at(view_adaptor_core_access::map(derived(), i));
     }
@@ -566,7 +815,7 @@ namespace detail {
         constexpr auto size() const noexcept
         { return sequence_traits<Sequence>::size(); }
 
-        constexpr decltype(auto) at(std::size_t const i) const noexcept
+        constexpr decltype(auto) at(std::size_t const i) const
         { return (i < size())
             ? sequence_traits<Sequence>::at(_xs, i)
             : (throw std::out_of_range{"detail::raw_view_impl::at() index `i`"
@@ -602,20 +851,36 @@ constexpr auto raw_view = detail::make_raw_view{};
 // =============================================================================
 
 
-/// \brief Piping.
-template <class View, class Pipe, class = std::enable_if_t<
-    is_view<View>::value && is_pipe<Pipe>::value >>
-constexpr decltype(auto) operator|(View&& xs, Pipe&& ys) noexcept
-{
-    return ys(std::forward<View>(xs));
-}
+namespace detail {
 
-/// \overload
-template <class Sequence, class Pipe, class = std::enable_if_t<
-    !is_view<Sequence>::value && is_pipe<Pipe>::value >>
-constexpr decltype(auto) operator|(Sequence& xs, Pipe&& ys) noexcept
+    template <class View, class Algo>
+    constexpr decltype(auto) pipe(View&& xs, Algo&& ys, std::true_type) 
+        noexcept
+    {
+        static_assert(is_view<View>::value, "View must model the `View` "
+            "concept.");
+        static_assert(is_algorithm<Algo>::value, "Algo must model the "
+            "`Algorithm` concept.");
+        return std::forward<Algo>(ys)(std::forward<View>(xs));
+    }
+
+    template <class Sequence, class Algo>
+    constexpr decltype(auto) pipe(Sequence& xs, Algo&& ys, std::false_type) 
+        noexcept
+    {
+        static_assert(is_algorithm<Algo>::value, "Algo must model the "
+            "`Algorithm` concept.");
+        return std::forward<Algo>(ys)(raw_view(xs));
+    }
+} // end namespace detail
+
+/// \brief Piping.
+template <class View, class Algo, class = std::enable_if_t<
+    is_algorithm<Algo>::value >>
+constexpr decltype(auto) operator|(View&& xs, Algo&& ys) noexcept
 {
-    return ys(raw_view(xs));
+    return detail::pipe(std::forward<View>(xs), std::forward<Algo>(ys),
+        is_view<View>{});
 }
 
 
@@ -626,7 +891,7 @@ namespace detail {
     template <class View>
     struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
 
-        friend class ::view_adaptor_core_access;
+        friend struct BOOST_NAMESPACE_STATIC_VIEWS::view_adaptor_core_access;
 
         constexpr drop_impl(View&& xs, std::size_t const b) noexcept
             : base_type{std::move(xs)}, _b{b}
@@ -642,7 +907,7 @@ namespace detail {
         std::size_t _b;
         using base_type = view_adaptor_base<drop_impl<View>, View>;
 
-        constexpr auto map(std::size_t const i) const noexcept
+        constexpr auto map(std::size_t const i) const
         {
             return i < size()
                 ? _b + i
@@ -653,8 +918,8 @@ namespace detail {
 
     struct make_drop_impl {
         template <class View>
-        constexpr auto operator()(std::size_t const b, 
-            View&& xs) const noexcept
+        constexpr auto operator()(View&& xs, std::size_t const b) const 
+            noexcept
         {
             return drop_impl<View>(std::forward<View>(xs), 
                 std::min(b, xs.get().size()));
@@ -665,7 +930,7 @@ namespace detail {
 /// \brief Given an integral count, return a range consisting of all but the 
 /// first count elements from the source range, or an empty range if it has 
 /// fewer elements.
-constexpr auto drop = make_pipe_variable(detail::make_drop_impl{});
+constexpr auto drop = make_algo_variable(detail::make_drop_impl{});
 
 
 // =============================================================================
@@ -684,8 +949,8 @@ namespace detail {
 
     struct make_drop_while_impl {
         template <class View, class Predicate>
-        constexpr auto operator()(Predicate&& p, 
-            View&& xs) const noexcept
+        constexpr auto operator()(View&& xs, Predicate&& p) const 
+            noexcept
         {
             auto const b = find_first_i(xs.get(), 
                 not_fn(std::forward<Predicate>(p)));
@@ -696,7 +961,7 @@ namespace detail {
 
 /// \brief Remove elements from the front of a range that satisfy a unary 
 /// predicate.
-constexpr auto drop_while = make_pipe_variable(detail::make_drop_while_impl{});
+constexpr auto drop_while = make_algo_variable(detail::make_drop_while_impl{});
 
 
 // =============================================================================
@@ -705,7 +970,7 @@ namespace detail {
     template <class View>
     struct reverse_impl : view_adaptor_base<reverse_impl<View>, View> {
 
-        friend class ::view_adaptor_core_access;
+        friend struct BOOST_NAMESPACE_STATIC_VIEWS::view_adaptor_core_access;
 
         constexpr reverse_impl(View&& xs) noexcept
             : base_type{std::move(xs)}
@@ -715,11 +980,11 @@ namespace detail {
     private:
         using base_type = view_adaptor_base<reverse_impl<View>, View>;
 
-        constexpr auto map(std::size_t const i) const noexcept
+        constexpr auto map(std::size_t const i) const
         {
             return i < this->size()
                 ? this->size() - 1 - i
-                : (throw std::out_of_range{"detail::rewverse_impl::operator(): "
+                : (throw std::out_of_range{"detail::reverse_impl::operator(): "
                     "index `i` is out of bounds."}, 0);
         }
     };
@@ -734,14 +999,14 @@ namespace detail {
 } // end namespace detail
 
 /// \brief Create a new range that traverses the source range in reverse order.
-constexpr auto reverse = make_pipe_variable(detail::make_reverse_impl{})();
+constexpr auto reverse = make_algo_variable(detail::make_reverse_impl{})();
 
 // =============================================================================
 
 namespace detail {
     struct make_take_impl {
         template <class View>
-        constexpr auto operator()(std::size_t const n, View&& xs) const 
+        constexpr auto operator()(View&& xs, std::size_t const n) const 
             noexcept
         {
             auto const size = xs.get().size();
@@ -755,15 +1020,15 @@ namespace detail {
 /// \brief Given a source range and an integral count, return a range 
 /// consisting of the first count elements from the source range, or the 
 /// complete range if it has fewer elements.
-constexpr auto take = make_pipe_variable(detail::make_take_impl{});
+constexpr auto take = make_algo_variable(detail::make_take_impl{});
 
 // =============================================================================
 
 namespace detail {
     struct make_slice_impl {
         template <class View>
-        constexpr auto operator()(std::size_t const b, 
-            std::size_t const e, View&& xs) const noexcept
+        constexpr auto operator()(View&& xs, std::size_t const b, 
+            std::size_t const e) const noexcept
         {
             return std::forward<View>(xs).get() | take(e) | drop(b);
         }
@@ -773,13 +1038,71 @@ namespace detail {
 /// \brief Give a source range a lower bound (inclusive) and an upper bound 
 /// (exclusive), create a new range that begins and ends at the specified 
 /// offsets. 
-constexpr auto slice = make_pipe_variable(detail::make_slice_impl{});
-
+constexpr auto slice = make_algo_variable(detail::make_slice_impl{});
 
 // =============================================================================
 
+namespace detail {
+    struct min_element_algo_impl {
+        template <class View, class Less = std::less<void>>
+        constexpr decltype(auto) operator()(View&& wrapper, 
+            Less&& less = Less{}) const
+        {
+            auto const& xs = wrapper.get();
+            std::size_t const size = xs.size();
+            if (size == 0) throw std::invalid_argument{"Cannot find "
+                "min in an empty range."};
+            std::size_t min = 0;
+            for (std::size_t i = min + 1; i < size; ++i) {
+                if (less(xs.at(i), xs.at(min)))
+                    min = i;
+            }
+            return min;
+        }
+    };
+
+    struct min_algo_impl {
+        template <class View, class Less = std::less<void>>
+        constexpr decltype(auto) operator()(View&& wrapper, 
+            Less&& less = Less{}) const
+            noexcept
+        {
+            auto const i = min_element_algo_impl{}(wrapper, 
+                std::forward<Less>(less));
+            return std::forward<View>(wrapper).get().at(i);
+        }
+    };
+} // end namespace detail
+
+constexpr auto min_element = make_algo_variable(detail::min_element_algo_impl{});
+
+constexpr auto min = make_algo_variable(detail::min_algo_impl{});
+
+// =============================================================================
 
 namespace detail {
+
+    template <std::size_t N, class S, class P>
+    constexpr auto _fill_filter_array_impl(std::size_t (&is)[N], S&& xs, P&& p)
+        noexcept(all(
+            noexcept(xs.size()),
+            noexcept(p(xs.at(std::declval<std::size_t>()))) 
+        )) -> std::size_t
+    {
+        auto const  size = xs.size();
+        std::size_t n    = 0;
+        std::size_t i    = 0;
+
+        while (i < size) {
+            if (p(xs.at(i))) {
+                is[n] = i;
+                ++n;
+            }
+            ++i;
+        }
+        return n;
+    }
+
     template <std::size_t... Is>
     struct filter_init_impl {
         std::size_t _is[sizeof...(Is)];
@@ -787,20 +1110,10 @@ namespace detail {
 
         template <class S, class P>
         constexpr filter_init_impl(S&& xs, P&& p) noexcept
-            : _is{ ((void)Is, sizeof...(Is))... }, _n{}
+            : _is{ ((void)Is, xs.size())... }, _n{0}
         {
-            auto const  size = xs.size();
-            std::size_t n    = 0;
-            std::size_t i    = 0;
-
-            while (i < size) {
-                if (p(xs.at(i))) {
-                    _is[n] = i;
-                    ++n;
-                }
-                ++i;
-            }
-            _n = n;
+            _n = _fill_filter_array_impl(_is, std::forward<S>(xs),
+                std::forward<P>(p));
         }
     };
 
@@ -822,7 +1135,7 @@ namespace detail {
 
     template <class V>
     struct filter_impl : view_adaptor_base<filter_impl<V>, V> {
-        friend ::view_adaptor_core_access;
+        friend struct BOOST_NAMESPACE_STATIC_VIEWS::view_adaptor_core_access;
 
         template <std::size_t... Is>
         constexpr filter_impl(V&& xs, filter_init_impl<Is...>&& init) 
@@ -838,7 +1151,7 @@ namespace detail {
         std::size_t       _is[filter_impl::capacity()];
         using base_type = view_adaptor_base<filter_impl<V>, V>;
 
-        constexpr auto map(std::size_t const i) const noexcept
+        constexpr auto map(std::size_t const i) const
         {
             return i < size()
                 ? _is[i]
@@ -849,7 +1162,7 @@ namespace detail {
 
     struct make_filter_impl {
         template <class View, class Predicate>
-        constexpr auto operator()(Predicate&& p, View&& xs) const noexcept
+        constexpr auto operator()(View&& xs, Predicate&& p) const noexcept
         {
             auto init = detail::make_filter_init_impl(xs.get(), 
                 std::forward<Predicate>(p));
@@ -862,31 +1175,65 @@ namespace detail {
 /// \brief Given a source range and a unary predicate, filter the elements 
 /// that satisfy the predicate. (For users of Boost.Range, this is like the 
 /// filter adaptor.)
-constexpr auto filter = make_pipe_variable(detail::make_filter_impl{});
+constexpr auto filter = make_algo_variable(detail::make_filter_impl{});
+
+// =============================================================================
+
+namespace detail {
+    struct make_remove_if_impl {
+        template <class View, class Predicate>
+        constexpr auto operator()(View&& xs, Predicate&& p) const noexcept
+        {
+            return std::forward<View>(xs).get() | filter(not_fn(p));
+        }
+    };
+} // end namespace detail
+
+constexpr auto remove_if = make_algo_variable(detail::make_remove_if_impl{});
 
 
 // =============================================================================
 
-
 namespace detail {
 
-    template <std::size_t N, class Predicate>
-    constexpr auto bubble_sort_impl(std::size_t (&xs)[N], std::size_t const size,
-        Predicate&& less) noexcept
+    template <class Less>
+    constexpr auto bubble_sort_impl(std::size_t* xs, std::size_t size,
+        Less&& less) noexcept
     {
-        struct swap_impl {
-            constexpr auto operator() (std::size_t& x, std::size_t& y) const 
-                noexcept
-            { auto const _temp = x; x = y; y = _temp; }
-        };
-        constexpr swap_impl swap{};
+            for (std::size_t i = size - 1; i > 0; --i) {
+                for (std::size_t j = 0; j < i; ++j) {
+                    if (less(xs[j+1], xs[j])) {
+                        auto _temp   = xs[j];
+                        xs[j]        = xs[j+1];
+                        xs[j+1]      = _temp;
+                    }
+                }
+            }
+    }
 
-        for (std::size_t i = size - 1; i > 0; --i) {
-            for (std::size_t j = 0; j < i; ++j) {
-                if (less(xs[j+1], xs[j])) swap(xs[j+1], xs[j]);
+
+    /*
+    // This was an ingenius implementation, and GCC screwed everything up :(
+    struct bubble_sort_algo_impl {
+        template <class View, class Predicate>
+        constexpr auto operator()(View&& wrapper, Predicate&& less) const
+            noexcept
+        {
+            auto& xs = wrapper.get();
+            auto const size = xs.size();
+            
+            for (std::size_t i = size - 1; i > 0; --i) {
+                for (std::size_t j = 0; j < i; ++j) {
+                    if (less(xs.at(j+1), xs.at(j))) {
+                        auto _temp   = std::move(xs.at(j));
+                        xs.at(j)     = std::move(xs.at(j+1));
+                        xs.at(j+1)   = std::move(_temp);
+                    }
+                }
             }
         }
-    }
+    }; 
+    */
 
     template <std::size_t... Is>
     struct sort_init_impl {
@@ -898,8 +1245,12 @@ namespace detail {
         {
             bubble_sort_impl(_is, xs.size(), mapped_compose(
                 std::forward<Predicate>(p), view_at<View>{xs}));
+            //    view_at<View>{xs})
+            // bubble_sort(mapped_compose(std::forward<Predicate>(p),
+            //    view_at<View>{xs}))(_is | take(xs.size()));
         }
 
+    private:
         template <class View>
         struct view_at {
             View const& _xs;
@@ -928,7 +1279,7 @@ namespace detail {
 
     template <class V>
     struct sort_impl : view_adaptor_base<sort_impl<V>, V> {
-        friend class ::view_adaptor_core_access;
+        friend struct BOOST_NAMESPACE_STATIC_VIEWS::view_adaptor_core_access;
 
         template <std::size_t... Is>
         constexpr sort_impl(V&& xs, sort_init_impl<Is...>&& init) noexcept
@@ -943,7 +1294,7 @@ namespace detail {
         std::size_t _is[sort_impl::capacity()];
         using base_type = view_adaptor_base<sort_impl<V>, V>;
 
-        constexpr auto map(std::size_t const i) const noexcept
+        constexpr auto map(std::size_t const i) const
         {
             return i < size()
                 ? _is[i]
@@ -954,7 +1305,7 @@ namespace detail {
 
     struct make_sort_impl {
         template <class View, class Predicate>
-        constexpr auto operator()(Predicate&& p, View&& xs) const noexcept
+        constexpr auto operator()(View&& xs, Predicate&& p) const noexcept
         {
             auto init = detail::make_sort_init_impl(xs.get(), 
                 std::forward<Predicate>(p));
@@ -966,8 +1317,7 @@ namespace detail {
 
 /// \brief Given a source range and a binary predicate, returns a sorted
 /// view of the source range.
-constexpr auto sort = make_pipe_variable(detail::make_sort_impl{});
-
+constexpr auto sort = make_algo_variable(detail::make_sort_impl{});
 
 // =============================================================================
 
@@ -975,12 +1325,11 @@ namespace detail {
 
     template <std::size_t... Is>
     struct hashed_init_impl {
-        static constexpr std::size_t capacity = sizeof...(Is);
-        std::size_t _is[capacity];
+        std::size_t _is[hashed_init_impl::capacity()];
 
         template <class View, class Hasher>
         constexpr hashed_init_impl(View const& xs, Hasher&& h) noexcept
-            : _is{ ((void)Is, capacity)... }
+            : _is{ ((void)Is, xs.size())... }
         {
             auto size = xs.size();
             for (std::size_t i = 0; i < size; ++i) {
@@ -989,6 +1338,8 @@ namespace detail {
         }
 
     private:
+        static constexpr auto capacity() noexcept { return sizeof...(Is); }
+
         constexpr auto insert(std::size_t const i, std::size_t const guess)
             noexcept
         {
@@ -1010,9 +1361,6 @@ namespace detail {
         }
     };
 
-    template <std::size_t... Is>
-    constexpr std::size_t hashed_init_impl<Is...>::capacity;
-
     template <class V, class H, std::size_t... Is>
     constexpr auto _make_hashed_init_impl(V&& xs, H&& h, 
         std::index_sequence<Is...>) noexcept
@@ -1021,14 +1369,15 @@ namespace detail {
     }
 
     template <std::size_t Capacity, class V, class H>
-    constexpr auto make_hashed_init_impl(V&& xs, H&& h) noexcept
+    constexpr auto make_hashed_init_impl(V&& xs, H&& h)
     {
         return Capacity >= xs.size()
             ? _make_hashed_init_impl(std::forward<V>(xs), std::forward<H>(h),
                 std::make_index_sequence<Capacity>{})
             : (throw std::out_of_range{"detail::make_hashed_init_impl() "
-                "`Capacity` too small."}, _make_hashed_init_impl(std::forward<V>(xs), 
-                std::forward<H>(h), std::make_index_sequence<Capacity>{}));
+                "`Capacity` too small."}, _make_hashed_init_impl(
+                std::forward<V>(xs), std::forward<H>(h), 
+                std::make_index_sequence<Capacity>{} ));
     }
 
     template <std::size_t Capacity, class V, class Hasher>
@@ -1045,6 +1394,11 @@ namespace detail {
         static constexpr auto capacity() noexcept
         {
             return Capacity;
+        }
+
+        constexpr auto operator()() const noexcept
+        {
+
         }
 
         constexpr decltype(auto) hash_function() const noexcept
@@ -1086,10 +1440,10 @@ template <std::size_t Capacity>
 constexpr auto hashed = make_pipe_variable(
     detail::make_hashed_impl<Capacity>{});
 
-
 // =============================================================================
 
 
+BOOST_END_NAMESPACE_STATIC_VIEWS
 
 
 #endif // BOOST_STATIC_VIEWS_HPP
