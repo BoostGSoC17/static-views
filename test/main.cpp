@@ -70,13 +70,13 @@ int main()
     {
         constexpr int xs[] = {8, -7, 10, -1, 8, -2, 5};
 
-        // The example from above
-        constexpr auto m = xs | drop(std::size(xs) / 2) 
+        constexpr auto m = xs | drop(7 / 2) 
                               | min();
         static_assert(m == -2, "");
     }
 
     {
+    /*
 #ifndef BOOST_GCC
         constexpr std::array<int, 7> xs {{8, -7, 10, -1, 8, -2, 5}};
         static_assert(
@@ -85,7 +85,7 @@ int main()
                    , raw_view
                    )(xs) == 4, "");
 #endif
-
+    */
     }
 
     constexpr static int xs[] = {1, 2, 3, 4, 5};
@@ -103,81 +103,67 @@ int main()
     // querying for size and elements
     static_assert(ys.capacity() == 5, "");
     static_assert(ys.size() == 5, "");
-    static_assert(ys.at(2) == 3, "");
+    static_assert(ys[2] == 3, "");
     // compile-time error:
-    //     static_assert(ys.at(6) == 3, "");
+    //     static_assert(ys[6] == 3, "");
 
     // DROP
     {
-        static_assert((ys | drop(3)).at(0) == 4, "");
+        static_assert((ys | drop(3))[0] == 4, "");
         constexpr auto foo_variant_1 = drop(3)(copy(ys));
         constexpr auto foo_variant_2 = copy(ys) | drop(3);
         constexpr auto foo_variant_3 = copy(foo_variant_2) | drop(1);
 
-        static_assert(foo_variant_1.at(0) == 4, "");
+        static_assert(foo_variant_1[0] == 4, "");
         static_assert(foo_variant_2.size() == 2, "");
-        static_assert(foo_variant_3.at(0) == 5, "");
+        static_assert(foo_variant_3[0] == 5, "");
     }
-
     // DROP_WHILE
     {
         constexpr auto not_three = not_fn(is_a<3>);
-        static_assert((ys | drop_while(not_three)).at(0) == 3, "");
+        static_assert((ys | drop_while(not_three))[0] == 3, "");
         constexpr auto foo_variant_1 = drop_while(not_three)(copy(ys));
         constexpr auto foo_variant_2 = copy(ys) | drop_while(not_three);
         constexpr auto foo_variant_3 = copy(foo_variant_2) | drop(1);
          
-        static_assert(foo_variant_1.at(0) == 3, "");
-        static_assert(foo_variant_3.at(0) == 4, "");
+        static_assert(foo_variant_1[0] == 3, "");
+        static_assert(foo_variant_3[0] == 4, "");
         static_assert(foo_variant_2.size() == 3, "");
     }
 
     // REVERSE
     {
         constexpr auto not_three = not_fn(is_a<3>);
-        static_assert((ys | reverse).at(0) == 5, "");
-        constexpr auto foo = copy(ys) | drop_while(not_three) | reverse;
+        static_assert((ys | reverse())[0] == 5, "");
+        constexpr auto foo = copy(ys) | drop_while(not_three) | reverse();
          
-        static_assert(foo.at(0) == 5, "");
+        static_assert(foo[0] == 5, "");
         static_assert(foo.size() == 3, "");
     }
 
     // TAKE
     {
         constexpr auto not_three = not_fn(is_a<3>);
-        static_assert((ys | take(2)).at(1) == 2, "");
+        static_assert((ys | take(2))[1] == 2, "");
         constexpr auto foo = copy(ys) | drop_while(not_three) 
-                                      | reverse 
+                                      | reverse()
                                       | take(1);
          
-        static_assert(foo.at(0) == 5, "");
+        static_assert(foo[0] == 5, "");
         static_assert(foo.size() == 1, "");
     }
 
     // SLICE
     {
-        static_assert((xs | slice(2, 5)).at(1) == 4, "");
-        static_assert((xs | slice(2, 5) | slice(1, 3)).at(0) == 4, "");
+        static_assert((xs | slice(2, 5))[1] == 4, "");
+        static_assert((xs | slice(2, 5) | slice(1, 3))[0] == 4, "");
         constexpr auto foo = xs | slice(1, 3);
         constexpr auto bar = xs | take(3) | drop(1);
 
-        static_assert(foo.at(0) == bar.at(0), "");
-        static_assert(foo.at(1) == bar.at(1), "");
+        static_assert(foo[0] == bar[0], "");
+        static_assert(foo[1] == bar[1], "");
         static_assert(foo.size() == bar.size(), "");
 
-
-    }
-
-    {
-        // constexpr std::initializer_list<int> cs = {1, 3, 5, 7, 9};
-        // constexpr auto s = cs.size();
-        // constexpr auto ds = Foo<int, s>{ cs };
-        /*
-        std::vector<int> vi{1,2,3,4,5,6,7,8,9,10};
-        auto rng = vi | filter([](int i){return i % 2 == 0;})
-                      | transform([](int i){return std::to_string(i);});
-        */
-        // rng == {"2","4","6","8","10"};
     }
 
     // FILTER
@@ -191,17 +177,18 @@ int main()
     // std::experimental::not_fn :D
 
     {
-        static_assert(compose(filter(less_than<3>), drop(1))(ys).at(0) == 2, "");
+        static_assert(compose(filter(less_than<3>), drop(1))(ys)[0] == 2, "");
 
     }
 
     {
         // alternative syntax, for people who hate pipes
-        static_assert(sort(std::less<void>{})(bs).at(0) == -10, "");
+        static_assert(sort(std::less<void>{})(bs)[0] == -10, "");
         static_assert(slice(1, 6)(raw_view(as)).size() == 5, "");
-        static_assert(sort(std::less<void>{})(slice(1, 6)(raw_view(as))).at(2) == -4, "");
+        static_assert(sort(std::less<void>{})(slice(1, 6)(raw_view(as)))[2] == -4, "");
 
     }
+
     /*
     // also hashed view is supported
     // it's not very useful without any algorithms though

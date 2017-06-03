@@ -7,12 +7,16 @@
 #include <array>
 #include <stdexcept>
 
-#include <boost/config.hpp>
+
+#ifndef _WIN64
+#  include <boost/config.hpp>
+#endif
 
 #define BOOST_NAMESPACE_STATIC_VIEWS boost::static_views
 
 #define BOOST_BEGIN_NAMESPACE_STATIC_VIEWS \
     namespace boost { namespace static_views {
+
 #define BOOST_END_NAMESPACE_STATIC_VIEWS \
     } /* static_views */ } /* boost */
 
@@ -30,39 +34,6 @@ BOOST_BEGIN_NAMESPACE_STATIC_VIEWS
 
 /// \file include/boost/static_map/static_views.hpp
 /// \brief A prototype for the Static Views library.
-/// \detail
-///
-/// Concepts
-/// --------
-/// __Sequence__: is any type for which there exists a specialisation of
-/// #sequence_traits.
-///
-/// __View__: provides indexed access into the underlying _View_. Yes, this
-/// is recursive. The chain always terminates at the `raw_view` which provides
-/// access to the underlying _Sequence_. Views thus act like proxies through 
-/// which we access a sequence. We require a view to have the following 
-/// operations:
-/// * `static constexpr auto capacity() noexcept -> std::size_t`. 
-///
-///   This operation returns an upper bound on the number of elements the
-///   underlying sequence/view has. Notice that the function is marked
-///   `static`. This allows for creation of views that require some 
-///   additional storage, like `sort`.
-/// * `constexpr auto size() noexcept -> std::size_t`.
-///
-///   Returns the actual number of elements in the underlying view.
-/// * `constexpr auto operator(std::size_t) const -> std::size_t`.
-///
-///   Defines the behavior of the view. Given an index `i` in `[0,..., size())`
-///   returns the corresponding index in the underlying view. Thus if
-///   `size()` is unchanged, views can be seen as permutations.
-/// * `constexpr auto at(std::size_t)`.
-///
-///    `at(i)` returns `i`'th element of the sequence. Here, `i` is, again,
-///    in `[0,...,size())`.
-///
-/// __Pipe__: is a function that, given a sequence, returns a view of it.
-///
 
 // =============================================================================
 
@@ -78,22 +49,6 @@ struct is_view : std::is_base_of<view_base, V> {};
 template <class V>
 struct is_view<V&> : is_view<V> {};
 /// \endcond
-
-
-// =============================================================================
-
-/// \brief Base class for all the pipes.
-struct pipe_base {};
-
-/// \brief Check whether `V` models the Pipe concept.
-template <class V>
-struct is_pipe : std::is_base_of<pipe_base, V> {};
-
-/// \cond
-template <class V>
-struct is_pipe<V&> : is_pipe<V> {};
-/// \endcond
-
 
 // =============================================================================
 
@@ -203,7 +158,7 @@ namespace detail {
     struct wrapper<T&> {
         using type = T;
 
-        constexpr wrapper(T& x) noexcept
+        explicit constexpr wrapper(T& x) noexcept
             : _payload{ &x }
         {}
 
@@ -340,11 +295,10 @@ namespace detail {
     template <class Maker, class... Args>
     struct algorithm_impl : algorithm_base {
 
-        constexpr algorithm_impl(Maker make, std::tuple<Args...>&& args) 
-            noexcept(all(
-                std::is_nothrow_move_constructible<Maker>::value,
-                std::is_nothrow_move_constructible<Args>::value...))
-            : _make{std::move(make)}
+        constexpr algorithm_impl(std::tuple<Args...>&& args) 
+            noexcept(std::is_nothrow_move_constructible<
+                std::tuple<Args...>>::value)
+            : _make{}
             , _args{std::move(args)}
         {
         }
@@ -396,7 +350,7 @@ namespace detail {
 
         template <class View, std::size_t... Is>
         constexpr decltype(auto) call_impl(View&& xs,
-            std::index_sequence<Is...>) 
+            std::index_sequence<Is...>)
             const&
             noexcept(noexcept( std::declval<Maker const&>()(
                 make_wrapper(std::forward<View>(xs)),
@@ -409,48 +363,31 @@ namespace detail {
 
 
     template <class Maker, class... Args>
-    constexpr auto make_algorithm_impl(Maker&& make, Args&&... args)
+    constexpr auto make_algorithm_impl(Args... args)
         noexcept(noexcept( algorithm_impl<Maker, Args...>{
-            std::forward<Maker>(make),
-            std::make_tuple(std::forward<Args>(args)...)} ))
+            std::make_tuple(std::move(args)...)} ))
     {
-        return algorithm_impl<Maker, Args...>{std::forward<Maker>(make), 
-            std::make_tuple(std::forward<Args>(args)...)};
+        return algorithm_impl<Maker, Args...>{
+            std::make_tuple(std::move(args)...)};
     }
 
 
     template <class Maker>
     struct algorithm_variable_impl {
-        constexpr algorithm_variable_impl(Maker&& make) 
-            noexcept(noexcept( std::is_nothrow_move_constructible<
-                Maker>::value ))
-            : _make{std::move(make)}
-        {
-        }
+        constexpr algorithm_variable_impl() = default;
 
         template <class... Args>
-        constexpr auto operator()(Args&&... args) const& 
-            noexcept(noexcept( make_algorithm_impl(std::declval<Maker const&>(),
+        constexpr auto operator()(Args&&... args) const
+            noexcept(noexcept( make_algorithm_impl<Maker>(
                 make_wrapper(std::forward<Args>(args))...) ))
         {
-            return make_algorithm_impl(_make, make_wrapper(
+            return make_algorithm_impl<Maker>(make_wrapper(
                 std::forward<Args>(args))...);
         }
-
-        template <class... Args>
-        constexpr auto operator()(Args&&... args) && 
-            noexcept(noexcept( make_algorithm_impl(std::declval<Maker&&>(), 
-                make_wrapper(std::forward<Args>(args))...) ))
-        {
-            return make_algorithm_impl(std::move(_make), make_wrapper(
-                std::forward<Args>(args))...);
-        }
-
-    private:
-        Maker _make;
     };
 } // end namespace detail
 
+/*
 template <class Maker>
 constexpr auto make_algo_variable(Maker&& make)
     noexcept(noexcept( make_wrapper(std::forward<Maker>(make)) ))
@@ -459,128 +396,25 @@ constexpr auto make_algo_variable(Maker&& make)
     return detail::algorithm_variable_impl<decltype(wrapper)>{
         std::move(wrapper)};
 }
-// =============================================================================
-
-/*
-namespace detail {
-    template <class Maker, class... Args>
-    struct pipe_impl : pipe_base {
-        constexpr pipe_impl(Maker make, std::tuple<Args...>&& args) 
-            noexcept(all(
-                std::is_nothrow_move_constructible<Maker>::value,
-                std::is_nothrow_move_constructible<Args>::value...))
-            : _make{std::move(make)}, _args{std::move(args)}
-        {
-        }
-
-        template <class View> 
-        constexpr auto operator()(View&& xs) const 
-            noexcept(noexcept( std::declval<pipe_impl const>().
-                call_impl(std::forward<View>(xs), 
-                std::make_index_sequence<sizeof...(Args)>{}) ))
-        {
-            static_assert(is_view<View>::value, "`View` must model the View "
-                "concept.");
-            return call_impl(std::forward<View>(xs), std::make_index_sequence<
-                sizeof...(Args)>{});
-        }
-
-        template <class View> 
-        constexpr auto operator()(View&& xs)
-            noexcept(noexcept( std::declval<pipe_impl>().
-                call_impl(std::forward<View>(xs), 
-                std::make_index_sequence<sizeof...(Args)>{}) ))
-        {
-            static_assert(is_view<View>::value, "detail::pipe_impl::operator() "
-                "`View` must model the View concept.");
-            return call_impl(std::forward<View>(xs), std::make_index_sequence<
-                sizeof...(Args)>{});
-        }
-
-    private:
-        Maker                _make;
-        std::tuple<Args...>  _args;
-
-        template <class View, std::size_t... Is>
-        constexpr auto call_impl(View&& xs, std::index_sequence<Is...>) && 
-            // noexcept(noexcept( _make(std::move(std::get<Is>(_args))..., 
-            // Again, GCC complaining
-            noexcept(noexcept( std::declval<Maker&&>()(
-                std::declval<Args&&>()...,
-                make_wrapper(std::forward<View>(xs))) ))
-        {
-            return std::move(_make)(std::move(std::get<Is>(_args))..., 
-                make_wrapper(std::forward<View>(xs)));
-        }
-
-        template <class View, std::size_t... Is>
-        constexpr auto call_impl(View&& xs, std::index_sequence<Is...>) const&
-            // noexcept(noexcept( _make(std::get<Is>(_args)..., 
-            // And again
-            noexcept(noexcept( std::declval<Maker const&>()(
-                std::declval<Args const&>()..., 
-                make_wrapper(std::forward<View>(xs))) ))
-        {
-            return _make(std::get<Is>(_args)..., 
-                make_wrapper(std::forward<View>(xs)));
-        }
-    };
-
-    template <class Maker, class... Args>
-    constexpr auto make_pipe_impl(Maker&& make, Args&&... args) 
-        noexcept(noexcept( pipe_impl<Maker, Args...>{std::forward<Maker>(make),
-            std::make_tuple(std::forward<Args>(args)...)} ))
-    {
-        return pipe_impl<Maker, Args...>{std::forward<Maker>(make), 
-            std::make_tuple(std::forward<Args>(args)...)};
-    }
-
-    template <class Maker>
-    struct pipe_variable_impl {
-        constexpr pipe_variable_impl(Maker&& make) 
-            noexcept(noexcept( std::is_nothrow_move_constructible<
-                Maker>::value ))
-            : _make{std::move(make)}
-        {
-        }
-
-        template <class... Args>
-        constexpr auto operator()(Args&&... args) const& 
-            // noexcept(noexcept( make_pipe_impl(_make, 
-            // But GCC is unhappy with using member variables at top level...
-            noexcept(noexcept( make_pipe_impl(std::declval<Maker const&>(), 
-                make_wrapper(std::forward<Args>(args))...) ))
-        {
-            return make_pipe_impl(_make, make_wrapper(
-                std::forward<Args>(args))...);
-        }
-
-        template <class... Args>
-        constexpr auto operator()(Args&&... args) && 
-            noexcept(noexcept( make_pipe_impl(std::declval<Maker&&>(), 
-                make_wrapper(std::forward<Args>(args))...) ))
-        {
-            return make_pipe_impl(std::move(_make), make_wrapper(
-                std::forward<Args>(args))...);
-        }
-    private:
-        Maker _make;
-    };
-} // end namespace detail
-
-/// \brief Creates a pipe.
-template <class Maker>
-constexpr auto make_pipe_variable(Maker&& make)
-    // We know that the only thing pipe_variable_impl<T> constructor does
-    // is move construct a T. In this case T it is a wrapper around Maker
-    // which is nothrow constructible if and only if the type it wraps is.
-    noexcept(noexcept( make_wrapper(std::forward<Maker>(make)) ))
-{
-    auto wrapper = make_wrapper(std::forward<Maker>(make));
-    return detail::pipe_variable_impl<decltype(wrapper)>{
-        make_wrapper(std::forward<Maker>(make))};
-}
 */
+
+// See http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4381.html
+template <class T>
+constexpr T __static_const{};
+
+#define BOOST_STATIC_VIEWS_INLINE_VARIABLE(type, name)                        \
+    inline namespace {                                                        \
+        constexpr auto const& name =                                          \
+            ::BOOST_NAMESPACE_STATIC_VIEWS::__static_const<type>;             \
+    }                                                                         \
+
+#define BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type, name)                   \
+    inline namespace {                                                        \
+        constexpr auto const& name =                                          \
+            ::BOOST_NAMESPACE_STATIC_VIEWS::__static_const<                   \
+            ::BOOST_NAMESPACE_STATIC_VIEWS::detail::algorithm_variable_impl<  \
+                type>>;                                                       \
+    }                                                                         \
 
 // =============================================================================
 
@@ -617,7 +451,9 @@ namespace detail {
 } // end namespace detail
 
 /// `std::experimental::not_fn` except that it's constexpr.
-constexpr auto not_fn = detail::make_not_fn_impl{};
+
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_not_fn_impl, not_fn)
+// constexpr auto not_fn = detail::make_not_fn_impl{};
 
 
 // =============================================================================
@@ -761,27 +597,28 @@ struct view_adaptor_base : view_base {
     static constexpr auto capacity() noexcept 
     { return type::capacity(); }
 
-    constexpr auto size() const noexcept { return _ref().size(); }
+    constexpr decltype(auto) parent() const noexcept { return _xs.get(); }
+    constexpr decltype(auto) parent()       noexcept { return _xs.get(); }
 
+    constexpr auto size() const noexcept { return parent().size(); }
+
+    /*
     constexpr auto operator() (std::size_t const i) const noexcept
     {
-        return _ref()(view_adaptor_core_access::map(derived(), i));
+        return parent()(view_adaptor_core_access::map(derived(), i));
     }
+    */
 
-    constexpr decltype(auto) at(std::size_t const i) const noexcept
+    constexpr decltype(auto) operator[](std::size_t const i) const noexcept
     {
-        return _ref().at(view_adaptor_core_access::map(derived(), i));
+        return parent()[view_adaptor_core_access::map(derived(), i)];
     }
 
-    constexpr decltype(auto) at(std::size_t const i) noexcept
+    constexpr decltype(auto) operator[](std::size_t const i) noexcept
     {
-        return _ref().at(view_adaptor_core_access::map(derived(), i));
+        return parent()[view_adaptor_core_access::map(derived(), i)];
     }
-
-protected:
-    constexpr decltype(auto) _ref() const noexcept { return _xs.get(); }
-    constexpr decltype(auto) _ref()       noexcept { return _xs.get(); }
-
+    
 private:
     using type = typename Wrapper::type;
     Wrapper  _xs;
@@ -815,20 +652,11 @@ namespace detail {
         constexpr auto size() const noexcept
         { return sequence_traits<Sequence>::size(); }
 
-        constexpr decltype(auto) at(std::size_t const i) const
+        constexpr decltype(auto) operator[](std::size_t const i) const
         { return (i < size())
             ? sequence_traits<Sequence>::at(_xs, i)
             : (throw std::out_of_range{"detail::raw_view_impl::at() index `i`"
                 " out of bounds."}, sequence_traits<Sequence>::at(_xs, i)); 
-        }
-
-        constexpr auto operator()(std::size_t const i) const noexcept 
-        {
-            return i;
-            // return i < size()
-            //     ? i
-            //     : (throw std::out_of_range{"detail::raw_view_impl::operator(): " 
-            //         "index `i` out of bounds."}, 0);
         }
 
     private:
@@ -845,7 +673,8 @@ namespace detail {
 } // end namespace detail
 
 /// \brief Raw view of the sequence.
-constexpr auto raw_view = detail::make_raw_view{};
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_raw_view, raw_view)  
+// constexpr auto raw_view = detail::make_raw_view{};
 
 
 // =============================================================================
@@ -900,7 +729,7 @@ namespace detail {
 
         constexpr auto size() const noexcept 
         { 
-            return this->_ref().size() - _b; 
+            return this->parent().size() - _b; 
         }
 
     private:
@@ -930,7 +759,8 @@ namespace detail {
 /// \brief Given an integral count, return a range consisting of all but the 
 /// first count elements from the source range, or an empty range if it has 
 /// fewer elements.
-constexpr auto drop = make_algo_variable(detail::make_drop_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_drop_impl, drop)
+// constexpr auto drop = make_algo_variable(detail::make_drop_impl{});
 
 
 // =============================================================================
@@ -941,7 +771,7 @@ namespace detail {
     constexpr auto find_first_i(View&& xs, Predicate&& p) noexcept
     {
         std::size_t i = 0;
-        while (i < xs.size() && !p(xs.at(i))) {
+        while (i < xs.size() && !p(xs[i])) {
             ++i;
         }
         return i;
@@ -961,7 +791,8 @@ namespace detail {
 
 /// \brief Remove elements from the front of a range that satisfy a unary 
 /// predicate.
-constexpr auto drop_while = make_algo_variable(detail::make_drop_while_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_drop_while_impl, drop_while)
+// constexpr auto drop_while = make_algo_variable(detail::make_drop_while_impl{});
 
 
 // =============================================================================
@@ -999,7 +830,8 @@ namespace detail {
 } // end namespace detail
 
 /// \brief Create a new range that traverses the source range in reverse order.
-constexpr auto reverse = make_algo_variable(detail::make_reverse_impl{})();
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_reverse_impl, reverse)
+// constexpr auto reverse = make_algo_variable(detail::make_reverse_impl{})();
 
 // =============================================================================
 
@@ -1010,9 +842,9 @@ namespace detail {
             noexcept
         {
             auto const size = xs.get().size();
-            return reverse(std::forward<View>(xs).get())
+            return reverse()(std::forward<View>(xs).get())
                 | drop(size - std::min(n, size))
-                | reverse;
+                | reverse();
         }
     };
 } // end namespace detail
@@ -1020,7 +852,8 @@ namespace detail {
 /// \brief Given a source range and an integral count, return a range 
 /// consisting of the first count elements from the source range, or the 
 /// complete range if it has fewer elements.
-constexpr auto take = make_algo_variable(detail::make_take_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_take_impl, take)
+// constexpr auto take = make_algo_variable(detail::make_take_impl{});
 
 // =============================================================================
 
@@ -1038,14 +871,15 @@ namespace detail {
 /// \brief Give a source range a lower bound (inclusive) and an upper bound 
 /// (exclusive), create a new range that begins and ends at the specified 
 /// offsets. 
-constexpr auto slice = make_algo_variable(detail::make_slice_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_slice_impl, slice)
+// constexpr auto slice = make_algo_variable(detail::make_slice_impl{});
 
 // =============================================================================
 
 namespace detail {
     struct min_element_algo_impl {
-        template <class View, class Less = std::less<void>>
-        constexpr decltype(auto) operator()(View&& wrapper, 
+        template <class Wrapper, class Less = std::less<void>>
+        constexpr decltype(auto) operator()(Wrapper wrapper, 
             Less&& less = Less{}) const
         {
             auto const& xs = wrapper.get();
@@ -1054,7 +888,7 @@ namespace detail {
                 "min in an empty range."};
             std::size_t min = 0;
             for (std::size_t i = min + 1; i < size; ++i) {
-                if (less(xs.at(i), xs.at(min)))
+                if (less(xs[i], xs[min]))
                     min = i;
             }
             return min;
@@ -1062,21 +896,24 @@ namespace detail {
     };
 
     struct min_algo_impl {
-        template <class View, class Less = std::less<void>>
-        constexpr decltype(auto) operator()(View&& wrapper, 
+        template <class Wrapper, class Less = std::less<void>>
+        constexpr decltype(auto) operator()(Wrapper wrapper, 
             Less&& less = Less{}) const
             noexcept
         {
             auto const i = min_element_algo_impl{}(wrapper, 
                 std::forward<Less>(less));
-            return std::forward<View>(wrapper).get().at(i);
+            return std::move(wrapper).get()[i];
         }
     };
 } // end namespace detail
 
-constexpr auto min_element = make_algo_variable(detail::min_element_algo_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::min_element_algo_impl, 
+    min_element)
+// constexpr auto min_element = make_algo_variable(detail::min_element_algo_impl{});
 
-constexpr auto min = make_algo_variable(detail::min_algo_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::min_algo_impl, min)
+// constexpr auto min = make_algo_variable(detail::min_algo_impl{});
 
 // =============================================================================
 
@@ -1086,7 +923,7 @@ namespace detail {
     constexpr auto _fill_filter_array_impl(std::size_t (&is)[N], S&& xs, P&& p)
         noexcept(all(
             noexcept(xs.size()),
-            noexcept(p(xs.at(std::declval<std::size_t>()))) 
+            noexcept(p(xs[std::declval<std::size_t>()])) 
         )) -> std::size_t
     {
         auto const  size = xs.size();
@@ -1094,7 +931,7 @@ namespace detail {
         std::size_t i    = 0;
 
         while (i < size) {
-            if (p(xs.at(i))) {
+            if (p(xs[i])) {
                 is[n] = i;
                 ++n;
             }
@@ -1175,7 +1012,8 @@ namespace detail {
 /// \brief Given a source range and a unary predicate, filter the elements 
 /// that satisfy the predicate. (For users of Boost.Range, this is like the 
 /// filter adaptor.)
-constexpr auto filter = make_algo_variable(detail::make_filter_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_filter_impl, filter)
+// constexpr auto filter = make_algo_variable(detail::make_filter_impl{});
 
 // =============================================================================
 
@@ -1189,13 +1027,50 @@ namespace detail {
     };
 } // end namespace detail
 
-constexpr auto remove_if = make_algo_variable(detail::make_remove_if_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_remove_if_impl, remove_if)
+// constexpr auto remove_if = make_algo_variable(detail::make_remove_if_impl{});
 
 
 // =============================================================================
 
+/* 
+// Mutable version
 namespace detail {
 
+    struct bubble_sort_algo_impl {
+    private:
+        template <class Wrapper>
+        using _el_type_ = std::decay_t<decltype(std::declval<Wrapper>().get()
+            .at(std::declval<std::size_t>()))>;
+    public:
+        template <class View, class Predicate>
+        constexpr auto operator()(View wrapper, Predicate&& less) const
+            noexcept( std::is_nothrow_move_assignable<_el_type_<View>
+                >::value && noexcept(less(std::declval<_el_type_<View>>(),
+                std::declval<_el_type_<View>>())) )
+        {
+            auto& xs = wrapper.get();
+            auto const size = xs.size();
+            
+            for (std::size_t i = size - 1; i > 0; --i) {
+                for (std::size_t j = 0; j < i; ++j) {
+                    if (less(xs.at(j+1), xs.at(j))) {
+                        auto _temp   = std::move(xs.at(j));
+                        xs.at(j)     = std::move(xs.at(j+1));
+                        xs.at(j+1)   = std::move(_temp);
+                    }
+                }
+            }
+        }
+
+    }; 
+}
+
+constexpr auto bubble_sort = make_algo_variable(detail::bubble_sort_algo_impl{});
+*/
+
+
+namespace detail {
     template <class Less>
     constexpr auto bubble_sort_impl(std::size_t* xs, std::size_t size,
         Less&& less) noexcept
@@ -1211,30 +1086,6 @@ namespace detail {
             }
     }
 
-
-    /*
-    // This was an ingenius implementation, and GCC screwed everything up :(
-    struct bubble_sort_algo_impl {
-        template <class View, class Predicate>
-        constexpr auto operator()(View&& wrapper, Predicate&& less) const
-            noexcept
-        {
-            auto& xs = wrapper.get();
-            auto const size = xs.size();
-            
-            for (std::size_t i = size - 1; i > 0; --i) {
-                for (std::size_t j = 0; j < i; ++j) {
-                    if (less(xs.at(j+1), xs.at(j))) {
-                        auto _temp   = std::move(xs.at(j));
-                        xs.at(j)     = std::move(xs.at(j+1));
-                        xs.at(j+1)   = std::move(_temp);
-                    }
-                }
-            }
-        }
-    }; 
-    */
-
     template <std::size_t... Is>
     struct sort_init_impl {
         std::size_t _is[sizeof...(Is)];
@@ -1244,10 +1095,10 @@ namespace detail {
             : _is{ Is... }
         {
             bubble_sort_impl(_is, xs.size(), mapped_compose(
-                std::forward<Predicate>(p), view_at<View>{xs}));
-            //    view_at<View>{xs})
-            // bubble_sort(mapped_compose(std::forward<Predicate>(p),
-            //    view_at<View>{xs}))(_is | take(xs.size()));
+               std::forward<Predicate>(p), view_at<View>{xs}));
+            // Mutable version
+            // _is | take(xs.size()) | bubble_sort(mapped_compose(
+            //     std::forward<Predicate>(p), view_at<View>{xs}));
         }
 
     private:
@@ -1257,7 +1108,7 @@ namespace detail {
 
             constexpr auto operator()(std::size_t const i) const noexcept
             {
-                return _xs.at(i);
+                return _xs[i];
             }
         };
     };
@@ -1287,16 +1138,13 @@ namespace detail {
         {
         }
 
-        constexpr auto size() const noexcept { return this->_ref().size(); }
-
-
     private:
         std::size_t _is[sort_impl::capacity()];
         using base_type = view_adaptor_base<sort_impl<V>, V>;
 
         constexpr auto map(std::size_t const i) const
         {
-            return i < size()
+            return i < this->size()
                 ? _is[i]
                 : (throw std::out_of_range{"sort_impl::map(): index `i` "
                     " is out of bounds."}, 0);
@@ -1317,10 +1165,12 @@ namespace detail {
 
 /// \brief Given a source range and a binary predicate, returns a sorted
 /// view of the source range.
-constexpr auto sort = make_algo_variable(detail::make_sort_impl{});
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_sort_impl, sort)
+// constexpr auto sort = make_algo_variable(detail::make_sort_impl{});
 
 // =============================================================================
 
+/*
 namespace detail {
 
     template <std::size_t... Is>
@@ -1390,7 +1240,7 @@ namespace detail {
             : base_type{std::move(xs)}, _hf{std::move(h)}, _is{init._is[Is]...}
         {
         }
-        
+
         static constexpr auto capacity() noexcept
         {
             return Capacity;
@@ -1439,9 +1289,8 @@ namespace detail {
 template <std::size_t Capacity>
 constexpr auto hashed = make_pipe_variable(
     detail::make_hashed_impl<Capacity>{});
-
+*/
 // =============================================================================
-
 
 BOOST_END_NAMESPACE_STATIC_VIEWS
 
