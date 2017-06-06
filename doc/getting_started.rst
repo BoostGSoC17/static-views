@@ -207,7 +207,7 @@ An example of a stateful view is *eager* ``filter``. Indeed, to provide
 random access, we keep an array of "good" indices. That's our state. 
 Although ``capacity`` is fixed upon compilation and thus copying such
 an array is ``O(1)``, I still like to think about it as being ``O(N)``.
-I called this filter ``eager``, because there is also a *lazy* filter, 
+I called this filter eager, because there is also a *lazy* filter, 
 one that does the filtering on an as-needed basis. The problem with 
 eager filtering is that chaining many such filters results in a
 substantial extra memory being used. Lazy filtering is not perfect
@@ -233,7 +233,7 @@ words with four letters and the filtering out the ones with less than two
 vowels.
 
 Just like in Boost.Range and Ranges TS, we can also have *algorithms* that
-manipulate views. An algorithm is a function ``f``:math:`View1 \to R`,
+manipulate views. An algorithm is a function ``f``:math:`View_1 \to R`,
 i.e. taking a view and producing some result. On top of the usual call
 operator we also overload ``operator|`` for algorithms. This allows to use
 them as pipes. If we have multiple algorithms with ``R`` being some view,
@@ -242,4 +242,234 @@ way to use the ``optimise`` function automatically: if ``operator|``
 detects that the view on the left is an *rvalue*, it can optimise it away.
 We then repeat this operation recusively until an *lvalue* is encountered.
 
+
+********
+Examples
+********
+
+
+Static Map
+----------
+
+Let's start by implementing a toy ``static_map``. We base is on ``hashed``
+view of key-value pairs. The trickiest part is ``operator[]`` of
+``static_map``::
+
+  constexpr decltype(auto) operator[](key_type const& k)
+  {
+    // _hv is the hashed view.
+    // _eq is the comparison function
+    // For simplicity, let's use C++17 constexpr lambdas. If C++14
+    // compatibility is required, it's easy to rewrite this using a
+    // struct.
+    return find_if(_hv[_hv.hash_function()(k)], [&k, this](auto&& x) { 
+      return _eq(k, x.first); });
+  }
+
+We ask hashed view for a view of all the elements that (possibly) have the
+same hash as ``k``. Then we perform a linear search through this view. It
+doesn't get any simpler than that. Construction of static_map is also
+quite simple::
+
+  template < class Sequence
+           , class Pred = std::less<void>
+           , class Hasher = std::hash<void> // assume for a minute that
+                                            // it's constexpr
+           >
+  constexpr auto make_static_map(Sequence& xs, Pred&& equal = Pred{},
+    Hasher&& hash_function = Hasher{})
+  {
+    auto hashed_view  = xs | hashed(std::forward<Hasher>(hash_function));
+    return static_map<decltype(hashed_view), Pred>{std::move(hashed_view),
+      std::forward<Pred>(equal)};
+  }
+
+We let ``operator|`` do all the work of adopting the sequence ``xs``.
+Notice that template arguments of ``static_map`` are ``HashedView`` and
+``Pred`` in place of common ``Key``, ``Tp``, ``Pred``, ``Hasher``.
+We can easily extract these types from the ``HashedView``::
+
+    using value_type = std::decay_t< decltype( 
+      *std::declval<HashedView>()[std::devlval<std::size_t>()].begin() )>;
+    using key_type = typename value_type::first;
+    using mapped_type = typename value_type::second;
+    using key_equal = Pred;
+    using hasher = typename HashedView::hasher;
+    using reference = value_type &;
+    using const_reference = value_type const&;
+    using difference_type = std::ptrdiff_t;
+    using size_type = std::size_t;
+    using iterator = typename HashedView::iterator;
+    using const_iterator = typename HashedView::const_iterator;
+
+There is some boilerplate code to write, but apart from that we're done.
+
+
+Parsing Strings at Compile Time
+-------------------------------
+
+Strings are sequences of characters, so they may very well be used with
+StaticViews. For example, let's verify that all brackets match in a string
+literal::
+
+  template <std::size_t N, std::size_t... Is>
+  constexpr auto are_brackets_good_impl(char const(&xs)[N],
+    std::index_sequence<Is...>) noexcept
+  {
+    struct Counter {
+      int  n    = 0;
+      bool good = true;
+
+      constexpr auto operator()(char c) noexcept
+      {
+        if (c == '(') {
+          ++n;
+          return;
+        }
+        if (c == ')') {
+          --n;
+          if (n < 0) good = false;
+        }
+      }
+    };
+
+    Counter counter;
+    for_each(raw_view(xs), counter);
+    return counter.good && counter.n == 0;
+  }
+
+  template <std::size_t N>
+  constexpr auto are_brackets_good(char const (&xs)[N]) noexcept
+  {
+    return are_brackets_good_impl(xs, std::make_index_sequence<N>{}); 
+  }
+
+  // later on
+  static_assert(are_brackets_good("(1 + (2))"), "");
+  static_assert(!are_brackets_good("(1 + ))(2", "");
+
+Although this particular example doesn't use much of StaticViews
+functionality, it illustrates the point that with ``constexpr`` we don't
+have to use ``template <char...>`` whenever we want results at compile
+time. Not only is code using ranges easier to write, it also runs faster,
+because no recusive instantiations are used.
+
+As a more difficult example, let's write a ``printf`` *functor*. For
+simplicity, we will only support format specifiers of the form ``%type``::
+
+  struct format_spec {
+    char code;
+  };
+
+To check whether the user passed correct types we create a mapping from
+type to a char code::
+
+  template <class> struct type_to_code;
+
+  template <> struct type_to_code<int>   { static constexpr char value = 'd'; };
+  template <> struct type_to_code<float> { static constexpr char value = 'f'; };
+
+This way we also get support for user-defined types -- one only
+needs to register a type by specializing ``type_to_code``. 
+
+Without loss of generality we can assume the format string to look like
+``STR (FMT STR)*``, where ``STR`` are just some chars we need to print and
+``FMT`` is a format specifier. ``STR`` can also have zero length.
+
+We don't know the number of ``STR`` and ``FMT`` pieces in out format
+string. We do know, however, that length of ``FMT`` is at least 2 (``%``
+and type code). Thus number of ``FMT`` pieces is bounded from above by
+half of the length of the format string. A handy data structure for this
+case is a static_vector::
+
+  // A vector with fixed-size underlying storage.
+  template <class T, std::size_t N>
+  struct static_vector {
+      std::array<T, N> data;
+      std::size_t      size;
+  
+      constexpr static_vector() noexcept
+          : static_vector{std::make_index_sequence<N>{}}
+      {
+      }
+  
+      constexpr auto push_back(T x) noexcept
+      {
+          data[size] = x;
+          ++size;
+      }
+  
+  private:
+      template <std::size_t... Is>
+      constexpr static_vector(std::index_sequence<Is...>) noexcept
+          : data{ ((void)Is, T{})... }
+          , size{ 0 }
+      {
+      }
+  };
+
+We need a function to read a piece of format string which up to the next
+format specifier::
+
+  // Parses the STR part, returns the length
+  template <class S>
+  constexpr auto next_length(S&& xs) noexcept
+  {
+      return (xs | take_while([](auto&& c) { return c != '%'; })).size();
+  }
+
+And for the ``FMT`` part::
+
+  // Parses the FMT part, returns format_spec
+  template <class S>
+  constexpr auto parse_format(S&& xs) noexcept -> format_spec
+  {
+      if (xs.size() < 2 || xs[0] != '%') throw std::runtime_error{""};
+          return { xs[1] };
+  }
+
+And finally we can write the ``parse`` function::
+
+  // The parsing function
+  template <std::size_t N>
+  constexpr auto parse(char const (&xs)[N])
+  {
+      static_vector<std::size_t, N / 2 + 1> begins;
+      static_vector<std::size_t, N / 2 + 1> sizes;
+      static_vector<format_spec, N / 2>     fmts;
+  
+      std::size_t b = 0; 
+      std::size_t n = next_length(xs | drop(b));
+      begins.push_back(b);
+      sizes.push_back(n);
+  
+      b = b + n;
+      while (b < N) {
+          // read the FMT part
+          fmts.push_back(parse_format(xs | drop(b)));
+          b = b + 2;
+          // read the STR part
+          n = next_length(xs | drop(b));
+          begins.push_back(b);
+          sizes.push_back(n);
+          b = b + n;
+      }
+  
+      // for simplicity return just as a tuple
+      return std::make_tuple(begins, sizes, fmts);
+  }
+
+This is it, there's only a little bit of template metaprogramming code
+left to write (see `full source
+<https://github.com/BoostGSoC17/static-map/blob/development/include/boost/static_map/parse.hpp>`_).
+We can now write::
+
+  constexpr auto x = FORMAT("i = %d, %f%% done");
+  x(1, 43.2f);   // OK
+  x(1);          // Error!
+  x(1, "hello"); // Error!
+
+Although we still have to use a macro, we completely avoided the "string
+as a tuple of chars" representation, did almost no metaprogramming and
+should thus have much better compile times.
 

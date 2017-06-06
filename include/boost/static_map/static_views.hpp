@@ -858,6 +858,24 @@ BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_take_impl, take)
 // =============================================================================
 
 namespace detail {
+    struct make_take_while_impl {
+        template <class View, class Predicate>
+        constexpr auto operator()(View&& xs, Predicate&& p) const 
+            noexcept
+        {
+            auto const n = find_first_i(xs.get(), 
+                not_fn(std::forward<Predicate>(p)));
+            return std::forward<View>(xs).get() | take(n);
+        }
+    };
+} // end namespace detail
+
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_take_while_impl,
+    take_while)
+
+// =============================================================================
+
+namespace detail {
     struct make_slice_impl {
         template <class View>
         constexpr auto operator()(View&& xs, std::size_t const b, 
