@@ -75,8 +75,12 @@ install:
   - git clone --depth 1 https://github.com/boostorg/boost.git boost-root
   - cd boost-root
   - git submodule update --init tools/build
-  - git submodule update --init libs/core
+  - git submodule update --init libs/assert
   - git submodule update --init libs/config
+  - git submodule update --init libs/core
+  - git submodule update --init libs/predef
+  - git submodule update --init libs/static_assert
+  - git submodule update --init libs/type_traits  
   - mkdir libs/static_views
   - cp -r $TRAVIS_BUILD_DIR/* libs/static_views
   - ./bootstrap.sh
