@@ -1,0 +1,6 @@
+import testing ;
+
+test-suite "correctness" : 
+	[ run correctness/test_dummy.cpp ]
+	; 
+

@@ -1,9 +1,9 @@
 {
-    "key": "static_map",
-    "name": "Static Map",
+    "key": "static_views",
+    "name": "Static Views",
     "authors": [ "Tom Westerhout" ],
     "maintainers": [ "Tom Westerhout <kot.tom97 -at- gmail.com>" ],
-    "description": "Compile-time unordered associative container.",
+    "description": "Compile-time non-owning containers (a.k.a. views).",
     "category": [
         "Containers"
     ]

@@ -1,0 +1,88 @@
+
+
+
+language: cpp
+
+sudo: false
+
+python: "3.5"
+
+os:
+  - linux
+  - osx
+
+branches:
+  only:
+    - development
+
+env:
+  matrix:
+    - TRAVIS_EMPTY_JOB_WORKAROUND=true
+
+
+matrix:
+  exclude:
+    - env: TRAVIS_EMPTY_JOB_WORKAROUND=true
+
+  include:
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=c++14
+      addons:
+        apt:
+          packages:
+            - g++-6
+          sources:
+            - ubuntu-toolchain-r-test
+
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=c++1z
+      addons:
+        apt:
+          packages:
+            - g++-6
+          sources:
+            - ubuntu-toolchain-r-test
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXSTD=c++14
+      addons:
+        apt:
+          packages:
+            - clang-4.0
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-4.0
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXSTD=c++1z
+      addons:
+        apt:
+          packages:
+            - clang-4.0
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-4.0
+
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++14
+
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++1z
+
+
+install:
+  - cd ..
+  - git clone --depth 1 https://github.com/boostorg/boost.git boost-root
+  - cd boost-root
+  - git submodule update --init tools/build
+  - git submodule update --init libs/core
+  - git submodule update --init libs/config
+  - cp -r $TRAVIS_BUILD_DIR/* libs/static_views
+  - ./bootstrap.sh
+  - ./b2 headers
+
+script:
+  - |
+    echo "using $TOOLSET : : $COMPILER : <cxxflags>-std=$CXXSTD ;" > ~/user-config.jam
+  - ./b2 libs/static_views/test toolset=$TOOLSET
+
