@@ -1,11 +1,14 @@
-
+#          Copyright Tom Westerhout 2017.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
 
 
 language: cpp
-
 sudo: false
 
 python: "3.5"
+
 
 os:
   - linux
@@ -16,6 +19,7 @@ branches:
     - development
 
 env:
+  # Workaround for https://github.com/travis-ci/travis-ci/issues/4681
   matrix:
     - TRAVIS_EMPTY_JOB_WORKAROUND=true
 
@@ -25,6 +29,9 @@ matrix:
     - env: TRAVIS_EMPTY_JOB_WORKAROUND=true
 
   include:
+    ############################################################################
+    # Builds with GCC
+    ############################################################################
     - os: linux
       env: TOOLSET=gcc COMPILER=g++-6 CXXSTD=c++14
       addons:
@@ -42,6 +49,47 @@ matrix:
             - g++-6
           sources:
             - ubuntu-toolchain-r-test
+
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-7 CXXSTD=c++14
+      addons:
+        apt:
+          packages:
+            - g++-7
+          sources:
+            - ubuntu-toolchain-r-test
+
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-7 CXXSTD=c++1z
+      addons:
+        apt:
+          packages:
+            - g++-7
+          sources:
+            - ubuntu-toolchain-r-test
+
+    ############################################################################
+    # Builds with Clang
+    ############################################################################
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=c++14
+      addons:
+        apt:
+          packages:
+            - clang-3.9
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-3.9
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXSTD=c++1z
+      addons:
+        apt:
+          packages:
+            - clang-3.9
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-3.9
 
     - os: linux
       env: TOOLSET=clang COMPILER=clang++-4.0 CXXSTD=c++14
@@ -63,6 +111,29 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
 
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=c++14
+      addons:
+        apt:
+          packages:
+            - clang-5.0
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXSTD=c++1z
+      addons:
+        apt:
+          packages:
+            - clang-5.0
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty
+
+    ############################################################################
+    # Builds with XCode
+    ############################################################################
     - os: osx
       env: TOOLSET=clang COMPILER=clang++ CXXSTD=c++14
 
@@ -74,17 +145,35 @@ install:
   - cd ..
   - git clone --depth 1 https://github.com/boostorg/boost.git boost-root
   - cd boost-root
+  # For now, let StaticViews explicitely depend on two libraries: Boost.Core 
+  # and Boost.Config. We thus get the following dependency "tree"
+  # 
+  # boost/config <--+-- boost/detail
+  #                 +-- boost/assert
+  #                 +-- boost/core
+  #                 +-- boost/type_traits
+  #
+  # boost/core   <--+-- boost/assert
+  #                 +-- boost/config
+  #                 +-- boost/predef
+  #                 +-- boost/static_assert
+  #                 +-- boost/type_traits
+  # Hence
   - git submodule update --init tools/build
   - git submodule update --init libs/assert
   - git submodule update --init libs/config
   - git submodule update --init libs/core
+  - git submodule update --init libs/detail
   - git submodule update --init libs/predef
   - git submodule update --init libs/static_assert
   - git submodule update --init libs/type_traits  
+  # While StaticViews is not meant to be a complete Boost library, assume
+  # for a minute that it it.
   - mkdir libs/static_views
   - cp -r $TRAVIS_BUILD_DIR/* libs/static_views
   - ./bootstrap.sh
   - ./b2 headers
+
 
 script:
   - |

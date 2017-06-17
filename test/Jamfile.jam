@@ -1,6 +1,11 @@
 import testing ;
 
-test-suite "correctness" : 
+project "static_views_test" ;
+
+test-suite minimal ;
+test-suite full : 
+	minimal
 	[ run correctness/test_dummy.cpp ]
-	; 
+	;
+test-suite extra ;
 
