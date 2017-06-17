@@ -6,6 +6,7 @@
 
 language: cpp
 sudo: false
+dist: trusty
 
 python: "3.5"
 
