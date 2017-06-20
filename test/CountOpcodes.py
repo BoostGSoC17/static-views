@@ -1,21 +1,17 @@
 #!/usr/bin/python3
+
+#          Copyright Niall Douglas  2015-2017.
+#          Copyright Tom Westerhout 2017.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+
+
 # Parse x64 assembler dumps and figure out how many opcodes something takes
-#
-# File created: (C) 2015 Niall Douglas http://www.nedprod.com/
-# File created: June 2015
-# File edited by Tom Westerhout in May 2017
 
 import sys, os, re
 
-
 debug = False
-
-# if len(sys.argv) < 2:
-#     print('Usage: ' + sys.argv[0] + ' <assembler file containing test1()>', 
-#         file=sys.stderr)
-#     sys.exit(1)
-# input_file = sys.argv[1]
-
 
 # objdump format example:
 # 0000000000000000 <_Z5test1v>:
@@ -57,21 +53,20 @@ _is_instruction_ = \
       # ---> colon :
       # ---> more HEX numbers and spaces
       # ---> asm instruction, i.e. a word of latin characters
-      #      of length, say, [1,10]
       # ---> arguments
-      'objdump' : lambda l: re.match(r"^[ ]{2,}[0-9a-f]+:\s*[0-9a-f ]+[a-z]{1,10}", l) \
+      'objdump' : lambda l: re.match(r"^[ ]{1,}[0-9a-f]+:\s*[0-9a-f ]+\s*\t[a-z]+.*$", l) \
                                 is not None 
 
       # the same, except that the line starts with exactly two spaces
-    , 'dumpbin' : lambda l: re.match(r"^[ ]{2,}[0-9A-F]+:[0-9A-F ]+[a-z]{1,10}", l) \
+    , 'dumpbin' : lambda l: re.match(r"^[ ]{2,}[0-9A-F]+:[0-9A-F ]+[a-z]+.*$", l) \
                                 is not None
     }
 
 _is_normal_instruction_ = \
     { 'objdump' : lambda l: _is_instruction_['objdump'](l) \
-                                and ("nop" not in l) and ("retq" not in l)
+                                and ('nop' not in l) and ('retq' not in l)
     , 'dumpbin' : lambda l: _is_instruction_['dumpbin'](l) \
-                                and ("nop" not in l) and ("ret" not in l)
+                                and ('nop' not in l) and ('ret' not in l)
     }
 
 _is_call_instruction_ = \
@@ -79,18 +74,28 @@ _is_call_instruction_ = \
     , 'dumpbin' : lambda l: "call" in l
     }
 
+
+def _get_call_target_objdump(l : str) -> str:
+    (named, calculated) = \
+        re.match(r".*callq\s+(?:[0-9a-f]+\s+<(.+)>$|(\S+).*$)", l).groups()
+    if named is not None and calculated is None:
+        return named
+    elif named is None and calculated is not None:
+        return calculated
+    return None
+
 _get_call_target_ = \
-    { 'objdump' : lambda l: re.match(r".*callq\s+[0-9a-f]+\s+<(.+)>$", l).group(1)
+    { 'objdump' : _get_call_target_objdump
     , 'dumpbin' : lambda l: re.match(r".*call\s+(.+)$", l).group(1)
     }
 
 _is_our_function_ = \
     { 'objdump' : lambda f: lambda l: (f in l) and ('-0x' not in l)
-    , 'dumpbin' : lambda f: lambda l: f in l
+    , 'dumpbin' : lambda f: lambda l: (f in l) and ('?dtor' not in l)
     }
 
 
-def parse(input_file : str, file_type : str) -> dict:
+def parse(input_file, file_type : str) -> dict:
     functions = {}
     f   = None
     ops = []
@@ -159,14 +164,14 @@ def _inline_all_impl_(operation : str, functions : dict,
 
     debug and print("[*] '" + operation + "'...", file=sys.stderr)
     target = get_target(operation) 
-    debug and print("[*] Expanding '" + target + "'...", file=sys.stderr)
+    debug and print("[*] Expanding " + repr(target) + "...", file=sys.stderr)
 
     if (not allow_recursion) and (target in black_list):
         debug and print("[*] '" + target + "' in black list.", file=sys.stderr)
         return [operation]
 
     if (target not in functions):
-        debug and print("[*] No info on '" + target + "'.", file=sys.stderr)
+        debug and print("[*] No info on " + repr(target) + ".", file=sys.stderr)
         return [operation]
 
     black_list.add(target)
@@ -200,15 +205,6 @@ def count_opcodes(input_file : str, func : str):
 
     # Inline as much as possible
     opcodes = inline_all(name, functions, file_type, False)
-
-    # Save results
-    output_file = input_file + '.' + func + '.s'
-    try:
-        os.remove(output_file)
-    except:
-        pass
-    with open(output_file, "wt") as oh:
-        oh.write('\n'.join(opcodes) + '\n')
 
     # Calculate number of operations
     is_normal = _is_normal_instruction_[file_type]

@@ -1,0 +1,30 @@
+#          Copyright Tom Westerhout 2017.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+
+project static_views 
+    : requirements <include>../include
+                   <warnings>all
+    ;
+
+
+test-suite static_views_tests :
+    [ compile drop/test_create.cpp ]
+    [ compile drop/test_size.cpp ]
+    [ run drop/test_nested.cpp 
+        : # args *
+        : # input-files *
+        : # requirements *
+	  <variant>release
+	  <testing.launcher>"./test_optimisation.py test1" 
+    ]
+    ;
+
+
+alias minimal : static_views_tests ;
+alias ful     : static_views_tests ;
+alias extra   : static_views_tests ;
