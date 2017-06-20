@@ -20,7 +20,7 @@ test-suite static_views_tests :
         : # input-files *
         : # requirements *
 	  <variant>release
-	  <testing.launcher>"./test_optimisation.py test1" 
+	  <testing.launcher>"test_optimisation.py test1" 
     ]
     ;
 
