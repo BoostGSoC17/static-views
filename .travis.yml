@@ -179,6 +179,6 @@ install:
 script:
   - |
     echo "using $TOOLSET : : $COMPILER : <cxxflags>-std=$CXXSTD ;" > ~/user-config.jam
-  - export PATH=${PATH}:libs/static_views
+  - export PATH=${PATH}:libs/static_views/test
   - ./b2 libs/static_views/test toolset=$TOOLSET
 
