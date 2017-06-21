@@ -73,61 +73,67 @@ matrix:
     # Builds with Clang
     ############################################################################
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14 -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14"
       addons:
         apt:
           packages:
             - clang-3.9
+            - g++-7
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z"
       addons:
         apt:
           packages:
             - clang-3.9
+            - g++-7
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14 -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14"
       addons:
         apt:
           packages:
             - clang-4.0
+            - g++-7
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++1z -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++1z"
       addons:
         apt:
           packages:
             - clang-4.0
+            - g++-7
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14 -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14"
       addons:
         apt:
           packages:
             - clang-5.0
+            - g++-7
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z"
       addons:
         apt:
           packages:
             - clang-5.0
+            - g++-7
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty
@@ -136,10 +142,10 @@ matrix:
     # Builds with XCode
     ############################################################################
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14 -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14"
 
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z -stdlib=libc++"
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z"
 
 
 install:
