@@ -177,7 +177,8 @@ install:
 
 
 script:
-  - echo "using $TOOLSET : : $COMPILER : <cxxflags>$CXXFLAGS ;" > ~/user-config.jam
+  - |
+    echo "using $TOOLSET : : $COMPILER : <cxxflags>$CXXFLAGS ;" > ~/user-config.jam
     # Add custom test_optimisation.py script to the PATH
   - export PATH=libs/static_views/test:$PATH
   - ./b2 libs/static_views/test toolset=$TOOLSET
