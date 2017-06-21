@@ -9,7 +9,7 @@
 #ifndef BOOST_STATIC_VIEWS_RAW_VIEW_HPP
 #define BOOST_STATIC_VIEWS_RAW_VIEW_HPP
 
-
+#include <type_traits>
 #include <boost/static_views/view_base.hpp>
 #include <boost/static_views/sequence_traits.hpp>
 
