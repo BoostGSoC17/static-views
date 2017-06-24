@@ -1,0 +1,26 @@
+#          Copyright Tom Westerhout 2017.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+
+exe measure_memory : # sources
+                     measure_memory.cpp
+                   : # requirements
+
+		     # An why the hell is this option not documented??
+                     <threading>multi
+                     <variant>release
+                   ;
+explicit measure_memory ;
+
+exe sort_array : #sources
+                 sort/sort_array.cpp 
+               : #requirements
+
+                 <variant>release
+	         # Without this flag, Clang chokes at larger inputs
+                 <toolset>clang:<cxxflags>"-fconstexpr-steps=10000000"
+               ;
+# ALWAYS sort_array ;
+explicit sort_array ;
+

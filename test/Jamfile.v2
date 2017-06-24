@@ -4,12 +4,20 @@
 #          http://www.boost.org/LICENSE_1_0.txt)
 
 import testing ;
+import os ;
 
+local boost-root = [ os.environ BOOST_ROOT ] ;
 
 project static_views 
     : requirements <include>../include
+                   <include>$(boost-root)
                    <warnings>all
+                   <toolset>gcc:<cxxflags>"-std=c++14"
+                   <toolset>msvc:<cxxflags>"/std:c++14"
+                   <toolset>clang:<cxxflags>"-std=c++14 -stdlib=libc++"
+                   <toolset>clang:<linkflags>"-lc++"
     ;
+
 
 
 test-suite static_views_tests :
@@ -20,7 +28,7 @@ test-suite static_views_tests :
         : # input-files *
         : # requirements *
 	  <variant>release
-	  <testing.launcher>"python3 test_optimisation.py test1" 
+	  <testing.launcher>"./test_optimisation.py test1" 
     ]
     ;
 
