@@ -13,6 +13,7 @@
 limits = \
     { 'test_nested' : { 'gcc'   : 0
                       , 'clang' : 0
+                      , 'msvc'  : 0
                       }
     , 
     }

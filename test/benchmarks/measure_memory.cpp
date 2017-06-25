@@ -13,6 +13,7 @@
 #include <iostream>
 #include <limits>
 #include <numeric>
+#include <string>
 #include <system_error>
 #include <thread>
 #include <vector>
@@ -81,6 +82,7 @@ constexpr auto operator!= (mem_info const& x, mem_info const& y)
 #if defined(_WIN64) 
 // 64-bit Windows
 // Use GlobalMemoryStatusEx()
+#include <windows.h>
 
 auto _call_global_memory_status_ex(MEMORYSTATUSEX & ms) -> void
 {
@@ -109,14 +111,13 @@ auto get_avail_mem() -> mem_info
 #elif defined(_WIN32)
 // 32-bit Windows
 // Use GlobalMemoryStatus()
+#include <windows.h>
 
 auto _call_global_memory_status(MEMORYSTATUS & ms) -> void
 {
     std::memset(&ms, 0, sizeof(ms));
     ms.dwLength = sizeof(ms);
-    if (GlobalMemoryStatus(&ms) == 0) {
-        throw std::system_error{GetLastError(), std::generic_category()};
-    }
+    GlobalMemoryStatus(&ms);
 }
 
 auto get_total_mem() -> mem_info

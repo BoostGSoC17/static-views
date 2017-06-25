@@ -5,6 +5,7 @@
 
 import testing ;
 import os ;
+import path ;
 
 local boost-root = [ os.environ BOOST_ROOT ] ;
 
@@ -19,19 +20,21 @@ project static_views
     ;
 
 
+local test-optimisation = [ path.native ./test_optimisation.py ] ;
 
 test-suite static_views_tests :
+    [ run correctness/test_invoke.cpp ]
+    [ run correctness/test_raw_view.cpp ]
     [ compile drop/test_create.cpp ]
     [ compile drop/test_size.cpp ]
-    [ run drop/test_nested.cpp 
+    [ run drop/test_nested.cpp
         : # args *
         : # input-files *
         : # requirements *
-	  <variant>release
-	  <testing.launcher>"./test_optimisation.py test1" 
+          <variant>release
+          <testing.launcher>"$(test-optimisation) test1"
     ]
     ;
-
 
 alias minimal : static_views_tests ;
 alias ful     : static_views_tests ;
