@@ -13,6 +13,7 @@
 
 #include <type_traits>
 
+#include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
 
 
@@ -30,6 +31,7 @@ namespace detail {
     /// \endcond
 
     template <class Any, class Pointer, class Object, class... Args>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_func_impl
         ( std::true_type  /*is_base_of*/
         , Any             /*is_reference_wrapper*/
@@ -42,6 +44,7 @@ namespace detail {
     )
 
     template <class Pointer, class Object, class... Args>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_func_impl
         ( std::false_type /*is_base_of*/
         , std::true_type  /*is_reference_wrapper*/
@@ -54,6 +57,7 @@ namespace detail {
     )
 
     template <class Pointer, class Object, class... Args>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_func_impl
         ( std::false_type /*is_base_of*/
         , std::false_type /*is_reference_wrapper*/
@@ -66,6 +70,7 @@ namespace detail {
     )
 
     template <class Function, class T, class Object, class... Args>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_func
         ( Function (T::*f)
         , Object&& obj
@@ -82,6 +87,7 @@ namespace detail {
 
 
     template <class Any, class Pointer, class Object>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_data_impl
         ( std::true_type  /*is_base_of*/
         , Any             /*is_reference_wrapper*/
@@ -93,6 +99,7 @@ namespace detail {
     )
 
     template <class Pointer, class Object>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_data_impl
         ( std::false_type /*is_base_of*/
         , std::true_type  /*is_reference_wrapper*/
@@ -104,6 +111,7 @@ namespace detail {
     )
 
     template <class Pointer, class Object>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_data_impl
         ( std::false_type /*is_base_of*/
         , std::false_type /*is_reference_wrapper*/
@@ -115,6 +123,7 @@ namespace detail {
     )
 
     template <class Function, class T, class Object>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_data
         ( Function (T::*f)
         , Object&& obj ) 
@@ -129,6 +138,7 @@ namespace detail {
 
 
     template <class Function, class... Args>
+    BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_nonmember
         ( Function&& f
         , Args&&... args ) 
@@ -143,6 +153,7 @@ namespace detail {
         template <class Function, class T, class Object,
             class = std::enable_if_t<std::is_member_object_pointer<
                 Function(T::*)>::value> >
+        BOOST_FORCEINLINE
         static constexpr decltype(auto) call_impl
             ( Function (T::*f)
             , Object&& obj )
@@ -154,6 +165,7 @@ namespace detail {
         template <class Function, class T, class Object, class... Args,
             class = std::enable_if_t<std::is_member_function_pointer<
                 Function(T::*)>::value> >
+        BOOST_FORCEINLINE
         static constexpr decltype(auto) call_impl
             ( Function (T::*f)
             , Object&& obj
@@ -167,6 +179,7 @@ namespace detail {
         template <class Function, class... Args,
             class = std::enable_if_t<!std::is_member_pointer<
                 std::decay_t<Function>>::value> >
+        BOOST_FORCEINLINE
         static constexpr decltype(auto) call_impl
             ( Function&& f
             , Args&&... args )
@@ -179,6 +192,7 @@ namespace detail {
     public:
 
         template <class Function, class... Args>    
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(Function&& f, Args&&... args) const
         BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
         (

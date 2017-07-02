@@ -3,14 +3,92 @@
 #    (See accompanying file LICENSE_1_0.txt or copy at
 #          http://www.boost.org/LICENSE_1_0.txt)
 
-import "class" : new ;
 import common ;
+import feature ;
+import modules ;
 import notfile ;
+import os ;
 import path ;
 import property-set ;
+import regex ;
 import type ;
+import targets ;
 
-#
+# Directory of the Jamfile.
+path-constant HERE : . ;
+
+# Directory where benchmarking results are stored
+.output-dir = [ path.native $(HERE)/results ] ;
+
+
+# local rule init ( )
+# {
+#     if [ MATCH (--fake-run) : [ modules.peek : ARGV ] ]
+#     {
+#         local comm-file = [ MATCH "--comm-file=(.+)" 
+#             : [ modules.peek : ARGV ] ] ;
+#         comm-file = $(comm-file:E=".communication-file.txt") ;
+# 
+#         if [ os.name ] = NT {
+#             .fake-shell = [ path.native $(HERE)/fake-shell-windows.sh ] 
+#                 "$(comm-file)" % ;
+#         }
+#         else {
+#             .fake-shell = [ path.native $(HERE)/fake-shell-unix.sh ]
+#                 "$(comm-file)" % ;
+#         }
+# 
+#         JAMSHELL = $(.fake-shell) ;
+#     }
+# 
+#     for local m in
+#         # This is a list of all modules that may execute commands. If another
+#         # module executes commands with the wrong "shell", do not hestitate to
+#         # add it to this list.
+#         clang-darwin
+#         clang-linux
+#         clang-win
+#         clang
+#         common
+#         gcc
+#         msvc
+#         testing
+#     {
+#         modules.poke $(m) : JAMSHELL : $(.fake-shell) ;
+#     }
+# 
+#     JAMSHELL = $(.fake-shell) ;
+#     return ;
+# }
+# 
+# #
+# #
+# #
+# rule setup-location ( properties * )
+# {
+#     local ps      = [ property-set.create $(properties) ] ;
+#     local prefix  = [ $(ps).get <location-prefix> ] ;
+#     if prefix = "" {
+#         prefix = bin/$(prefix) ;
+#     }
+#     else {
+#         prefix = bin ;
+#     }
+#     local os      = [ $(ps).get <host-os> ] ;
+#     local toolset = [ $(ps).get <toolset> ] ;
+#     local version = [ $(ps).get <toolset-$(toolset):version> ] ;
+#     local p       = [ path.native $(prefix)/$(os)/$(toolset)-$(version) ] ;
+#     return <location>$(p) ;
+# }
+# 
+# project 
+#     # : requirements 
+#                    # [ init ]
+#                    # <variant>release
+#                    # <conditional>@setup-location
+#     ;
+
+
 # How it works
 # ------------
 #
@@ -36,81 +114,109 @@ import type ;
 
 # ----------------------------- Preparation work ----------------------------- #
 
-# Additional requirements for the measure_memory target.  The tool uses a second
-# thread to measure memory usage, we thus need the multithreading support.
-local _measure_memory_requirements = 
-    <threading>multi ;
 
-# Create a tool that measures memory usage of a command.
+# Create a tool that measures memory usage of a command. We hard-code the output
+# directory to make it easier for Python scripts to find the executable.
 exe measure_memory : measure_memory.cpp
-                   : $(_measure_memory_requirements)
+                   : <threading>multi <location>$(HERE)/tools
                    ;
 explicit measure_memory ;
-
-rule _get-measure-memory-binary ( target : sources + : requirements * )
-{
-    # Construct a property-set from a list of requirements
-    local xs   = [ property-set.create $(requirements) ] ;
-
-    # Extract the path where the targets would be created
-    # target-path actually returns a list consisting of a path and a boolean,
-    # but we're only interested in the path part.
-    local path = [ $(xs).target-path ] ;
-    path = $(path[1]) ;
-
-    # Convert the to native format and prepend bin/.  First of
-    # get_measure_memory_bin sources is measure_memory, i.e. 
-    # the executable name itself. 
-    ECHO "get_measure_memory_bin:"
-        [ path.native bin/$(path)/$(sources[1]:G=) ] ;
-}
-
-# Rule that prints the path to the measure_memory utility. We also make
-# measure_memory itself a dependency of get_measure_memory_bin so that it
-# gets compiled on an as-needed basis.
-#
-# This rule prints
-# 'get_measure_memory_bin: path/to/measure/memory/utility'
-# to STDOUT in the format native for the host OS. The prefix is needed to let
-# Python distinguish between the result and all the warnings that b2 may print,
-# because there's neither a way to turn these warnings of nor redirect them to
-# STDERR. Really annoying.
-notfile get_measure_memory_bin : @_get-measure-memory-binary
-                               : measure_memory
-                               : $(_measure_memory_requirements)
-                               ;
-explicit get_measure_memory_bin ;
 
 
 # ------------------------------- Benchmarks -------------------------------- #
 
-# Again, we defined common requirements
-local _sort_array_requirements = 
-           # Without this flag, Clang chokes at larger inputs
-           <toolset>clang:<cxxflags>"-fconstexpr-steps=10000000" ;
-
-# Sort an array during compilation
-# Additional sort/ makes Boost.Build create an extra directory for this test
-# case. It's useful when we have a lot of tests.
-exe sort/sort_array : sort/sort_array.cpp 
-                    : $(_sort_array_requirements)
-                    ;
-explicit sort/sort_array ;
-
-rule _get-sort-array-path ( target : sources * : requirements * )
+#
+# Filter out all key=value command line arguments, quote value and correctly
+# escape everything such that python script can use these arguments to call b2
+# with exact same settings as we've been called with.
+#
+rule get-command-line-settings ( )
 {
-    local xs   = [ property-set.create $(requirements) ] ;
-    local path = [ $(xs).target-path ] ;
-    path = $(path[1]) ;
-    ECHO "sort/get_prefix:"
-        [ path.native bin/$(path)/sort ] ;
+    local args = [ modules.peek : ARGV ] ;
+    local result ;
+
+    for local x in $(args) {
+        local matches = [ MATCH ([^=]+)=(.+) : $(x) ] ;
+        if $(matches) {
+            local key   = $(matches[1]) ;
+            local value = $(matches[2-]:J=" ") ;
+            result += "$(key)=\"$(value)\"" ;
+        }
+    }
+
+    if $(result) = "" {
+        return ;
+    }
+    else {
+        result = $(result:J=" ") ;
+
+        local .escape ;
+        if [ os.name ] = NT {
+            .escape = "^" ;
+        }
+        else {
+            .escape = "\\" ;
+        }
+        result = [ regex.escape $(result) : "\"" : "$(.escape)" ] ;
+        return $(result) ;
+    }
 }
 
-# Rule that prints the directory where the sort_array binary will be stored.
-# This directory is also used by Python script to store benchmarks there.
-notfile sort/get_prefix : @_get-sort-array-path
-                        : sort/sort_array.cpp
-                        : $(_sort_array_requirements) 
-                        ;
-explicit sort/get_prefix ;
+
+# Calls $(test-name)/profile_memory.py script with correct arguments.
+rule do-measure ( test-name : dummy * : requirements * )
+{
+    # Accumulator for arguments
+    local args ;
+    # Construct a property-set for ease of access to feature values
+    local ps = [ property-set.create $(requirements) ] ;
+
+    # Determine the toolset and version
+    local toolset = [ $(ps).get <toolset> ] ;
+    local version = [ $(ps).get <toolset-$(toolset):version> ] ;
+
+    args += "--toolset $(toolset)-$(version)" ;
+    args += "--debug" ;
+    args += "--root $(HERE)" ;
+    args += "--output $(.output-dir)" ;
+
+    local boost-root    = [ modules.peek : BOOST_ROOT ] ;
+    local b2-executable = [ path.native $(boost-root)/b2 ] ;
+    local b2-options    = [ get-command-line-settings ] ;
+    args += "--b2 \"$(b2-executable) $(b2-options)\"" ;
+
+    # $(X:G=) ungrists, i.e. '<something>a' becomes 'a'. Targets are not passed
+    # as a string but rather as an object of some target type. We have no
+    # interest in this type, hence we remove this info by ungristing.
+    local tool = $(HERE)/$(test-name:G=)/profile_memory.py ;
+
+    # Combine arguments into a single string.
+    ARGS    = $(args:J=" ") ;
+    COMMAND = $(tool) ;
+    return ;
+}
+
+actions do-measure
+{
+    $(COMMAND) $(ARGS)
+}
+
+
+# ---------------------------------- Sort ----------------------------------- #
+
+# Both the "compilation rule" and the "measuring rule" should be passed the same
+# requirements to avoid confusion. We thus define a variable to reduce code
+# bloat.
+local .sort-requirements = 
+    # Without this flag, Clang chokes at larger inputs
+    <toolset>clang:<cxxflags>"-fconstexpr-steps=10000000" ;
+
+# The actual rule that whose execution will be measured. It is not required to
+# be an exe rule, i.e. may be for example obj if we're only interested in
+# compilation.
+exe sort/sort_array : sort/sort_array.cpp : $(.sort-requirements) ;
+explicit sort/sort_array ;
+alias compile-sort : sort/sort_array ;
+explicit compile-sort ;
+notfile sort : @do-measure : measure_memory : $(.sort-requirements) ;
 

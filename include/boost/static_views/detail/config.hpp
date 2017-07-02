@@ -8,6 +8,8 @@
 #define BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
 
 
+#include <exception>
+
 #define BOOST_STATIC_VIEWS_NAMESPACE boost::static_views
 
 #define BOOST_STATIC_VIEWS_BEGIN_NAMESPACE \
@@ -30,6 +32,13 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 // See http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4381.html
 template <class T>
 constexpr T _static_const{};
+
+struct out_of_bound : std::exception {
+    auto what() const noexcept -> char const* override
+    { return _msg; }
+private:
+    static constexpr char const* _msg = "Index out of bound.";
+};
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

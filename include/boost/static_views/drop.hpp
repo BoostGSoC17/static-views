@@ -39,13 +39,22 @@ namespace detail {
         friend struct BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access;
         std::size_t _b;
 
+        BOOST_FORCEINLINE
         constexpr auto map(std::size_t const i) const
         {
+            /*
             if (i >= size()) {
                 throw std::out_of_range{"detail::drop_impl::map: "
                     "index `i` is out of bounds."};
             }
             return _b + i;
+            */
+            return BOOST_UNLIKELY(i >= size())
+                ? ( throw out_of_bound{},
+                    // throw std::out_of_range{"detail::drop_impl::map: "
+                    // "index `i` is out of bounds."}, 
+                    _b + i)
+                : (_b + i);
         }
     };
 

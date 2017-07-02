@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <utility>
 
+#include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/detail/wrapper.hpp>
 #include <boost/static_views/view_base.hpp>
@@ -45,6 +46,7 @@ namespace detail {
         }
 
         template <class View> 
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(View&& xs) const
             noexcept /* TODO: add specification */
         {
@@ -55,6 +57,7 @@ namespace detail {
         }
 
         template <class View> 
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(View&& xs)
             noexcept /* TODO: add specification */
         {
@@ -69,6 +72,7 @@ namespace detail {
         std::tuple<wrapper<Args>...>  _args;
 
         template <class View, std::size_t... Is>
+        BOOST_FORCEINLINE
         constexpr decltype(auto) call_impl(View&& xs,
             std::index_sequence<Is...>) const&
             noexcept /* TODO: add specification */
@@ -78,6 +82,7 @@ namespace detail {
         }
 
         template <class View, std::size_t... Is>
+        BOOST_FORCEINLINE
         constexpr decltype(auto) call_impl(View&& xs,
             std::index_sequence<Is...>) &
             noexcept /* TODO: add specification */
@@ -87,7 +92,8 @@ namespace detail {
         }
 
         template <class View, std::size_t... Is>
-        constexpr decltype(auto) call_impl(View&& xs,
+       BOOST_FORCEINLINE
+       constexpr decltype(auto) call_impl(View&& xs,
             std::index_sequence<Is...>) && 
             noexcept /* TODO: add specification */
         {
@@ -102,6 +108,7 @@ namespace detail {
     template <class Function>
     struct make_algorithm_impl {
         template <class... Args>
+        BOOST_FORCEINLINE
         constexpr auto operator()(Args&&... args) const
             noexcept /* TODO: add specification */
         {

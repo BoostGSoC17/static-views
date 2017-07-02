@@ -1,0 +1,82 @@
+#          Copyright Tom Westerhout 2017.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+
+import feature ;
+import make ;
+import notfile ;
+import os ;
+import path ;
+import property-set ;
+import testing ;
+
+project 
+    : requirements <variant>release
+                   <threading>single
+    ;
+
+feature.feature opcodes-limit : : free incidental ;
+feature.feature function      : : free incidental ;
+
+path-constant HERE : . ;
+.test-optimisation = [ path.native $(HERE)/test_optimisation.py ] ;
+.output-dir = [ path.native $(HERE)/results ] ;
+
+rule checking-optimisation ( target : sources + : requirements * )
+{
+    local ps = [ property-set.create $(requirements) ] ;
+
+    # Test name
+    NAME on $(target) = $(target:D=:B) ;
+
+    # Executable file
+    local temp = [ $(ps).target-path ] ;
+    path-constant prefix : bin/$(temp[1]) ;
+    EXE_FILE on $(target) = [ path.native $(prefix)/$(sources[1]:G=) ] ;
+
+    # Toolset
+    local toolset = [ $(ps).get <toolset> ] ;
+    local version = [ $(ps).get <toolset-$(toolset):version> ] ;
+    TOOLSET on $(target) = $(toolset)-$(version) ;
+
+    # Function
+    FUNCTION on $(target) = [ $(ps).get <function> ] ;
+
+    # Limit
+    LIMIT on $(target) = [ $(ps).get <opcodes-limit> ] ;
+}
+
+if [ os.name ] = NT {
+    .ESCAPE = "^" ;
+} else {
+    .ESCAPE = "\\" ;
+}
+
+
+actions checking-optimisation
+{
+    $(.test-optimisation) $(.ESCAPE)
+        --name $(NAME) $(.ESCAPE)
+        --file $(>[1]) $(.ESCAPE)
+        --function $(FUNCTION) $(.ESCAPE)
+        --limit $(LIMIT) $(.ESCAPE)
+        --toolset $(TOOLSET) $(.ESCAPE)
+        --output $(.output-dir)
+}
+
+if [ os.name ] = NT {
+    .TYPE = obj ;
+} else {
+    .TYPE = exe ;
+}
+
+
+$(.TYPE) _test_nested : test_nested.cpp ;
+explicit _test_nested ;
+
+make $(.output-dir)/nested.xml
+    : _test_nested 
+    : @checking-optimisation
+    : <opcodes-limit>0 <function>test1
+    ;

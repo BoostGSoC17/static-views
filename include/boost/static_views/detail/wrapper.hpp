@@ -21,7 +21,7 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
-    
+    /// \brief Wraps an lvalue or an rvalue reference.    
     template <class T> struct wrapper;
 
     /// \cond
@@ -38,10 +38,14 @@ namespace detail {
         constexpr wrapper& operator=(wrapper const& other) = default;
         constexpr wrapper& operator=(wrapper&&)            = default;
 
+        BOOST_FORCEINLINE
         constexpr auto get() const noexcept -> T& { return *_payload; }
+
+        BOOST_FORCEINLINE
         constexpr operator T&() const noexcept { return get(); }
 
         template <class... Args>
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(Args&&... args) const
             noexcept(noexcept(
                 invoke(std::declval<T const&>(), std::declval<Args&&>()...)
@@ -71,6 +75,7 @@ namespace detail {
         constexpr wrapper& operator=(wrapper&&)      = default;
 
 #if BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
+        BOOST_FORCEINLINE
         constexpr auto get() const&
             noexcept(std::is_nothrow_copy_constructible<T>::value)
             -> T
@@ -78,6 +83,7 @@ namespace detail {
             return _payload;
         }
 #else
+        BOOST_FORCEINLINE
         constexpr auto get() &
             noexcept
             -> T&
@@ -85,6 +91,7 @@ namespace detail {
             return _payload;
         }
 
+        BOOST_FORCEINLINE
         constexpr auto get() const&
             noexcept(std::is_nothrow_copy_constructible<T>::value)
             -> T const&
@@ -93,7 +100,7 @@ namespace detail {
         }
 #endif
 
-
+        BOOST_FORCEINLINE
         constexpr auto get() &&
             noexcept(std::is_nothrow_move_constructible<T>::value)
             -> T
@@ -105,6 +112,7 @@ namespace detail {
         constexpr operator T()       noexcept { return get(); }
 
         template <class... Args>
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(Args&&... args) &
             noexcept(noexcept(
                 invoke(std::declval<wrapper &>().get(),
@@ -115,6 +123,7 @@ namespace detail {
         }
 
         template <class... Args>
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(Args&&... args) const&
             noexcept(noexcept(
                 invoke(std::declval<wrapper const&>().get(),
@@ -125,6 +134,7 @@ namespace detail {
         }
 
         template <class... Args>
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(Args&&... args) &&
             noexcept(noexcept(
                 invoke(std::declval<wrapper &&>().get(),
@@ -143,6 +153,7 @@ namespace detail {
 
 
 template <class T>
+BOOST_FORCEINLINE
 constexpr auto make_wrapper(T&& x)
 BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
 (

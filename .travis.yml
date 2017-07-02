@@ -5,10 +5,13 @@
 
 
 language: cpp
+
 sudo: false
+
+# We need Ubuntu 14.04 rather than 12.04 to get latest compilers
 dist: trusty
 
-python: "3.5"
+python: "3.4"
 
 
 os:
@@ -20,9 +23,17 @@ branches:
     - development
 
 env:
+  global:
+    - BOOST_ROOT=${HOME}/boost-trunk
   # Workaround for https://github.com/travis-ci/travis-ci/issues/4681
   matrix:
     - TRAVIS_EMPTY_JOB_WORKAROUND=true
+
+
+addons:
+  apt:
+    packages:
+      - gnuplot
 
 
 matrix:
@@ -148,24 +159,23 @@ matrix:
       env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z"
 
 
-install:
-  - cd ..
-  - git clone --depth 1 https://github.com/boostorg/boost.git boost-root
-  - cd boost-root
-  # For now, let StaticViews explicitely depend on two libraries: Boost.Core 
-  # and Boost.Config. We thus get the following dependency "tree"
-  # 
-  # boost/config <--+-- boost/detail
-  #                 +-- boost/assert
-  #                 +-- boost/core
-  #                 +-- boost/type_traits
-  #
-  # boost/core   <--+-- boost/assert
-  #                 +-- boost/config
-  #                 +-- boost/predef
-  #                 +-- boost/static_assert
-  #                 +-- boost/type_traits
-  # Hence
+before_install:
+  - git clone --depth 1 https://github.com/boostorg/boost.git ${BOOST_ROOT}
+  - cd ${BOOST_ROOT}
+    # For now, let StaticViews explicitely depend on two libraries: Boost.Core 
+    # and Boost.Config. We thus get the following dependency "tree"
+    # 
+    # boost/config <--+-- boost/detail
+    #                 |-- boost/assert
+    #                 |-- boost/core
+    #                 +-- boost/type_traits
+    #
+    # boost/core   <--+-- boost/assert
+    #                 |-- boost/config
+    #                 |-- boost/predef
+    #                 |-- boost/static_assert
+    #                 +-- boost/type_traits
+    # Hence
   - git submodule update --init tools/build
   - git submodule update --init libs/assert
   - git submodule update --init libs/config
@@ -174,18 +184,23 @@ install:
   - git submodule update --init libs/predef
   - git submodule update --init libs/static_assert
   - git submodule update --init libs/type_traits  
-  # While StaticViews is not meant to be a complete Boost library, assume
-  # for a minute that it it.
-  - mkdir libs/static_views
-  - cp -r $TRAVIS_BUILD_DIR/* libs/static_views
+  
+
+install:
+  - |
+    # While StaticViews is not meant to be a complete Boost library, assume
+    # for a minute that it it.
+    cd ${BOOST_ROOT}
+    mkdir libs/static_views
+    cp -r ${TRAVIS_BUILD_DIR}/* libs/static_views/
   - ./bootstrap.sh
   - ./b2 headers
 
 
 script:
   - |
-    echo "using $TOOLSET : : $COMPILER : <cxxflags>\"$CXXFLAGS\" ;" > ~/user-config.jam
-    # Add custom test_optimisation.py script to the PATH
-  - export PATH=libs/static_views/test:$PATH
+    echo "using ${TOOLSET} : : ${COMPILER} : <cxxflags>\"${CXXFLAGS}\" ;" \
+      > ~/user-config.jam
   - ./b2 libs/static_views/test toolset=$TOOLSET
+  - ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET
 

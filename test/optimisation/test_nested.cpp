@@ -14,6 +14,7 @@
 #include <boost/static_views/raw_view.hpp>
 #include <boost/static_views/drop.hpp>
 
+namespace {
 
 template <class R>
 BOOST_FORCEINLINE
@@ -28,7 +29,7 @@ constexpr auto assert_all(R rng)
 
 template <std::size_t... Is, std::size_t... Js>
 BOOST_FORCEINLINE
-auto create_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
+constexpr auto create_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 {
     std::size_t xs[] = { Is... };
     auto const raw = boost::static_views::raw_view(xs);
@@ -45,19 +46,19 @@ auto create_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 
 template <std::size_t N, std::size_t M>
 BOOST_FORCEINLINE
-auto create()
+constexpr auto create()
 {
     return create_impl(std::make_index_sequence<N>{},
         std::make_index_sequence<M>{});
 }
 
+} // unnamed namespace
 
-BOOST_NOINLINE
-auto test1()
+BOOST_SYMBOL_EXPORT BOOST_NOINLINE
+void test1()
 {
     create<5, 3>();
 }
-
 
 int main(void)
 {

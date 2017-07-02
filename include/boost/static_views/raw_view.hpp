@@ -10,6 +10,7 @@
 #define BOOST_STATIC_VIEWS_RAW_VIEW_HPP
 
 #include <type_traits>
+#include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/view_base.hpp>
 #include <boost/static_views/sequence_traits.hpp>
 
@@ -43,22 +44,26 @@ namespace detail {
         }
 
 
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator[](std::size_t const i) const
         {
-            if (i >= size()) {
-                throw std::out_of_range{"detail::raw_view_impl::operator[]: "
-                    "index `i` out of bounds."};
-            }
-            return sequence_traits<sequence_type>::at(_xs, i);
+            return BOOST_UNLIKELY(i >= size())
+                ? ( throw out_of_bound{},
+                    // throw std::out_of_range{"detail::raw_view_impl::operator[]: "
+                    // "index `i` out of bounds."},
+                    sequence_traits<sequence_type>::at(_xs, i))
+                : sequence_traits<sequence_type>::at(_xs, i);
         }
 
+        BOOST_FORCEINLINE
         constexpr decltype(auto) operator[](std::size_t const i)
         {
-            if (i >= size()) {
-                throw std::out_of_range{"detail::raw_view_impl::operator[]: "
-                    "index `i` out of bounds."};
-            }
-            return sequence_traits<sequence_type>::at(_xs, i);
+            return BOOST_UNLIKELY(i >= size())
+                ? ( throw out_of_bound{},
+                    // throw std::out_of_range{"detail::raw_view_impl::operator[]: "
+                    // "index `i` out of bounds."},
+                    sequence_traits<sequence_type>::at(_xs, i))
+                : sequence_traits<sequence_type>::at(_xs, i);
         }
 
     private:

@@ -6,35 +6,32 @@
 import testing ;
 import os ;
 import path ;
+import property-set ;
+import errors ;
 
-local boost-root = [ os.environ BOOST_ROOT ] ;
 
-project static_views 
+local boost-root ;
+# if BOOST_ROOT {
+#     # Build as part of Boost. Jamroot defines BOOST_ROOT path constant.
+#     ECHO $(BOOST_ROOT) ;
+#     boost-root = $(BOOST_ROOT) ;
+# }
+# else {
+    # Standalone build.
+#     ECHO $(BOOST_ROOT) ;
+    boost-root = [ os.environ BOOST_ROOT ] ;
+# }
+
+project
     : requirements <include>../include
                    <include>$(boost-root)
                    <warnings>all
-                   <toolset>gcc:<cxxflags>"-std=c++14"
-                   <toolset>msvc:<cxxflags>"/std:c++14"
-                   <toolset>clang:<cxxflags>"-std=c++14 -stdlib=libc++"
-                   <toolset>clang:<linkflags>"-lc++"
+                   <exception-handling>on
+                   # Enable exceptions on Windows
+                   <host-os>windows,<toolset>clang:<cxxflags>"-fexceptions"
     ;
 
-
-local test-optimisation = [ path.native ./test_optimisation.py ] ;
-
-test-suite static_views_tests :
-    [ run correctness/test_invoke.cpp ]
-    [ run correctness/test_raw_view.cpp ]
-    [ compile drop/test_create.cpp ]
-    [ compile drop/test_size.cpp ]
-    [ run drop/test_nested.cpp
-        : # args *
-        : # input-files *
-        : # requirements *
-          <variant>release
-          <testing.launcher>"$(test-optimisation) test1"
-    ]
-    ;
+alias static_views_tests : correctness optimisation ;
 
 alias minimal : static_views_tests ;
 alias ful     : static_views_tests ;

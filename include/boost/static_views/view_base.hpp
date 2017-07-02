@@ -70,6 +70,7 @@ public:
     { return view_type::capacity(); }
 
 
+    BOOST_FORCEINLINE
     constexpr auto size() const
         noexcept(noexcept(
             std::declval<view_adaptor_base const&>().parent().size()
@@ -79,6 +80,7 @@ public:
     }
 
 
+    BOOST_FORCEINLINE
     constexpr decltype(auto) parent() const&
         noexcept(noexcept(
             std::declval<wrapper_type const&>().get()
@@ -87,6 +89,7 @@ public:
         return _xs.get();
     }
 
+    BOOST_FORCEINLINE
     constexpr decltype(auto) parent() &
         noexcept(noexcept(
             std::declval<wrapper_type &>().get()
@@ -145,6 +148,7 @@ private:
     View _xs;
 
 
+    BOOST_FORCEINLINE
     constexpr auto derived() const noexcept -> derived_type const&
     {
         return *static_cast<derived_type const*>(this);

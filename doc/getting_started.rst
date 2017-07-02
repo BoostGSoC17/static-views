@@ -1,8 +1,16 @@
+
+.. _tutorial:
+
+*********************************************************************
+                              Tutorial
+*********************************************************************
+
+
+
 .. _overview:
 
-***************
 Overview
-***************
+========
 
 
 .. default-domain:: cpp
@@ -242,10 +250,10 @@ way to use the ``optimise`` function automatically: if ``operator|``
 detects that the view on the left is an *rvalue*, it can optimise it away.
 We then repeat this operation recusively until an *lvalue* is encountered.
 
+.. _examples:
 
-********
 Examples
-********
+========
 
 
 Static Map
