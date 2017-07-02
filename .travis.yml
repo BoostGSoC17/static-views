@@ -39,7 +39,7 @@ matrix:
     # Builds with GCC
     ############################################################################
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14"
+      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -48,7 +48,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++1z"
+      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -67,7 +67,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++1z"
+      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -79,7 +79,7 @@ matrix:
     # Builds with Clang
     ############################################################################
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14"
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -90,7 +90,7 @@ matrix:
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z"
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -101,7 +101,7 @@ matrix:
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14"
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -112,7 +112,7 @@ matrix:
             - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++1z"
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -135,7 +135,7 @@ matrix:
             - llvm-toolchain-trusty
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z"
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -149,10 +149,10 @@ matrix:
     # Builds with XCode
     ############################################################################
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14"
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
 
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z"
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
 
 
 before_install:
