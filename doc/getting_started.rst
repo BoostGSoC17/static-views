@@ -2,16 +2,13 @@
 .. _tutorial:
 
 *********************************************************************
-                              Tutorial
+                            Tutorial
 *********************************************************************
-
-
 
 .. _overview:
 
 Overview
 ========
-
 
 .. default-domain:: cpp
 .. highlight:: c++
@@ -250,11 +247,9 @@ way to use the ``optimise`` function automatically: if ``operator|``
 detects that the view on the left is an *rvalue*, it can optimise it away.
 We then repeat this operation recusively until an *lvalue* is encountered.
 
-.. _examples:
 
 Examples
 ========
-
 
 Static Map
 ----------
@@ -474,10 +469,187 @@ We can now write::
 
   constexpr auto x = FORMAT("i = %d, %f%% done");
   x(1, 43.2f);   // OK
-  x(1);          // Error!
-  x(1, "hello"); // Error!
+  x(1);          // Compile error!
+  x(1, "hello"); // Compile error!
 
 Although we still have to use a macro, we completely avoided the "string
 as a tuple of chars" representation, did almost no metaprogramming and
 should thus have much better compile times.
 
+
+Bitmaps
+-------
+
+Suppose we have a bitmap (24-bit RGB) icon saved as a ``constexpr`` array of
+chars::
+  
+  static constexpr unsigned char smiley[] = {
+    0x22, 0x22, 0x00, 0x25, 0x25, ...
+    ...
+  };
+
+Now if a need comes up to convert it to 32-bit RGBA, StaticViews comes in
+handy. The only thing we have to do by ourselves is to write a function to
+convert ``unsigned char[3]`` (RGB) into ``uint32_t`` (RGBA). Let's do it
+for little endian::
+
+  [](auto&& xs) noexcept -> std::uint32_t
+  {
+      return (static_cast<std::uint32_t>( 0xFF) << 24)
+           | (static_cast<std::uint32_t>(xs[2]) << 16)
+           | (static_cast<std::uint32_t>(xs[1]) <<  8)
+           | (static_cast<std::uint32_t>(xs[0]) <<  0);
+  }
+
+The big endian case is left as an exercise for the reader. If we're now
+given a view of ``char`` representing 24-bit colours, we can easily create
+a view of ``uint32_t``::
+
+  template <class V>
+  constexpr auto rgb_to_rgba(V&& rgb)
+  {
+    if (rgb.size() % 3 != 0)
+      throw invalid_format_error{};
+
+    return rgb | chunk(3) 
+               | map([](auto&& xs) noexcept -> std::uint32_t {
+                   return (static_cast<std::uint32_t>( 0xFF) << 24)
+                        | (static_cast<std::uint32_t>(xs[2]) << 16)
+                        | (static_cast<std::uint32_t>(xs[1]) <<  8)
+                        | (static_cast<std::uint32_t>(xs[0]) <<  0);
+                 });
+  }
+
+What ``chunk(N)`` does is divide the source view into contiguous chunks of
+N elements (the last chunk may be shorter). If we want to do the inverse::
+
+  template <class V>
+  constexpr auto rgba_to_rgb(V&& rgba) noexcept
+  {
+    return rgba | map([](auto&& x) noexcept {
+                    return raw_view(std::array<unsigned char, 3>{
+                      (x & 0x000000FF), (x & 0x0000FF00), (x & 0x00FF0000)
+                    });
+                  });
+                | concat();
+  }
+
+We convert each integer into a view of chars and the flatten the view of
+views (think monadic bind for lists).
+
+Conversions to a 1-bit bitmaps is a tiny bit trickier. Apart from
+conversion from 24-bit RGB to a ``bool``, we also need to convert 8
+``bool``'s into a char::
+
+  [](auto&& bs)
+  {
+    unsigned char c = 0x00;
+    for (std::size_t i = 0; i < bs.size(); ++i) {
+      c |= static_cast<unsigned char>(bs[i]) 
+           << (bs.size() - 1 - i);
+    }
+    return c;
+  }
+
+Assume that the ``pixel_rgb_to_bw`` takes a view
+of 3 ``char``'s and returns a ``bool`` (true -- white, false -- black).
+Then the complete conversion function becomes::
+
+  template <class V>
+  constexpr auto rgb_to_bw(V&& rgb)
+  {
+    if (rgb.size() % 3 != 0)
+      throw invalid_format_error{};
+
+    return rgb | chunk(3)
+               | map(pixel_rgb_to_bw)
+               | chunk(8)
+               | map([](auto&& bs) noexcept {
+                    unsigned char c = 0x00;
+                    for (std::size_t i = 0; i < bs.size(); ++i) {
+                      c |= static_cast<unsigned char>(bs[i]) 
+                           << (bs.size() - 1 - i);
+                    }
+                    return c;
+                 });
+  }
+
+
+UK Codes
+--------
+
+Consider an example of data that rarely changes: postcodes and phone
+codes. `postcodes.txt
+<https://github.com/BoostGSoC17/static-map/blob/development/example/postcodes.txt>`_
+and `phone_codes.txt
+<https://github.com/BoostGSoC17/static-map/blob/development/example/phone_codes.txt>`_
+give examples of such data for the UK. We can "load" them at compile by
+simply *including* the files::
+
+  struct postcode_info {
+      char const*   postcode;
+      double        latitude;
+      double        longitude;
+      char const*   town;
+      char const*   region;
+      char const*   uk_region;
+      char const*   country;
+      char const*   country_string;
+  };
+
+  static constexpr postcode_info postcodes[] = {
+  #   include "postcodes.txt"
+  };
+
+  struct phone_code_info {
+      char const*   phone_code;
+      char const*   area;
+      double        latitude;
+      double        longitude;
+  };
+
+  static constexpr phone_code_info phone_codes[] = {
+  #   include "phone_codes.txt"
+  };
+
+Say, we want a mapping from postcodes to phone codes, i.e. given a
+``postcode`` (as ``char const*``) we want to find the corresponding
+``phone_code`` (as ``char const*``). There may not be a
+``phone_code_info`` with the exact same location as of the
+``postcode_info``, we thus look for the closest one::
+
+  constexpr auto find_closest = [](postcode_info const& post) {
+      return phone_codes | min([&post](auto&& x) {
+          return distance(post.latitude, post.longitude,
+              x.latitude, x.longitude);
+      });
+  };
+
+And with that we finally obtain::
+
+  static constexpr auto postcode_to_phone_code = postcodes 
+      | map([](postcode_info const& post) { 
+             return std::make_pair(post, find_closest(post)); 
+        });
+      | hashed_view(compose(hash_c, postcode_info::*postcode)); 
+  //                                ^^^^^^^^^^^^^^^^^^^^^^^^
+  //                                with C++17 we can "invoke" 
+  //                                pointers to member data too.
+  //                        ^^^^^^
+  //                 a compile-time analogue
+  //                 of hash<void>
+  constexpr auto match = [&postcode_to_phone_code](char const* postcode) {
+      return find_if
+          ( postcode_to_phone_code[hash_c(postcode)]
+          , [postcode](auto&& info) {
+                return equal_c(postcode, info.first.postcode);
+  //                   ^^^^^^^
+  //              a compile-time analogue
+  //              of equal<void>
+            }
+          ).second.phone_code;
+  };
+
+Now we can do ``match(postcode)`` which gives us a ``phone_code`` closest
+to the input postcode. Oh, yes, and if ``postcodes`` doesn't contain the
+``postcode`` we get a compile error.
