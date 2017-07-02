@@ -30,12 +30,6 @@ env:
     - TRAVIS_EMPTY_JOB_WORKAROUND=true
 
 
-addons:
-  apt:
-    packages:
-      - gnuplot
-
-
 matrix:
   exclude:
     - env: TRAVIS_EMPTY_JOB_WORKAROUND=true
@@ -63,11 +57,12 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++14"
+      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
 
@@ -128,12 +123,13 @@ matrix:
             - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14"
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
             - clang-5.0
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty
@@ -202,5 +198,5 @@ script:
     echo "using ${TOOLSET} : : ${COMPILER} : <cxxflags>\"${CXXFLAGS}\" ;" \
       > ~/user-config.jam
   - ./b2 libs/static_views/test toolset=$TOOLSET
-  - ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET
+  - [[ $BENCHMARK == "true" ]] && ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET
 

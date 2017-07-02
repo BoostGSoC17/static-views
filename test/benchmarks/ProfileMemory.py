@@ -197,11 +197,12 @@ def plot_space_space(configs : dict):
     try:
         DEBUG and print('[*] Executing `' + cmd + '`... ', 
             end='', file=sys.stderr)
-        subprocess.check_call(cmd, shell=True)
+        subprocess.check_output(cmd, stderr=subprocess.STDOUT,
+            shell=True)
         DEBUG and print('Done!', file=sys.stderr)
     except subprocess.CalledProcessError as e:
-        print('[-] Error occured: ' + e.output.decode('utf-8'),
-            file=sys.stder)
+        print('\n[-] Error occured: ' + e.output.decode('utf-8'),
+            file=sys.stderr)
         raise e
 
 #
