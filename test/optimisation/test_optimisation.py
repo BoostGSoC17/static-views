@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 #          Copyright Tom Westerhout 2017.
 # Distributed under the Boost Software License, Version 1.0.
