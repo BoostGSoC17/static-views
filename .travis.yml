@@ -199,5 +199,6 @@ script:
       > ~/user-config.jam
   - ./b2 libs/static_views/test toolset=$TOOLSET
   - |
-    [[ $BENCHMARK == "true" ]] && ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET
+    [[ $BENCHMARK == "true" ]] && ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET \
+                               || echo "No benchmarks today."
 
