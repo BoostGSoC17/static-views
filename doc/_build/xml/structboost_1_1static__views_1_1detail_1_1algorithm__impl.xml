@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1algorithm__impl" kind="struct" prot="public">
+    <compoundname>boost::static_views::detail::algorithm_impl</compoundname>
+    <basecompoundref refid="structboost_1_1static__views_1_1algorithm__base" prot="public" virt="non-virtual">boost::static_views::algorithm_base</basecompoundref>
+    <includes refid="algorithm__base_8hpp" local="no">algorithm_base.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class Function</type>
+      </param>
+      <param>
+        <type>class...</type>
+        <declname>Args</declname>
+        <defname>Args</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a173d9d99380081ce71450bffb9a33592" prot="private" static="no" mutable="no">
+        <type>Function</type>
+        <definition>Function boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::_func</definition>
+        <argsstring></argsstring>
+        <name>_func</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="71" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a539b56f8092f9a11b795e1161679aa32" prot="private" static="no" mutable="no">
+        <type>std::tuple&lt; <ref refid="structboost_1_1static__views_1_1detail_1_1wrapper" kindref="compound">wrapper</ref>&lt; Args &gt;...&gt;</type>
+        <definition>std::tuple&lt;wrapper&lt;Args&gt;...&gt; boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::_args</definition>
+        <argsstring></argsstring>
+        <name>_args</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="72" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a20baafd345cd14ecefbd2611dc447754" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::algorithm_impl</definition>
+        <argsstring>(Function &amp;&amp;f, std::tuple&lt; wrapper&lt; Args &gt;...&gt; &amp;&amp;args) noexcept(std::is_nothrow_move_constructible&lt; std::tuple&lt; wrapper&lt; Args &gt;...&gt;&gt;::value &amp;&amp;std::is_nothrow_move_constructible&lt; Function &gt;::value)</argsstring>
+        <name>algorithm_impl</name>
+        <param>
+          <type>Function &amp;&amp;</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>std::tuple&lt; <ref refid="structboost_1_1static__views_1_1detail_1_1wrapper" kindref="compound">wrapper</ref>&lt; Args &gt;...&gt; &amp;&amp;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="35" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="35" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1ada1a92525eff125c04e6d3205d1fc9ef" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>decltype(auto) constexpr boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::operator()</definition>
+        <argsstring>(View &amp;&amp;xs) const noexcept</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="50" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="50" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1acbfbca4e7eb3efc7dd1b149d8efc1555" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>decltype(auto) constexpr boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::operator()</definition>
+        <argsstring>(View &amp;&amp;xs) noexcept</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="61" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="61" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1ab00ac2b6945ad94db1f8e0ace43b2c2c" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>decltype(auto) constexpr boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::call_impl</definition>
+        <argsstring>(View &amp;&amp;xs, std::index_sequence&lt; Is...&gt;) const &amp;noexcept</argsstring>
+        <name>call_impl</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::index_sequence&lt; Is...&gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="76" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="76" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a1b6f5c849a6dcebfe27906e1932db1d2" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>decltype(auto) constexpr boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::call_impl</definition>
+        <argsstring>(View &amp;&amp;xs, std::index_sequence&lt; Is...&gt;)&amp;noexcept</argsstring>
+        <name>call_impl</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::index_sequence&lt; Is...&gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="86" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="86" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a88a0ebdcd8874df3d0eb789428153282" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>decltype(auto) constexpr boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;::call_impl</definition>
+        <argsstring>(View &amp;&amp;xs, std::index_sequence&lt; Is...&gt;)&amp;&amp;noexcept</argsstring>
+        <name>call_impl</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::index_sequence&lt; Is...&gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="96" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="96" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="163">
+        <label>boost::static_views::algorithm_base</label>
+        <link refid="structboost_1_1static__views_1_1algorithm__base"/>
+      </node>
+      <node id="162">
+        <label>boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl"/>
+        <childnode refid="163" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="165">
+        <label>boost::static_views::algorithm_base</label>
+        <link refid="structboost_1_1static__views_1_1algorithm__base"/>
+      </node>
+      <node id="164">
+        <label>boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl"/>
+        <childnode refid="165" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="33" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="33" bodyend="105"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a539b56f8092f9a11b795e1161679aa32" prot="private" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>_args</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a173d9d99380081ce71450bffb9a33592" prot="private" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>_func</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a20baafd345cd14ecefbd2611dc447754" prot="public" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>algorithm_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1ab00ac2b6945ad94db1f8e0ace43b2c2c" prot="private" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>call_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a1b6f5c849a6dcebfe27906e1932db1d2" prot="private" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>call_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1a88a0ebdcd8874df3d0eb789428153282" prot="private" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>call_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1ada1a92525eff125c04e6d3205d1fc9ef" prot="public" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>operator()</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl_1acbfbca4e7eb3efc7dd1b149d8efc1555" prot="public" virt="non-virtual"><scope>boost::static_views::detail::algorithm_impl</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

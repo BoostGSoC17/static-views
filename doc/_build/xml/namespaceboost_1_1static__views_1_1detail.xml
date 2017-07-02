@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="namespaceboost_1_1static__views_1_1detail" kind="namespace">
+    <compoundname>boost::static_views::detail</compoundname>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl" prot="public">boost::static_views::detail::algorithm_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1drop__impl" prot="public">boost::static_views::detail::drop_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1is__reference__wrapper" prot="public">boost::static_views::detail::is_reference_wrapper</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__algorithm__impl" prot="public">boost::static_views::detail::make_algorithm_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__drop__impl" prot="public">boost::static_views::detail::make_drop_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__raw__view" prot="public">boost::static_views::detail::make_raw_view</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" prot="public">boost::static_views::detail::raw_view_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1wrapper" prot="public">boost::static_views::detail::wrapper</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="31" column="1"/>
+  </compounddef>
+</doxygen>

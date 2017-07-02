@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structdetail_1_1sort__init__impl_1_1view__at" kind="struct" prot="private">
+    <compoundname>detail::sort_init_impl::view_at</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class View</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdetail_1_1sort__init__impl_1_1view__at_1aca8dfa85e9e3a763c94f1dadbde217fa" prot="public" static="no" mutable="no">
+        <type>View const &amp;</type>
+        <definition>View const&amp; detail::sort_init_impl&lt; Is &gt;::view_at&lt; View &gt;::_xs</definition>
+        <argsstring></argsstring>
+        <name>_xs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="1125" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="1125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1sort__init__impl_1_1view__at_1a3e3e4ea433dfecdf898065b656f0781f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::sort_init_impl&lt; Is &gt;::view_at&lt; View &gt;::operator()</definition>
+        <argsstring>(std::size_t const i) const noexcept</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="1127" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="1127" bodyend="1130"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="1124" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="1124" bodyend="1131"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1sort__init__impl_1_1view__at_1aca8dfa85e9e3a763c94f1dadbde217fa" prot="public" virt="non-virtual"><scope>detail::sort_init_impl::view_at</scope><name>_xs</name></member>
+      <member refid="structdetail_1_1sort__init__impl_1_1view__at_1a3e3e4ea433dfecdf898065b656f0781f" prot="public" virt="non-virtual"><scope>detail::sort_init_impl::view_at</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

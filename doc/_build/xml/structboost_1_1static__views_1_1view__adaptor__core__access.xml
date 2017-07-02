@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structboost_1_1static__views_1_1view__adaptor__core__access" kind="struct" prot="public">
+    <compoundname>boost::static_views::view_adaptor_core_access</compoundname>
+    <includes refid="view__base_8hpp" local="no">view_base.hpp</includes>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structboost_1_1static__views_1_1view__adaptor__core__access_1aa9a23e5ee27b4f7d859fc7b650783d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class V</type>
+          </param>
+        </templateparamlist>
+        <type>friend struct</type>
+        <definition>friend struct view_adaptor_base</definition>
+        <argsstring></argsstring>
+        <name>view_adaptor_base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="32" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="31" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="31" bodyend="42"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aa9a23e5ee27b4f7d859fc7b650783d60" prot="public" virt="non-virtual"><scope>boost::static_views::view_adaptor_core_access</scope><name>view_adaptor_base</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structdetail_1_1min__algo__impl" kind="struct" prot="public">
+    <compoundname>detail::min_algo_impl</compoundname>
+    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1min__algo__impl_1abb899d90d8b6cb641a2da7a32af43f4d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Wrapper</type>
+          </param>
+          <param>
+            <type>class Less</type>
+            <defval>std::less&lt;void&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>decltype(auto) constexpr detail::min_algo_impl::operator()</definition>
+        <argsstring>(Wrapper wrapper, Less &amp;&amp;less=Less{}) const noexcept</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>Wrapper</type>
+          <declname>wrapper</declname>
+        </param>
+        <param>
+          <type>Less &amp;&amp;</type>
+          <declname>less</declname>
+          <defval>Less{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="918" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="918" bodyend="925"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="916" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="916" bodyend="926"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1min__algo__impl_1abb899d90d8b6cb641a2da7a32af43f4d" prot="public" virt="non-virtual"><scope>detail::min_algo_impl</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

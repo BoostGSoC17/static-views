@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structis__view" kind="struct" prot="public">
+    <compoundname>is_view</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::is_base_of&lt; view_base, V &gt;</basecompoundref>
+    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class V</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>Check whether <computeroutput>V</computeroutput> models the View concept. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="202">
+        <label>is_view&lt; V &gt;</label>
+        <link refid="structis__view"/>
+        <childnode refid="203" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="203">
+        <label>std::is_base_of&lt; view_base, V &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="204">
+        <label>is_view&lt; V &gt;</label>
+        <link refid="structis__view"/>
+        <childnode refid="205" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="205">
+        <label>std::is_base_of&lt; view_base, V &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="46" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="46" bodyend="46"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

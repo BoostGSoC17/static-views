@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="raw__view_8hpp" kind="file">
+    <compoundname>raw_view.hpp</compoundname>
+    <includes local="no">type_traits</includes>
+    <includes refid="config_8hpp" local="no">boost/static_views/detail/config.hpp</includes>
+    <includes refid="view__base_8hpp" local="no">boost/static_views/view_base.hpp</includes>
+    <includes refid="sequence__traits_8hpp" local="no">boost/static_views/sequence_traits.hpp</includes>
+    <incdepgraph>
+      <node id="148">
+        <label>boost/static_views/sequence_traits.hpp</label>
+        <link refid="sequence__traits_8hpp"/>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>exception</label>
+      </node>
+      <node id="144">
+        <label>boost/static_views/detail/config.hpp</label>
+        <link refid="config_8hpp"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="146">
+        <label>boost/static_views/view_base.hpp</label>
+        <link refid="view__base_8hpp"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="149">
+        <label>array</label>
+      </node>
+      <node id="147">
+        <label>boost/config.hpp</label>
+      </node>
+      <node id="143">
+        <label>type_traits</label>
+      </node>
+      <node id="142">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</label>
+        <link refid="raw_view.hpp"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" prot="public">boost::static_views::detail::raw_view_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__raw__view" prot="public">boost::static_views::detail::make_raw_view</innerclass>
+    <innernamespace refid="namespaceboost">boost</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views">boost::static_views</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1detail">boost::static_views::detail</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>Tom<sp/>Westerhout<sp/>2017.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Distributed<sp/>under<sp/>the<sp/>Boost<sp/>Software<sp/>License,<sp/>Version<sp/>1.0.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>(See<sp/>accompanying<sp/>file<sp/>LICENSE_1_0.txt<sp/>or<sp/>copy<sp/>at</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http://www.boost.org/LICENSE_1_0.txt)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Implementation<sp/>of<sp/>boost::static_views::raw_view.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BOOST_STATIC_VIEWS_RAW_VIEW_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_RAW_VIEW_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;type_traits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="config_8hpp" kindref="compound">boost/static_views/detail/config.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="view__base_8hpp" kindref="compound">boost/static_views/view_base.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="sequence__traits_8hpp" kindref="compound">boost/static_views/sequence_traits.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacedetail" kindref="compound">detail</ref><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Sequence&gt;</highlight></codeline>
+<codeline lineno="22" refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref><sp/>:<sp/><ref refid="structboost_1_1static__views_1_1view__base" kindref="compound">view_base</ref><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1aa4368e2f9d4b1f8928fab1a7999d9708" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>constexpr<sp/><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1aa4368e2f9d4b1f8928fab1a7999d9708" kindref="member">raw_view_impl</ref>(Sequence&amp;<sp/>xs)<sp/>noexcept</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_xs{<sp/>xs<sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/>&amp;&amp;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>&amp;<sp/><ref refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" kindref="member">operator=</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>&amp;<sp/><ref refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" kindref="member">operator=</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/>&amp;&amp;)<sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1addd800c4a31cbcee2a59369e7d2e5a82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1addd800c4a31cbcee2a59369e7d2e5a82" kindref="member">capacity</ref>()<sp/>noexcept</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1sequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::size</ref>();<sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a38000395e389c1d7245b4ee96574d776" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a38000395e389c1d7245b4ee96574d776" kindref="member">size</ref>()<sp/>const<sp/>noexcept</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1sequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::size</ref>();<sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="48" refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a00affc4c9a915c0ca9521d9e1f89681a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>operator[](std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>const<sp/>i)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="49"><highlight class="keyword"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BOOST_UNLIKELY(i<sp/>&gt;=<sp/><ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">size</ref>())</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>(<sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1out__of__bound" kindref="compound">out_of_bound</ref>{},</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>throw<sp/>std::out_of_range{&quot;detail::raw_view_impl::operator[]:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;index<sp/>`i`<sp/>out<sp/>of<sp/>bounds.&quot;},</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1sequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i))</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structboost_1_1static__views_1_1sequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="59" refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a16c3deb63fd219ac41a77a0e30339e76" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>operator[](std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>const<sp/>i)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BOOST_UNLIKELY(i<sp/>&gt;=<sp/><ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">size</ref>())</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>(<sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1out__of__bound" kindref="compound">out_of_bound</ref>{},</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>throw<sp/>std::out_of_range{&quot;detail::raw_view_impl::operator[]:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;index<sp/>`i`<sp/>out<sp/>of<sp/>bounds.&quot;},</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1sequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i))</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structboost_1_1static__views_1_1sequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>sequence_type<sp/>=<sp/>std::remove_const_t&lt;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::remove_reference_t&lt;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sequence<sp/>&gt;&gt;;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sequence&amp;<sp/>_xs;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="structboost_1_1static__views_1_1detail_1_1make__raw__view" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1detail_1_1make__raw__view" kindref="compound">make_raw_view</ref><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Sequence&gt;</highlight></codeline>
+<codeline lineno="78" refid="structboost_1_1static__views_1_1detail_1_1make__raw__view_1ae1ee856f9372deb4d52b4cbdd623f542" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1make__raw__view_1ae1ee856f9372deb4d52b4cbdd623f542" kindref="member">operator()</ref>(Sequence&amp;<sp/>sequence)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>noexcept</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl&lt;Sequence&gt;</ref>(sequence);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><ref refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(<ref refid="structdetail_1_1make__raw__view" kindref="compound">detail::make_raw_view</ref>,<sp/>raw_view)<sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_RAW_VIEW_HPP</highlight></codeline>
+    </programlisting>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1drop__impl" kind="struct" prot="public">
+    <compoundname>boost::static_views::detail::drop_impl</compoundname>
+    <basecompoundref refid="structboost_1_1static__views_1_1view__adaptor__base" prot="public" virt="non-virtual">boost::static_views::view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</basecompoundref>
+    <includes refid="drop_8hpp" local="no">drop.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class View</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structboost_1_1static__views_1_1detail_1_1drop__impl_1a15e6389c0e5f7593c838dee2a02e25b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend struct</type>
+        <definition>friend struct BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</definition>
+        <argsstring></argsstring>
+        <name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="39" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structboost_1_1static__views_1_1detail_1_1drop__impl_1af24222719619f4c5099266ebdff3a116" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t boost::static_views::detail::drop_impl&lt; View &gt;::_b</definition>
+        <argsstring></argsstring>
+        <name>_b</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="40" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1drop__impl_1a4861998fdb7867b8b6b7b64a5296af72" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr boost::static_views::detail::drop_impl&lt; View &gt;::drop_impl</definition>
+        <argsstring>(View &amp;&amp;xs, std::size_t const b) noexcept</argsstring>
+        <name>drop_impl</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1drop__impl_1ab33d8aa678f54cafc3567f23a80cf21b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::drop_impl&lt; View &gt;::size</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="32" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="32" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1drop__impl_1a4ce9fd0c0a2223932d886e9fadfcab1d" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::drop_impl&lt; View &gt;::map</definition>
+        <argsstring>(std::size_t const i) const </argsstring>
+        <name>map</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="43" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="43" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="181">
+        <label>boost::static_views::view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
+        <link refid="structboost_1_1static__views_1_1view__adaptor__base"/>
+        <childnode refid="182" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="180">
+        <label>boost::static_views::detail::drop_impl&lt; View &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1drop__impl"/>
+        <childnode refid="181" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="182">
+        <label>boost::static_views::view_base</label>
+        <link refid="structboost_1_1static__views_1_1view__base"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="184">
+        <label>boost::static_views::view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
+        <link refid="structboost_1_1static__views_1_1view__adaptor__base"/>
+        <childnode refid="185" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="183">
+        <label>boost::static_views::detail::drop_impl&lt; View &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1drop__impl"/>
+        <childnode refid="184" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="185">
+        <label>boost::static_views::view_base</label>
+        <link refid="structboost_1_1static__views_1_1view__base"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="23" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="23" bodyend="59"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1af24222719619f4c5099266ebdff3a116" prot="private" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>_b</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a15e6389c0e5f7593c838dee2a02e25b9" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1aed4d97876c499c9e5aa439d03c0d4936" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>capacity</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a4861998fdb7867b8b6b7b64a5296af72" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>drop_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a4ce9fd0c0a2223932d886e9fadfcab1d" prot="private" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>map</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a467a809435d78a34ad493aa05e3d7fa4" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>operator=</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a4898f5ad110346691dc19d70f079af5c" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>operator=</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a5f60045a29685d6c11b30e6361a38e91" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>operator[]</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a022954a4d764f482c1dca29310a98945" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>operator[]</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a8ce30e81a4e08bce3ac923553630406f" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>operator[]</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a6a8f0dbcf2bd1a992ed6ba05970a083f" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>parent</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a35deefddf0aff9dc7a5f67a3c34a763c" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>parent</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a1fae75651aa4335b2de3dc0da1a8dd02" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>parent</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1ab33d8aa678f54cafc3567f23a80cf21b" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>size</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a4bcfd7a3f4871681383afe521385e0a1" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>view_adaptor_base</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1af5824e3c1efc05f21ee3d5e3e5bb94f0" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>view_adaptor_base</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a1f2356d1b70e8f50a3e0ae335556c629" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>view_adaptor_base</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a9da73c6dd7e31a9f707006057d92098e" prot="protected" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>view_adaptor_base_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

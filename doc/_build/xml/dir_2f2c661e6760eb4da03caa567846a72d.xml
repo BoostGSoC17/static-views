@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="dir_2f2c661e6760eb4da03caa567846a72d" kind="dir">
+    <compoundname>/home/tom/GSoC2017/static-views/include/boost/static_views/detail</compoundname>
+    <innerfile refid="config_8hpp">config.hpp</innerfile>
+    <innerfile refid="invoke_8hpp">invoke.hpp</innerfile>
+    <innerfile refid="wrapper_8hpp">wrapper.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/"/>
+  </compounddef>
+</doxygen>

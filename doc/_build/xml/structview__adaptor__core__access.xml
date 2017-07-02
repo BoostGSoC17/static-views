@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structview__adaptor__core__access" kind="struct" prot="public">
+    <compoundname>view_adaptor_core_access</compoundname>
+    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structview__adaptor__core__access_1aa9a23e5ee27b4f7d859fc7b650783d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class W</type>
+          </param>
+        </templateparamlist>
+        <type>friend struct</type>
+        <definition>friend struct view_adaptor_base</definition>
+        <argsstring></argsstring>
+        <name>view_adaptor_base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="573" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structview__adaptor__core__access_1af5074730952c34acf8511aebf2cc72d1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>static decltype(auto) constexpr view_adaptor_core_access::map</definition>
+        <argsstring>(View const &amp;xs, std::size_t const i) noexcept</argsstring>
+        <name>map</name>
+        <param>
+          <type>View const &amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="576" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="576" bodyend="580"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="572" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="572" bodyend="581"/>
+    <listofallmembers>
+      <member refid="structview__adaptor__core__access_1af5074730952c34acf8511aebf2cc72d1" prot="public" virt="non-virtual"><scope>view_adaptor_core_access</scope><name>map</name></member>
+      <member refid="structview__adaptor__core__access_1aa9a23e5ee27b4f7d859fc7b650783d60" prot="public" virt="non-virtual"><scope>view_adaptor_core_access</scope><name>view_adaptor_base</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

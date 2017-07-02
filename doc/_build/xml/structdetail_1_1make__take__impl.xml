@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structdetail_1_1make__take__impl" kind="struct" prot="public">
+    <compoundname>detail::make_take_impl</compoundname>
+    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1make__take__impl_1ac1fbea5a828a1e5185b40ef906a80157" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::make_take_impl::operator()</definition>
+        <argsstring>(View &amp;&amp;xs, std::size_t const n) const noexcept</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="841" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="841" bodyend="848"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="839" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="839" bodyend="849"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1make__take__impl_1ac1fbea5a828a1e5185b40ef906a80157" prot="public" virt="non-virtual"><scope>detail::make_take_impl</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

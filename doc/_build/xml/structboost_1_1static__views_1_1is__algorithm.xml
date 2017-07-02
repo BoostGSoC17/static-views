@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structboost_1_1static__views_1_1is__algorithm" kind="struct" prot="public">
+    <compoundname>boost::static_views::is_algorithm</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::is_base_of&lt; algorithm_base, V &gt;</basecompoundref>
+    <includes refid="algorithm__base_8hpp" local="no">algorithm_base.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class V</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="187">
+        <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
+      </node>
+      <node id="186">
+        <label>boost::static_views::is_algorithm&lt; V &gt;</label>
+        <link refid="structboost_1_1static__views_1_1is__algorithm"/>
+        <childnode refid="187" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="189">
+        <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
+      </node>
+      <node id="188">
+        <label>boost::static_views::is_algorithm&lt; V &gt;</label>
+        <link refid="structboost_1_1static__views_1_1is__algorithm"/>
+        <childnode refid="189" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="28" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="28" bodyend="28"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

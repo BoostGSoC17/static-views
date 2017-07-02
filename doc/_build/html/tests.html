@@ -1,0 +1,250 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing &#8212; Boost.StaticViews  documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Reference" href="reference.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="testing">
+<span id="id1"></span><h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p><strong>TODO</strong> add some introductionary remarks.</p>
+<div class="section" id="correctness">
+<span id="id2"></span><h2>Correctness<a class="headerlink" href="#correctness" title="Permalink to this headline">¶</a></h2>
+<p><strong>TODO</strong> explain current state of affair, which compilers can compile what
+which tests etc.</p>
+</div>
+<div class="section" id="benchmarks">
+<span id="id3"></span><h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h2>
+<p><strong>TODO</strong> explain briefly how all the tools and scripts work.</p>
+<div class="section" id="sort">
+<span id="test-sort"></span><h3>Sort<a class="headerlink" href="#sort" title="Permalink to this headline">¶</a></h3>
+<p><strong>TODO</strong> add a short explanation of the test.</p>
+<p>GCC-6.3.0:</p>
+<img alt="_images/sort.gcc-6.3.0.png" src="_images/sort.gcc-6.3.0.png" />
+<p>Clang-4.0.0:</p>
+<img alt="_images/sort.clang-4.0.0.png" src="_images/sort.clang-4.0.0.png" />
+<p>Clang/C2:</p>
+<img alt="_images/sort.clang-14.1.png" src="_images/sort.clang-14.1.png" />
+</div>
+</div>
+<div class="section" id="optimisation">
+<span id="id4"></span><h2>Optimisation<a class="headerlink" href="#optimisation" title="Permalink to this headline">¶</a></h2>
+<p><strong>TODO</strong> explain briefly how all the tools and scripts work.</p>
+<div class="section" id="nested-drop">
+<h3>Nested drop<a class="headerlink" href="#nested-drop" title="Permalink to this headline">¶</a></h3>
+<p><strong>TODO</strong> add a short explanation of the test.</p>
+<p>GCC-6.3.0:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;testcase</span> <span class="na">name=</span><span class="s">nested</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;os&gt;</span>posix<span class="nt">&lt;/os&gt;</span>
+  <span class="nt">&lt;toolset&gt;</span>gcc-6.3.0<span class="nt">&lt;/toolset&gt;</span>
+  <span class="nt">&lt;status&gt;</span>
+    <span class="nt">&lt;passed&gt;</span>True<span class="nt">&lt;/passed&gt;</span>
+    <span class="nt">&lt;message&gt;</span>Success<span class="nt">&lt;/message&gt;</span>
+  <span class="nt">&lt;/status&gt;</span>
+  <span class="nt">&lt;opcodes</span> <span class="na">count=</span><span class="s">0</span><span class="nt">&gt;</span>
+<span class="cp">&lt;![CDATA[</span>
+<span class="cp">  400580:	f3 c3                	repz retq</span>
+<span class="cp">  400582:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)</span>
+<span class="cp">  40058c:	0f 1f 40 00          	nopl   0x0(%rax)</span>
+<span class="cp">]]&gt;</span>
+  <span class="nt">&lt;/opcodes&gt;</span>
+<span class="nt">&lt;/testcase&gt;</span>
+</pre></div>
+</div>
+<p>Clang-4.0.0:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;testcase</span> <span class="na">name=</span><span class="s">nested</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;os&gt;</span>posix<span class="nt">&lt;/os&gt;</span>
+  <span class="nt">&lt;toolset&gt;</span>clang-4.0.0<span class="nt">&lt;/toolset&gt;</span>
+  <span class="nt">&lt;status&gt;</span>
+    <span class="nt">&lt;passed&gt;</span>True<span class="nt">&lt;/passed&gt;</span>
+    <span class="nt">&lt;message&gt;</span>Success<span class="nt">&lt;/message&gt;</span>
+  <span class="nt">&lt;/status&gt;</span>
+  <span class="nt">&lt;opcodes</span> <span class="na">count=</span><span class="s">0</span><span class="nt">&gt;</span>
+<span class="cp">&lt;![CDATA[</span>
+<span class="cp">  400680:	c3                   	retq</span>
+<span class="cp">  400681:	66 66 66 66 66 66 2e 	data16 data16 data16 data16 data16 nopw %cs:0x0(%rax,%rax,1)</span>
+<span class="cp">]]&gt;</span>
+  <span class="nt">&lt;/opcodes&gt;</span>
+<span class="nt">&lt;/testcase&gt;</span>
+</pre></div>
+</div>
+<p>MSVC-14.1:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;testcase</span> <span class="na">name=</span><span class="s">nested</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;os&gt;</span>nt<span class="nt">&lt;/os&gt;</span>
+  <span class="nt">&lt;toolset&gt;</span>msvc-14.1<span class="nt">&lt;/toolset&gt;</span>
+  <span class="nt">&lt;status&gt;</span>
+    <span class="nt">&lt;passed&gt;</span>False<span class="nt">&lt;/passed&gt;</span>
+    <span class="nt">&lt;message&gt;</span>Opcodes generated 55 exceeds limit<span class="nt">&lt;/message&gt;</span>
+  <span class="nt">&lt;/status&gt;</span>
+  <span class="nt">&lt;opcodes</span> <span class="na">count=</span><span class="s">55</span><span class="nt">&gt;</span>
+<span class="cp">&lt;![CDATA[</span>
+<span class="cp">  00000000: 83 EC 44           sub         esp,44h</span>
+<span class="cp">  00000003: A1 00 00 00 00     mov         eax,dword ptr [___security_cookie]</span>
+<span class="cp">  00000008: 33 C4              xor         eax,esp</span>
+<span class="cp">  0000000A: 89 44 24 40        mov         dword ptr [esp+40h],eax</span>
+<span class="cp">  0000000E: 8D 44 24 2C        lea         eax,[esp+2Ch]</span>
+<span class="cp">  00000012: C7 44 24 2C 00 00  mov         dword ptr [esp+2Ch],0</span>
+<span class="cp">  0000001A: 89 44 24 28        mov         dword ptr [esp+28h],eax</span>
+<span class="cp">  0000001E: 33 C9              xor         ecx,ecx</span>
+<span class="cp">  00000020: B8 05 00 00 00     mov         eax,5</span>
+<span class="cp">  00000025: C7 44 24 30 01 00  mov         dword ptr [esp+30h],1</span>
+<span class="cp">  0000002D: C7 44 24 34 02 00  mov         dword ptr [esp+34h],2</span>
+<span class="cp">  00000035: C7 44 24 38 03 00  mov         dword ptr [esp+38h],3</span>
+<span class="cp">  0000003D: C7 44 24 3C 04 00  mov         dword ptr [esp+3Ch],4</span>
+<span class="cp">  00000045: 2B C1              sub         eax,ecx</span>
+<span class="cp">  00000047: 74 79              je          000000C2</span>
+<span class="cp">  00000049: 83 F9 05           cmp         ecx,5</span>
+<span class="cp">  0000004C: 0F 83 93 00 00 00  jae         $LN1497</span>
+<span class="cp">  00000052: 39 4C 8C 2C        cmp         dword ptr [esp+ecx*4+2Ch],ecx</span>
+<span class="cp">  00000056: B8 04 00 00 00     mov         eax,4</span>
+<span class="cp">  0000005B: B9 01 00 00 00     mov         ecx,1</span>
+<span class="cp">  00000060: 0F 94 44 24 18     sete        byte ptr [esp+18h]</span>
+<span class="cp">  00000065: 2B C1              sub         eax,ecx</span>
+<span class="cp">  00000067: 0F 84 9D 00 00 00  je          $LN1498</span>
+<span class="cp">  0000006D: 83 F9 04           cmp         ecx,4</span>
+<span class="cp">  00000070: 0F 83 BD 00 00 00  jae         $LN1499</span>
+<span class="cp">  00000076: 8D 41 01           lea         eax,[ecx+1]</span>
+<span class="cp">  00000079: 83 F8 05           cmp         eax,5</span>
+<span class="cp">  0000007C: 0F 83 D8 00 00 00  jae         $LN1500</span>
+<span class="cp">  00000082: 83 7C 84 2C 02     cmp         dword ptr [esp+eax*4+2Ch],2</span>
+<span class="cp">  00000087: B9 02 00 00 00     mov         ecx,2</span>
+<span class="cp">  0000008C: B8 03 00 00 00     mov         eax,3</span>
+<span class="cp">  00000091: 0F 94 44 24 19     sete        byte ptr [esp+19h]</span>
+<span class="cp">  00000096: 2B C1              sub         eax,ecx</span>
+<span class="cp">  00000098: 0F 84 E5 00 00 00  je          $LN1501</span>
+<span class="cp">  0000009E: 83 F9 03           cmp         ecx,3</span>
+<span class="cp">  000000A1: 0F 83 05 01 00 00  jae         $LN1502</span>
+<span class="cp">  000000A7: 8D 41 02           lea         eax,[ecx+2]</span>
+<span class="cp">  000000AA: 83 F8 05           cmp         eax,5</span>
+<span class="cp">  000000AD: 0F 83 22 01 00 00  jae         $LN1503</span>
+<span class="cp">  000000B3: 8B 4C 24 40        mov         ecx,dword ptr [esp+40h]</span>
+<span class="cp">  000000B7: 33 CC              xor         ecx,esp</span>
+<span class="cp">  000000B9: E8 00 00 00 00     call        @__security_check_cookie@4</span>
+<span class="cp">  000000BE: 83 C4 44           add         esp,44h</span>
+<span class="cp">  000000C1: C3                 ret</span>
+<span class="cp">  000000C2: 0F 57 C0           xorps       xmm0,xmm0</span>
+<span class="cp">  000000C5: 89 4C 24 08        mov         dword ptr [esp+8],ecx</span>
+<span class="cp">  000000C9: 8D 0C 24           lea         ecx,[esp]</span>
+<span class="cp">  000000CC: 66 0F D6 04 24     movq        mmword ptr [esp],xmm0</span>
+<span class="cp">  00000000: 0F 57 C0           xorps       xmm0,xmm0</span>
+<span class="cp">  00000003: 8B C1              mov         eax,ecx</span>
+<span class="cp">  00000005: 66 0F D6 41 04     movq        mmword ptr [ecx+4],xmm0</span>
+<span class="cp">  0000000A: C7 01 00 00 00 00  mov         dword ptr [ecx],offset ??_7out_of_bound@static_views@boost@@6B@</span>
+<span class="cp">  00000010: C3                 ret</span>
+<span class="cp">  000000D6: 68 00 00 00 00     push        offset __TI2?AUout_of_bound@static_views@boost@@</span>
+<span class="cp">  000000DB: 8D 44 24 04        lea         eax,[esp+4]</span>
+<span class="cp">  000000DF: 50                 push        eax</span>
+<span class="cp">  000000E0: E8 00 00 00 00     call        __CxxThrowException@8</span>
+<span class="cp">]]&gt;</span>
+  <span class="nt">&lt;/opcodes&gt;</span>
+<span class="nt">&lt;/testcase&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Boost.StaticViews</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#correctness">Correctness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmarks">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimisation">Optimisation</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="reference.html" title="previous chapter">Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Tom Westerhout.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/tests.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
