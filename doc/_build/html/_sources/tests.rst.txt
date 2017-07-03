@@ -120,9 +120,17 @@ Sorts an array of integers at compile-time.
 
 .. image:: ../test/benchmarks/results/sort.gcc-6.3.0.png
 
+* ``GCC-7``:
+
+.. image:: ../test/benchmarks/results/sort.gcc-7.png
+
 * ``Clang-4.0.0``:
 
 .. image:: ../test/benchmarks/results/sort.clang-4.0.0.png
+
+* ``Clang-5.0.0``:
+
+.. image:: ../test/benchmarks/results/sort.clang-5.0.0.png
 
 * ``Clang/C2``:
 

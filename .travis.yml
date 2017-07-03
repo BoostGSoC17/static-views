@@ -148,11 +148,11 @@ matrix:
     ############################################################################
     # Builds with XCode
     ############################################################################
-    - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
+    # - os: osx
+    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
 
-    - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+    # - os: osx
+    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
 
 
 before_install:
@@ -206,18 +206,22 @@ after_success:
   - |
     if [[ "${BENCHMARK}" == "true" ]]; then
       cd ${BOOST_ROOT}/libs/static_views
-        # Suppress output to avoid leaking the token when the command fails
-        git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views --branch=gh-pages gh_pages_repo &>/dev/null
-        cp -v test/benchmarks/results/*.png gh_pages_repo/test/benchmarks/results/
-        cp -v test/optimisation/results/*.xml gh_pages_repo/test/benchmarks/results/
-        pushd gh_pages_repo/test
-        git add --all .
-        git commit --allow-empty -m "Update test results for ${COMPILER} to ${TRAVIS_COMMIT}"
-        git config --global user.name "Travis bot"
-        git config --global user.email "<>"
-        # Suppress output to avoid leaking the token
-        travis_retry git push origin gh-pages &>/dev/null
-        popd
+      git config --global user.name "Travis bot"
+      git config --global user.email "<>"
+      # Suppress output to avoid leaking the token when the command fails
+      git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views --branch=gh-pages gh_pages_repo &>/dev/null
+      cp -v test/benchmarks/results/*.png gh_pages_repo/test/benchmarks/results/
+      cp -v test/optimisation/results/*.xml gh_pages_repo/test/benchmarks/results/
+      pushd gh_pages_repo/doc
+      make html
+      git add --all _build
+      popd
+      pushd gh_pages_repo/test
+      git add --all .
+      git commit --allow-empty -m "Update test results for ${COMPILER} to ${TRAVIS_COMMIT}"
+      # Suppress output to avoid leaking the token
+      travis_retry git push origin gh-pages &>/dev/null
+      popd
     fi 
 
 
