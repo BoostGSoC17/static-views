@@ -45,23 +45,100 @@
             
   <div class="section" id="testing">
 <span id="id1"></span><h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
-<p><strong>TODO</strong> add some introductionary remarks.</p>
+<p>This page explains how Boost.StaticViews tests work and shows some up to
+date results. There are three kinds of tests.  First, there are
+<a class="reference internal" href="#correctness"><span class="std std-ref">Correctness</span></a> tests. These are just unit tests and are meant to
+verify the correct behavior at both compile- and run-time.  Then, there
+are <a class="reference internal" href="#optimisation"><span class="std std-ref">Optimisation</span></a> tests. They check how good modern compilers can
+optimise Boost.StativViews’ code. Finally, there are <a class="reference internal" href="#benchmarks"><span class="std std-ref">Benchmarks</span></a>.
+They check how long it takes to compile some tests, and how much memory
+compilers use doing that.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It’s questionable whether benchmarks are actually tests, but <a class="reference external" href="http://www.boost.org/development/requirements.html#Organization">Boost
+Library Requirements and Guidelines</a> don’t
+have a specific place to put benchmarking results. Thus for simplicity,
+consider benchmarks being tests.</p>
+</div>
 <div class="section" id="correctness">
 <span id="id2"></span><h2>Correctness<a class="headerlink" href="#correctness" title="Permalink to this headline">¶</a></h2>
-<p><strong>TODO</strong> explain current state of affair, which compilers can compile what
-which tests etc.</p>
+<p>Unit tests are simple: write a test and add a corresponding
+run/compile/link rule to the Jamfile. There’s not much to explain.</p>
+<p><strong>TODO</strong> A nice table presenting the results.</p>
 </div>
 <div class="section" id="benchmarks">
 <span id="id3"></span><h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h2>
-<p><strong>TODO</strong> explain briefly how all the tools and scripts work.</p>
+<p>Boost.StaticViews is meant to be used primary at compile-time. In this
+section, we’re
+not interested in runtime performance, <cite>optimisation</cite> tests cover that. We
+focus on compilation times and memory usage (during compilation).
+Measuring compilation time is simple: start the timer, compiler the
+program, stop the timer.</p>
+<p>Measuring memory usage is a bit more involved.
+There’s no platform independent way to check how much <em>physical</em> memory a
+process uses at a certain time point. It it, however, relatively simple to
+obtain the total physical memory used. On Linux, we can do the following:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">sysinfo</span> <span class="n">info</span><span class="p">;</span>
+<span class="n">sysinfo</span><span class="p">(</span><span class="o">&amp;</span><span class="n">info</span><span class="p">);</span>
+<span class="k">auto</span> <span class="k">const</span> <span class="n">mem_unit</span>   <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">mem_unit</span><span class="p">);</span>
+<span class="k">auto</span> <span class="k">const</span> <span class="n">total_ram</span>  <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">totalram</span>  <span class="o">*</span> <span class="n">mem_unit</span><span class="p">;</span>
+<span class="k">auto</span> <span class="k">const</span> <span class="n">total_swap</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">totalswap</span> <span class="o">*</span> <span class="n">mem_unit</span><span class="p">;</span>
+<span class="k">auto</span> <span class="k">const</span> <span class="n">avail_ram</span>  <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">freeram</span>  <span class="o">*</span> <span class="n">mem_unit</span><span class="p">;</span>
+<span class="k">auto</span> <span class="k">const</span> <span class="n">avail_swap</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">freeswap</span> <span class="o">*</span> <span class="n">mem_unit</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>to get the total and available memory in bytes. On Windows</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MEMORYSTATUS</span> <span class="n">ms</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ms</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ms</span><span class="p">));</span>
+<span class="n">ms</span><span class="p">.</span><span class="n">dwLength</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+<span class="n">GlobalMemoryStatus</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ms</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">total_ram</span>  <span class="o">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">dwTotalPhys</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">total_swap</span> <span class="o">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">dwTotalPageFile</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">avail_ram</span>  <span class="o">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">dwAvailPhys</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">avail_swap</span> <span class="o">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">dwAvailPageFile</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Both code snippets ignore the details like error handling, but should
+still illustrate the point. For a more complete implementation, see
+<a class="reference external" href="https://github.com/BoostGSoC17/static-views/blob/gh-pages/test/benchmarks/measure_memory.cpp">measure_memory.cpp</a>
+file.</p>
+<p>Now that we have the means to get memory usage at a certain time point, we
+can let one thread run the compilation command, while another one
+measures memory usage as a function of time. Although we can only get the
+<em>total</em> memory usage, on a relatively quiet machine one can usually see a
+measurable bump in memory usage. Here’s an example of compiling some code
+with GCC:</p>
+<img alt="_images/memory-time.png" src="_images/memory-time.png" />
+<p>It makes little sense to compile a single file. What we’re really
+interested in is how memory usage scales with input size. To accomplish
+this, we define the data in an external file. For example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">random_array</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="cp">#   include &quot;test_data.txt&quot;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal"><span class="pre">test_data.txt</span></code> file gets generated by a Python script. So the
+workflow is now: generate <code class="docutils literal"><span class="pre">test_data.txt</span></code>, call <code class="docutils literal"><span class="pre">b2</span></code> and measure
+memory usage, save results, repeat. The Jamfile determines the values
+like <code class="docutils literal"><span class="pre">&lt;toolset&gt;</span></code> and calls the Python script with these parameters. This
+allows the script to call back <code class="docutils literal"><span class="pre">b2</span></code> with correct configuration parameters and
+also create different files on different platforms/compilers.</p>
+<p>Next we present the results of some tests.</p>
 <div class="section" id="sort">
 <span id="test-sort"></span><h3>Sort<a class="headerlink" href="#sort" title="Permalink to this headline">¶</a></h3>
-<p><strong>TODO</strong> add a short explanation of the test.</p>
-<p>GCC-6.3.0:</p>
+<p>Sorts an array of integers at compile-time.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">GCC-6.3.0</span></code>:</li>
+</ul>
 <img alt="_images/sort.gcc-6.3.0.png" src="_images/sort.gcc-6.3.0.png" />
-<p>Clang-4.0.0:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Clang-4.0.0</span></code>:</li>
+</ul>
 <img alt="_images/sort.clang-4.0.0.png" src="_images/sort.clang-4.0.0.png" />
-<p>Clang/C2:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Clang/C2</span></code>:</li>
+</ul>
 <img alt="_images/sort.clang-14.1.png" src="_images/sort.clang-14.1.png" />
 </div>
 </div>
