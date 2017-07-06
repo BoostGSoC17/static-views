@@ -24,14 +24,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="78" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="78" bodyend="81"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="136" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="136" bodyend="139"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="76" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="76" bodyend="82"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="134" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="134" bodyend="140"/>
     <listofallmembers>
       <member refid="structboost_1_1static__views_1_1detail_1_1make__raw__view_1ae1ee856f9372deb4d52b4cbdd623f542" prot="public" virt="non-virtual"><scope>boost::static_views::detail::make_raw_view</scope><name>operator()</name></member>
     </listofallmembers>

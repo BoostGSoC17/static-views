@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
-  <compounddef id="structboost_1_1static__views_1_1out__of__bound" kind="struct" prot="public">
-    <compoundname>boost::static_views::out_of_bound</compoundname>
+  <compounddef id="structout__of__bound" kind="struct" prot="public">
+    <compoundname>out_of_bound</compoundname>
     <basecompoundref prot="public" virt="non-virtual">exception</basecompoundref>
     <includes refid="errors_8hpp" local="no">errors.hpp</includes>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="structboost_1_1static__views_1_1out__of__bound_1a61c0575d21857d1ea0b55c7e89a060d2" prot="private" static="no" mutable="no">
+      <memberdef kind="variable" id="structout__of__bound_1a520e5522c321da8b62016c8cbd4c3bfe" prot="private" static="no" mutable="no">
         <type>char const *</type>
-        <definition>char const* boost::static_views::out_of_bound::_msg</definition>
+        <definition>char const* out_of_bound::_msg</definition>
         <argsstring></argsstring>
         <name>_msg</name>
         <briefdescription>
@@ -20,9 +20,9 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structboost_1_1static__views_1_1out__of__bound_1ab71f0336374b61c22765c46245c86ba3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structout__of__bound_1a049b6a2418d7a4edc2b7c7d09209e2b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
-        <definition>boost::static_views::out_of_bound::out_of_bound</definition>
+        <definition>out_of_bound::out_of_bound</definition>
         <argsstring>() noexcept</argsstring>
         <name>out_of_bound</name>
         <briefdescription>
@@ -33,9 +33,9 @@
         </inbodydescription>
         <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="23" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="23" bodyend="26"/>
       </memberdef>
-      <memberdef kind="function" id="structboost_1_1static__views_1_1out__of__bound_1a42f74ab0026b568e5272a3e045f49755" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structout__of__bound_1acf332567773de6aef383d73bcf96fea8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
-        <definition>boost::static_views::out_of_bound::out_of_bound</definition>
+        <definition>out_of_bound::out_of_bound</definition>
         <argsstring>(char const *msg) noexcept</argsstring>
         <name>out_of_bound</name>
         <param>
@@ -50,9 +50,9 @@
         </inbodydescription>
         <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="28" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="28" bodyend="31"/>
       </memberdef>
-      <memberdef kind="function" id="structboost_1_1static__views_1_1out__of__bound_1ab7dea02cce30f3b18187c6ea915d497c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structout__of__bound_1a4ea147b1308d9060249d266420877c5d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>auto</type>
-        <definition>auto boost::static_views::out_of_bound::what</definition>
+        <definition>auto out_of_bound::what</definition>
         <argsstring>() const noexcept-&gt; char const *override</argsstring>
         <name>what</name>
         <briefdescription>
@@ -69,33 +69,33 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="83">
-        <label>std::exception</label>
-      </node>
       <node id="82">
-        <label>boost::static_views::out_of_bound</label>
-        <link refid="structboost_1_1static__views_1_1out__of__bound"/>
+        <label>out_of_bound</label>
+        <link refid="structout__of__bound"/>
         <childnode refid="83" relation="public-inheritance">
         </childnode>
       </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="85">
+      <node id="83">
         <label>std::exception</label>
       </node>
+    </inheritancegraph>
+    <collaborationgraph>
       <node id="84">
-        <label>boost::static_views::out_of_bound</label>
-        <link refid="structboost_1_1static__views_1_1out__of__bound"/>
+        <label>out_of_bound</label>
+        <link refid="structout__of__bound"/>
         <childnode refid="85" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="85">
+        <label>std::exception</label>
       </node>
     </collaborationgraph>
     <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="17" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="17" bodyend="35"/>
     <listofallmembers>
-      <member refid="structboost_1_1static__views_1_1out__of__bound_1a61c0575d21857d1ea0b55c7e89a060d2" prot="private" virt="non-virtual"><scope>boost::static_views::out_of_bound</scope><name>_msg</name></member>
-      <member refid="structboost_1_1static__views_1_1out__of__bound_1ab71f0336374b61c22765c46245c86ba3" prot="public" virt="non-virtual"><scope>boost::static_views::out_of_bound</scope><name>out_of_bound</name></member>
-      <member refid="structboost_1_1static__views_1_1out__of__bound_1a42f74ab0026b568e5272a3e045f49755" prot="public" virt="non-virtual"><scope>boost::static_views::out_of_bound</scope><name>out_of_bound</name></member>
-      <member refid="structboost_1_1static__views_1_1out__of__bound_1ab7dea02cce30f3b18187c6ea915d497c" prot="public" virt="non-virtual"><scope>boost::static_views::out_of_bound</scope><name>what</name></member>
+      <member refid="structout__of__bound_1a520e5522c321da8b62016c8cbd4c3bfe" prot="private" virt="non-virtual"><scope>out_of_bound</scope><name>_msg</name></member>
+      <member refid="structout__of__bound_1a049b6a2418d7a4edc2b7c7d09209e2b3" prot="public" virt="non-virtual"><scope>out_of_bound</scope><name>out_of_bound</name></member>
+      <member refid="structout__of__bound_1acf332567773de6aef383d73bcf96fea8" prot="public" virt="non-virtual"><scope>out_of_bound</scope><name>out_of_bound</name></member>
+      <member refid="structout__of__bound_1a4ea147b1308d9060249d266420877c5d" prot="public" virt="non-virtual"><scope>out_of_bound</scope><name>what</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

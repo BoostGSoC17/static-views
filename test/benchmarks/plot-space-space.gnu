@@ -27,30 +27,31 @@ set output output_file
 set title 'Peak memory usage for "' . testcase . '"' offset 0,-0.5
 set xlabel "Input size" offset 0,0.25
 set ylabel  "RAM usage, Mb" offset 0.75,0
-# set y2label "Swap usage, Mb"
+set y2label "Compilation time, s"
 set xtics nomirror out
 set ytics nomirror out
-# set y2tics nomirror out
+set y2tics nomirror out
 set key left top
 
-stats input_file u 2:3 name "S" nooutput
-stats input_file u 1 name "X" nooutput
+stats input_file u (column("ram")) name "M" nooutput
+stats input_file u (column("time")) name "T" nooutput
+stats input_file u (column("size")) name "X" nooutput
 
 set xrange  [X_min : X_max]
 set yrange  [0:]
+set y2range [0:]
 
 set tmargin 3
 set label 1 time("%A, %d %b %Y") \
 	at screen 1.0, screen 1.0 right offset -0.5,-0.5
-# set y2range [0:]
 plot \
-	input_file u 1:(($2 - S_min_x) / 1024.) w l \
+	input_file u (column("size")):((column("ram") - M_min) / 1024.) w l \
 		lt 1 lw 1 lc rgb "#777777" notitle, \
-	""         u 1:(($2 - S_min_x) / 1024.) w p \
-		pt 7 ps 0.5 lc rgb "#2E911A" notitle
-	# ""         u 1:(($3 - S_min_y) / 1024.) axes x1y2 w l \
-	# 	lt 1 lw 1 lc rgb "#777777" notitle, \
-	# ""         u 1:(($3 - S_min_y) / 1024.) axes x1y2 w p \
-	# 	pt 7 ps 0.5 lc rgb "#1A6A91" title "Swap"
+	""         u (column("size")):((column("ram") - M_min) / 1024.) w p \
+		pt 7 ps 0.5 lc rgb "#2E911A" title "Memory usage", \
+	""         u (column("size")):(column("time") / 1000.) axes x1y2 w l \
+		lt 1 lw 1 lc rgb "#777777" notitle, \
+	""         u (column("size")):(column("time") / 1000.) axes x1y2 w p \
+		pt 7 ps 0.5 lc rgb "#1A6A91" title "Compilation time"
 
 set output

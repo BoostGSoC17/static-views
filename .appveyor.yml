@@ -1,0 +1,78 @@
+#          Copyright Tom Westerhout 2017.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+
+
+shallow_clone: true
+
+branches:
+  only:
+    - development
+
+
+environment:
+  global:
+  BOOST_ROOT: C:\projects\boost-root
+
+  matrix:
+    - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
+      TOOLSET: msvc
+      VERSION: 14.1
+      CORRECTNESS: true
+      OPTIMISATION: true
+      BENCHMARKS: false
+      COMMAND:
+      OPTIONS: <cxxflags>/std:c++14
+    - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
+      TOOLSET: clang
+      VERSION: 14.1
+      COMMAND: ^"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\ClangC2\14.10.25903\bin\HostX86\clang.exe^"
+      OPTIONS: <cxxflags>-std=c++14 <linkflags>-v <linkflags>-use-ld="link.exe"
+      CORRECTNESS: true
+      OPTIMISATION: true
+      BENCHMARKS: true
+    - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
+      TOOLSET: clang
+      VERSION: 4.0.0
+      COMMAND: clang++.exe
+      OPTIONS: <cxxflags>-fmsc-version=1910 <cxxflags>-std=c++14 <linkflags>-v <linkflags>-fuse-ld=lld
+      CORRECTNESS: true
+      OPTIMISATION: true
+      BENCHMARKS: false
+
+install:
+  # Install Gnuplot
+  - cd C:\projects
+  - ps: wget ftp://ftp.dante.de/pub/tex/graphics/gnuplot/5.0.5/gp505-win64-mingw.zip -outfile gnuplot-5.0.5.zip
+  - 7z x gnuplot-5.0.5.zip
+  - del gnuplot-5.0.5.zip
+  - set PATH=C:\projects\gnuplot\bin;%PATH%
+  - gnuplot -V
+
+  # Download Boost
+  - git clone --depth 1 https://github.com/boostorg/boost.git %BOOST_ROOT%
+  - cd %BOOST_ROOT%
+  - git submodule update --init tools/build
+  - git submodule update --init libs/assert
+  - git submodule update --init libs/config
+  - git submodule update --init libs/core
+  - git submodule update --init libs/detail
+  - git submodule update --init libs/predef
+  - git submodule update --init libs/static_assert
+  - git submodule update --init libs/type_traits
+  - xcopy /E /H /Y C:\projects\static-views %BOOST_ROOT%\libs\
+  - .\bootstrap.bat
+  - .\b2 headers
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
+  - echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOME%\user-config.jam
+
+test:
+  - cd %BOOST_ROOT%
+  - if %CORRECTNESS%=="true" .\b2 libs\static-views\test\correctness
+  - if %OPTIMISATION%=="true" .\b2 libs\static-views\test\optimisation
+  - cmd: |
+      if %BENCHMARKS%=="true" (
+        .\b2 libs\static-views\test\benchmarks
+      )
+

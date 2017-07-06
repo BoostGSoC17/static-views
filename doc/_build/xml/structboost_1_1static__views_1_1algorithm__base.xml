@@ -9,14 +9,14 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="152">
+      <node id="53">
         <label>boost::static_views::algorithm_base</label>
         <link refid="structboost_1_1static__views_1_1algorithm__base"/>
       </node>
-      <node id="153">
+      <node id="54">
         <label>boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;</label>
         <link refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl"/>
-        <childnode refid="152" relation="public-inheritance">
+        <childnode refid="53" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>

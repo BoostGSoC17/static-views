@@ -3,7 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-// Implementation of boost::static_views::sequence_traits.
+// \file sequence_traits.hpp
+// \brief Implementats #boost::static_views::sequence_traits.
 
 #ifndef BOOST_STATIC_VIEWS_SEQUENCE_TRAITS_HPP
 #define BOOST_STATIC_VIEWS_SEQUENCE_TRAITS_HPP
@@ -14,9 +15,20 @@
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
+/// \brief Proxy through which StaticViews functions access sequences.
 
+/// \code{.cpp}
+/// template <class Sequence> 
+/// struct sequence_traits {
+///     using type = Sequence;
+/// 
+///     static constexpr std::size_t size() noexcept;
+/// 
+///     template <class S>
+///     static constexpr reference at(S&& xs, std::size_t i) noexcept;
+/// };
+/// \endcode
 template <class Sequence> struct sequence_traits;
-
 
 /// \cond
 template <class T, std::size_t N>

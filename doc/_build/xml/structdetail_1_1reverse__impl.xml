@@ -82,38 +82,38 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="250">
+      <node id="246">
         <label>detail::reverse_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1reverse__impl"/>
-        <childnode refid="251" relation="public-inheritance">
+        <childnode refid="247" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="252">
+      <node id="248">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="251">
+      <node id="247">
         <label>view_adaptor_base&lt; reverse_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="252" relation="public-inheritance">
+        <childnode refid="248" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="253">
+      <node id="249">
         <label>detail::reverse_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1reverse__impl"/>
-        <childnode refid="254" relation="public-inheritance">
+        <childnode refid="250" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="255">
+      <node id="251">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="254">
+      <node id="250">
         <label>view_adaptor_base&lt; reverse_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="255" relation="public-inheritance">
+        <childnode refid="251" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

@@ -3,39 +3,49 @@
   <compounddef id="structis__view" kind="struct" prot="public">
     <compoundname>is_view</compoundname>
     <basecompoundref prot="public" virt="non-virtual">std::is_base_of&lt; view_base, V &gt;</basecompoundref>
-    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+    <includes refid="view__base_8hpp" local="no">view_base.hpp</includes>
     <templateparamlist>
       <param>
         <type>class V</type>
       </param>
     </templateparamlist>
     <briefdescription>
-<para>Check whether <computeroutput>V</computeroutput> models the View concept. </para>    </briefdescription>
+<para>Checks whether <computeroutput>V</computeroutput> models the View concept. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// Metafunction that returns whether ``V`` models the :ref:`View
+/// &lt;view-concept&gt;` concept:
+/// 
+/// .. code-block:: cpp
+/// 
+///   template &lt;class View&gt; 
+///   struct is_view : std::is_base_of&lt;view_base, View&gt; 
+///   {};
+///
+/// </verbatim> </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="202">
+      <node id="74">
         <label>is_view&lt; V &gt;</label>
         <link refid="structis__view"/>
-        <childnode refid="203" relation="public-inheritance">
+        <childnode refid="75" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="203">
+      <node id="75">
         <label>std::is_base_of&lt; view_base, V &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="204">
+      <node id="76">
         <label>is_view&lt; V &gt;</label>
         <link refid="structis__view"/>
-        <childnode refid="205" relation="public-inheritance">
+        <childnode refid="77" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="205">
+      <node id="77">
         <label>std::is_base_of&lt; view_base, V &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="46" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="46" bodyend="46"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="43" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="43" bodyend="43"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

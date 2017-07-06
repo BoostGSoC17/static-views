@@ -108,38 +108,38 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="262">
+      <node id="258">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="260">
+      <node id="256">
         <label>detail::sort_impl&lt; V &gt;</label>
         <link refid="structdetail_1_1sort__impl"/>
-        <childnode refid="261" relation="public-inheritance">
+        <childnode refid="257" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="261">
+      <node id="257">
         <label>view_adaptor_base&lt; sort_impl&lt; V &gt;, V &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="262" relation="public-inheritance">
+        <childnode refid="258" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="265">
+      <node id="261">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="263">
+      <node id="259">
         <label>detail::sort_impl&lt; V &gt;</label>
         <link refid="structdetail_1_1sort__impl"/>
-        <childnode refid="264" relation="public-inheritance">
+        <childnode refid="260" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="264">
+      <node id="260">
         <label>view_adaptor_base&lt; sort_impl&lt; V &gt;, V &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="265" relation="public-inheritance">
+        <childnode refid="261" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

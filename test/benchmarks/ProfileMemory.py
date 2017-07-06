@@ -116,9 +116,12 @@ def _compile_recording(configs : dict):
         _read_and_remove(configs['temp_file'])
         print('[-] Error occured: ' 
             + e.output.decode('utf-8'), file=sys.stderr)
-        raise e
-    return map(lambda l: tuple(map(int, l.split('\t'))), 
-        output.splitlines()[2:])
+        return (None, None)
+    output = output.splitlines()
+    duration  = float(output[-1])
+    mem_usage = map(lambda l: tuple(map(int, l.split('\t'))), 
+        output[2:-1])
+    return (duration, mem_usage)
 
 #
 # Given a list of tuples [(time, ram, swap)], returns a tuple of two
@@ -142,10 +145,12 @@ def _measure_one(size : int, configs : dict):
     DEBUG and print('[*] Test: size = ' + str(size), file=sys.stderr)
     _save_input(configs['generator'](size), configs['include_file'])
     t1 = time.time()
-    results = list(_compile_recording(configs))
+    (duration, mem_usage) = _compile_recording(configs)
     t2 = time.time()
     DEBUG and print('[*] Time: ' + str(t2 - t1), file=sys.stderr)
-    return _get_stats(results)
+    if duration is None:
+        return None
+    return (size, duration,) + _get_stats(list(mem_usage))
 
 #
 # Measure memory usage while compiling target.
@@ -159,9 +164,13 @@ def measure(configs : dict):
         fh.write('# Peak memory usage during function execution\n')
         fh.write('# as a function of input size.\n')
         fh.write('#\n')
-        fh.write('size\tram\tswap\n')
+        fh.write('size\ttime\tram\tswap\n')
     for n in configs['sizes']:
-        result = (n,) + _measure_one(n, configs)
+        result = _measure_one(n, configs)
+        if result is None:
+            DEBUG and print('[-] WARNING: Measurement for n = {} ' \
+                + 'failed'.format(n), file=sys.stderr)
+            break
         with configs['results_file'].open('at') as fh:
             fh.write('\t'.join(map(str, result)))
             fh.write('\n')

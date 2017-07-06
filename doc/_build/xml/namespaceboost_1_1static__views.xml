@@ -2,64 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
   <compounddef id="namespaceboost_1_1static__views" kind="namespace">
     <compoundname>boost::static_views</compoundname>
-    <innerclass refid="structboost_1_1static__views_1_1algorithm__base" prot="public">boost::static_views::algorithm_base</innerclass>
-    <innerclass refid="structboost_1_1static__views_1_1is__algorithm" prot="public">boost::static_views::is_algorithm</innerclass>
-    <innerclass refid="structboost_1_1static__views_1_1is__view" prot="public">boost::static_views::is_view</innerclass>
-    <innerclass refid="structboost_1_1static__views_1_1out__of__bound" prot="public">boost::static_views::out_of_bound</innerclass>
-    <innerclass refid="structboost_1_1static__views_1_1sequence__traits" prot="public">boost::static_views::sequence_traits</innerclass>
-    <innerclass refid="structboost_1_1static__views_1_1view__adaptor__base" prot="public">boost::static_views::view_adaptor_base</innerclass>
-    <innerclass refid="structboost_1_1static__views_1_1view__adaptor__core__access" prot="public">boost::static_views::view_adaptor_core_access</innerclass>
-    <innerclass refid="structboost_1_1static__views_1_1view__base" prot="public">boost::static_views::view_base</innerclass>
-    <innernamespace refid="namespaceboost_1_1static__views_1_1detail">boost::static_views::detail</innernamespace>
-      <sectiondef kind="var">
-      <memberdef kind="variable" id="namespaceboost_1_1static__views_1a94b64db84b8884511f038e7f41b65853" prot="public" static="no" mutable="no">
-        <templateparamlist>
-          <param>
-            <type>class T</type>
-          </param>
-        </templateparamlist>
-        <type>constexpr T</type>
-        <definition>constexpr T boost::static_views::_static_const</definition>
-        <argsstring></argsstring>
-        <name>_static_const</name>
-        <initializer>{}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="34" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="34" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="func">
-      <memberdef kind="function" id="namespaceboost_1_1static__views_1a920f38b29be1b2e6cf497fc2043b5a83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <templateparamlist>
-          <param>
-            <type>class T</type>
-          </param>
-        </templateparamlist>
-        <type>constexpr auto</type>
-        <definition>constexpr auto boost::static_views::make_wrapper</definition>
-        <argsstring>(T &amp;&amp;x) BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(detail</argsstring>
-        <name>make_wrapper</name>
-        <param>
-          <type>T &amp;&amp;</type>
-          <declname>x</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="157" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="157" bodyend="160"/>
-      </memberdef>
-      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="21" column="1"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="57" column="1"/>
   </compounddef>
 </doxygen>

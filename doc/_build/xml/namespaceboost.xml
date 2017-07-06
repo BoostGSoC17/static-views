@@ -7,6 +7,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="21" column="1"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="57" column="1"/>
   </compounddef>
 </doxygen>

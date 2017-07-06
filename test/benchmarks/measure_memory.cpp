@@ -364,7 +364,9 @@ int main(int argc, char** argv)
     mem_usage_accumulator acc;
     acc.start(time_step);
     std::this_thread::sleep_for(prefix * time_step);
+    auto const start = std::chrono::steady_clock::now();
     auto const return_code = std::system(command.c_str());
+    auto const stop = std::chrono::steady_clock::now();
     acc.stop();
     auto const results = std::move(acc.result());
 
@@ -377,6 +379,8 @@ int main(int argc, char** argv)
                       << std::get<1>(x).ram     << '\t'
                       << std::get<1>(x).swap    << '\n';
         });
+    std::cout << std::chrono::duration_cast<
+        std::chrono::milliseconds>(stop - start).count() << '\n';
 
     return return_code;
 }

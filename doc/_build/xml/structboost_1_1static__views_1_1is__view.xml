@@ -10,32 +10,42 @@
       </param>
     </templateparamlist>
     <briefdescription>
-<para>Check whether <computeroutput>V</computeroutput> models the View concept. </para>    </briefdescription>
+<para>Checks whether <computeroutput>V</computeroutput> models the View concept. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// Metafunction that returns whether ``V`` models the :ref:`View
+/// &lt;view-concept&gt;` concept:
+/// 
+/// .. code-block:: cpp
+/// 
+///   template &lt;class View&gt; 
+///   struct is_view : std::is_base_of&lt;view_base, View&gt; 
+///   {};
+///
+/// </verbatim> </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="198">
+      <node id="74">
         <label>boost::static_views::is_view&lt; V &gt;</label>
         <link refid="structboost_1_1static__views_1_1is__view"/>
-        <childnode refid="199" relation="public-inheritance">
+        <childnode refid="75" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="199">
+      <node id="75">
         <label>std::is_base_of&lt; view_base, V &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="200">
+      <node id="76">
         <label>boost::static_views::is_view&lt; V &gt;</label>
         <link refid="structboost_1_1static__views_1_1is__view"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="77" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="201">
+      <node id="77">
         <label>std::is_base_of&lt; view_base, V &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="28" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="28" bodyend="28"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="43" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="43" bodyend="43"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

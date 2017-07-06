@@ -2,17 +2,17 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
   <compounddef id="structdetail_1_1wrapper" kind="struct" prot="public">
     <compoundname>detail::wrapper</compoundname>
-    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+    <includes refid="wrapper_8hpp" local="no">wrapper.hpp</includes>
     <templateparamlist>
       <param>
         <type>class T</type>
       </param>
     </templateparamlist>
     <briefdescription>
-    </briefdescription>
+<para>Wraps an lvalue or an rvalue reference. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="155" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="155" bodyend="-1"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="25" bodyend="-1"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

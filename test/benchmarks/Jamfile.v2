@@ -157,7 +157,7 @@ rule get-command-line-settings ( )
         else {
             .escape = "\\" ;
         }
-        result = [ regex.escape $(result) : "\"" : "$(.escape)" ] ;
+        result = [ regex.escape $(result) : "\"" : "$(.escape)$(.escape)$(.escape)" ] ;
         return $(result) ;
     }
 }
@@ -209,7 +209,7 @@ actions do-measure
 # bloat.
 local .sort-requirements = 
     # Without this flag, Clang chokes at larger inputs
-    <toolset>clang:<cxxflags>"-fconstexpr-steps=10000000" ;
+    <toolset>clang:<cxxflags>"-fconstexpr-steps=2147483647" ;
 
 # The actual rule that whose execution will be measured. It is not required to
 # be an exe rule, i.e. may be for example obj if we're only interested in

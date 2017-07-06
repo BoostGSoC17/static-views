@@ -3,7 +3,7 @@
   <compounddef id="structis__algorithm" kind="struct" prot="public">
     <compoundname>is_algorithm</compoundname>
     <basecompoundref prot="public" virt="non-virtual">std::is_base_of&lt; algorithm_base, V &gt;</basecompoundref>
-    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+    <includes refid="algorithm__base_8hpp" local="no">algorithm_base.hpp</includes>
     <templateparamlist>
       <param>
         <type>class V</type>
@@ -14,28 +14,28 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="190">
+      <node id="66">
         <label>is_algorithm&lt; V &gt;</label>
         <link refid="structis__algorithm"/>
-        <childnode refid="191" relation="public-inheritance">
+        <childnode refid="67" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="191">
+      <node id="67">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="192">
+      <node id="68">
         <label>is_algorithm&lt; V &gt;</label>
         <link refid="structis__algorithm"/>
-        <childnode refid="193" relation="public-inheritance">
+        <childnode refid="69" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="193">
+      <node id="69">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="58" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="58" bodyend="58"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="28" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="28" bodyend="28"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

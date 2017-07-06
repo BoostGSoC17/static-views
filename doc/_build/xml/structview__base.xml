@@ -3,70 +3,44 @@
   <compounddef id="structview__base" kind="struct" prot="public">
     <compoundname>view_base</compoundname>
     <derivedcompoundref refid="structdetail_1_1raw__view__impl" prot="public" virt="non-virtual">detail::raw_view_impl&lt; Sequence &gt;</derivedcompoundref>
-    <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; T, Wrapper &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; Derived, View &gt;</derivedcompoundref>
     <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</derivedcompoundref>
-    <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; reverse_impl&lt; View &gt;, View &gt;</derivedcompoundref>
-    <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; sort_impl&lt; V &gt;, V &gt;</derivedcompoundref>
-    <includes refid="static__views_8hpp" local="no">static_views.hpp</includes>
+    <includes refid="view__base_8hpp" local="no">view_base.hpp</includes>
     <briefdescription>
 <para>Base class for all the views. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>By deriving from <ref refid="structview__base" kindref="compound">view_base</ref>, you tell StaticView that the derived class models the View concept. </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="294">
-        <label>detail::reverse_impl&lt; View &gt;</label>
-        <link refid="structdetail_1_1reverse__impl"/>
-        <childnode refid="293" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="291">
+      <node id="101">
         <label>view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="288" relation="public-inheritance">
+        <childnode refid="98" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="289">
+      <node id="99">
         <label>detail::raw_view_impl&lt; Sequence &gt;</label>
         <link refid="structdetail_1_1raw__view__impl"/>
-        <childnode refid="288" relation="public-inheritance">
+        <childnode refid="98" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="292">
+      <node id="102">
         <label>detail::drop_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1drop__impl"/>
-        <childnode refid="291" relation="public-inheritance">
+        <childnode refid="101" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="288">
+      <node id="100">
+        <label>view_adaptor_base&lt; Derived, View &gt;</label>
+        <link refid="structview__adaptor__base"/>
+        <childnode refid="98" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="98">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="290">
-        <label>view_adaptor_base&lt; T, Wrapper &gt;</label>
-        <link refid="structview__adaptor__base"/>
-        <childnode refid="288" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="296">
-        <label>detail::sort_impl&lt; V &gt;</label>
-        <link refid="structdetail_1_1sort__impl"/>
-        <childnode refid="295" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="295">
-        <label>view_adaptor_base&lt; sort_impl&lt; V &gt;, V &gt;</label>
-        <link refid="structview__adaptor__base"/>
-        <childnode refid="288" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="293">
-        <label>view_adaptor_base&lt; reverse_impl&lt; View &gt;, View &gt;</label>
-        <link refid="structview__adaptor__base"/>
-        <childnode refid="288" relation="public-inheritance">
-        </childnode>
-      </node>
     </inheritancegraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="42" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="42" bodyend="42"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="27" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="27" bodyend="27"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>
