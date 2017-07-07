@@ -12,9 +12,6 @@ branches:
 
 
 environment:
-  global:
-  BOOST_ROOT: C:\projects\boost-root
-
   matrix:
     - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
       TOOLSET: msvc
@@ -51,6 +48,7 @@ install:
   - gnuplot -V
 
   # Download Boost
+  - set BOOST_ROOT=C:\projects\boost-root
   - git clone --depth 1 https://github.com/boostorg/boost.git %BOOST_ROOT%
   - cd %BOOST_ROOT%
   - git submodule update --init tools/build
@@ -65,9 +63,10 @@ install:
   - .\bootstrap.bat
   - .\b2 headers
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
-  - echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOME%\user-config.jam
+  - cmd: |
+      echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOME%\user-config.jam
 
-test:
+test_script:
   - cd %BOOST_ROOT%
   - if %CORRECTNESS%=="true" .\b2 libs\static-views\test\correctness
   - if %OPTIMISATION%=="true" .\b2 libs\static-views\test\optimisation

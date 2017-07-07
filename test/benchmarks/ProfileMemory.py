@@ -144,10 +144,7 @@ def _measure_one(size : int, configs : dict):
     sys.stderr.flush()
     DEBUG and print('[*] Test: size = ' + str(size), file=sys.stderr)
     _save_input(configs['generator'](size), configs['include_file'])
-    t1 = time.time()
     (duration, mem_usage) = _compile_recording(configs)
-    t2 = time.time()
-    DEBUG and print('[*] Time: ' + str(t2 - t1), file=sys.stderr)
     if duration is None:
         return None
     return (size, duration,) + _get_stats(list(mem_usage))
@@ -165,8 +162,14 @@ def measure(configs : dict):
         fh.write('# as a function of input size.\n')
         fh.write('#\n')
         fh.write('size\ttime\tram\tswap\n')
+    # Travis has a time limit of 10 min. Leave 30 seconds for b2 and
+    # Gnuplot
+    time_limit = time.time() + 9.5 * 60.0
     for n in configs['sizes']:
+        t1 = time.time()
         result = _measure_one(n, configs)
+        t2 = time.time()
+        DEBUG and print('[*] Time: ' + str(t2 - t1), file=sys.stderr)
         if result is None:
             DEBUG and print('[-] WARNING: Measurement for n = {} ' \
                 + 'failed'.format(n), file=sys.stderr)
@@ -174,6 +177,10 @@ def measure(configs : dict):
         with configs['results_file'].open('at') as fh:
             fh.write('\t'.join(map(str, result)))
             fh.write('\n')
+        if (time_limit - time.time() <= t2 - t1):
+            DEBUG and print('[-] WARNING: I\'m afraid we\'re ' \
+                + 'running out of time.', file=sys.stderr)
+            break
     DEBUG and print('[+] Done!', file=sys.stderr)
 
 

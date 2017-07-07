@@ -7,7 +7,7 @@
 #ifndef BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
 
-
+#include <boost/config.hpp>
 #include <exception>
 
 
@@ -16,6 +16,13 @@
 #else
 #   define BOOST_CONSTEXPR_AFTER_CXX14
 #endif
+
+
+#if defined(BOOST_CLANG)
+#define BOOST_CLANG_VERSION (__clang_major__ * 10000 \
+    + __clang_minor__ * 100 + __clang_patchlevel__)
+#endif
+
 
 
 #define BOOST_STATIC_VIEWS_NAMESPACE boost::static_views

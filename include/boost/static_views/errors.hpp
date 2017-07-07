@@ -9,6 +9,7 @@
 
 #include <exception>
 
+#include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
@@ -35,7 +36,7 @@ public:
 };
 
 namespace detail {
-    auto make_out_of_bound(char const* msg)
+    BOOST_NORETURN auto make_out_of_bound(char const* msg) -> void
     {
         throw out_of_bound(msg);
     }
