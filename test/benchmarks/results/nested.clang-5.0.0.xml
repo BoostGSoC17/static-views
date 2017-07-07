@@ -7,8 +7,8 @@
   </status>
   <opcodes count=0>
 <![CDATA[
-  400550:	c3                   	retq
-  400551:	66 66 66 66 66 66 2e 	data32 data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  4007e0:	c3                   	retq
+  4007e1:	66 66 66 66 66 66 2e 	data32 data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
 ]]>
   </opcodes>
 </testcase>
