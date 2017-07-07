@@ -7,25 +7,26 @@
     <includedby refid="invoke_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp</includedby>
     <includedby refid="wrapper_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</includedby>
     <includedby refid="drop_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</includedby>
+    <includedby refid="errors_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp</includedby>
     <includedby refid="raw__view_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</includedby>
     <includedby refid="sequence__traits_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp</includedby>
     <includedby refid="view__base_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</includedby>
     <incdepgraph>
-      <node id="101">
+      <node id="100">
         <label>exception</label>
       </node>
-      <node id="100">
+      <node id="99">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp</label>
         <link refid="config.hpp"/>
-        <childnode refid="101" relation="include">
+        <childnode refid="100" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="105">
+      <node id="104">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp</label>
         <link refid="invoke_8hpp"/>
-        <childnode refid="106" relation="include">
+        <childnode refid="105" relation="include">
         </childnode>
       </node>
       <node id="108">
@@ -34,16 +35,18 @@
         <childnode refid="107" relation="include">
         </childnode>
       </node>
-      <node id="102">
+      <node id="101">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp</label>
         <link refid="config.hpp"/>
-        <childnode refid="103" relation="include">
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
         </childnode>
         <childnode refid="105" relation="include">
         </childnode>
-        <childnode refid="106" relation="include">
+        <childnode refid="103" relation="include">
         </childnode>
-        <childnode refid="104" relation="include">
+        <childnode refid="106" relation="include">
         </childnode>
         <childnode refid="107" relation="include">
         </childnode>
@@ -53,40 +56,55 @@
         </childnode>
       </node>
       <node id="106">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp</label>
+        <link refid="errors_8hpp"/>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
         <link refid="wrapper_8hpp"/>
-        <childnode refid="103" relation="include">
+        <childnode refid="102" relation="include">
         </childnode>
       </node>
       <node id="109">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
         <link refid="view__base_8hpp"/>
-        <childnode refid="103" relation="include">
+        <childnode refid="102" relation="include">
         </childnode>
-        <childnode refid="104" relation="include">
+        <childnode refid="103" relation="include">
         </childnode>
         <childnode refid="107" relation="include">
         </childnode>
       </node>
-      <node id="103">
+      <node id="102">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp</label>
         <link refid="algorithm__base_8hpp"/>
-        <childnode refid="104" relation="include">
+        <childnode refid="103" relation="include">
         </childnode>
       </node>
       <node id="107">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</label>
         <link refid="raw__view_8hpp"/>
       </node>
-      <node id="104">
+      <node id="103">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</label>
         <link refid="drop_8hpp"/>
       </node>
     </invincdepgraph>
-    <innerclass refid="structboost_1_1static__views_1_1out__of__bound" prot="public">boost::static_views::out_of_bound</innerclass>
     <innernamespace refid="namespaceboost">boost</innernamespace>
     <innernamespace refid="namespaceboost_1_1static__views">boost::static_views</innernamespace>
       <sectiondef kind="define">
+      <memberdef kind="define" id="config_8hpp_1a22551bd29246d8b13d22c30c6a5b5fc9" prot="public" static="no">
+        <name>BOOST_CONSTEXPR_AFTER_CXX14</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="17" column="13" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="define" id="config_8hpp_1af686fc66dc40e9f54bc97e7139e212f5" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_NAMESPACE</name>
         <initializer>boost::static_views</initializer>
@@ -96,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="13" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="13" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="21" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</name>
@@ -107,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="15" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="15" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="23" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a9104b5e36c2866e678338780d2885a02" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_END_NAMESPACE</name>
@@ -118,36 +136,48 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="18" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="18" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="26" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="26" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="define" id="config_8hpp_1a1f88e23c120428275a96beec18c0fbee" prot="public" static="no">
-        <name>BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT</name>
+      <memberdef kind="define" id="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" prot="public" static="no">
+        <name>BOOST_STATIC_VIEWS_NOEXCEPT_IF</name>
         <param><defname>...</defname></param>
-        <initializer>noexcept(noexcept(decltype(__VA_ARGS__)(__VA_ARGS__)))                    \
-        { return (__VA_ARGS__); }                                             \</initializer>
+        <initializer>noexcept( whenever possible )                                         \</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="24" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="24" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="31" column="12" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="config_8hpp_1a1f88e23c120428275a96beec18c0fbee" prot="public" static="no">
+        <name>BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT</name>
+        <param><defname>...</defname></param>
+        <initializer>noexcept( whenever possible )                                         \
+            { return (__VA_ARGS__); }                                         \</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="42" column="12" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_INLINE_VARIABLE</name>
         <param><defname>type</defname></param>
         <param><defname>name</defname></param>
-        <initializer>inline namespace {                                                        \
-        constexpr auto const&amp; name =                                          \
-            ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;type&gt;;              \
-    }                                                                         \</initializer>
+        <initializer>inline namespace {                                                    \
+            constexpr auto const&amp; name =                                      \
+                ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;type&gt;;          \
+        }                                                                     \</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="45" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="45" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="69" column="12" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="69" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -167,47 +197,74 @@
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;exception&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13" refid="config_8hpp_1af686fc66dc40e9f54bc97e7139e212f5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NAMESPACE<sp/>boost::static_views</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15" refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_BEGIN_NAMESPACE<sp/>\</highlight></codeline>
-<codeline lineno="16"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>namespace<sp/>boost<sp/>{<sp/>namespace<sp/>static_views<sp/>{</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18" refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_END_NAMESPACE<sp/>\</highlight></codeline>
-<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>static_views<sp/>*/</highlight><highlight class="preprocessor"><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>boost<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>__cplusplus<sp/>&gt;<sp/>201402L</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_CONSTEXPR_AFTER_CXX14<sp/>constexpr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="config_8hpp_1a22551bd29246d8b13d22c30c6a5b5fc9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_CONSTEXPR_AFTER_CXX14</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/>If<sp/>a<sp/>function<sp/>body<sp/>is<sp/>just<sp/>a<sp/>return-statement,<sp/>we<sp/>can<sp/>deduce<sp/>the</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>noexcept-ness<sp/>automatically.<sp/>This<sp/>idea<sp/>taken<sp/>from<sp/>range-v3.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="24" refid="config_8hpp_1a1f88e23c120428275a96beec18c0fbee" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>noexcept(noexcept(decltype(__VA_ARGS__)(__VA_ARGS__)))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="26"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>return<sp/>(__VA_ARGS__);<sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="config_8hpp_1af686fc66dc40e9f54bc97e7139e212f5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NAMESPACE<sp/>boost::static_views</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_BEGIN_NAMESPACE<sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>namespace<sp/>boost<sp/>{<sp/>namespace<sp/>static_views<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_END_NAMESPACE<sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>static_views<sp/>*/</highlight><highlight class="preprocessor"><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>boost<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>See<sp/>http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4381.html</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="34" refid="namespaceboost_1_1static__views_1a94b64db84b8884511f038e7f41b65853" refkind="member"><highlight class="normal">constexpr<sp/>T<sp/><ref refid="namespaceboost_1_1static__views_1a94b64db84b8884511f038e7f41b65853" kindref="member">_static_const</ref>{};</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36" refid="structboost_1_1static__views_1_1out__of__bound" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1out__of__bound" kindref="compound">out_of_bound</ref><sp/>:<sp/>std::exception<sp/>{</highlight></codeline>
-<codeline lineno="37" refid="structboost_1_1static__views_1_1out__of__bound_1ab7dea02cce30f3b18187c6ea915d497c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1out__of__bound_1ab7dea02cce30f3b18187c6ea915d497c" kindref="member">what</ref>()<sp/>const<sp/>noexcept<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>const*</highlight><highlight class="keyword"><sp/>override</highlight></codeline>
-<codeline lineno="38"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_msg;<sp/>}</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>_msg<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Index<sp/>out<sp/>of<sp/>bound.&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45" refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_INLINE_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="46"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>namespace<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>const&amp;<sp/>name<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;type&gt;;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(<sp/>whenever<sp/>possible<sp/>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(__VA_ARGS__)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="config_8hpp_1a1f88e23c120428275a96beec18c0fbee" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(<sp/>whenever<sp/>possible<sp/>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>return<sp/>(__VA_ARGS__);<sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>a<sp/>function<sp/>body<sp/>is<sp/>just<sp/>a<sp/>return-statement,<sp/>we<sp/>can<sp/>deduce<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>noexcept-ness<sp/>automatically.<sp/>This<sp/>idea<sp/>taken<sp/>from<sp/>range-v3.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(noexcept(__VA_ARGS__))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>return<sp/>(__VA_ARGS__);<sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="namespaceboost_1_1static__views" refkind="compound"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="comment">//<sp/>See<sp/>http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4381.html</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">constexpr<sp/>T<sp/>_static_const{};</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_STATIC_VIEWS_INLINE_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inline<sp/>namespace<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>const&amp;<sp/>name<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;type&gt;;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>BOOST_STATIC_VIEWS_INLINE_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>name<sp/>=<sp/>type{};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP</highlight></codeline>
     </programlisting>
     <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp"/>
   </compounddef>

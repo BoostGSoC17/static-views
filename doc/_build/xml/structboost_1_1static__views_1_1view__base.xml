@@ -9,38 +9,38 @@
     <briefdescription>
 <para>Base class for all the views. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>By deriving from #view_base, you tell StaticView that the derived class models the View concept. </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="285">
+      <node id="101">
         <label>boost::static_views::view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
         <link refid="structboost_1_1static__views_1_1view__adaptor__base"/>
-        <childnode refid="282" relation="public-inheritance">
+        <childnode refid="98" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="286">
+      <node id="102">
         <label>boost::static_views::detail::drop_impl&lt; View &gt;</label>
         <link refid="structboost_1_1static__views_1_1detail_1_1drop__impl"/>
-        <childnode refid="285" relation="public-inheritance">
+        <childnode refid="101" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="283">
+      <node id="99">
         <label>boost::static_views::detail::raw_view_impl&lt; Sequence &gt;</label>
         <link refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl"/>
-        <childnode refid="282" relation="public-inheritance">
+        <childnode refid="98" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="282">
+      <node id="98">
         <label>boost::static_views::view_base</label>
         <link refid="structboost_1_1static__views_1_1view__base"/>
       </node>
-      <node id="284">
+      <node id="100">
         <label>boost::static_views::view_adaptor_base&lt; Derived, View &gt;</label>
         <link refid="structboost_1_1static__views_1_1view__adaptor__base"/>
-        <childnode refid="282" relation="public-inheritance">
+        <childnode refid="98" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="24" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="24" bodyend="24"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="27" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="27" bodyend="27"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
-  <compounddef id="structboost_1_1static__views_1_1detail_1_1is__reference__wrapper" kind="struct" prot="public">
-    <compoundname>boost::static_views::detail::is_reference_wrapper</compoundname>
+  <compounddef id="structdetail_1_1is__reference__wrapper" kind="struct" prot="public">
+    <compoundname>detail::is_reference_wrapper</compoundname>
     <basecompoundref prot="public" virt="non-virtual">false_type</basecompoundref>
     <includes refid="invoke_8hpp" local="no">invoke.hpp</includes>
     <templateparamlist>
@@ -15,8 +15,8 @@
     </detaileddescription>
     <inheritancegraph>
       <node id="70">
-        <label>boost::static_views::detail::is_reference_wrapper&lt; T &gt;</label>
-        <link refid="structboost_1_1static__views_1_1detail_1_1is__reference__wrapper"/>
+        <label>detail::is_reference_wrapper&lt; T &gt;</label>
+        <link refid="structdetail_1_1is__reference__wrapper"/>
         <childnode refid="71" relation="public-inheritance">
         </childnode>
       </node>
@@ -26,8 +26,8 @@
     </inheritancegraph>
     <collaborationgraph>
       <node id="72">
-        <label>boost::static_views::detail::is_reference_wrapper&lt; T &gt;</label>
-        <link refid="structboost_1_1static__views_1_1detail_1_1is__reference__wrapper"/>
+        <label>detail::is_reference_wrapper&lt; T &gt;</label>
+        <link refid="structdetail_1_1is__reference__wrapper"/>
         <childnode refid="73" relation="public-inheritance">
         </childnode>
       </node>

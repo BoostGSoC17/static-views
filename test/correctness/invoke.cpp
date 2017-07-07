@@ -13,15 +13,15 @@
 constexpr auto foo() { return 10; }
 
 struct bar {
-    constexpr auto get() const { return 10; }
-    constexpr auto operator()() const { return 10; }
+    constexpr auto get() const noexcept { return 10; }
+    constexpr auto operator()() const noexcept { return 10; }
 };
 
 
 auto test_nonmember()
 {
     BOOST_TEST_EQ( boost::static_views::invoke(
-        [](auto&& p){ return p.second; }, std::make_pair(1, 2.0)),
+        [](auto&& p) noexcept { return p.second; }, std::make_pair(1, 2.0)),
         2.0
     );
 

@@ -9,38 +9,38 @@
     <includes local="no">stdexcept</includes>
     <includes local="no">boost/config.hpp</includes>
     <incdepgraph>
-      <node id="159">
+      <node id="173">
         <label>functional</label>
       </node>
-      <node id="162">
+      <node id="176">
         <label>stdexcept</label>
       </node>
-      <node id="160">
+      <node id="174">
         <label>tuple</label>
       </node>
-      <node id="158">
+      <node id="172">
         <label>utility</label>
       </node>
-      <node id="161">
+      <node id="175">
         <label>array</label>
       </node>
-      <node id="157">
+      <node id="171">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp</label>
         <link refid="static_views.hpp"/>
-        <childnode refid="158" relation="include">
+        <childnode refid="172" relation="include">
         </childnode>
-        <childnode refid="159" relation="include">
+        <childnode refid="173" relation="include">
         </childnode>
-        <childnode refid="160" relation="include">
+        <childnode refid="174" relation="include">
         </childnode>
-        <childnode refid="161" relation="include">
+        <childnode refid="175" relation="include">
         </childnode>
-        <childnode refid="162" relation="include">
+        <childnode refid="176" relation="include">
         </childnode>
-        <childnode refid="163" relation="include">
+        <childnode refid="177" relation="include">
         </childnode>
       </node>
-      <node id="163">
+      <node id="177">
         <label>boost/config.hpp</label>
       </node>
     </incdepgraph>
@@ -168,6 +168,34 @@
         </inbodydescription>
         <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="403" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="403" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="static__views_8hpp_1a742d28a960d264ec5b600e27c74a5ac1" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto not_fn</definition>
+        <argsstring></argsstring>
+        <name>not_fn</name>
+        <initializer>= boost::static_views::  <ref refid="structdetail_1_1make__not__fn__impl" kindref="compound">detail::make_not_fn_impl</ref>  {}</initializer>
+        <briefdescription>
+<para><computeroutput>std::experimental::not_fn</computeroutput> except that it&apos;s constexpr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="455" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="static__views_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto raw_view</definition>
+        <argsstring></argsstring>
+        <name>raw_view</name>
+        <initializer>= boost::static_views::  <ref refid="structdetail_1_1make__raw__view" kindref="compound">detail::make_raw_view</ref>  {}</initializer>
+        <briefdescription>
+<para>Raw view of the sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="676" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="676" bodyend="-1"/>
+      </memberdef>
       </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="static__views_8hpp_1a8e1fec238065673af623833354bec38b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -240,9 +268,9 @@
           <declname>fs</declname>
         </param>
         <briefdescription>
-<para><formula id="0">$\approx$</formula> <emphasis>fmap</emphasis> on arguments. </para>        </briefdescription>
+<para><formula id="1">$\approx$</formula> <emphasis>fmap</emphasis> on arguments. </para>        </briefdescription>
         <detaileddescription>
-<para>Say, we have <formula id="1">\[ f : (x_1, x_2, \dots) \mapsto y \]</formula> Then <computeroutput>mapped_compose</computeroutput> <formula id="2">$(f, g_1, g_2, \dots)$</formula> creates a function <formula id="3">\[ F : (x_1, x_2, \dots, x_N) \mapsto f((g_1 \circ g_2 \circ \dots)(x_1), (g_1 \circ g_2 \circ \dots)(x_2),\dots)) \]</formula> </para>        </detaileddescription>
+<para>Say, we have <formula id="2">\[ f : (x_1, x_2, \dots) \mapsto y \]</formula> Then <computeroutput>mapped_compose</computeroutput> <formula id="3">$(f, g_1, g_2, \dots)$</formula> creates a function <formula id="4">\[ F : (x_1, x_2, \dots, x_N) \mapsto f((g_1 \circ g_2 \circ \dots)(x_1), (g_1 \circ g_2 \circ \dots)(x_2),\dots)) \]</formula> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" line="564" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/static_views.hpp" bodystart="564" bodyend="568"/>
@@ -735,7 +763,7 @@
 <codeline lineno="451"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="452"><highlight class="normal"></highlight></codeline>
 <codeline lineno="454"><highlight class="normal"></highlight></codeline>
-<codeline lineno="455"><highlight class="normal"><ref refid="static__views_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(<ref refid="structdetail_1_1make__not__fn__impl" kindref="compound">detail::make_not_fn_impl</ref>,<sp/>not_fn)</highlight></codeline>
+<codeline lineno="455" refid="static__views_8hpp_1a742d28a960d264ec5b600e27c74a5ac1" refkind="member"><highlight class="normal"><ref refid="static__views_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(<ref refid="structdetail_1_1make__not__fn__impl" kindref="compound">detail::make_not_fn_impl</ref>,<sp/><ref refid="static__views_8hpp_1a742d28a960d264ec5b600e27c74a5ac1" kindref="member">not_fn</ref>)</highlight></codeline>
 <codeline lineno="456"><highlight class="normal"></highlight><highlight class="comment">//<sp/>constexpr<sp/>auto<sp/>not_fn<sp/>=<sp/>detail::make_not_fn_impl{};</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="457"><highlight class="normal"></highlight></codeline>
 <codeline lineno="458"><highlight class="normal"></highlight></codeline>
@@ -946,7 +974,7 @@
 <codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="673"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="674"><highlight class="normal"></highlight></codeline>
-<codeline lineno="676"><highlight class="normal"><ref refid="static__views_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(<ref refid="structdetail_1_1make__raw__view" kindref="compound">detail::make_raw_view</ref>,<sp/>raw_view)<sp/><sp/></highlight></codeline>
+<codeline lineno="676" refid="static__views_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" refkind="member"><highlight class="normal"><ref refid="static__views_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(<ref refid="structdetail_1_1make__raw__view" kindref="compound">detail::make_raw_view</ref>,<sp/><ref refid="static__views_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref>)<sp/><sp/></highlight></codeline>
 <codeline lineno="677"><highlight class="normal"></highlight><highlight class="comment">//<sp/>constexpr<sp/>auto<sp/>raw_view<sp/>=<sp/>detail::make_raw_view{};</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="678"><highlight class="normal"></highlight></codeline>
 <codeline lineno="679"><highlight class="normal"></highlight></codeline>
@@ -972,7 +1000,7 @@
 <codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(<ref refid="structis__algorithm" kindref="compound">is_algorithm&lt;Algo&gt;::value</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Algo<sp/>must<sp/>model<sp/>the<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`Algorithm`<sp/>concept.&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;Algo&gt;(ys)(raw_view(xs));</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;Algo&gt;(ys)(<ref refid="static__views_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref>(xs));</highlight></codeline>
 <codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="704"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="705"><highlight class="normal"></highlight></codeline>
@@ -1052,7 +1080,7 @@
 <codeline lineno="783"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept</highlight></codeline>
 <codeline lineno="784"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="785"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>b<sp/>=<sp/><ref refid="namespacedetail_1a709b1a5338565adf0e6952a1119b4e2f" kindref="member">find_first_i</ref>(xs.get(),<sp/></highlight></codeline>
-<codeline lineno="786"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>not_fn(std::forward&lt;Predicate&gt;(p)));</highlight></codeline>
+<codeline lineno="786"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="static__views_8hpp_1a742d28a960d264ec5b600e27c74a5ac1" kindref="member">not_fn</ref>(std::forward&lt;Predicate&gt;(p)));</highlight></codeline>
 <codeline lineno="787"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()<sp/>|<sp/>drop(b);</highlight></codeline>
 <codeline lineno="788"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="789"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
@@ -1127,7 +1155,7 @@
 <codeline lineno="864"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept</highlight></codeline>
 <codeline lineno="865"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="866"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>n<sp/>=<sp/><ref refid="namespacedetail_1a709b1a5338565adf0e6952a1119b4e2f" kindref="member">find_first_i</ref>(xs.get(),<sp/></highlight></codeline>
-<codeline lineno="867"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>not_fn(std::forward&lt;Predicate&gt;(p)));</highlight></codeline>
+<codeline lineno="867"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="static__views_8hpp_1a742d28a960d264ec5b600e27c74a5ac1" kindref="member">not_fn</ref>(std::forward&lt;Predicate&gt;(p)));</highlight></codeline>
 <codeline lineno="868"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()<sp/>|<sp/>take(n);</highlight></codeline>
 <codeline lineno="869"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="870"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
@@ -1297,7 +1325,7 @@
 <codeline lineno="1040"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Predicate&gt;</highlight></codeline>
 <codeline lineno="1041" refid="structdetail_1_1make__remove__if__impl_1a08c22aaa6eeb02a034bb5e9d8023b10a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1make__remove__if__impl_1a08c22aaa6eeb02a034bb5e9d8023b10a" kindref="member">operator()</ref>(View&amp;&amp;<sp/>xs,<sp/>Predicate&amp;&amp;<sp/>p)<sp/>const<sp/>noexcept</highlight></codeline>
 <codeline lineno="1042"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="1043"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()<sp/>|<sp/>filter(not_fn(p));</highlight></codeline>
+<codeline lineno="1043"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()<sp/>|<sp/>filter(<ref refid="static__views_8hpp_1a742d28a960d264ec5b600e27c74a5ac1" kindref="member">not_fn</ref>(p));</highlight></codeline>
 <codeline lineno="1044"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1045"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="1046"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>

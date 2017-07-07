@@ -206,26 +206,26 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="163">
+      <node id="57">
         <label>boost::static_views::algorithm_base</label>
         <link refid="structboost_1_1static__views_1_1algorithm__base"/>
       </node>
-      <node id="162">
+      <node id="56">
         <label>boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;</label>
         <link refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl"/>
-        <childnode refid="163" relation="public-inheritance">
+        <childnode refid="57" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="165">
+      <node id="59">
         <label>boost::static_views::algorithm_base</label>
         <link refid="structboost_1_1static__views_1_1algorithm__base"/>
       </node>
-      <node id="164">
+      <node id="58">
         <label>boost::static_views::detail::algorithm_impl&lt; Function, Args &gt;</label>
         <link refid="structboost_1_1static__views_1_1detail_1_1algorithm__impl"/>
-        <childnode refid="165" relation="public-inheritance">
+        <childnode refid="59" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

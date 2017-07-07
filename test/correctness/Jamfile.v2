@@ -6,10 +6,6 @@
 import testing ;
 
 
-run test_invoke.cpp ;
-
-run test_raw_view.cpp ;
-
-compile test_create.cpp ;
-
-compile test_size.cpp ;
+run invoke.cpp ;
+run raw_view.cpp ;
+run drop.cpp ;

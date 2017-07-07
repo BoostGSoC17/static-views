@@ -6,11 +6,11 @@
 *************************************************************************
 
 This page explains how Boost.StaticViews tests work and shows some up to
-date results. There are three kinds of tests.  First, there are
+date results. There are three kinds of tests. First, there are
 :ref:`correctness` tests. These are just unit tests and are meant to
-verify the correct behavior at both compile- and run-time.  Then, there
+verify the correct behavior at both compile- and run-time. Then, there
 are :ref:`optimisation` tests. They check how good modern compilers can
-optimise Boost.StativViews' code. Finally, there are :ref:`benchmarks`.
+optimise Boost.StaticViews' code. Finally, there are :ref:`benchmarks`.
 They check how long it takes to compile some tests, and how much memory
 compilers use doing that.
 
@@ -95,6 +95,7 @@ interested in is how memory usage scales with input size. To accomplish
 this, we define the data in an external file. For example
 
 .. code-block:: cpp
+  :dedent: 2
 
   static constexpr int random_array[] = {
   #   include "test_data.txt"
@@ -118,23 +119,23 @@ Sorts an array of integers at compile-time.
 
 * ``GCC-6.3.0``:
 
-.. image:: ../test/benchmarks/results/sort.gcc-6.3.0.png
+  .. image:: ../test/benchmarks/results/sort.gcc-6.3.0.png
 
 * ``GCC-7``:
 
-.. image:: ../test/benchmarks/results/sort.gcc-7.png
+  .. image:: ../test/benchmarks/results/sort.gcc-7.png
 
 * ``Clang-4.0.0``:
 
-.. image:: ../test/benchmarks/results/sort.clang-4.0.0.png
+  .. image:: ../test/benchmarks/results/sort.clang-4.0.0.png
 
 * ``Clang-5.0.0``:
 
-.. image:: ../test/benchmarks/results/sort.clang-5.0.0.png
+  .. image:: ../test/benchmarks/results/sort.clang-5.0.0.png
 
 * ``Clang/C2``:
 
-.. image:: ../test/benchmarks/results/sort.clang-14.1.png
+  .. image:: ../test/benchmarks/results/sort.clang-14.1.png
 
 
 
@@ -146,23 +147,29 @@ Optimisation
 **TODO** explain briefly how all the tools and scripts work.
 
 
+.. _nested-drop:
+
 Nested drop
 """""""""""
 
 **TODO** add a short explanation of the test.
 
-GCC-6.3.0:
+* ``GCC-6.3.0``:
 
-.. literalinclude:: ../test/optimisation/results/nested.gcc-6.3.0.xml
-  :language: xml
+  .. literalinclude:: ../test/optimisation/results/nested.gcc-6.3.0.xml
+    :language: xml
 
+* ``GCC-7``:
 
-Clang-4.0.0:
+  .. literalinclude:: ../test/optimisation/results/nested.gcc-6.3.0.xml
+    :language: xml
 
-.. literalinclude:: ../test/optimisation/results/nested.clang-4.0.0.xml
-  :language: xml
+* ``Clang-4.0.0``:
 
-MSVC-14.1:
+  .. literalinclude:: ../test/optimisation/results/nested.clang-4.0.0.xml
+    :language: xml
 
-.. literalinclude:: ../test/optimisation/results/nested.msvc-14.1.xml
-  :language: xml
+* ``MSVC-14.1``:
+
+  .. literalinclude:: ../test/optimisation/results/nested.msvc-14.1.xml
+    :language: xml

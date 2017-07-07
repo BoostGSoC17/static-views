@@ -99,37 +99,37 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="181">
+      <node id="61">
         <label>boost::static_views::view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
         <link refid="structboost_1_1static__views_1_1view__adaptor__base"/>
-        <childnode refid="182" relation="public-inheritance">
+        <childnode refid="62" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="180">
+      <node id="60">
         <label>boost::static_views::detail::drop_impl&lt; View &gt;</label>
         <link refid="structboost_1_1static__views_1_1detail_1_1drop__impl"/>
-        <childnode refid="181" relation="public-inheritance">
+        <childnode refid="61" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="182">
+      <node id="62">
         <label>boost::static_views::view_base</label>
         <link refid="structboost_1_1static__views_1_1view__base"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="184">
+      <node id="64">
         <label>boost::static_views::view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
         <link refid="structboost_1_1static__views_1_1view__adaptor__base"/>
-        <childnode refid="185" relation="public-inheritance">
+        <childnode refid="65" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="183">
+      <node id="63">
         <label>boost::static_views::detail::drop_impl&lt; View &gt;</label>
         <link refid="structboost_1_1static__views_1_1detail_1_1drop__impl"/>
-        <childnode refid="184" relation="public-inheritance">
+        <childnode refid="64" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="185">
+      <node id="65">
         <label>boost::static_views::view_base</label>
         <link refid="structboost_1_1static__views_1_1view__base"/>
       </node>

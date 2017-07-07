@@ -31,14 +31,24 @@ def _generate_data(size : int) -> str:
     return ', '.join(map(str, map(lambda _: random.randint(0, 10000),
         itertools.repeat(0, size))))
 
+#
+# Generates a list [int(k), int(k**2), ..., int(k**m)] with k**m <= n and
+# unique elements.
+#
+def _compute_sizes(n : int, k : float) -> list:
+    a = list( set( itertools.takewhile(
+        lambda x: x <= n,
+        map( lambda i: int(k ** i),
+            itertools.count()
+        ))))
+    a.sort()
+    return a
+
 def main():
     args  = ProfileMemory.parse_command_line()
     global DEBUG
     DEBUG = ProfileMemory.DEBUG
 
-    start   = 10
-    end     = 211
-    step    = 5
     root    = Path(args.root)
     prefix  = Path(args.output)
     configs = { 'b2'             : args.b2
@@ -48,7 +58,7 @@ def main():
               , 'toolset'        : args.toolset
               , 'test-name'      : 'sort'
               , 'target'         : 'compile-sort'
-              , 'sizes'          : list(range(start, end, step))
+              , 'sizes'          : _compute_sizes(4000, 1.2)
               , 'generator'      : _generate_data
               , 'include_file'   : root / 'sort' / 'sort_array_data.txt'
               , 'results_file'   : prefix / ('sort' + '.' + args.toolset 

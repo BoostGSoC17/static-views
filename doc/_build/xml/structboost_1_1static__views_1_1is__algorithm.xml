@@ -14,24 +14,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="187">
+      <node id="67">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
-      <node id="186">
+      <node id="66">
         <label>boost::static_views::is_algorithm&lt; V &gt;</label>
         <link refid="structboost_1_1static__views_1_1is__algorithm"/>
-        <childnode refid="187" relation="public-inheritance">
+        <childnode refid="67" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="189">
+      <node id="69">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
-      <node id="188">
+      <node id="68">
         <label>boost::static_views::is_algorithm&lt; V &gt;</label>
         <link refid="structboost_1_1static__views_1_1is__algorithm"/>
-        <childnode refid="189" relation="public-inheritance">
+        <childnode refid="69" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

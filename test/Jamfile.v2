@@ -22,14 +22,43 @@ local boost-root ;
     boost-root = [ os.environ BOOST_ROOT ] ;
 # }
 
+local .gcc-warnings = -W -Wall -Wextra -pedantic -Wcast-align 
+                      -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization 
+                      -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs 
+                      -Wnoexcept
+                      -Woverloaded-virtual -Wredundant-decls
+                      -Wshadow -Wsign-promo -Wstrict-null-sentinel
+                      -Wstrict-overflow=5
+                      -Wno-old-style-cast
+                      -Wno-undef
+                      -Wno-variadic-macros -Wno-parentheses ;
+
+local .clang-warnings = -W -Weverything
+                        -Wno-reserved-id-macro
+                        -Wno-c++98-compat
+                        -Wno-c++98-compat-pedantic
+                        -Wno-documentation-unknown-command
+                        -Wno-documentation
+                        -Wno-missing-prototypes
+                        -Wno-missing-variable-declarations
+                        -Wno-undef
+                        -Wno-old-style-cast
+                        -Wno-padded 
+                        -Wno-weak-vtables ;
+
 project
     : requirements <include>../include
                    <include>$(boost-root)
                    <warnings>all
+                   # <warnings-as-errors>on
                    <exception-handling>on
                    # Enable exceptions on Windows
                    <host-os>windows,<toolset>clang:<cxxflags>"-fexceptions"
+                   # Add some extra warnings' flags for GCC
+                   <toolset>gcc:<cxxflags>$(.gcc-warnings:J=" ")
+                   <toolset>clang:<cxxflags>$(.clang-warnings:J=" ")
     ;
+
 
 alias static_views_tests : correctness optimisation ;
 

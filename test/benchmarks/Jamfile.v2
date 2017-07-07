@@ -89,29 +89,6 @@ path-constant HERE : . ;
 #     ;
 
 
-# How it works
-# ------------
-#
-# Boost.Build knows which commands to invoke with different compilers on
-# different host operating systems. So it seems like a good idea to let b2
-# compile the sources, and Python will measure the memory usage, do statistics
-# and save the results.
-#
-# It is easy to invoke b2 from Python. What's difficult is to determine where b2
-# stores the results without hardcoding the paths. From Boost.Build's FAQ:
-#
-# Q: How do I get the current value of feature in Jamfile?
-# A: This is not possible, since Jamfile does not have "current" value of any
-#    feature, be it toolset, build variant or anything else. ...
-#
-# To work around this we need a trick. If we want to know where target A will be
-# saved to, we create a notfile rule A_fake with the same sources, requirements
-# etc. as A. The generaring rule gets the requirements as an argument. From
-# them, we can construct the property-set, and all the rest follows.
-#
-
-
-
 # ----------------------------- Preparation work ----------------------------- #
 
 
@@ -157,7 +134,7 @@ rule get-command-line-settings ( )
         else {
             .escape = "\\" ;
         }
-        result = [ regex.escape $(result) : "\"" : "$(.escape)" ] ;
+        result = [ regex.escape $(result) : "\"" : "$(.escape)$(.escape)$(.escape)" ] ;
         return $(result) ;
     }
 }
@@ -209,7 +186,7 @@ actions do-measure
 # bloat.
 local .sort-requirements = 
     # Without this flag, Clang chokes at larger inputs
-    <toolset>clang:<cxxflags>"-fconstexpr-steps=10000000" ;
+    <toolset>clang:<cxxflags>"-fconstexpr-steps=2147483647" ;
 
 # The actual rule that whose execution will be measured. It is not required to
 # be an exe rule, i.e. may be for example obj if we're only interested in
