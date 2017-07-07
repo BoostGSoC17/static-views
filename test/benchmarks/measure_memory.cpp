@@ -286,12 +286,12 @@ public:
     auto start(Duration&& time_step)
     {
         _data.clear();
-        _child = std::thread([this](auto&& time_step) {
+        _child = std::thread([this](auto&& ts) {
             _start = std::chrono::steady_clock::now();
             _data.push_back(this->_measure_point(_start));
 
             do {
-                std::this_thread::sleep_for(time_step);
+                std::this_thread::sleep_for(ts);
                 _data.push_back(this->_measure_point(
                     std::chrono::steady_clock::now()));
             }
