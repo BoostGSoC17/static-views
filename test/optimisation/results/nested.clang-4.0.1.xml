@@ -1,0 +1,14 @@
+<testcase name=nested>
+  <os>posix</os>
+  <toolset>clang-4.0.1</toolset>
+  <status>
+    <passed>True</passed>
+    <message>Success</message>
+  </status>
+  <opcodes count=0>
+<![CDATA[
+  4007e0:	c3                   	retq
+  4007e1:	66 66 66 66 66 66 2e 	data32 data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+]]>
+  </opcodes>
+</testcase>
