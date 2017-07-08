@@ -41,7 +41,7 @@ matrix:
     # Builds with GCC
     ############################################################################
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=gcc-6 COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -50,7 +50,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=gcc-6 COMPILER=g++-6 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -59,7 +59,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=gcc-7 COMPILER=g++-7 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -69,7 +69,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=gcc-7 COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -81,7 +81,7 @@ matrix:
     # Builds with Clang
     ############################################################################
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.8 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang-3.8 COMPILER=clang++-3.8 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -92,7 +92,7 @@ matrix:
             - llvm-toolchain-trusty-3.8
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang-3.9 COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -103,7 +103,7 @@ matrix:
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=clang-3.9 COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -114,7 +114,7 @@ matrix:
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang-4.0 COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -137,7 +137,7 @@ matrix:
     #         - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang-5.0 COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -149,7 +149,7 @@ matrix:
             - llvm-toolchain-trusty
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=clang-5.0 COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -170,12 +170,13 @@ matrix:
 
 
 before_install:
-  - >
-    git clone --recursive -b stable
-    https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
-  - cd ${SPHINX_ROOT}
-  - python3 setup.py build
-  - export PYTHONPATH="${SPHINX_ROOT}/build/lib:${PYTHONPATH}"
+  - pip3 install --user sphinx
+  # - >
+  #   git clone --recursive -b stable
+  #   https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
+  # - cd ${SPHINX_ROOT}
+  # - python3 setup.py build
+  # - export PYTHONPATH="${SPHINX_ROOT}/build/lib:${PYTHONPATH}"
 
   - >
     git clone --recursive -b master
@@ -219,37 +220,41 @@ install:
     cp -r ${TRAVIS_BUILD_DIR}/* libs/static_views/
   - ./bootstrap.sh
   - ./b2 headers
+  - git config --global user.name "Travis bot"
+  - git config --global user.email "<>"
 
 
 script:
   - |
     echo "using ${TOOLSET} : : ${COMPILER} : <cxxflags>\"${CXXFLAGS}\" ;" \
       > ~/user-config.jam
+  - rm -rf /libs/static_views/test/optimisation/results/*
+  - rm -rf /libs/static_views/test/benchmarks/results/*
   - ./b2 libs/static_views/test toolset=$TOOLSET
   - |
-    [[ $BENCHMARK == "true" ]] && ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET \
-                               || echo "No benchmarks today."
+    if [[ $BENCHMARK == "true" ]]; then
+      { for i in {1..10}; do sleep 5m; echo "No! Don't terminate me!"; done; } &
+      ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET
+    fi
 
-after_success:
+
+deploy:
   - |
+    cd ${BOOST_ROOT}/libs/static_views
+    # Suppress output to avoid leaking the token when the command fails
+    git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views \
+      --branch=gh-pages gh_pages_repo &>/dev/null
     if [[ "${BENCHMARK}" == "true" ]]; then
-      cd ${BOOST_ROOT}/libs/static_views
-      git config --global user.name "Travis bot"
-      git config --global user.email "<>"
-      # Suppress output to avoid leaking the token when the command fails
-      git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views --branch=gh-pages gh_pages_repo &>/dev/null
-      cp -v test/benchmarks/results/*${COMPILER}*.png gh_pages_repo/test/benchmarks/results/
-      cp -v test/optimisation/results/*${COMPILER}*.xml gh_pages_repo/test/benchmarks/results/
-      pushd gh_pages_repo/doc
-      make html
-      git add --all _build
-      popd
-      pushd gh_pages_repo/test
-      git add --all .
-      git commit --allow-empty -m "Update test results for ${COMPILER} to ${TRAVIS_COMMIT}"
-      # Suppress output to avoid leaking the token
-      travis_retry git push origin gh-pages &>/dev/null
-      popd
-    fi 
-
-
+      cp -v test/benchmarks/results/*.png gh_pages_repo/test/benchmarks/results/
+    fi
+    cp -v test/optimisation/results/*.xml gh_pages_repo/test/optimisation/results/
+    pushd gh_pages_repo/doc
+    make html
+    git add --all _build
+    popd
+    pushd gh_pages_repo/test
+    git add --all .
+    git commit --allow-empty -m "Update test results for ${COMPILER} to ${TRAVIS_COMMIT}"
+    # Suppress output to avoid leaking the token
+    travis_retry git push origin gh-pages &>/dev/null
+    popd

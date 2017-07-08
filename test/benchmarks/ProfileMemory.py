@@ -177,10 +177,10 @@ def measure(configs : dict):
         with configs['results_file'].open('at') as fh:
             fh.write('\t'.join(map(str, result)))
             fh.write('\n')
-        if (time_limit - time.time() <= t2 - t1):
-            DEBUG and print('[-] WARNING: I\'m afraid we\'re ' \
-                + 'running out of time.', file=sys.stderr)
-            break
+        # if (time_limit - time.time() <= t2 - t1):
+        #     DEBUG and print('[-] WARNING: I\'m afraid we\'re ' \
+        #         + 'running out of time.', file=sys.stderr)
+        #     break
     DEBUG and print('[+] Done!', file=sys.stderr)
 
 

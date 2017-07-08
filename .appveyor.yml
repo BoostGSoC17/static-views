@@ -62,7 +62,11 @@ install:
   - xcopy /E /H /Y C:\projects\static-views %BOOST_ROOT%\libs\
   - .\bootstrap.bat
   - .\b2 headers
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
+  - dir "C:\Program Files"
+  - dir "C:\Program Files (x86)"
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio"
+  - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - cmd: |
       echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOME%\user-config.jam
 
