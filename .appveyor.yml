@@ -63,10 +63,13 @@ install:
   - .\bootstrap.bat
   - .\b2 headers
   - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0"
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Setup"
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC"
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Community"
   - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - cmd: |
-      echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOME%\user-config.jam
+      echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOMEDRIVE%%HOMEPATH%\user-config.jam
 
 test_script:
   - cd %BOOST_ROOT%

@@ -41,7 +41,7 @@ matrix:
     # Builds with GCC
     ############################################################################
     - os: linux
-      env: TOOLSET=gcc-6 COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -50,7 +50,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc-6 COMPILER=g++-6 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -59,7 +59,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc-7 COMPILER=g++-7 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -69,7 +69,7 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - os: linux
-      env: TOOLSET=gcc-7 COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -81,7 +81,7 @@ matrix:
     # Builds with Clang
     ############################################################################
     - os: linux
-      env: TOOLSET=clang-3.8 COMPILER=clang++-3.8 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-3.8 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -92,7 +92,7 @@ matrix:
             - llvm-toolchain-trusty-3.8
 
     - os: linux
-      env: TOOLSET=clang-3.9 COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -103,7 +103,7 @@ matrix:
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang-3.9 COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -114,7 +114,7 @@ matrix:
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang-4.0 COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -137,7 +137,7 @@ matrix:
     #         - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang-5.0 COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -149,7 +149,7 @@ matrix:
             - llvm-toolchain-trusty
 
     - os: linux
-      env: TOOLSET=clang-5.0 COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
       addons:
         apt:
           packages:
@@ -162,14 +162,27 @@ matrix:
     ############################################################################
     # Builds with XCode
     ############################################################################
-    # - os: osx
-    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
+      osx_image: xcode9
 
-    # - os: osx
-    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+      osx_image: xcode9
 
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
+      osx_image: xcode8.3
+
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+      osx_image: xcode8.3
 
 before_install:
+  - |
+    if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
+      brew install python3
+    fi
   - pip3 install --user sphinx
   # - >
   #   git clone --recursive -b stable
@@ -240,6 +253,7 @@ script:
 
 after_script:
   - |
+    [[ ${TRAVIS_OS_NAME} == "osx" ]] && exit 0
     cd ${BOOST_ROOT}/libs/static_views
     # Suppress output to avoid leaking the token when the command fails
     git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views \
