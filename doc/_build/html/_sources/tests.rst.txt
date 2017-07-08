@@ -125,6 +125,14 @@ Sorts an array of integers at compile-time.
 
   .. image:: ../test/benchmarks/results/sort.gcc-7.png
 
+* ``Clang-3.8``:
+
+  .. image:: ../test/benchmarks/results/sort.clang-3.8.png
+
+* ``Clang-3.9``:
+
+  .. image:: ../test/benchmarks/results/sort.clang-3.9.png
+
 * ``Clang-4.0.0``:
 
   .. image:: ../test/benchmarks/results/sort.clang-4.0.0.png
@@ -164,9 +172,24 @@ Nested drop
   .. literalinclude:: ../test/optimisation/results/nested.gcc-6.3.0.xml
     :language: xml
 
+* ``Clang-3.8``:
+
+  .. literalinclude:: ../test/optimisation/results/nested.clang-3.8.xml
+    :language: xml
+
+* ``Clang-3.9``:
+
+  .. literalinclude:: ../test/optimisation/results/nested.clang-3.9.xml
+    :language: xml
+
 * ``Clang-4.0.0``:
 
   .. literalinclude:: ../test/optimisation/results/nested.clang-4.0.0.xml
+    :language: xml
+
+* ``Clang-5.0.0``:
+
+  .. literalinclude:: ../test/optimisation/results/nested.clang-5.0.0.xml
     :language: xml
 
 * ``MSVC-14.1``:
