@@ -238,7 +238,7 @@ script:
     fi
 
 
-deploy:
+after_script:
   - |
     cd ${BOOST_ROOT}/libs/static_views
     # Suppress output to avoid leaking the token when the command fails
