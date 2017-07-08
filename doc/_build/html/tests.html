@@ -217,6 +217,22 @@ also create different files on different platforms/compilers.</p>
 </div>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">Clang-5.0.0</span></code>:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;testcase</span> <span class="na">name=</span><span class="s">nested</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;os&gt;</span>posix<span class="nt">&lt;/os&gt;</span>
+  <span class="nt">&lt;toolset&gt;</span>clang-5.0.0<span class="nt">&lt;/toolset&gt;</span>
+  <span class="nt">&lt;status&gt;</span>
+    <span class="nt">&lt;passed&gt;</span>True<span class="nt">&lt;/passed&gt;</span>
+    <span class="nt">&lt;message&gt;</span>Success<span class="nt">&lt;/message&gt;</span>
+  <span class="nt">&lt;/status&gt;</span>
+  <span class="nt">&lt;opcodes</span> <span class="na">count=</span><span class="s">0</span><span class="nt">&gt;</span>
+<span class="cp">&lt;![CDATA[</span>
+<span class="cp">  4007e0:	c3                   	retq</span>
+<span class="cp">  4007e1:	66 66 66 66 66 66 2e 	data32 data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)</span>
+<span class="cp">]]&gt;</span>
+  <span class="nt">&lt;/opcodes&gt;</span>
+<span class="nt">&lt;/testcase&gt;</span>
+</pre></div>
+</div>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">MSVC-14.1</span></code>:</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;testcase</span> <span class="na">name=</span><span class="s">nested</span><span class="nt">&gt;</span>
