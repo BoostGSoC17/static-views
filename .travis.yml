@@ -25,6 +25,8 @@ branches:
 env:
   global:
     - BOOST_ROOT=${HOME}/boost-trunk
+    - SPHINX_ROOT=${HOME}/sphinx-trunk
+    - BREATHE_ROOT=${HOME}/breathe-trunk
   # Workaround for https://github.com/travis-ci/travis-ci/issues/4681
   matrix:
     - TRAVIS_EMPTY_JOB_WORKAROUND=true
@@ -39,7 +41,7 @@ matrix:
     # Builds with GCC
     ############################################################################
     - os: linux
-      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=false
+      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -79,7 +81,18 @@ matrix:
     # Builds with Clang
     ############################################################################
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++-3.8 CXXFLAGS="-std=c++14" BENCHMARK=true
+      addons:
+        apt:
+          packages:
+            - clang-3.8
+            - g++-7
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-3.8
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -101,7 +114,7 @@ matrix:
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=true
       addons:
         apt:
           packages:
@@ -111,16 +124,17 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
 
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
-      addons:
-        apt:
-          packages:
-            - clang-4.0
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-4.0
+    # Buggy build :(
+    # - os: linux
+    #   env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - clang-4.0
+    #         - g++-7
+    #       sources:
+    #         - ubuntu-toolchain-r-test
+    #         - llvm-toolchain-trusty-4.0
 
     - os: linux
       env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
@@ -156,6 +170,20 @@ matrix:
 
 
 before_install:
+  - >
+    git clone --recursive -b stable
+    https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
+  - cd ${SPHINX_ROOT}
+  - python3 setup.py build
+  - export PYTHONPATH="${SPHINX_ROOT}/build/lib:${PYTHONPATH}"
+
+  - >
+    git clone --recursive -b master
+    https://github.com/michaeljones/breathe ${BREATHE_ROOT}
+  - cd ${BREATHE_ROOT}
+  - python3 setup.py build
+  - export PYTHONPATH="${BREATHE_ROOT}/build/lib:${PYTHONPATH}"
+
   - git clone --depth 1 https://github.com/boostorg/boost.git ${BOOST_ROOT}
   - cd ${BOOST_ROOT}
     # For now, let StaticViews explicitely depend on two libraries: Boost.Core 
@@ -180,7 +208,7 @@ before_install:
   - git submodule update --init libs/predef
   - git submodule update --init libs/static_assert
   - git submodule update --init libs/type_traits  
-  
+
 
 install:
   - |
@@ -210,8 +238,8 @@ after_success:
       git config --global user.email "<>"
       # Suppress output to avoid leaking the token when the command fails
       git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views --branch=gh-pages gh_pages_repo &>/dev/null
-      cp -v test/benchmarks/results/*.png gh_pages_repo/test/benchmarks/results/
-      cp -v test/optimisation/results/*.xml gh_pages_repo/test/benchmarks/results/
+      cp -v test/benchmarks/results/*${COMPILER}*.png gh_pages_repo/test/benchmarks/results/
+      cp -v test/optimisation/results/*${COMPILER}*.xml gh_pages_repo/test/benchmarks/results/
       pushd gh_pages_repo/doc
       make html
       git add --all _build
