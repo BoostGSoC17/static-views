@@ -46,6 +46,7 @@ matrix:
         apt:
           packages:
             - g++-6
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
 
@@ -87,6 +88,7 @@ matrix:
           packages:
             - clang-3.8
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-3.8
@@ -98,6 +100,7 @@ matrix:
           packages:
             - clang-3.9
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-3.9
@@ -120,6 +123,7 @@ matrix:
           packages:
             - clang-4.0
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
@@ -163,7 +167,7 @@ matrix:
     # Builds with XCode
     ############################################################################
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
       osx_image: xcode9
 
     - os: osx
@@ -171,7 +175,7 @@ matrix:
       osx_image: xcode9
 
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
       osx_image: xcode8.3
 
     - os: osx
@@ -241,8 +245,8 @@ script:
   - |
     echo "using ${TOOLSET} : : ${COMPILER} : <cxxflags>\"${CXXFLAGS}\" ;" \
       > ~/user-config.jam
-  - rm -rf /libs/static_views/test/optimisation/results/*
-  - rm -rf /libs/static_views/test/benchmarks/results/*
+  - rm -vf ${BOOST_ROOT}/libs/static_views/test/optimisation/results/*
+  - rm -vf ${BOOST_ROOT}/libs/static_views/test/benchmarks/results/*
   - ./b2 libs/static_views/test toolset=$TOOLSET
   - |
     if [[ $BENCHMARK == "true" ]]; then

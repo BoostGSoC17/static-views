@@ -165,6 +165,7 @@ def measure(configs : dict):
     # Travis has a time limit of 10 min. Leave 30 seconds for b2 and
     # Gnuplot
     time_limit = time.time() + 9.5 * 60.0
+    memory_limit = 4 * 1024 * 1024
     for n in configs['sizes']:
         t1 = time.time()
         result = _measure_one(n, configs)
@@ -177,6 +178,10 @@ def measure(configs : dict):
         with configs['results_file'].open('at') as fh:
             fh.write('\t'.join(map(str, result)))
             fh.write('\n')
+        if result[2] > memory_limit:
+            DEBUG and print('[-] WARNING: I\'m afraid we\'re ' \
+                + 'running out of memory.', file=sys.stderr)
+            break
         # if (time_limit - time.time() <= t2 - t1):
         #     DEBUG and print('[-] WARNING: I\'m afraid we\'re ' \
         #         + 'running out of time.', file=sys.stderr)

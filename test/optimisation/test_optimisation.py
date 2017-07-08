@@ -17,7 +17,7 @@ def _mk_f(format_string : str):
     return lambda s1, s2 : format_string.format(s1, s2)
 
 _disassemble_info_ = \
-    { 'posix' : (_mk_f("objdump -rd {} > {}"))
+    { 'posix' : (_mk_f("objdump -d {} > {}"))
     , 'nt'    : (_mk_f("dumpbin /disasm {} > {}"))
     }
 

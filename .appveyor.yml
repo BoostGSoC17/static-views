@@ -20,7 +20,7 @@ environment:
       OPTIMISATION: true
       BENCHMARKS: false
       COMMAND:
-      OPTIONS: <cxxflags>/std:c++14
+      OPTIONS: ^<cxxflags^>/std:c++14
     # - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
     #   TOOLSET: clang
     #   VERSION: 14.1
@@ -33,7 +33,11 @@ environment:
       TOOLSET: clang
       VERSION: 4.0.0
       COMMAND: clang++.exe
-      OPTIONS: <cxxflags>-fmsc-version=1910 <cxxflags>-std=c++14 <linkflags>-v <linkflags>-fuse-ld=lld
+      OPTIONS: >
+          ^<cxxflags^>-fmsc-version=1910
+          ^<cxxflags^>-std=c++14
+          ^<linkflags^>-v
+          ^<linkflags^>-fuse-ld=lld
       CORRECTNESS: true
       OPTIMISATION: true
       BENCHMARKS: false
@@ -63,9 +67,7 @@ install:
   - .\bootstrap.bat
   - .\b2 headers
   - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0"
-  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Setup"
-  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC"
-  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Community"
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ClangC2"
   - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - cmd: |
