@@ -219,7 +219,7 @@ auto get_total_mem() -> mem_info
 auto get_avail_mem() -> mem_info
 {
     int               free_mem  = 0;
-    std::size_t const len       = sizeof(free_mem);
+    std::size_t       len       = sizeof(free_mem);
     int               name[2]   = { CTL_HW, HW_USERMEM };
 
     if (sysctl(name, 2, &free_mem, &len, nullptr, 0) == -1)

@@ -141,6 +141,10 @@ Sorts an array of integers at compile-time.
 
   .. image:: ../test/benchmarks/results/sort.clang-5.0.0.png
 
+* ``XCode 9``:
+
+  .. image:: ../test/benchmarks/results/sort.clang-4.2.1.png
+
 * ``Clang/C2``:
 
   .. image:: ../test/benchmarks/results/sort.clang-14.1.png

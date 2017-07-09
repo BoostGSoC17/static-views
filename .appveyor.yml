@@ -10,6 +10,7 @@ branches:
   only:
     - development
 
+platform: x64
 
 environment:
   matrix:
@@ -67,13 +68,18 @@ install:
   - .\bootstrap.bat
   - .\b2 headers
   - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0"
-  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ClangC2\bin"
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ClangC2\bin\amd64"
   - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - |
     echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOMEDRIVE%%HOMEPATH%\user-config.jam
   - echo "Done!"
 
+before_build: 
+build_script:
+after_build:
+
+before_test:
 test_script:
   - cd %BOOST_ROOT%
   - if %CORRECTNESS%=="true" .\b2 libs\static-views\test\correctness
@@ -82,4 +88,5 @@ test_script:
       if %BENCHMARKS%=="true" (
         .\b2 libs\static-views\test\benchmarks
       )
+after_test:
 
