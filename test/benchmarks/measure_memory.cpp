@@ -185,7 +185,7 @@ auto get_avail_mem() -> mem_info
 // POSIX
 // use sysconf()
 
-auto _call_sysconf(auto const name) 
+auto _call_sysconf(int const name) 
 {
     auto const answer = sysconf(name);
     if (answer == -1) {
@@ -207,18 +207,20 @@ auto get_total_mem() -> mem_info
         >= phys_pages, "Overflow detected.");
     return { phys_pages * page_size, std::size_t{} };
 #else
-#       error "Do not know how to get total physical RAM on this platform."
+#   error "Do not know how to get total physical RAM on this platform."
 #endif
 }
 
 
 #       if defined(BSD) || (defined(__APPLE__) && defined(__MACH__))
 
+#include <sys/sysctl.h>
+
 auto get_avail_mem() -> mem_info
 {
     int               free_mem  = 0;
     std::size_t const len       = sizeof(free_mem);
-    int               name[2];  = { CTL_HW, HW_USERMEM };
+    int               name[2]   = { CTL_HW, HW_USERMEM };
 
     if (sysctl(name, 2, &free_mem, &len, nullptr, 0) == -1)
         throw std::system_error{errno, std::generic_category()};

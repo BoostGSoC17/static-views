@@ -20,20 +20,24 @@ environment:
       OPTIMISATION: true
       BENCHMARKS: false
       COMMAND:
-      OPTIONS: <cxxflags>/std:c++14
-    - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
-      TOOLSET: clang
-      VERSION: 14.1
-      COMMAND: ^"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\ClangC2\14.10.25903\bin\HostX86\clang.exe^"
-      OPTIONS: <cxxflags>-std=c++14 <linkflags>-v <linkflags>-use-ld="link.exe"
-      CORRECTNESS: true
-      OPTIMISATION: true
-      BENCHMARKS: true
+      OPTIONS: ^<cxxflags^>/std:c++14
+    # - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
+    #   TOOLSET: clang
+    #   VERSION: 14.1
+    #   COMMAND: ^"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\Tools\ClangC2\14.10.25903\bin\HostX86\clang.exe^"
+    #   OPTIONS: <cxxflags>-std=c++14 <linkflags>-v <linkflags>-use-ld="link.exe"
+    #   CORRECTNESS: true
+    #   OPTIMISATION: true
+    #   BENCHMARKS: true
     - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
       TOOLSET: clang
       VERSION: 4.0.0
       COMMAND: clang++.exe
-      OPTIONS: <cxxflags>-fmsc-version=1910 <cxxflags>-std=c++14 <linkflags>-v <linkflags>-fuse-ld=lld
+      OPTIONS: >
+          ^<cxxflags^>-fmsc-version=1910
+          ^<cxxflags^>-std=c++14
+          ^<linkflags^>-v
+          ^<linkflags^>-fuse-ld=lld
       CORRECTNESS: true
       OPTIMISATION: true
       BENCHMARKS: false
@@ -62,9 +66,13 @@ install:
   - xcopy /E /H /Y C:\projects\static-views %BOOST_ROOT%\libs\
   - .\bootstrap.bat
   - .\b2 headers
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
-  - cmd: |
-      echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOME%\user-config.jam
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0"
+  - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ClangC2\bin"
+  - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  - |
+    echo using %TOOLSET% : %VERSION% : %COMMAND% : %OPTIONS% ; > %HOMEDRIVE%%HOMEPATH%\user-config.jam
+  - echo "Done!"
 
 test_script:
   - cd %BOOST_ROOT%

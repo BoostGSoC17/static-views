@@ -46,6 +46,7 @@ matrix:
         apt:
           packages:
             - g++-6
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
 
@@ -87,6 +88,7 @@ matrix:
           packages:
             - clang-3.8
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-3.8
@@ -98,6 +100,7 @@ matrix:
           packages:
             - clang-3.9
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-3.9
@@ -120,6 +123,7 @@ matrix:
           packages:
             - clang-4.0
             - g++-7
+            - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
@@ -162,20 +166,34 @@ matrix:
     ############################################################################
     # Builds with XCode
     ############################################################################
-    # - os: osx
-    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
+      osx_image: xcode9
 
-    # - os: osx
-    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+      osx_image: xcode9
 
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
+      osx_image: xcode8.3
+
+    - os: osx
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+      osx_image: xcode8.3
 
 before_install:
-  - >
-    git clone --recursive -b stable
-    https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
-  - cd ${SPHINX_ROOT}
-  - python3 setup.py build
-  - export PYTHONPATH="${SPHINX_ROOT}/build/lib:${PYTHONPATH}"
+  - |
+    if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
+      brew install python3
+    fi
+  - pip3 install --user sphinx
+  # - >
+  #   git clone --recursive -b stable
+  #   https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
+  # - cd ${SPHINX_ROOT}
+  # - python3 setup.py build
+  # - export PYTHONPATH="${SPHINX_ROOT}/build/lib:${PYTHONPATH}"
 
   - >
     git clone --recursive -b master
@@ -219,37 +237,42 @@ install:
     cp -r ${TRAVIS_BUILD_DIR}/* libs/static_views/
   - ./bootstrap.sh
   - ./b2 headers
+  - git config --global user.name "Travis bot"
+  - git config --global user.email "<>"
 
 
 script:
   - |
     echo "using ${TOOLSET} : : ${COMPILER} : <cxxflags>\"${CXXFLAGS}\" ;" \
       > ~/user-config.jam
+  - rm -vf ${BOOST_ROOT}/libs/static_views/test/optimisation/results/*
+  - rm -vf ${BOOST_ROOT}/libs/static_views/test/benchmarks/results/*
   - ./b2 libs/static_views/test toolset=$TOOLSET
   - |
-    [[ $BENCHMARK == "true" ]] && ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET \
-                               || echo "No benchmarks today."
+    if [[ $BENCHMARK == "true" ]]; then
+      { for i in {1..10}; do sleep 5m; echo "No! Don't terminate me!"; done; } &
+      ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET
+    fi
 
-after_success:
+
+after_script:
   - |
+    [[ ${TRAVIS_OS_NAME} == "osx" ]] && exit 0
+    cd ${BOOST_ROOT}/libs/static_views
+    # Suppress output to avoid leaking the token when the command fails
+    git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views \
+      --branch=gh-pages gh_pages_repo &>/dev/null
     if [[ "${BENCHMARK}" == "true" ]]; then
-      cd ${BOOST_ROOT}/libs/static_views
-      git config --global user.name "Travis bot"
-      git config --global user.email "<>"
-      # Suppress output to avoid leaking the token when the command fails
-      git clone https://twesterhout:${GITHUB_TOKEN}@github.com/BoostGSoC17/static-views --branch=gh-pages gh_pages_repo &>/dev/null
-      cp -v test/benchmarks/results/*${COMPILER}*.png gh_pages_repo/test/benchmarks/results/
-      cp -v test/optimisation/results/*${COMPILER}*.xml gh_pages_repo/test/benchmarks/results/
-      pushd gh_pages_repo/doc
-      make html
-      git add --all _build
-      popd
-      pushd gh_pages_repo/test
-      git add --all .
-      git commit --allow-empty -m "Update test results for ${COMPILER} to ${TRAVIS_COMMIT}"
-      # Suppress output to avoid leaking the token
-      travis_retry git push origin gh-pages &>/dev/null
-      popd
-    fi 
-
-
+      cp -v test/benchmarks/results/*.png gh_pages_repo/test/benchmarks/results/
+    fi
+    cp -v test/optimisation/results/*.xml gh_pages_repo/test/optimisation/results/
+    pushd gh_pages_repo/doc
+    make html
+    git add --all _build
+    popd
+    pushd gh_pages_repo/test
+    git add --all .
+    git commit --allow-empty -m "Update test results for ${COMPILER} to ${TRAVIS_COMMIT}"
+    # Suppress output to avoid leaking the token
+    travis_retry git push origin gh-pages &>/dev/null
+    popd
