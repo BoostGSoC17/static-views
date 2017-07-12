@@ -5,9 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>Reference &#8212; Boost.StaticViews  documentation</title>
+    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -21,7 +24,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Testing" href="tests.html" />
@@ -67,7 +70,7 @@ this type.</p>
 <span id="view_base"></span><span class="target" id="structview__base"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">view_base</code><a class="headerlink" href="#_CPPv29view_base" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Base class for all the views. </p>
 <p>By deriving from <a class="reference internal" href="#structview__base"><span class="std std-ref">view_base</span></a>, you tell StaticView that the derived class models the View concept. </p>
-<p>Subclassed by <a class="reference internal" href="#structdetail_1_1raw__view__impl"><span class="std std-ref">detail::raw_view_impl&lt; Sequence &gt;</span></a>, <a class="reference internal" href="#structview__adaptor__base"><span class="std std-ref">view_adaptor_base&lt; Derived, View &gt;</span></a>, <a class="reference internal" href="#structview__adaptor__base"><span class="std std-ref">view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</span></a></p>
+<p>Subclassed by detail::concat_impl&lt; Views &gt;, <a class="reference internal" href="#structdetail_1_1raw__view__impl"><span class="std std-ref">detail::raw_view_impl&lt; Sequence &gt;</span></a>, <a class="reference internal" href="#structview__adaptor__base"><span class="std std-ref">view_adaptor_base&lt; Derived, View &gt;</span></a>, <a class="reference internal" href="#structview__adaptor__base"><span class="std std-ref">view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</span></a>, <a class="reference internal" href="#structview__adaptor__base"><span class="std std-ref">view_adaptor_base&lt; hashed_impl&lt; BucketCount, BucketSize, V &gt;, V &gt;</span></a>, <a class="reference internal" href="#structview__adaptor__base"><span class="std std-ref">view_adaptor_base&lt; take_impl&lt; View &gt;, View &gt;</span></a>, <a class="reference internal" href="#structview__adaptor__base"><span class="std std-ref">view_adaptor_base&lt; through_impl&lt; View, Proxy &gt;, View &gt;</span></a></p>
 </dd></dl>
 
 <dl class="class">
@@ -79,9 +82,9 @@ this type.</p>
 <p><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Sequence</span><span class="o">&gt;</span> 
 <span class="n">struct</span> <span class="n">sequence_traits</span> <span class="p">{</span>
     <span class="n">using</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">;</span>
-
+ 
     <span class="n">static</span> <span class="n">constexpr</span> <span class="n">std</span><span class="p">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="n">noexcept</span><span class="p">;</span>
-
+ 
     <span class="n">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">S</span><span class="o">&gt;</span>
     <span class="n">static</span> <span class="n">constexpr</span> <span class="n">reference</span> <span class="n">at</span><span class="p">(</span><span class="n">S</span><span class="o">&amp;&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">size_t</span> <span class="n">i</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
 <span class="p">};</span>
@@ -100,7 +103,7 @@ this type.</p>
 </pre></div>
 </div>
  that calls <code class="docutils literal"><span class="pre">xs.map(i)</span></code>. By befriending this class, you give #boost::static_views::view_adaptor_base access to private <code class="docutils literal"><span class="pre">map</span></code> function, but nothing else. The very same technique is used in <a class="reference external" href="http://www.boost.org/doc/libs/1_64_0/libs/iterator/doc/iterator_facade.html#iterator-core-access">Boost.Iterator</a>. </p>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Friends</p>
 <dl class="function">
 <dt>
@@ -119,17 +122,27 @@ this type.</p>
 concept.</p>
  </p>
 <p>Inherits from <a class="reference internal" href="#structview__base"><span class="std std-ref">view_base</span></a></p>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Constructors</p>
+<p>Constructs an adaptor of <code class="docutils literal"><span class="pre">view</span></code>.</p>
+<p>Here, <code class="docutils literal"><span class="pre">view</span></code> is a wrapper around the actual view created with <a class="reference internal" href="#wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7"><span class="std std-ref">make_wrapper(T&amp;&amp;)</span></a> function. </p>
+<dl class="function">
+<dt id="_CPPv2N17view_adaptor_base17view_adaptor_baseERR4View">
+<span id="view_adaptor_base::view_adaptor_base__ViewRRCE"></span><span class="target" id="structview__adaptor__base_1a081ca186c301145c8ca08674c9c83702"></span><em class="property">constexpr</em> <code class="descname">view_adaptor_base</code><span class="sig-paren">(</span>View &amp;&amp;<em>view</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseERR4View" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Copy and move constructors/assignments</p>
 <p>Defines default copy and move constructors and assignments, i.e. is copy/move-constructible/assignable if <code class="docutils literal"><span class="pre">View</span></code> is. </p>
 <dl class="function">
 <dt id="_CPPv2N17view_adaptor_base17view_adaptor_baseER17view_adaptor_base">
-<span id="view_adaptor_base::view_adaptor_base__view_adaptor_baseCRCE"></span><span class="target" id="structview__adaptor__base_1a95d73d5dea98d1d9fb667e0de3d2db20"></span><em class="property">constexpr</em> <code class="descname">view_adaptor_base</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseER17view_adaptor_base" title="view_adaptor_base::view_adaptor_base">view_adaptor_base</a> <em class="property">const</em>&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseER17view_adaptor_base" title="Permalink to this definition">¶</a><br /></dt>
+<span id="view_adaptor_base::view_adaptor_base__view_adaptor_baseCRCE"></span><span class="target" id="structview__adaptor__base_1a95d73d5dea98d1d9fb667e0de3d2db20"></span><em class="property">constexpr</em> <code class="descname">view_adaptor_base</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseERR4View" title="view_adaptor_base::view_adaptor_base">view_adaptor_base</a> <em class="property">const</em>&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseER17view_adaptor_base" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="_CPPv2N17view_adaptor_base17view_adaptor_baseERR17view_adaptor_base">
-<span id="view_adaptor_base::view_adaptor_base__view_adaptor_baseRRCE"></span><span class="target" id="structview__adaptor__base_1a6b801b834ff65616ebd0b201bf2ccb08"></span><em class="property">constexpr</em> <code class="descname">view_adaptor_base</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseER17view_adaptor_base" title="view_adaptor_base::view_adaptor_base">view_adaptor_base</a>&amp;&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseERR17view_adaptor_base" title="Permalink to this definition">¶</a><br /></dt>
+<span id="view_adaptor_base::view_adaptor_base__view_adaptor_baseRRCE"></span><span class="target" id="structview__adaptor__base_1a6b801b834ff65616ebd0b201bf2ccb08"></span><em class="property">constexpr</em> <code class="descname">view_adaptor_base</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseERR4View" title="view_adaptor_base::view_adaptor_base">view_adaptor_base</a>&amp;&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseERR17view_adaptor_base" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -143,45 +156,40 @@ concept.</p>
 <dd></dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Unnamed Group</p>
 <dl class="function">
 <dt id="_CPPv2NK17view_adaptor_base6parentEv">
-<span id="view_adaptor_base::parentCCE"></span><span class="target" id="structview__adaptor__base_1a787a3bec9c97494a114b75ac51f648ea"></span><em class="property">constexpr</em> <em class="property">const</em> underlying_view_type &amp;<code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK17view_adaptor_base6parentEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="view_adaptor_base::parentCCE"></span><span class="target" id="structview__adaptor__base_1ac6d0e2b2daeccf0562c59bfb23f35b6d"></span><em class="property">constexpr</em> BOOST_STATIC_VIEWS_DECLTYPE_AUTO <code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK17view_adaptor_base6parentEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the underlying view. </p>
 </dd></dl>
 
 <dl class="function">
 <dt id="_CPPv2N17view_adaptor_base6parentEv">
-<span id="view_adaptor_base::parentCE"></span><span class="target" id="structview__adaptor__base_1a0294f7b5b5a4004f01e5303174bf867c"></span><em class="property">constexpr</em> underlying_view_type &amp;&amp;<code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base6parentEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="view_adaptor_base::parentCE"></span><span class="target" id="structview__adaptor__base_1acb4b860f420bdcdbfed06d52a36d8f16"></span><em class="property">constexpr</em> BOOST_STATIC_VIEWS_DECLTYPE_AUTO <code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base6parentEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Element access</p>
 <dl class="function">
 <dt id="_CPPv2NK17view_adaptor_baseixENSt6size_tE">
-<span id="view_adaptor_base::subscript-operator__std::sCCCE"></span><span class="target" id="structview__adaptor__base_1abb8b4fc893c5d7373e1ad4178ddd4d8a"></span><em class="property">constexpr</em> <em class="property">const</em> element_type &amp;<code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK17view_adaptor_baseixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="view_adaptor_base::subscript-operator__std::sCCCE"></span><span class="target" id="structview__adaptor__base_1a64351f5becf885c78a44dcd4c9dedb33"></span><em class="property">constexpr</em> BOOST_STATIC_VIEWS_DECLTYPE_AUTO <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK17view_adaptor_baseixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="_CPPv2N17view_adaptor_baseixENSt6size_tE">
-<span id="view_adaptor_base::subscript-operator__std::sCCE"></span><span class="target" id="structview__adaptor__base_1ae7461a20f626f8dc59d95d0a2250a9a2"></span><em class="property">constexpr</em> element_type &amp;<code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_baseixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="view_adaptor_base::subscript-operator__std::sCCE"></span><span class="target" id="structview__adaptor__base_1a61a9b5888a0e7d7d1d7ea8e3dcb3486c"></span><em class="property">constexpr</em> BOOST_STATIC_VIEWS_DECLTYPE_AUTO <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_baseixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="_CPPv2N17view_adaptor_baseixENSt6size_tE">
-<span class="target" id="structview__adaptor__base_1affb09becd875f41a5b853c24a390b298"></span><em class="property">constexpr</em> element_type &amp;&amp;<code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_baseixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span class="target" id="structview__adaptor__base_1a02bffee1ad74bdf1ec4e34aa5faed259"></span><em class="property">constexpr</em> BOOST_STATIC_VIEWS_DECLTYPE_AUTO <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_baseixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
-<dl class="function">
-<dt id="_CPPv2N17view_adaptor_base17view_adaptor_baseERR4View">
-<span id="view_adaptor_base::view_adaptor_base__ViewRRCE"></span><span class="target" id="structview__adaptor__base_1a40e941afb041b1a2b6f39b7b10ecc416"></span><em class="property">constexpr</em> <code class="descname">view_adaptor_base</code><span class="sig-paren">(</span>View &amp;&amp;<em>view</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N17view_adaptor_base17view_adaptor_baseERR4View" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
 <dl class="function">
 <dt id="_CPPv2NK17view_adaptor_base4sizeEv">
 <span id="view_adaptor_base::sizeCCE"></span><span class="target" id="structview__adaptor__base_1a37bdf2676b001c4a6aa4f9ef2ed0a581"></span><em class="property">constexpr</em> auto <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK17view_adaptor_base4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
@@ -191,7 +199,7 @@ concept.</p>
 </dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Public Static Functions</p>
 <dl class="function">
 <dt id="_CPPv2N17view_adaptor_base8capacityEv">
@@ -229,7 +237,7 @@ concept.</p>
 <dt id="_CPPv2N6detail13raw_view_implE">
 <span id="detail::raw_view_impl"></span><em class="property">struct </em><code class="descclassname">detail::</code><code class="descname">raw_view_impl</code><a class="headerlink" href="#_CPPv2N6detail13raw_view_implE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Inherits from <a class="reference internal" href="#structview__base"><span class="std std-ref">view_base</span></a></p>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Copy and move constructors/assignments.</p>
 <p>Default copy and move constructors and assignment operators. They are all <span class="math">\( \mathcal{O}(1) \)</span>. </p>
 <dl class="function">
@@ -253,7 +261,7 @@ concept.</p>
 <dd></dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt id="_CPPv2N6detail13raw_view_impl13raw_view_implER8Sequence">
@@ -291,7 +299,7 @@ This function is required by the View concept. It’s behavior is equivalent to 
 
 <dl class="function">
 <dt id="_CPPv2NK6detail13raw_view_implixENSt6size_tE">
-<span id="detail::raw_view_impl::subscript-operator__std::sCCCE"></span><span class="target" id="structdetail_1_1raw__view__impl_1a294af8206ed4aaa316936cc548b7264a"></span><em class="property">constexpr</em> element_type &amp;<code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK6detail13raw_view_implixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="detail::raw_view_impl::subscript-operator__std::sCCCE"></span><span class="target" id="structdetail_1_1raw__view__impl_1ac77ceab38b174562a80d82e847af2bb8"></span><em class="property">constexpr</em> BOOST_STATIC_VIEWS_DECLTYPE_AUTO <code class="descname">operator[]</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK6detail13raw_view_implixENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Element access. </p>
 <p>This function is required by the View concept. It provides access to element at index <code class="docutils literal"><span class="pre">i</span></code>. Return type is determined by the corresponding specialisation of <a class="reference internal" href="#structsequence__traits"><span class="std std-ref">sequence_traits</span></a>. It may be a reference to element, or a value, or something else. Behavior of this function is well-described by the following code snippet: <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sequence</span><span class="o">.</span><span class="n">size</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">sequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -303,7 +311,7 @@ This function is required by the View concept. It’s behavior is equivalent to 
 </dd></dl>
 
 </div>
-<div class="breathe-sectiondef docutils container">
+<div class="breathe-sectiondef container">
 <p class="breathe-sectiondef-title rubric">Public Static Functions</p>
 <dl class="function">
 <dt id="_CPPv2N6detail13raw_view_impl8capacityEv">
@@ -333,7 +341,8 @@ This function is required by the View concept. It’s behavior is equivalent to 
 <em class="property">template </em>&lt;<em class="property">class</em> T&gt;</dt>
 <dt id="_CPPv212make_wrapperRR1T">
 <span id="make_wrapper__TRRCE"></span><span class="target" id="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">make_wrapper</code><span class="sig-paren">(</span>T &amp;&amp;<em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212make_wrapperRR1T" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Makes a wrapper around an rvalue or lvalue reference. </p>
+</dd></dl>
 
 <dl class="class">
 <dt>
@@ -409,7 +418,7 @@ This function is required by the View concept. It’s behavior is equivalent to 
       &copy;2017, Tom Westerhout.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

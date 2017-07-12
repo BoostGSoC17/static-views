@@ -26,7 +26,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="42" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="44" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structdetail_1_1raw__view__impl_1af99d992d52dc4a0e75812ba5de900dca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>constexpr</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="43" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="47" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>constexpr <ref refid="structdetail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> &amp;</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="44" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="50" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structdetail_1_1raw__view__impl_1a7a6e0253834066188ab0f67c8883df4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>constexpr <ref refid="structdetail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> &amp;</type>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="45" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="53" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-type">
@@ -89,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="127" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="129" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="132" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="134" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="130" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="130" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="135" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="135" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -139,7 +139,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="32" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="32" bodyend="35"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="32" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="32" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
@@ -154,11 +154,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>[<ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">raw_view_impl::size()</ref> implementation]</para><para>[<ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">raw_view_impl::size()</ref> implementation] </para>        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="75" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="75" bodyend="80"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="83" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="83" bodyend="88"/>
       </memberdef>
-      <memberdef kind="function" id="structdetail_1_1raw__view__impl_1a294af8206ed4aaa316936cc548b7264a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>constexpr element_type &amp;</type>
-        <definition>constexpr element_type&amp; detail::raw_view_impl&lt; Sequence &gt;::operator[]</definition>
+      <memberdef kind="function" id="structdetail_1_1raw__view__impl_1ac77ceab38b174562a80d82e847af2bb8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref></type>
+        <definition>constexpr BOOST_STATIC_VIEWS_DECLTYPE_AUTO detail::raw_view_impl&lt; Sequence &gt;::operator[]</definition>
         <argsstring>(std::size_t const i) const </argsstring>
         <name>operator[]</name>
         <param>
@@ -175,7 +175,7 @@
 </programlisting> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="97" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="97" bodyend="108"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="106" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="106" bodyend="113"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -193,7 +193,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>[<ref refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" kindref="member">raw_view_impl::capacity()</ref> implementation]</para><para>[<ref refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" kindref="member">raw_view_impl::capacity()</ref> implementation] </para>        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="60" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="60" bodyend="65"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="68" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="68" bodyend="73"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -201,36 +201,36 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="86">
+      <node id="173">
         <label>detail::raw_view_impl&lt; Sequence &gt;</label>
         <link refid="structdetail_1_1raw__view__impl"/>
-        <childnode refid="87" relation="public-inheritance">
+        <childnode refid="174" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="87">
+      <node id="174">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="88">
+      <node id="175">
         <label>detail::raw_view_impl&lt; Sequence &gt;</label>
         <link refid="structdetail_1_1raw__view__impl"/>
-        <childnode refid="89" relation="public-inheritance">
+        <childnode refid="176" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="89">
+      <node id="176">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="25" bodyend="131"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="25" bodyend="136"/>
     <listofallmembers>
       <member refid="structdetail_1_1raw__view__impl_1a7a53bbcc92fac1824affa653f9622463" prot="private" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>_xs</name></member>
       <member refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>capacity</name></member>
       <member refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>operator=</name></member>
       <member refid="structdetail_1_1raw__view__impl_1a7a6e0253834066188ab0f67c8883df4a" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>operator=</name></member>
-      <member refid="structdetail_1_1raw__view__impl_1a294af8206ed4aaa316936cc548b7264a" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>operator[]</name></member>
+      <member refid="structdetail_1_1raw__view__impl_1ac77ceab38b174562a80d82e847af2bb8" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>operator[]</name></member>
       <member refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>raw_view_impl</name></member>
       <member refid="structdetail_1_1raw__view__impl_1a2f514cebb9758db5dda55bda5834608d" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>raw_view_impl</name></member>
       <member refid="structdetail_1_1raw__view__impl_1af99d992d52dc4a0e75812ba5de900dca" prot="public" virt="non-virtual"><scope>detail::raw_view_impl</scope><name>raw_view_impl</name></member>

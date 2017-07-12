@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structdetail_1_1slice__impl" kind="struct" prot="public">
+    <compoundname>detail::slice_impl</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">DropTake</basecompoundref>
+    <includes refid="slice_8hpp" local="no">slice.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class DropTake</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1slice__impl_1a0ba36a57fa53c5eb87079878ac3a8736" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr</type>
+        <definition>constexpr detail::slice_impl&lt; DropTake &gt;::slice_impl</definition>
+        <argsstring>(View &amp;&amp;xs) BOOST_STATIC_VIEWS_NOEXCEPT_IF(std</argsstring>
+        <name>slice_impl</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="structdetail_1_1slice__impl_1a9cc3b13a84a807c211cf6d9e5fb5f614" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::slice_impl&lt; DropTake &gt;::map</definition>
+        <argsstring>(std::size_t const i) const -&gt; std::size_t</argsstring>
+        <name>map</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="33" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="33" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="structdetail_1_1slice__impl_1a90350a150b382fe68f20787b7bb5319a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref></type>
+        <definition>constexpr BOOST_STATIC_VIEWS_DECLTYPE_AUTO detail::slice_impl&lt; DropTake &gt;::parent</definition>
+        <argsstring>() const </argsstring>
+        <name>parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="42" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="42" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="179">
+        <label>detail::slice_impl&lt; DropTake &gt;</label>
+        <link refid="structdetail_1_1slice__impl"/>
+        <childnode refid="180" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="180">
+        <label>DropTake</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="181">
+        <label>detail::slice_impl&lt; DropTake &gt;</label>
+        <link refid="structdetail_1_1slice__impl"/>
+        <childnode refid="182" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="182">
+        <label>DropTake</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="22" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="22" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1slice__impl_1a9cc3b13a84a807c211cf6d9e5fb5f614" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>map</name></member>
+      <member refid="structdetail_1_1slice__impl_1a90350a150b382fe68f20787b7bb5319a" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>parent</name></member>
+      <member refid="structdetail_1_1slice__impl_1a0ba36a57fa53c5eb87079878ac3a8736" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>slice_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

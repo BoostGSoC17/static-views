@@ -14,28 +14,28 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="66">
+      <node id="143">
         <label>is_algorithm&lt; V &gt;</label>
         <link refid="structis__algorithm"/>
-        <childnode refid="67" relation="public-inheritance">
+        <childnode refid="144" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="67">
+      <node id="144">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="68">
+      <node id="145">
         <label>is_algorithm&lt; V &gt;</label>
         <link refid="structis__algorithm"/>
-        <childnode refid="69" relation="public-inheritance">
+        <childnode refid="146" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="69">
+      <node id="146">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="28" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="28" bodyend="28"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="29" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="29" bodyend="29"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

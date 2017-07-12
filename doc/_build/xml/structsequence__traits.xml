@@ -14,9 +14,9 @@
 <para><programlisting><codeline><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Sequence&gt;<sp/></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structsequence__traits" kindref="compound">sequence_traits</ref><sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>type<sp/>=<sp/>Sequence;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>std::size_t<sp/>size()<sp/>noexcept;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>template<sp/>&lt;class<sp/>S&gt;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>static<sp/>constexpr<sp/>reference<sp/>at(S&amp;&amp;<sp/>xs,<sp/>std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i)<sp/>noexcept;</highlight></codeline>
 <codeline><highlight class="normal">};</highlight></codeline>

@@ -12,7 +12,7 @@
 <para>Wraps an lvalue or an rvalue reference. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="25" bodyend="-1"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="24" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="24" bodyend="-1"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

@@ -9,18 +9,18 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="54">
+      <node id="109">
         <label>detail::algorithm_impl&lt; Function, Args &gt;</label>
         <link refid="structdetail_1_1algorithm__impl"/>
-        <childnode refid="53" relation="public-inheritance">
+        <childnode refid="108" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="53">
+      <node id="108">
         <label>algorithm_base</label>
         <link refid="structalgorithm__base"/>
       </node>
     </inheritancegraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="24" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="24" bodyend="24"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="25" bodyend="25"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

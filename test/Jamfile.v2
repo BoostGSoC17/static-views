@@ -25,7 +25,7 @@ local boost-root ;
 local .gcc-warnings = -W -Wall -Wextra -pedantic -Wcast-align 
                       -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization 
                       -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs 
-                      -Wnoexcept
+                      -Wno-noexcept
                       -Woverloaded-virtual -Wredundant-decls
                       -Wshadow -Wsign-promo -Wstrict-null-sentinel
                       -Wstrict-overflow=5

@@ -7,95 +7,158 @@
     <includes local="no">utility</includes>
     <includes local="no">boost/config.hpp</includes>
     <includes refid="config_8hpp" local="no">boost/static_views/detail/config.hpp</includes>
+    <includes refid="utils_8hpp" local="no">boost/static_views/detail/utils.hpp</includes>
     <includes refid="wrapper_8hpp" local="no">boost/static_views/detail/wrapper.hpp</includes>
     <includes refid="view__base_8hpp" local="no">boost/static_views/view_base.hpp</includes>
+    <includedby refid="concat_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp</includedby>
     <includedby refid="drop_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</includedby>
+    <includedby refid="hashed_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp</includedby>
+    <includedby refid="take_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</includedby>
+    <includedby refid="through_8hpp" local="no">/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp</includedby>
     <incdepgraph>
-      <node id="95">
+      <node id="272">
+        <label>boost/static_views/detail/utils.hpp</label>
+        <link refid="utils_8hpp"/>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="269" relation="include">
+        </childnode>
+      </node>
+      <node id="275">
         <label>boost/static_views/detail/invoke.hpp</label>
         <link refid="invoke_8hpp"/>
-        <childnode refid="88" relation="include">
+        <childnode refid="266" relation="include">
         </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="268" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="269" relation="include">
         </childnode>
       </node>
-      <node id="94">
+      <node id="274">
         <label>boost/detail/workaround.hpp</label>
       </node>
-      <node id="92">
+      <node id="270">
         <label>exception</label>
       </node>
-      <node id="91">
+      <node id="269">
         <label>boost/static_views/detail/config.hpp</label>
         <link refid="config_8hpp"/>
-        <childnode refid="92" relation="include">
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="270" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
         </childnode>
       </node>
-      <node id="93">
+      <node id="273">
         <label>boost/static_views/detail/wrapper.hpp</label>
         <link refid="wrapper_8hpp"/>
-        <childnode refid="90" relation="include">
+        <childnode refid="268" relation="include">
         </childnode>
-        <childnode refid="94" relation="include">
+        <childnode refid="274" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="269" relation="include">
         </childnode>
-        <childnode refid="95" relation="include">
+        <childnode refid="275" relation="include">
         </childnode>
       </node>
-      <node id="87">
+      <node id="265">
         <label>tuple</label>
       </node>
-      <node id="96">
+      <node id="276">
         <label>boost/static_views/view_base.hpp</label>
         <link refid="view__base_8hpp"/>
-        <childnode refid="88" relation="include">
+        <childnode refid="266" relation="include">
         </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="268" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="269" relation="include">
         </childnode>
       </node>
-      <node id="89">
+      <node id="267">
         <label>utility</label>
       </node>
-      <node id="90">
+      <node id="277">
+        <label>boost/core/demangle.hpp</label>
+      </node>
+      <node id="271">
+        <label>iostream</label>
+      </node>
+      <node id="268">
         <label>boost/config.hpp</label>
       </node>
-      <node id="88">
+      <node id="266">
         <label>type_traits</label>
       </node>
-      <node id="86">
+      <node id="264">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp</label>
         <link refid="algorithm_base.hpp"/>
-        <childnode refid="87" relation="include">
+        <childnode refid="265" relation="include">
         </childnode>
-        <childnode refid="88" relation="include">
+        <childnode refid="266" relation="include">
         </childnode>
-        <childnode refid="89" relation="include">
+        <childnode refid="267" relation="include">
         </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="268" relation="include">
         </childnode>
-        <childnode refid="91" relation="include">
+        <childnode refid="269" relation="include">
         </childnode>
-        <childnode refid="93" relation="include">
+        <childnode refid="272" relation="include">
         </childnode>
-        <childnode refid="96" relation="include">
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="276" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="97">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp</label>
-        <link refid="algorithm_base.hpp"/>
-        <childnode refid="98" relation="include">
+      <node id="281">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp</label>
+        <link refid="slice_8hpp"/>
+        <childnode refid="282" relation="include">
         </childnode>
       </node>
-      <node id="98">
+      <node id="284">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp</label>
+        <link refid="through_8hpp"/>
+        <childnode refid="282" relation="include">
+        </childnode>
+      </node>
+      <node id="282">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp</label>
+        <link refid="hashed_8hpp"/>
+      </node>
+      <node id="279">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp</label>
+        <link refid="concat_8hpp"/>
+      </node>
+      <node id="283">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</label>
+        <link refid="take_8hpp"/>
+        <childnode refid="281" relation="include">
+        </childnode>
+      </node>
+      <node id="278">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp</label>
+        <link refid="algorithm_base.hpp"/>
+        <childnode refid="279" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="282" relation="include">
+        </childnode>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+      </node>
+      <node id="280">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</label>
         <link refid="drop_8hpp"/>
+        <childnode refid="281" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="structalgorithm__base" prot="public">algorithm_base</innerclass>
@@ -104,12 +167,27 @@
     <innerclass refid="structdetail_1_1make__algorithm__impl" prot="public">detail::make_algorithm_impl</innerclass>
     <innernamespace refid="namespacedetail">detail</innernamespace>
       <sectiondef kind="define">
+      <memberdef kind="define" id="algorithm__base_8hpp_1a5505085b6dcdeeaa0cf593080883f356" prot="public" static="no">
+        <name>FAKE_CALL_IMPL</name>
+        <param><defname>qualifiers</defname></param>
+        <initializer>std::declval&lt;algorithm_impl qualifiers&gt;().call_impl(              \
+                std::forward&lt;View&gt;(xs),                                       \
+                std::make_index_sequence&lt;sizeof...(Args)&gt;{}                   \
+            )                                                                 \</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="60" column="16" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="define" id="algorithm__base_8hpp_1a45235289b595362bcfd9fd531b4ffd25" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE</name>
         <param><defname>type</defname></param>
         <param><defname>name</defname></param>
         <initializer>inline namespace {                                                        \
-        constexpr auto const&amp; name =                                          \
+        <ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref> auto const&amp; name =                       \
             ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;                    \
             ::BOOST_STATIC_VIEWS_NAMESPACE::detail::make_algorithm_impl&lt;      \
                 type&gt;&gt;;                                                       \
@@ -120,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="122" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="122" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="179" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="179" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -144,125 +222,182 @@
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/config.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="config_8hpp" kindref="compound">boost/static_views/detail/config.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="wrapper_8hpp" kindref="compound">boost/static_views/detail/wrapper.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="view__base_8hpp" kindref="compound">boost/static_views/view_base.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="utils_8hpp" kindref="compound">boost/static_views/detail/utils.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="wrapper_8hpp" kindref="compound">boost/static_views/detail/wrapper.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="view__base_8hpp" kindref="compound">boost/static_views/view_base.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24" refid="structalgorithm__base" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structalgorithm__base" kindref="compound">algorithm_base</ref><sp/>{};</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="structalgorithm__base" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structalgorithm__base" kindref="compound">algorithm_base</ref><sp/>{};</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>V&gt;</highlight></codeline>
-<codeline lineno="28" refid="structis__algorithm" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structis__algorithm" kindref="compound">is_algorithm</ref><sp/>:<sp/>std::is_base_of&lt;algorithm_base,<sp/>V&gt;<sp/>{};</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>V&gt;</highlight></codeline>
+<codeline lineno="29" refid="structis__algorithm" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structis__algorithm" kindref="compound">is_algorithm</ref><sp/>:<sp/>std::is_base_of&lt;algorithm_base,<sp/>V&gt;<sp/>{};</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31" refid="namespacedetail" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacedetail" kindref="compound">detail</ref><sp/>{</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Function,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
-<codeline lineno="33" refid="structdetail_1_1algorithm__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1algorithm__impl" kindref="compound">algorithm_impl</ref><sp/>:<sp/><ref refid="structalgorithm__base" kindref="compound">algorithm_base</ref><sp/>{</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35" refid="structdetail_1_1algorithm__impl_1a3061109b2aa53c4b8091a245afa62422" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1algorithm__impl_1a3061109b2aa53c4b8091a245afa62422" kindref="member">algorithm_impl</ref>(Function&amp;&amp;<sp/>f,</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::tuple&lt;<ref refid="structdetail_1_1wrapper" kindref="compound">wrapper&lt;Args&gt;</ref>...&gt;&amp;&amp;<sp/>args)</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_move_constructible&lt;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::tuple&lt;<ref refid="structdetail_1_1wrapper" kindref="compound">wrapper</ref>&lt;Args&gt;...&gt;&gt;::value</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>std::is_nothrow_move_constructible&lt;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function&gt;::value</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_func{<sp/>std::move(f)<sp/>}</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_args{<sp/>std::move(args)<sp/>}</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;<sp/></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="50" refid="structdetail_1_1algorithm__impl_1a8605da24cc29e895408260a23c9226be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>operator()(View&amp;&amp;<sp/>xs)<sp/>const</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept<sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>add<sp/>specification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(<ref refid="structis__view" kindref="compound">is_view</ref>&lt;std::decay_t&lt;View&gt;&gt;::value,<sp/></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`View`<sp/>must<sp/>model<sp/>the<sp/>View<sp/>concept.&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>call_impl(std::forward&lt;View&gt;(xs),</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Args)&gt;{});</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;<sp/></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="61" refid="structdetail_1_1algorithm__impl_1a7759806a9968e3b6ad622455a1a6ce3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>operator()(View&amp;&amp;<sp/>xs)</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept<sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>add<sp/>specification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(<ref refid="structis__view" kindref="compound">is_view</ref>&lt;std::decay_t&lt;View&gt;&gt;::value,<sp/></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`View`<sp/>must<sp/>model<sp/>the<sp/>View<sp/>concept.&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>call_impl(std::forward&lt;View&gt;(xs),</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Args)&gt;{});</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_func;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::tuple&lt;wrapper&lt;Args&gt;...&gt;<sp/><sp/>_args;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">View,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>call_impl(View&amp;&amp;<sp/>xs,</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)<sp/>const&amp;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept<sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>add<sp/>specification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>invoke(_func,<sp/><ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::forward&lt;View&gt;(xs)),</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;Is&gt;(_args).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()...);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">View,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>call_impl(View&amp;&amp;<sp/>xs,</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)<sp/>&amp;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept<sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>add<sp/>specification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>invoke(_func,<sp/><ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::forward&lt;View&gt;(xs)),</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;Is&gt;(_args).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()...);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">View,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>call_impl(View&amp;&amp;<sp/>xs,</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)<sp/>&amp;&amp;<sp/></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept<sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>add<sp/>specification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>invoke(std::move(_func),<sp/></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::forward&lt;View&gt;(xs)),</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;Is&gt;(std::move(_args)).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()...);</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="namespacedetail" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacedetail" kindref="compound">detail</ref><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Function,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="34" refid="structdetail_1_1algorithm__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1algorithm__impl" kindref="compound">algorithm_impl</ref><sp/>:<sp/><ref refid="structalgorithm__base" kindref="compound">algorithm_base</ref><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="structdetail_1_1algorithm__impl_1a3c2e1b3320db2c7012d9408e3bc6b581" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/><ref refid="structdetail_1_1algorithm__impl_1a3c2e1b3320db2c7012d9408e3bc6b581" kindref="member">algorithm_impl</ref>(Function&amp;&amp;<sp/>f,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::tuple&lt;<ref refid="structdetail_1_1wrapper" kindref="compound">wrapper&lt;Args&gt;</ref>...&gt;&amp;&amp;<sp/>args)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>defined(NEGLECT_STD_TUPLE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::tuple&apos;s<sp/>constructor<sp/>is<sp/>not<sp/>marked<sp/>noexcept<sp/>in<sp/>most<sp/>of</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>implementations.<sp/>We<sp/>&quot;know&quot;,<sp/>however,<sp/>that<sp/>the<sp/>only<sp/>thing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::tuple&apos;s<sp/>move<sp/>constructor<sp/>needs<sp/>is<sp/>for<sp/>each<sp/>Args<sp/>to<sp/>be</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>nothrow<sp/>move<sp/>constructible.<sp/>Hence,<sp/>we<sp/>can<sp/>&quot;neglect&quot;<sp/>the<sp/>fact</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>that<sp/>std::tuple&apos;s<sp/>move<sp/>constructor<sp/>is<sp/>not<sp/>noexcept.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(<ref refid="namespacedetail_1_1utils_1adb3f52296e671c0cc215b9d6d30e4d10" kindref="member">utils::all</ref>(</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_move_constructible&lt;<ref refid="structdetail_1_1wrapper" kindref="compound">wrapper&lt;Args&gt;</ref>&gt;::value...,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_move_constructible&lt;Function&gt;::value</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>))</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(<ref refid="namespacedetail_1_1utils_1adb3f52296e671c0cc215b9d6d30e4d10" kindref="member">utils::all</ref>(</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_move_constructible&lt;std::tuple&lt;<ref refid="structdetail_1_1wrapper" kindref="compound">wrapper</ref>&lt;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args&gt;...&gt;<sp/>&gt;::value,<sp/>std::is_nothrow_move_constructible&lt;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function&gt;::value</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>))</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_func{<sp/>std::move(f)<sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_args{<sp/>std::move(args)<sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="algorithm__base_8hpp_1a5505085b6dcdeeaa0cf593080883f356" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/>define<sp/>FAKE_CALL_IMPL(qualifiers)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;algorithm_impl<sp/>qualifiers&gt;().call_impl(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward&lt;View&gt;(xs),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;sizeof...(Args)&gt;{}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="70" refid="structdetail_1_1algorithm__impl_1a71d5ddee6a4fe0864fc1eeb61a0ae90b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structdetail_1_1algorithm__impl_1a71d5ddee6a4fe0864fc1eeb61a0ae90b" kindref="member">operator()</ref>(View&amp;&amp;<sp/>xs)<sp/>const&amp;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(noexcept(<ref refid="algorithm__base_8hpp_1a5505085b6dcdeeaa0cf593080883f356" kindref="member">FAKE_CALL_IMPL</ref>(const&amp;)))</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(<ref refid="structis__view" kindref="compound">is_view</ref>&lt;std::decay_t&lt;View&gt;&gt;::value,<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`View`<sp/>must<sp/>model<sp/>the<sp/>View<sp/>concept.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>call_impl(std::forward&lt;View&gt;(xs),</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Args)&gt;{});</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="82" refid="structdetail_1_1algorithm__impl_1af6aff812e9eaac730c41edae5d66b31c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structdetail_1_1algorithm__impl_1af6aff812e9eaac730c41edae5d66b31c" kindref="member">operator()</ref>(View&amp;&amp;<sp/>xs)<sp/>&amp;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(noexcept(<ref refid="algorithm__base_8hpp_1a5505085b6dcdeeaa0cf593080883f356" kindref="member">FAKE_CALL_IMPL</ref>(&amp;)))</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(<ref refid="structis__view" kindref="compound">is_view</ref>&lt;std::decay_t&lt;View&gt;&gt;::value,<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`View`<sp/>must<sp/>model<sp/>the<sp/>View<sp/>concept.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>call_impl(std::forward&lt;View&gt;(xs),</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Args)&gt;{});</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="94" refid="structdetail_1_1algorithm__impl_1a32741a055f4fc02b2a2c9e3d2d115bf0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structdetail_1_1algorithm__impl_1a32741a055f4fc02b2a2c9e3d2d115bf0" kindref="member">operator()</ref>(View&amp;&amp;<sp/>xs)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(noexcept(<ref refid="algorithm__base_8hpp_1a5505085b6dcdeeaa0cf593080883f356" kindref="member">FAKE_CALL_IMPL</ref>(&amp;&amp;)))</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(<ref refid="structis__view" kindref="compound">is_view</ref>&lt;std::decay_t&lt;View&gt;&gt;::value,<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`View`<sp/>must<sp/>model<sp/>the<sp/>View<sp/>concept.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>call_impl(std::forward&lt;View&gt;(xs),</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Args)&gt;{});</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/>undef<sp/>FAKE_CALL_IMPL</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="104"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Function&gt;</highlight></codeline>
-<codeline lineno="109" refid="structdetail_1_1make__algorithm__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1make__algorithm__impl" kindref="compound">make_algorithm_impl</ref><sp/>{</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="112" refid="structdetail_1_1make__algorithm__impl_1a29aca70c373ad5754a0c958d0ab84059" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1make__algorithm__impl_1a29aca70c373ad5754a0c958d0ab84059" kindref="member">operator()</ref>(Args&amp;&amp;...<sp/>args)<sp/>const</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept<sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>add<sp/>specification<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1algorithm__impl" kindref="compound">algorithm_impl</ref>&lt;Function,<sp/>Args&amp;&amp;...&gt;(Function{},</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_tuple(<ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::forward&lt;Args&gt;(args))...));</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_func;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::tuple&lt;wrapper&lt;Args&gt;...&gt;<sp/><sp/>_args;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>is_noexcept_call_cref()<sp/>noexcept<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>noexcept(invoke(</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;Function<sp/>const&amp;&gt;(),</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::declval&lt;View&amp;&amp;&gt;()),</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;Args<sp/>const&amp;&gt;()...));</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="119"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122" refid="algorithm__base_8hpp_1a45235289b595362bcfd9fd531b4ffd25" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>namespace<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="124"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>const&amp;<sp/>name<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="125"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="126"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::detail::make_algorithm_impl&lt;<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>type&gt;&gt;;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_ALGORITHM_BASE_HPP</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>is_noexcept_call_move()<sp/>noexcept<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>noexcept(invoke(</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;Function<sp/>&amp;&amp;&gt;(),</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::declval&lt;View&amp;&amp;&gt;()),</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;Args<sp/>&amp;&amp;&gt;()...));</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">View,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/>call_impl(View&amp;&amp;<sp/>xs,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)<sp/>const&amp;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(is_noexcept_call_cref&lt;View&amp;&amp;&gt;())</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>invoke(_func,<sp/><ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::forward&lt;View&gt;(xs)),</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;Is&gt;(_args).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()...);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>//<sp/>I<sp/>think<sp/>that<sp/>this<sp/>overload<sp/>makes<sp/>little<sp/>sense</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>template<sp/>&lt;class<sp/>View,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_CONSTEXPR<sp/>BOOST_STATIC_VIEWS_DECLTYPE_AUTO<sp/>call_impl(View&amp;&amp;<sp/>xs,</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)<sp/>&amp;</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>invoke(_func,<sp/>make_wrapper(std::forward&lt;View&gt;(xs)),</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;Is&gt;(_args).get()...);</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">View,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/>call_impl(View&amp;&amp;<sp/>xs,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)<sp/>&amp;&amp;<sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(is_noexcept_call_move&lt;View&amp;&amp;&gt;())</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>invoke(std::move(_func),</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::forward&lt;View&gt;(xs)),</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::get&lt;Is&gt;(std::move(_args)).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()...);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Function&gt;</highlight></codeline>
+<codeline lineno="166" refid="structdetail_1_1make__algorithm__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1make__algorithm__impl" kindref="compound">make_algorithm_impl</ref><sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1make__algorithm__impl_1ad8f4cd58e486b50eb054267b364e8997" kindref="member">operator()</ref>(Args&amp;&amp;...<sp/>args)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a1f88e23c120428275a96beec18c0fbee" kindref="member">BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT</ref></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight></codeline>
+<codeline lineno="172" refid="structdetail_1_1make__algorithm__impl_1a952b258d65cbd32d2dd4cdb400a16887" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1algorithm__impl" kindref="compound">algorithm_impl&lt;Function, Args&amp;&amp;...&gt;</ref>(<ref refid="structdetail_1_1make__algorithm__impl_1a952b258d65cbd32d2dd4cdb400a16887" kindref="member">Function</ref>{},</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_tuple(<ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper</ref>(std::forward&lt;Args&gt;(args))...))</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="algorithm__base_8hpp_1a45235289b595362bcfd9fd531b4ffd25" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>namespace<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_CONSTEXPR<sp/>auto<sp/>const&amp;<sp/>name<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::detail::make_algorithm_impl&lt;<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>type&gt;&gt;;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_ALGORITHM_BASE_HPP</highlight></codeline>
     </programlisting>
     <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp"/>
   </compounddef>

@@ -29,7 +29,8 @@ namespace detail {
         /// \tparam Sequence Must model the sequence (TODO: link to concept
         /// definition) concept.
         /// \param xs Reference to the sequence.
-        explicit constexpr raw_view_impl(Sequence& xs) noexcept
+        explicit BOOST_STATIC_VIEWS_CONSTEXPR raw_view_impl(Sequence& xs)
+            noexcept
             : _xs{ xs }
         {
         }
@@ -39,10 +40,17 @@ namespace detail {
         /// \{
         /// Default copy and move constructors and assignment operators. They
         /// are all \f$ \mathcal{O}(1) \f$.
-        constexpr raw_view_impl(raw_view_impl const&)            = default;
-        constexpr raw_view_impl(raw_view_impl &&)                = default;
-        constexpr raw_view_impl& operator=(raw_view_impl const&) = default;
-        constexpr raw_view_impl& operator=(raw_view_impl &&)     = default;
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        raw_view_impl(raw_view_impl const&) = default;
+
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        raw_view_impl(raw_view_impl &&) = default;
+
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        raw_view_impl& operator=(raw_view_impl const&) = default;
+
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        raw_view_impl& operator=(raw_view_impl &&) = default;
         /// \}
 
         /// \brief Returns the size of the sequence it's viewing.
@@ -93,16 +101,13 @@ namespace detail {
         /// else:
         ///     raise out_of_bound
         /// \endcode
-#if defined(DOXYGEN_IN_HOUSE)
-        constexpr element_type& operator[](std::size_t const i) const
-#else
         BOOST_FORCEINLINE
-        constexpr decltype(auto) operator[](std::size_t const i) const
-#endif
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) const
         {
             return BOOST_LIKELY(i < size())
                 ? sequence_traits<sequence_type>::at(_xs, i)
-                : ( make_out_of_bound_error( \
+                : ( make_out_of_bound_error(
                         "Index `i` exceeds size of sequence."),
                     sequence_traits<sequence_type>::at(_xs, i) );
         }
@@ -133,10 +138,11 @@ namespace detail {
     /// \cond
     struct make_raw_view {
         template <class Sequence>
-        constexpr auto operator()(Sequence& sequence) const noexcept
-        {
-            return raw_view_impl<Sequence>(sequence);
-        }
+        BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(Sequence& sequence) const
+        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
+        (
+            raw_view_impl<Sequence>(sequence)
+        )
     };
     /// \endcond
 } // end namespace detail

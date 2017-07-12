@@ -9,3 +9,8 @@ import testing ;
 run invoke.cpp ;
 run raw_view.cpp ;
 run drop.cpp ;
+run lfold.cpp ;
+run concat.cpp ;
+run take.cpp ;
+run slice.cpp ;
+run hashed.cpp ;

@@ -8,62 +8,76 @@
     <includes refid="view__base_8hpp" local="no">boost/static_views/view_base.hpp</includes>
     <includes refid="sequence__traits_8hpp" local="no">boost/static_views/sequence_traits.hpp</includes>
     <incdepgraph>
-      <node id="154">
+      <node id="445">
         <label>boost/static_views/sequence_traits.hpp</label>
         <link refid="sequence__traits_8hpp"/>
-        <childnode refid="155" relation="include">
+        <childnode refid="446" relation="include">
         </childnode>
-        <childnode refid="149" relation="include">
+        <childnode refid="438" relation="include">
         </childnode>
       </node>
-      <node id="150">
+      <node id="440">
         <label>exception</label>
       </node>
-      <node id="149">
+      <node id="438">
         <label>boost/static_views/detail/config.hpp</label>
         <link refid="config_8hpp"/>
-        <childnode refid="150" relation="include">
+        <childnode refid="439" relation="include">
+        </childnode>
+        <childnode refid="440" relation="include">
+        </childnode>
+        <childnode refid="441" relation="include">
         </childnode>
       </node>
-      <node id="151">
+      <node id="442">
         <label>boost/static_views/errors.hpp</label>
         <link refid="errors_8hpp"/>
-        <childnode refid="150" relation="include">
+        <childnode refid="440" relation="include">
         </childnode>
-        <childnode refid="149" relation="include">
+        <childnode refid="439" relation="include">
+        </childnode>
+        <childnode refid="438" relation="include">
         </childnode>
       </node>
-      <node id="152">
+      <node id="443">
         <label>boost/static_views/view_base.hpp</label>
         <link refid="view__base_8hpp"/>
-        <childnode refid="148" relation="include">
+        <childnode refid="437" relation="include">
         </childnode>
-        <childnode refid="153" relation="include">
+        <childnode refid="439" relation="include">
         </childnode>
-        <childnode refid="149" relation="include">
+        <childnode refid="444" relation="include">
+        </childnode>
+        <childnode refid="438" relation="include">
         </childnode>
       </node>
-      <node id="155">
+      <node id="446">
         <label>array</label>
       </node>
-      <node id="153">
+      <node id="444">
+        <label>boost/core/demangle.hpp</label>
+      </node>
+      <node id="441">
+        <label>iostream</label>
+      </node>
+      <node id="439">
         <label>boost/config.hpp</label>
       </node>
-      <node id="148">
+      <node id="437">
         <label>type_traits</label>
       </node>
-      <node id="147">
+      <node id="436">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</label>
         <link refid="raw_view.hpp"/>
-        <childnode refid="148" relation="include">
+        <childnode refid="437" relation="include">
         </childnode>
-        <childnode refid="149" relation="include">
+        <childnode refid="438" relation="include">
         </childnode>
-        <childnode refid="151" relation="include">
+        <childnode refid="442" relation="include">
         </childnode>
-        <childnode refid="152" relation="include">
+        <childnode refid="443" relation="include">
         </childnode>
-        <childnode refid="154" relation="include">
+        <childnode refid="445" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -82,7 +96,7 @@
 <para><computeroutput>raw_view : Sequence --&gt; View</computeroutput></para><para><emphasis>Raw view</emphasis> is the simplest view there is. It does no manipulations and is just wrapper around a sequence type to implement the View concept. It should work for any sequence for which there exists a specialisation of #boost::static_views::sequence_traits. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="154" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="154" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="160" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="160" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -114,89 +128,95 @@
 <codeline lineno="25" refid="structdetail_1_1raw__view__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref><sp/>:<sp/><ref refid="structview__base" kindref="compound">view_base</ref><sp/>{</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
 <codeline lineno="28"></codeline>
-<codeline lineno="32" refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(Sequence&amp;<sp/>xs)<sp/>noexcept</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_xs{<sp/>xs<sp/>}</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/>&amp;&amp;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>&amp;<sp/><ref refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" kindref="member">operator=</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>&amp;<sp/><ref refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" kindref="member">operator=</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/>&amp;&amp;)<sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="47"></codeline>
-<codeline lineno="49"></codeline>
-<codeline lineno="60" refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" kindref="member">capacity</ref>()<sp/>noexcept</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::size</ref>();<sp/></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"></codeline>
-<codeline lineno="75" refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">size</ref>()<sp/>const<sp/>noexcept</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::size</ref>();<sp/></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"></codeline>
-<codeline lineno="96"><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="97" refid="structdetail_1_1raw__view__impl_1a294af8206ed4aaa316936cc548b7264a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>element_type&amp;<sp/><ref refid="structdetail_1_1raw__view__impl_1a294af8206ed4aaa316936cc548b7264a" kindref="member">operator[]</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)<sp/>operator[](std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>const<sp/>i)<sp/>const</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BOOST_LIKELY(i<sp/>&lt;<sp/><ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">size</ref>())</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i)</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>(<sp/><ref refid="errors_8hpp_1a05f87fd606831e7819012e6001166d0d" kindref="member">make_out_of_bound_error</ref>(<sp/>\</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Index<sp/>`i`<sp/>exceeds<sp/>size<sp/>of<sp/>sequence.&quot;</highlight><highlight class="normal">),</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i)<sp/>);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="111"><highlight class="comment">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight></codeline>
-<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>element_type&amp;<sp/>operator[](std::size_t<sp/>const<sp/>i)</highlight></codeline>
-<codeline lineno="113"><highlight class="comment">#else</highlight></codeline>
-<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
-<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(auto)<sp/>operator[](std::size_t<sp/>const<sp/>i)</highlight></codeline>
-<codeline lineno="116"><highlight class="comment">#endif</highlight></codeline>
-<codeline lineno="117"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>BOOST_LIKELY(i<sp/>&lt;<sp/>size())</highlight></codeline>
-<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>sequence_traits&lt;sequence_type&gt;::at(_xs,<sp/>i)</highlight></codeline>
-<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>(<sp/>make_out_of_bound_error(<sp/>\</highlight></codeline>
-<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Index<sp/>`i`<sp/>exceeds<sp/>size<sp/>of<sp/>sequence.&quot;),</highlight></codeline>
-<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sequence_traits&lt;sequence_type&gt;::at(_xs,<sp/>i)<sp/>);</highlight></codeline>
-<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="124"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>sequence_type<sp/>=<sp/>std::remove_const_t&lt;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::remove_reference_t&lt;</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sequence<sp/>&gt;&gt;;</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sequence&amp;<sp/>_xs;</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">make_raw_view<sp/>{</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Sequence&gt;</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>operator()(Sequence&amp;<sp/>sequence)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>noexcept</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>raw_view_impl&lt;Sequence&gt;(sequence);</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="142"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"></codeline>
-<codeline lineno="153"><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="154" refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" refkind="member"><highlight class="normal">constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref><sp/>=<sp/>[](</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>seq)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl" kindref="compound">detail::raw_view_impl</ref>{seq};<sp/>};</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><ref refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(detail::make_raw_view,<sp/>raw_view)</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_RAW_VIEW_HPP</highlight></codeline>
+<codeline lineno="32" refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(Sequence&amp;<sp/>xs)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_xs{<sp/>xs<sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/>&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>&amp;<sp/><ref refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" kindref="member">operator=</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref>&amp;<sp/><ref refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" kindref="member">operator=</ref>(<ref refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kindref="member">raw_view_impl</ref><sp/>&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="55"></codeline>
+<codeline lineno="57"></codeline>
+<codeline lineno="68" refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" kindref="member">capacity</ref>()<sp/>noexcept</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::size</ref>();<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"></codeline>
+<codeline lineno="83" refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">size</ref>()<sp/>const<sp/>noexcept</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::size</ref>();<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="106" refid="structdetail_1_1raw__view__impl_1ac77ceab38b174562a80d82e847af2bb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structdetail_1_1raw__view__impl_1ac77ceab38b174562a80d82e847af2bb8" kindref="member">operator[]</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="107"><highlight class="keyword"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BOOST_LIKELY(i<sp/>&lt;<sp/><ref refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kindref="member">size</ref>())</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>(<sp/><ref refid="errors_8hpp_1a05f87fd606831e7819012e6001166d0d" kindref="member">make_out_of_bound_error</ref>(</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Index<sp/>`i`<sp/>exceeds<sp/>size<sp/>of<sp/>sequence.&quot;</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structsequence__traits" kindref="compound">sequence_traits&lt;sequence_type&gt;::at</ref>(_xs,<sp/>i)<sp/>);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="116"><highlight class="comment">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>element_type&amp;<sp/>operator[](std::size_t<sp/>const<sp/>i)</highlight></codeline>
+<codeline lineno="118"><highlight class="comment">#else</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>decltype(auto)<sp/>operator[](std::size_t<sp/>const<sp/>i)</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">#endif</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>BOOST_LIKELY(i<sp/>&lt;<sp/>size())</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>sequence_traits&lt;sequence_type&gt;::at(_xs,<sp/>i)</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>(<sp/>make_out_of_bound_error(<sp/>\</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Index<sp/>`i`<sp/>exceeds<sp/>size<sp/>of<sp/>sequence.&quot;),</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sequence_traits&lt;sequence_type&gt;::at(_xs,<sp/>i)<sp/>);</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>sequence_type<sp/>=<sp/>std::remove_const_t&lt;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::remove_reference_t&lt;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sequence<sp/>&gt;&gt;;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sequence&amp;<sp/>_xs;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">make_raw_view<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Sequence&gt;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>operator()(Sequence&amp;<sp/>sequence)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a1f88e23c120428275a96beec18c0fbee" kindref="member">BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT</ref></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>raw_view_impl&lt;Sequence&gt;(sequence)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" refkind="member"><highlight class="normal">constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref><sp/>=<sp/>[](</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>seq)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl" kindref="compound">detail::raw_view_impl</ref>{seq};<sp/>};</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><ref refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(detail::make_raw_view,<sp/>raw_view)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_RAW_VIEW_HPP</highlight></codeline>
     </programlisting>
     <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp"/>
   </compounddef>

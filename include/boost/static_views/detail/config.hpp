@@ -9,10 +9,18 @@
 
 #include <boost/config.hpp>
 #include <exception>
+#include <iostream>
+
+#define BOOST_STATIC_VIEWS_CONSTEXPR constexpr
+/* Ooops debugging */
+
+
+#define NEGLECT_STD_TUPLE
+
 
 
 #if __cplusplus > 201402L
-#   define BOOST_CONSTEXPR_AFTER_CXX14 constexpr
+#   define BOOST_CONSTEXPR_AFTER_CXX14 BOOST_STATIC_VIEWS_CONSTEXPR
 #else
 #   define BOOST_CONSTEXPR_AFTER_CXX14
 #endif
@@ -41,6 +49,16 @@
 #else
 #   define BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)                                \
         noexcept(__VA_ARGS__)                                                 \
+        /**/
+#endif
+
+#if defined(DOXYGEN_IN_HOUSE)
+#   define BOOST_STATIC_VIEWS_DECLTYPE_AUTO                                   \
+        auto                                                                  \
+        /**/
+#else
+#   define BOOST_STATIC_VIEWS_DECLTYPE_AUTO                                   \
+        decltype(auto)                                                        \
         /**/
 #endif
     

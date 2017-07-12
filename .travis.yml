@@ -253,7 +253,7 @@ script:
   - ./b2 libs/static_views/test toolset=$TOOLSET
   - |
     if [[ $BENCHMARK == "true" ]]; then
-      { for i in {1..10}; do sleep 5m; echo "No! Don't terminate me!"; done; } &
+      { for i in {1..10}; do sleep 300; echo "No! Don't terminate me!"; done; } &
       ./b2 libs/static_views/test/benchmarks toolset=$TOOLSET
     fi
 

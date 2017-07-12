@@ -5,6 +5,7 @@
 
 #include <utility>
 #include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
 

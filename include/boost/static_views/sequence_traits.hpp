@@ -21,9 +21,9 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 /// template <class Sequence> 
 /// struct sequence_traits {
 ///     using type = Sequence;
-/// 
+///  
 ///     static constexpr std::size_t size() noexcept;
-/// 
+///  
 ///     template <class S>
 ///     static constexpr reference at(S&& xs, std::size_t i) noexcept;
 /// };

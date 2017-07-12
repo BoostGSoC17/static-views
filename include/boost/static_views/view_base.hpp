@@ -14,6 +14,7 @@
 #include <type_traits>
 
 #include <boost/config.hpp>
+#include <boost/core/demangle.hpp>
 #include <boost/static_views/detail/config.hpp>
 
 
@@ -62,7 +63,7 @@ struct view_adaptor_core_access {
 private:
 
     template <class View>
-    static constexpr auto map(View const& xs, std::size_t const i) 
+    static BOOST_STATIC_VIEWS_CONSTEXPR auto map(View const& xs, std::size_t const i) 
     BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
     (
         xs.map(i)
@@ -87,8 +88,14 @@ protected:
     using view_adaptor_base_type = view_adaptor_base<Derived, View>;
 
 public:
-    explicit constexpr view_adaptor_base(View&& view) 
-        noexcept(std::is_nothrow_move_constructible<View>::value)
+    /// \name Constructors
+    ///
+    /// \brief Constructs an adaptor of \p view.
+    /// \details Here, \p view is a wrapper around the actual view created
+    /// with #make_wrapper(T&&) function.
+    explicit BOOST_STATIC_VIEWS_CONSTEXPR view_adaptor_base(View&& view)
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            std::is_nothrow_move_constructible<View>::value)
         : _xs{ std::move(view) }
     {
     }
@@ -98,10 +105,17 @@ public:
     /// Defines default copy and move constructors and assignments, i.e. is
     /// copy/move-constructible/assignable if \p View is.
     /// \{
-    constexpr view_adaptor_base(view_adaptor_base const&)            = default;
-    constexpr view_adaptor_base(view_adaptor_base &&)                = default;
-    constexpr view_adaptor_base& operator=(view_adaptor_base const&) = default;
-    constexpr view_adaptor_base& operator=(view_adaptor_base &&)     = default;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_adaptor_base(view_adaptor_base const&) = default;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_adaptor_base(view_adaptor_base &&) = default;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_adaptor_base& operator=(view_adaptor_base const&) = default;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_adaptor_base& operator=(view_adaptor_base &&) = default;
     /// \}
 
 
@@ -123,7 +137,7 @@ public:
     /// \endverbatim
 
     /// Just calls `size()` on the underlying view. 
-    constexpr auto size() const
+    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const
     	BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             std::declval<view_adaptor_base const&>().parent().size()
         ))
@@ -134,11 +148,8 @@ public:
     
     /// \brief Returns the underlying view.
     /// \{
-#if defined(DOXYGEN_IN_HOUSE)
-    constexpr const underlying_view_type& parent() const&
-#else
-    constexpr decltype(auto) parent() const&
-#endif
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() const&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             std::declval<wrapper_type const&>().get()
         ))
@@ -148,9 +159,9 @@ public:
 
 /*
 #if defined(DOXYGEN_IN_HOUSE)
-    constexpr underlying_view_type& parent() &
+    BOOST_STATIC_VIEWS_CONSTEXPR underlying_view_type& parent() &
 #else
-    constexpr decltype(auto) parent() &
+    BOOST_STATIC_VIEWS_CONSTEXPR decltype(auto) parent() &
 #endif
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             std::declval<wrapper_type &>().get()
@@ -160,11 +171,8 @@ public:
     }
 */
 
-#if defined(DOXYGEN_IN_HOUSE)
-    constexpr underlying_view_type&& parent() &&
-#else
-    constexpr decltype(auto) parent() &&
-#endif
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() &&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             std::declval<wrapper_type &&>().get()
         ))
@@ -176,11 +184,8 @@ public:
 
     /// \name Element access
     /// \{
-#if defined(DOXYGEN_IN_HOUSE)
-    constexpr const element_type& operator[](std::size_t const i) const&
-#else
-    constexpr decltype(auto) operator[](std::size_t const i) const&
-#endif
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) const&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             std::declval<view_adaptor_base const&>().parent()[
                 view_adaptor_core_access::map(
@@ -191,11 +196,8 @@ public:
         return parent()[view_adaptor_core_access::map(derived(), i)];
     }
 
-#if defined(DOXYGEN_IN_HOUSE)
-    constexpr element_type& operator[](std::size_t const i) &
-#else
-    constexpr decltype(auto) operator[](std::size_t const i) &
-#endif
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) &
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             std::declval<view_adaptor_base &>().parent()[
                 view_adaptor_core_access::map(
@@ -206,11 +208,8 @@ public:
         return parent()[view_adaptor_core_access::map(derived(), i)];
     }
 
-#if defined(DOXYGEN_IN_HOUSE)
-    constexpr element_type&& operator[](std::size_t const i) &&
-#else
-    constexpr decltype(auto) operator[](std::size_t const i) &&
-#endif
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) &&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             std::declval<view_adaptor_base &&>().parent()[
                 view_adaptor_core_access::map(
@@ -227,12 +226,27 @@ private:
 
 
     BOOST_FORCEINLINE
-    constexpr auto derived() const noexcept -> derived_type const&
+    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() const noexcept 
+        -> derived_type const&
     {
         return *static_cast<derived_type const*>(this);
     }
 };
 
+
+/// \brief This function is used for debugging only. It will be removed soon.
+template <class View, class OStream,
+    class = std::enable_if_t<is_view<View>::value>>
+auto operator<< (OStream& out, View const& xs) -> OStream&
+{
+    out << boost::core::demangle(typeid(xs).name())
+        << "[";
+    for (std::size_t i = 0; i < xs.size(); ++i) {
+        out << xs[i] << ", "; 
+    }
+    out << "]";
+    return out;
+}
 
 
 BOOST_STATIC_VIEWS_END_NAMESPACE

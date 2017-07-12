@@ -125,21 +125,25 @@ Sorts an array of integers at compile-time.
 
   .. image:: ../test/benchmarks/results/sort.gcc-7.png
 
-* ``Clang-3.8``:
+* ``Clang-3.8.0``:
 
-  .. image:: ../test/benchmarks/results/sort.clang-3.8.png
+  .. image:: ../test/benchmarks/results/sort.clang-3.8.0.png
 
-* ``Clang-3.9``:
+* ``Clang-3.9.1``:
 
-  .. image:: ../test/benchmarks/results/sort.clang-3.9.png
+  .. image:: ../test/benchmarks/results/sort.clang-3.9.1.png
 
-* ``Clang-4.0.0``:
+* ``Clang-4.0.1``:
 
-  .. image:: ../test/benchmarks/results/sort.clang-4.0.0.png
+  .. image:: ../test/benchmarks/results/sort.clang-4.0.1.png
 
 * ``Clang-5.0.0``:
 
   .. image:: ../test/benchmarks/results/sort.clang-5.0.0.png
+
+* ``XCode 9``:
+
+  .. image:: ../test/benchmarks/results/sort.clang-4.2.1.png
 
 * ``Clang/C2``:
 
@@ -169,22 +173,22 @@ Nested drop
 
 * ``GCC-7``:
 
-  .. literalinclude:: ../test/optimisation/results/nested.gcc-6.3.0.xml
+  .. literalinclude:: ../test/optimisation/results/nested.gcc-7.xml
     :language: xml
 
-* ``Clang-3.8``:
+* ``Clang-3.8.0``:
 
-  .. literalinclude:: ../test/optimisation/results/nested.clang-3.8.xml
+  .. literalinclude:: ../test/optimisation/results/nested.clang-3.8.0.xml
     :language: xml
 
-* ``Clang-3.9``:
+* ``Clang-3.9.1``:
 
-  .. literalinclude:: ../test/optimisation/results/nested.clang-3.9.xml
+  .. literalinclude:: ../test/optimisation/results/nested.clang-3.9.1.xml
     :language: xml
 
-* ``Clang-4.0.0``:
+* ``Clang-4.0.1``:
 
-  .. literalinclude:: ../test/optimisation/results/nested.clang-4.0.0.xml
+  .. literalinclude:: ../test/optimisation/results/nested.clang-4.0.1.xml
     :language: xml
 
 * ``Clang-5.0.0``:

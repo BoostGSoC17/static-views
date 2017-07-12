@@ -80,3 +80,12 @@ make $(.output-dir)/nested.xml
     : @checking-optimisation
     : <opcodes-limit>0 <function>test1
     ;
+
+$(.TYPE) _binary_search : binary_search.cpp ;
+explicit _binary_search ;
+
+make $(.output-dir)/binary_search.xml
+    : _binary_search
+    : @checking-optimisation
+    : <opcodes-limit>0 <function>test1
+    ;
