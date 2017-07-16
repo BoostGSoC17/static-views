@@ -22,9 +22,28 @@
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 
+/// \brief Base class for all the algorithms.
+
+/// \verbatim embed:rst:leading-slashes
+/// By deriving from :cpp:class:`algorithm_base`, you tell StaticView that the
+/// derived class models the :ref:`view <algorithm-concept>` concept.
+/// \endverbatim
 struct algorithm_base {};
 
 
+/// \brief Checks whether `T` models the Algorithm concept.
+
+/// \verbatim embed:rst:leading-slashes
+/// Metafunction that returns whether ``T`` models the :ref:`algorithm
+/// <algorithm-concept>` concept:
+/// 
+/// .. code-block:: cpp
+/// 
+///   template <class T> 
+///   struct is_algorithm : std::is_base_of<algorithm_base, T> 
+///   {};
+///
+/// \endverbatim
 template <class V>
 struct is_algorithm : std::is_base_of<algorithm_base, V> {};
 
@@ -34,7 +53,7 @@ namespace detail {
     struct algorithm_impl : algorithm_base {
 
         explicit BOOST_STATIC_VIEWS_CONSTEXPR algorithm_impl(Function&& f,
-            std::tuple<wrapper<Args>...>&& args)
+            wrapper<Args>&&... args)
 #           if defined(NEGLECT_STD_TUPLE)
                 // std::tuple's constructor is not marked noexcept in most of
                 // the implementations. We "know", however, that the only thing
@@ -53,7 +72,7 @@ namespace detail {
                 ))
 #           endif
             : _func{ std::move(f) }
-            , _args{ std::move(args) }
+            , _args{ std::move(args)... }
         {
         }
 
@@ -64,7 +83,7 @@ namespace detail {
             )                                                                 \
             /**/
 
-        template <class View> 
+        template <class View>
         BOOST_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR
         BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator()(View&& xs) const&
@@ -76,6 +95,7 @@ namespace detail {
                 std::make_index_sequence<sizeof...(Args)>{});
         }
 
+        /*
         template <class View> 
         BOOST_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR
@@ -87,6 +107,7 @@ namespace detail {
             return call_impl(std::forward<View>(xs),
                 std::make_index_sequence<sizeof...(Args)>{});
         }
+        */
 
         template <class View> 
         BOOST_FORCEINLINE
@@ -96,7 +117,7 @@ namespace detail {
         {
             static_assert(is_view<std::decay_t<View>>::value, 
                 "`View` must model the View concept.");
-            return call_impl(std::forward<View>(xs),
+            return std::move(*this).call_impl(std::forward<View>(xs),
                 std::make_index_sequence<sizeof...(Args)>{});
         }
 
@@ -125,7 +146,6 @@ namespace detail {
                 std::declval<Args &&>()...));
         }
 
-
         template <class View, std::size_t... Is>
         BOOST_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR
@@ -140,7 +160,8 @@ namespace detail {
         /* // I think that this overload makes little sense
         template <class View, std::size_t... Is>
         BOOST_FORCEINLINE
-        BOOST_STATIC_VIEWS_CONSTEXPR BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
             std::index_sequence<Is...>) &
         {
             return invoke(_func, make_wrapper(std::forward<View>(xs)),
@@ -170,7 +191,7 @@ namespace detail {
         BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
         (
             algorithm_impl<Function, Args&&...>(Function{},
-                std::make_tuple(make_wrapper(std::forward<Args>(args))...))
+                make_wrapper(std::forward<Args>(args))...)
         )
     };
 } // end namespace detail

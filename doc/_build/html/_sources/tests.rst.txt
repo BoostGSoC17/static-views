@@ -95,7 +95,6 @@ interested in is how memory usage scales with input size. To accomplish
 this, we define the data in an external file. For example
 
 .. code-block:: cpp
-  :dedent: 2
 
   static constexpr int random_array[] = {
   #   include "test_data.txt"

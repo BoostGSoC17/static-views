@@ -23,8 +23,10 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 /// \brief Base class for all the views.
 
-/// By deriving from #view_base, you tell StaticView that the derived class
-/// models the View concept.
+/// \verbatim embed:rst:leading-slashes
+/// By deriving from :cpp:class:`view_base`, you tell StaticView that the
+/// derived class models the :ref:`view <view-concept>` concept.
+/// \endverbatim
 struct view_base {};
 
 
@@ -217,7 +219,8 @@ public:
                     std::declval<std::size_t>() )]
         ))
     {
-        return parent()[view_adaptor_core_access::map(derived(), i)];
+        return std::forward<view_adaptor_base>(*this).parent()[
+            view_adaptor_core_access::map(derived(), i)];
     }
     /// \} 
 

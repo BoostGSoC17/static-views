@@ -6,87 +6,90 @@
     <derivedcompoundref refid="structdetail_1_1raw__view__impl" prot="public" virt="non-virtual">detail::raw_view_impl&lt; Sequence &gt;</derivedcompoundref>
     <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; Derived, View &gt;</derivedcompoundref>
     <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</derivedcompoundref>
-    <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; hashed_impl&lt; BucketCount, BucketSize, V &gt;, V &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; hashed_impl&lt; BucketCount, BucketSize, View, Hasher &gt;, View &gt;</derivedcompoundref>
     <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; take_impl&lt; View &gt;, View &gt;</derivedcompoundref>
     <derivedcompoundref refid="structview__adaptor__base" prot="public" virt="non-virtual">view_adaptor_base&lt; through_impl&lt; View, Proxy &gt;, View &gt;</derivedcompoundref>
     <includes refid="view__base_8hpp" local="no">view_base.hpp</includes>
     <briefdescription>
 <para>Base class for all the views. </para>    </briefdescription>
     <detaileddescription>
-<para>By deriving from <ref refid="structview__base" kindref="compound">view_base</ref>, you tell StaticView that the derived class models the View concept. </para>    </detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// By deriving from :cpp:class:`view_base`, you tell StaticView that the
+/// derived class models the :ref:`view &lt;view-concept&gt;` concept.
+/// </verbatim> </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="205">
+      <node id="197">
         <label>view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="193" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="210">
+      <node id="202">
         <label>detail::take_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1take__impl"/>
-        <childnode refid="209" relation="public-inheritance">
+        <childnode refid="201" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="203">
+      <node id="195">
         <label>detail::raw_view_impl&lt; Sequence &gt;</label>
         <link refid="structdetail_1_1raw__view__impl"/>
-        <childnode refid="201" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="209">
-        <label>view_adaptor_base&lt; take_impl&lt; View &gt;, View &gt;</label>
-        <link refid="structview__adaptor__base"/>
-        <childnode refid="201" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="206">
-        <label>detail::drop_impl&lt; View &gt;</label>
-        <link refid="structdetail_1_1drop__impl"/>
-        <childnode refid="205" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="204">
-        <label>view_adaptor_base&lt; Derived, View &gt;</label>
-        <link refid="structview__adaptor__base"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="193" relation="public-inheritance">
         </childnode>
       </node>
       <node id="201">
+        <label>view_adaptor_base&lt; take_impl&lt; View &gt;, View &gt;</label>
+        <link refid="structview__adaptor__base"/>
+        <childnode refid="193" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="198">
+        <label>detail::drop_impl&lt; View &gt;</label>
+        <link refid="structdetail_1_1drop__impl"/>
+        <childnode refid="197" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="200">
+        <label>detail::hashed_impl&lt; BucketCount, BucketSize, View, Hasher &gt;</label>
+        <link refid="structdetail_1_1hashed__impl"/>
+        <childnode refid="199" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>view_adaptor_base&lt; Derived, View &gt;</label>
+        <link refid="structview__adaptor__base"/>
+        <childnode refid="193" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="193">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="202">
+      <node id="194">
         <label>detail::concat_impl&lt; Views &gt;</label>
         <link refid="structdetail_1_1concat__impl"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="193" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="208">
-        <label>detail::hashed_impl&lt; BucketCount, BucketSize, V &gt;</label>
-        <link refid="structdetail_1_1hashed__impl"/>
-        <childnode refid="207" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="207">
-        <label>view_adaptor_base&lt; hashed_impl&lt; BucketCount, BucketSize, V &gt;, V &gt;</label>
+      <node id="199">
+        <label>view_adaptor_base&lt; hashed_impl&lt; BucketCount, BucketSize, View, Hasher &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="193" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="211">
+      <node id="203">
         <label>view_adaptor_base&lt; through_impl&lt; View, Proxy &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="193" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="212">
+      <node id="204">
         <label>detail::through_impl&lt; View, Proxy &gt;</label>
         <link refid="structdetail_1_1through__impl"/>
-        <childnode refid="211" relation="public-inheritance">
+        <childnode refid="203" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="28" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="28" bodyend="28"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="30" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="30" bodyend="30"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

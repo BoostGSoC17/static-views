@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="67" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="67" bodyend="70"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="110" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="110" bodyend="113"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="65" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="65" bodyend="72"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="108" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="108" bodyend="115"/>
     <listofallmembers>
       <member refid="structdetail_1_1make__take__impl_1abad4de17e1e9b1b9a8cc92d38ce43094" prot="public" virt="non-virtual"><scope>detail::make_take_impl</scope><name>operator()</name></member>
     </listofallmembers>

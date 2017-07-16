@@ -26,12 +26,13 @@ local .gcc-warnings = -W -Wall -Wextra -pedantic -Wcast-align
                       -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization 
                       -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs 
                       -Wno-noexcept
+                      -Wno-noexcept-type
                       -Woverloaded-virtual -Wredundant-decls
                       -Wshadow -Wsign-promo -Wstrict-null-sentinel
                       -Wstrict-overflow=5
-                      -Wno-old-style-cast
-                      -Wno-undef
-                      -Wno-variadic-macros -Wno-parentheses ;
+                      -Wvariadic-macros 
+                      -Wparentheses 
+                    ;
 
 local .clang-warnings = -W -Weverything
                         -Wno-reserved-id-macro
@@ -57,6 +58,7 @@ project
                    # Add some extra warnings' flags for GCC
                    <toolset>gcc:<cxxflags>$(.gcc-warnings:J=" ")
                    <toolset>clang:<cxxflags>$(.clang-warnings:J=" ")
+                   <toolset>gcc:<cxxflags>"-ftemplate-depth=1000"
     ;
 
 

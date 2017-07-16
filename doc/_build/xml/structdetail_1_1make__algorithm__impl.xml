@@ -21,7 +21,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="172" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="172" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="193" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="193" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -47,14 +47,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="169" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="190" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="166" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="166" bodyend="175"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="187" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="187" bodyend="196"/>
     <listofallmembers>
       <member refid="structdetail_1_1make__algorithm__impl_1a952b258d65cbd32d2dd4cdb400a16887" prot="public" virt="non-virtual"><scope>detail::make_algorithm_impl</scope><name>Function</name></member>
       <member refid="structdetail_1_1make__algorithm__impl_1ad8f4cd58e486b50eb054267b364e8997" prot="public" virt="non-virtual"><scope>detail::make_algorithm_impl</scope><name>operator()</name></member>

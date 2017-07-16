@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="19" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="19" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="21" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="21" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="21" bodyend="21"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="23" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="23" bodyend="23"/>
       </memberdef>
       <memberdef kind="function" id="classout__of__bound_1acf332567773de6aef383d73bcf96fea8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="22" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="22" bodyend="22"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="24" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="24" bodyend="24"/>
       </memberdef>
       <memberdef kind="function" id="classout__of__bound_1a4ea147b1308d9060249d266420877c5d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>auto</type>
@@ -61,36 +61,36 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="24" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="24" bodyend="25"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="26" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="26" bodyend="27"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Exception that is thrown when an &quot;index out of bounds error&quot; is encountered. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="169">
+      <node id="161">
         <label>out_of_bound</label>
         <link refid="classout__of__bound"/>
-        <childnode refid="170" relation="private-inheritance">
+        <childnode refid="162" relation="private-inheritance">
         </childnode>
       </node>
-      <node id="170">
+      <node id="162">
         <label>std::exception</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="171">
+      <node id="163">
         <label>out_of_bound</label>
         <link refid="classout__of__bound"/>
-        <childnode refid="172" relation="private-inheritance">
+        <childnode refid="164" relation="private-inheritance">
         </childnode>
       </node>
-      <node id="172">
+      <node id="164">
         <label>std::exception</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="18" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="18" bodyend="26"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="20" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="20" bodyend="28"/>
     <listofallmembers>
       <member refid="classout__of__bound_1a520e5522c321da8b62016c8cbd4c3bfe" prot="private" virt="non-virtual"><scope>out_of_bound</scope><name>_msg</name></member>
       <member refid="classout__of__bound_1a049b6a2418d7a4edc2b7c7d09209e2b3" prot="public" virt="non-virtual"><scope>out_of_bound</scope><name>out_of_bound</name></member>

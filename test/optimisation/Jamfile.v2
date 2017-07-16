@@ -81,6 +81,7 @@ make $(.output-dir)/nested.xml
     : <opcodes-limit>0 <function>test1
     ;
 
+
 $(.TYPE) _binary_search : binary_search.cpp ;
 explicit _binary_search ;
 
@@ -89,3 +90,14 @@ make $(.output-dir)/binary_search.xml
     : @checking-optimisation
     : <opcodes-limit>0 <function>test1
     ;
+
+
+$(.TYPE) _static_map : static_map.cpp ;
+explicit _static_map ;
+
+notfile static_map
+    : @checking-optimisation
+    : _static_map
+    : <opcodes-limit>700 <function>test2
+    ;
+explicit static_map ;

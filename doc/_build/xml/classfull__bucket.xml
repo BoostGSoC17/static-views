@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="40" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="45" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="45" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="42" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="42" bodyend="42"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="47" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="47" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="classfull__bucket_1ac8139700e83324671a73ee9f1cf352c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="43" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="43" bodyend="43"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="48" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="48" bodyend="48"/>
       </memberdef>
       <memberdef kind="function" id="classfull__bucket_1a7db4f7147b91ccbf745a5cd4012232c2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>auto</type>
@@ -61,36 +61,36 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="45" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="45" bodyend="46"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="50" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="50" bodyend="51"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Exception that is thrown when an insert into a full bucket is attempted. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="128">
+      <node id="124">
         <label>exception</label>
       </node>
-      <node id="127">
+      <node id="123">
         <label>full_bucket</label>
         <link refid="classfull__bucket"/>
-        <childnode refid="128" relation="private-inheritance">
+        <childnode refid="124" relation="private-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="130">
+      <node id="126">
         <label>exception</label>
       </node>
-      <node id="129">
+      <node id="125">
         <label>full_bucket</label>
         <link refid="classfull__bucket"/>
-        <childnode refid="130" relation="private-inheritance">
+        <childnode refid="126" relation="private-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="39" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="39" bodyend="47"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="44" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="44" bodyend="52"/>
     <listofallmembers>
       <member refid="classfull__bucket_1a0404d472b36f1ee125840fd802fd2683" prot="private" virt="non-virtual"><scope>full_bucket</scope><name>_msg</name></member>
       <member refid="classfull__bucket_1a7d5c6cb9248ae12a3e6f17e203b9fe69" prot="public" virt="non-virtual"><scope>full_bucket</scope><name>full_bucket</name></member>

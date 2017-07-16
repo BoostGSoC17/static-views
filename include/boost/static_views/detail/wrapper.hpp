@@ -21,6 +21,26 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 namespace detail {
 
     /// \brief Wraps an lvalue or an rvalue reference.    
+
+    /// This is basically a `constexpr` version of `std::reference_wrapper`. The
+    /// difference is that #detail::wrapper can wrap both lvalue and rvalue
+    /// references. This is just syntactic sugar.
+    ///
+    /// \code{.cpp}
+    /// template <class T>
+    /// struct wrapper {
+    ///     constexpr auto get() const& noexcept(whenever possible);
+    ///     constexpr auto get() &      noexcept(whenever possible);
+    ///     constexpr auto get() &&     noexcept(whenever possible);
+    ///
+    ///     template <class... Args>
+    ///     constexpr auto operator() (Args&&...) const
+    ///         noexcept(whenever possible);
+    /// };
+    /// \endcode
+    ///
+    /// Constructors are intentionally not listed. Use make_wrapper(T&&) to
+    /// create wrappers.
     template <class T> struct wrapper;
 
     /// \cond
@@ -36,6 +56,7 @@ namespace detail {
 #       if BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
             default;
 #       else
+            // default;
             delete;
 #       endif
 
@@ -93,6 +114,7 @@ namespace detail {
 #       if BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
             default;
 #       else
+            // default;
             delete;
 #       endif
 
@@ -162,7 +184,8 @@ namespace detail {
                     std::declval<Args&&>()...)
             ))
         {
-            return invoke(get(), std::forward<Args>(args)...);
+            return invoke(std::forward<wrapper>(*this).get(),
+                std::forward<Args>(args)...);
         }
 
         template <class... Args>
@@ -174,7 +197,8 @@ namespace detail {
                     std::declval<Args&&>()...)
             ))
         {
-            return invoke(get(), std::forward<Args>(args)...);
+            return invoke(std::forward<wrapper>(*this).get(),
+                std::forward<Args>(args)...);
         }
 
         template <class... Args>
@@ -186,7 +210,8 @@ namespace detail {
                     std::declval<Args&&>()...)
             ))
         {
-            return invoke(get(), std::forward<Args>(args)...);
+            return invoke(std::forward<wrapper>(*this).get(),
+                std::forward<Args>(args)...);
         }
 
     private:
@@ -198,6 +223,8 @@ namespace detail {
 
 
 /// \brief Makes a wrapper around an rvalue or lvalue reference.
+
+/// Creates a #detail::wrapper of `T&` or `T&&` depending on the type of `x`.
 template <class T>
 BOOST_FORCEINLINE
 BOOST_STATIC_VIEWS_CONSTEXPR auto make_wrapper(T&& x)

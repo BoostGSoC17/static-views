@@ -5,14 +5,13 @@
   <compound refid="structdetail_1_1algorithm__impl" kind="struct"><name>detail::algorithm_impl</name>
     <member refid="structdetail_1_1algorithm__impl_1a9157c83db65f0eb608a2c4241d43ee46" kind="variable"><name>_func</name></member>
     <member refid="structdetail_1_1algorithm__impl_1af4b17b2c60fb5899ce7fc213385c7f1f" kind="variable"><name>_args</name></member>
-    <member refid="structdetail_1_1algorithm__impl_1a3c2e1b3320db2c7012d9408e3bc6b581" kind="function"><name>algorithm_impl</name></member>
-    <member refid="structdetail_1_1algorithm__impl_1a71d5ddee6a4fe0864fc1eeb61a0ae90b" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1algorithm__impl_1af6aff812e9eaac730c41edae5d66b31c" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1algorithm__impl_1a32741a055f4fc02b2a2c9e3d2d115bf0" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1algorithm__impl_1adb80ed40b3ba4ba616f8b399c4d44eee" kind="function"><name>algorithm_impl</name></member>
+    <member refid="structdetail_1_1algorithm__impl_1a23a8aa03c5fb3a02b553582e92a0bc9d" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1algorithm__impl_1a3f7243efedf098e0e6fde543e13e0f42" kind="function"><name>operator()</name></member>
     <member refid="structdetail_1_1algorithm__impl_1aa3f449480e95bcb1fbcb172d00d81e33" kind="function"><name>is_noexcept_call_cref</name></member>
     <member refid="structdetail_1_1algorithm__impl_1ac63c275b739ffc897f8ee3be654c5b7e" kind="function"><name>is_noexcept_call_move</name></member>
-    <member refid="structdetail_1_1algorithm__impl_1a134945e9ef2d4da2c528be856a7a1ac6" kind="function"><name>call_impl</name></member>
-    <member refid="structdetail_1_1algorithm__impl_1af1aaf426d4334200c2604a6d29ab3eb0" kind="function"><name>call_impl</name></member>
+    <member refid="structdetail_1_1algorithm__impl_1a0b4a7efc1bc1b009ff6a44778f96da27" kind="function"><name>call_impl</name></member>
+    <member refid="structdetail_1_1algorithm__impl_1adb8c34d1723cfe70e29ea0f3b4b09ac3" kind="function"><name>call_impl</name></member>
   </compound>
   <compound refid="structdetail_1_1concat__impl" kind="struct"><name>detail::concat_impl</name>
     <member refid="structdetail_1_1concat__impl_1a82998e886e566d756dc2528cd69678ef" kind="variable"><name>_views</name></member>
@@ -21,12 +20,11 @@
     <member refid="structdetail_1_1concat__impl_1a2932a97e7d7b9bc6a9bd265aeb514ca7" kind="function"><name>capacity</name></member>
   </compound>
   <compound refid="structdetail_1_1drop__impl" kind="struct"><name>detail::drop_impl</name>
-    <member refid="structdetail_1_1drop__impl_1a15e6389c0e5f7593c838dee2a02e25b9" kind="friend"><name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name></member>
     <member refid="structdetail_1_1drop__impl_1af68e32ca9e9832285db539c074f183ea" kind="variable"><name>_b</name></member>
     <member refid="structdetail_1_1drop__impl_1a8d910b71e11d48d8f2dbde147b035ef0" kind="function"><name>drop_impl</name></member>
     <member refid="structdetail_1_1drop__impl_1a3d5ca28dea6acea1dbb52918a7e83b1a" kind="function"><name>size</name></member>
     <member refid="structdetail_1_1drop__impl_1af2c2b01c070b96a5ccb88f141c0a5d0f" kind="function"><name>map</name></member>
-    <member refid="structdetail_1_1drop__impl_1ac89ee465af0b5fe936636e204c00893c" kind="function"><name>is_noexcept_parent_size</name></member>
+    <member refid="structdetail_1_1drop__impl_1a987d39011748119c8bb6727b70fe507f" kind="function"><name>is_noexcept_parent_size</name></member>
   </compound>
   <compound refid="structdetail_1_1find__first__i__impl" kind="struct"><name>detail::find_first_i_impl</name>
     <member refid="structdetail_1_1find__first__i__impl_1a68e0d31fdf915c643897561e37e1f721" kind="function"><name>operator()</name></member>
@@ -38,24 +36,20 @@
     <member refid="classfull__bucket_1a7db4f7147b91ccbf745a5cd4012232c2" kind="function"><name>what</name></member>
   </compound>
   <compound refid="structdetail_1_1hashed__impl" kind="struct"><name>detail::hashed_impl</name>
-    <member refid="structdetail_1_1hashed__impl_1a2ba5a84f9190378b9a14fedaad043564" kind="variable"><name>_storage</name></member>
-    <member refid="structdetail_1_1hashed__impl_1a1526e234ba8a65a6acc8a40f52771fd0" kind="function"><name>hashed_impl</name></member>
-    <member refid="structdetail_1_1hashed__impl_1afcd4331fdc93b4055d9c8851bc198db1" kind="function"><name>operator[]</name></member>
-    <member refid="structdetail_1_1hashed__impl_1a0cee1c1e7b560c34ecfec6fd4f2cb3e8" kind="function"><name>bucket_count</name></member>
-    <member refid="structdetail_1_1hashed__impl_1afbb56b65215f8a124efd7b8799bc618a" kind="function"><name>bucket_size</name></member>
-    <member refid="structdetail_1_1hashed__impl_1aae27cb3df46245d116c917820a0a7c42" kind="function"><name>capacity</name></member>
+    <member refid="structdetail_1_1hashed__impl_1a8632faf1b0e6a0faf2a3d7a66c879f1f" kind="variable"><name>_hf</name></member>
+    <member refid="structdetail_1_1hashed__impl_1a225730503a245c4f6ffe63da88d26cc1" kind="variable"><name>_storage</name></member>
+    <member refid="structdetail_1_1hashed__impl_1a01d5bdd38a24ad49cdc448dfd2f3af2b" kind="function"><name>hashed_impl</name></member>
+    <member refid="structdetail_1_1hashed__impl_1a6fa63d0e7cad2ad1e38d71682a90ef15" kind="function"><name>hash_function</name></member>
+    <member refid="structdetail_1_1hashed__impl_1ac715b4ccb7288d8a615fbfba25b9f0d2" kind="function"><name>operator[]</name></member>
+    <member refid="structdetail_1_1hashed__impl_1afc14aa02e999360518806f6c00e78da2" kind="function"><name>bucket_count</name></member>
+    <member refid="structdetail_1_1hashed__impl_1a3de0f484e1b921fb36eb0b13dab6827a" kind="function"><name>bucket_size</name></member>
+    <member refid="structdetail_1_1hashed__impl_1a261e4b2100432e6465c01619f735293f" kind="function"><name>capacity</name></member>
   </compound>
   <compound refid="structdetail_1_1hashed__init__impl" kind="struct"><name>detail::hashed_init_impl</name>
     <member refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" kind="variable"><name>storage</name></member>
     <member refid="structdetail_1_1hashed__init__impl_1ac5fcde0324ddfb37238a9eaf3845027c" kind="function"><name>hashed_init_impl</name></member>
     <member refid="structdetail_1_1hashed__init__impl_1ae88c3e13075b7f7c83a423f304b472b6" kind="function"><name>capacity</name></member>
-    <member refid="structdetail_1_1hashed__init__impl_1ac6b9b338fdf2ea20e3315029d7271409" kind="function"><name>insert</name></member>
-  </compound>
-  <compound refid="classinvalid__range" kind="class"><name>invalid_range</name>
-    <member refid="classinvalid__range_1a466f896ac5fcf92f2c948925add10458" kind="variable"><name>_msg</name></member>
-    <member refid="classinvalid__range_1a2ff17c5b405c3f8101d2a9cf72fecbab" kind="function"><name>invalid_range</name></member>
-    <member refid="classinvalid__range_1aa26bed9ad6f1dca2bdd4d18008a43eda" kind="function"><name>invalid_range</name></member>
-    <member refid="classinvalid__range_1abe025d3f4170bd6fa3ee43f8e913fa75" kind="function"><name>what</name></member>
+    <member refid="structdetail_1_1hashed__init__impl_1aacf7f889f76ed18008b307ebd1bdf919" kind="function"><name>insert</name></member>
   </compound>
   <compound refid="structis__algorithm" kind="struct"><name>is_algorithm</name>
   </compound>
@@ -74,10 +68,10 @@
     <member refid="structdetail_1_1make__drop__impl_1ae2568547928070b57da16d54335a4d6f" kind="function"><name>operator()</name></member>
   </compound>
   <compound refid="structdetail_1_1make__hashed__impl" kind="struct"><name>detail::make_hashed_impl</name>
-    <member refid="structdetail_1_1make__hashed__impl_1acb57948ec45c22f6cbc83d7fcd27c29b" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__hashed__impl_1a45ec79a17ec795c77af26f30fc769806" kind="function"><name>operator()</name></member>
   </compound>
   <compound refid="structdetail_1_1make__slice__impl" kind="struct"><name>detail::make_slice_impl</name>
-    <member refid="structdetail_1_1make__slice__impl_1a611150106c6319df8c8c6590b91a162e" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__slice__impl_1a022dd48f8ea0251e4ee500b6222de08d" kind="function"><name>operator()</name></member>
   </compound>
   <compound refid="structdetail_1_1make__take__impl" kind="struct"><name>detail::make_take_impl</name>
     <member refid="structdetail_1_1make__take__impl_1abad4de17e1e9b1b9a8cc92d38ce43094" kind="function"><name>operator()</name></member>
@@ -92,26 +86,25 @@
     <member refid="classout__of__bound_1a4ea147b1308d9060249d266420877c5d" kind="function"><name>what</name></member>
   </compound>
   <compound refid="structdetail_1_1raw__view__impl" kind="struct"><name>detail::raw_view_impl</name>
-    <member refid="structdetail_1_1raw__view__impl_1a2f514cebb9758db5dda55bda5834608d" kind="function"><name>raw_view_impl</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1af99d992d52dc4a0e75812ba5de900dca" kind="function"><name>raw_view_impl</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1aaeffe3d723ca8a99ec7f5334f98a16ea" kind="function"><name>operator=</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a7a6e0253834066188ab0f67c8883df4a" kind="function"><name>operator=</name></member>
     <member refid="structdetail_1_1raw__view__impl_1a76dde309237c92fd6bf484e84d1d640b" kind="typedef"><name>sequence_type</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a7a53bbcc92fac1824affa653f9622463" kind="variable"><name>_xs</name></member>
+    <member refid="structdetail_1_1raw__view__impl_1a39b2074a22f87c39a0b6dbbb67426539" kind="variable"><name>_xs</name></member>
     <member refid="structdetail_1_1raw__view__impl_1a50e1bb662fd9e3568608fa9296d5cd6f" kind="function"><name>raw_view_impl</name></member>
+    <member refid="structdetail_1_1raw__view__impl_1a2b3d13760851ce48eabdf78d714d40c1" kind="function"><name>raw_view_impl</name></member>
+    <member refid="structdetail_1_1raw__view__impl_1ab02f611e61cc306073f1209d624048c1" kind="function"><name>raw_view_impl</name></member>
+    <member refid="structdetail_1_1raw__view__impl_1aa5f4c97480cf089d64d19fb8e8deba17" kind="function"><name>operator=</name></member>
+    <member refid="structdetail_1_1raw__view__impl_1ac14100e8edcde716721b1264b8261bce" kind="function"><name>operator=</name></member>
     <member refid="structdetail_1_1raw__view__impl_1a259b0f200fd15df2d8d6ec7a0be5aa10" kind="function"><name>size</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1ac77ceab38b174562a80d82e847af2bb8" kind="function"><name>operator[]</name></member>
+    <member refid="structdetail_1_1raw__view__impl_1a82447dda78d829759890d15288414995" kind="function"><name>operator[]</name></member>
     <member refid="structdetail_1_1raw__view__impl_1ada2d601f0b2ed3656a78f483f4ef7603" kind="function"><name>capacity</name></member>
   </compound>
   <compound refid="structsequence__traits" kind="struct"><name>sequence_traits</name>
   </compound>
   <compound refid="structdetail_1_1slice__impl" kind="struct"><name>detail::slice_impl</name>
     <member refid="structdetail_1_1slice__impl_1a0ba36a57fa53c5eb87079878ac3a8736" kind="function"><name>slice_impl</name></member>
-    <member refid="structdetail_1_1slice__impl_1a9cc3b13a84a807c211cf6d9e5fb5f614" kind="function"><name>map</name></member>
-    <member refid="structdetail_1_1slice__impl_1a90350a150b382fe68f20787b7bb5319a" kind="function"><name>parent</name></member>
+    <member refid="structdetail_1_1slice__impl_1a75d81cda954774e75508538688b50da5" kind="function"><name>map</name></member>
+    <member refid="structdetail_1_1slice__impl_1a4b579c5cd86c6cac63558fcefc5d673b" kind="function"><name>parent</name></member>
   </compound>
   <compound refid="structdetail_1_1take__impl" kind="struct"><name>detail::take_impl</name>
-    <member refid="structdetail_1_1take__impl_1a15e6389c0e5f7593c838dee2a02e25b9" kind="friend"><name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name></member>
     <member refid="structdetail_1_1take__impl_1abef305ce8e4e2e6e55e8de9da2d3bd81" kind="variable"><name>_n</name></member>
     <member refid="structdetail_1_1take__impl_1a08bdb3d96f2059fb3082978cc2dd3092" kind="function"><name>take_impl</name></member>
     <member refid="structdetail_1_1take__impl_1acadc0bdca66193a5f797b6be26a09ac6" kind="function"><name>size</name></member>
@@ -119,12 +112,11 @@
     <member refid="structdetail_1_1take__impl_1a57616c3f25e6c8776f226b4b827b79da" kind="function"><name>is_noexcept_parent_size</name></member>
   </compound>
   <compound refid="structdetail_1_1through__impl" kind="struct"><name>detail::through_impl</name>
-    <member refid="structdetail_1_1through__impl_1a15e6389c0e5f7593c838dee2a02e25b9" kind="friend"><name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name></member>
     <member refid="structdetail_1_1through__impl_1a406632ea055bdbe75400c415dac24d72" kind="variable"><name>_proxy</name></member>
-    <member refid="structdetail_1_1through__impl_1ab53f2249e7409a7b2d416f65a30ea5e5" kind="function"><name>through_impl</name></member>
+    <member refid="structdetail_1_1through__impl_1a59a419b455491c4c6cad516d35ab7333" kind="function"><name>through_impl</name></member>
     <member refid="structdetail_1_1through__impl_1a2abb4dc480f21a570b67ba88f0e27f15" kind="function"><name>size</name></member>
-    <member refid="structdetail_1_1through__impl_1ab1f324f4aa5559fe457ec39ecb6abbc8" kind="function"><name>capacity</name></member>
     <member refid="structdetail_1_1through__impl_1a12287017d830da1df38741cb7738a9fb" kind="function"><name>map</name></member>
+    <member refid="structdetail_1_1through__impl_1ab1f324f4aa5559fe457ec39ecb6abbc8" kind="function"><name>capacity</name></member>
   </compound>
   <compound refid="structview__adaptor__base" kind="struct"><name>view_adaptor_base</name>
     <member refid="structview__adaptor__base_1a081ca186c301145c8ca08674c9c83702" kind="function"><name>view_adaptor_base</name></member>
@@ -132,11 +124,11 @@
     <member refid="structview__adaptor__base_1a6b801b834ff65616ebd0b201bf2ccb08" kind="function"><name>view_adaptor_base</name></member>
     <member refid="structview__adaptor__base_1a9fead4eeb8ce03baaa1b232c4cea0e8e" kind="function"><name>operator=</name></member>
     <member refid="structview__adaptor__base_1a22143f370952734cf4c80659929874b9" kind="function"><name>operator=</name></member>
-    <member refid="structview__adaptor__base_1ac6d0e2b2daeccf0562c59bfb23f35b6d" kind="function"><name>parent</name></member>
-    <member refid="structview__adaptor__base_1acb4b860f420bdcdbfed06d52a36d8f16" kind="function"><name>parent</name></member>
-    <member refid="structview__adaptor__base_1a64351f5becf885c78a44dcd4c9dedb33" kind="function"><name>operator[]</name></member>
-    <member refid="structview__adaptor__base_1a61a9b5888a0e7d7d1d7ea8e3dcb3486c" kind="function"><name>operator[]</name></member>
-    <member refid="structview__adaptor__base_1a02bffee1ad74bdf1ec4e34aa5faed259" kind="function"><name>operator[]</name></member>
+    <member refid="structview__adaptor__base_1a767124ab23a20fded7bc6edb7cbcaac1" kind="function"><name>parent</name></member>
+    <member refid="structview__adaptor__base_1a5a27d8dea803e58a7699ca7189941cca" kind="function"><name>parent</name></member>
+    <member refid="structview__adaptor__base_1a7c477df3bdd93b8f8983325006ed4f27" kind="function"><name>operator[]</name></member>
+    <member refid="structview__adaptor__base_1a0c839ea46bad2e630109fdacc47c2df8" kind="function"><name>operator[]</name></member>
+    <member refid="structview__adaptor__base_1a844c5f4446e821d074bbc17977149561" kind="function"><name>operator[]</name></member>
     <member refid="structview__adaptor__base_1a6bada55094d7f43ee322d1fccbf3f292" kind="typedef"><name>derived_type</name></member>
     <member refid="structview__adaptor__base_1a50c91b8c5d88513afedad56988a2aee4" kind="typedef"><name>wrapper_type</name></member>
     <member refid="structview__adaptor__base_1a54cf9387b6fcbff3798064eeaf3447fb" kind="typedef"><name>view_type</name></member>
@@ -153,15 +145,12 @@
   </compound>
   <compound refid="structdetail_1_1wrapper" kind="struct"><name>detail::wrapper</name>
   </compound>
-  <compound refid="namespace@9" kind="namespace"><name>@9</name>
-  </compound>
   <compound refid="namespaceboost" kind="namespace"><name>boost</name>
   </compound>
   <compound refid="namespaceboost_1_1static__views" kind="namespace"><name>boost::static_views</name>
   </compound>
   <compound refid="namespacedetail" kind="namespace"><name>detail</name>
     <member refid="namespacedetail_1ab4598d5c350d905b44cbe2177cf29416" kind="function"><name>make_out_of_bound</name></member>
-    <member refid="namespacedetail_1abaaeea109f6345d9d41e1acc0e6ab896" kind="function"><name>make_invalid_range</name></member>
     <member refid="namespacedetail_1abdaeb39c906d06f782d9d9df8b062c39" kind="function"><name>make_full_bucket</name></member>
     <member refid="namespacedetail_1ab32602b992294b4881aded303a8d3e46" kind="function"><name>make_hashed_init_impl</name></member>
     <member refid="namespacedetail_1aeeeecaf0ed459661b28bdce3fbc0e1bc" kind="function"><name>make_hashed_init_impl</name></member>
@@ -201,13 +190,14 @@
     <member refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kind="function"><name>make_wrapper</name></member>
   </compound>
   <compound refid="drop_8hpp" kind="file"><name>drop.hpp</name>
+    <member refid="drop_8hpp_1a322ee5c860b93d6bfb5571a028f5e5b2" kind="variable"><name>drop</name></member>
   </compound>
   <compound refid="errors_8hpp" kind="file"><name>errors.hpp</name>
     <member refid="errors_8hpp_1a05f87fd606831e7819012e6001166d0d" kind="variable"><name>make_out_of_bound_error</name></member>
-    <member refid="errors_8hpp_1ac85be4d57e7f52b5dbcfe04fbc81258c" kind="variable"><name>make_invalid_range_error</name></member>
     <member refid="errors_8hpp_1a4615c2225e3815c9028f3fc02c41df59" kind="variable"><name>make_full_bucket_error</name></member>
   </compound>
   <compound refid="hashed_8hpp" kind="file"><name>hashed.hpp</name>
+    <member refid="hashed_8hpp_1a19e702f8c5de62522aa325d836d96da4" kind="variable"><name>hashed</name></member>
   </compound>
   <compound refid="lfold_8hpp" kind="file"><name>lfold.hpp</name>
     <member refid="lfold_8hpp_1a5e5474040af1a754c223b00abd6acd90" kind="variable"><name>lfold</name></member>
@@ -218,11 +208,13 @@
   <compound refid="sequence__traits_8hpp" kind="file"><name>sequence_traits.hpp</name>
   </compound>
   <compound refid="slice_8hpp" kind="file"><name>slice.hpp</name>
+    <member refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kind="variable"><name>slice</name></member>
   </compound>
   <compound refid="take_8hpp" kind="file"><name>take.hpp</name>
     <member refid="take_8hpp_1a2c20028c5115dcf38063d322f27b4ee1" kind="variable"><name>take</name></member>
   </compound>
   <compound refid="through_8hpp" kind="file"><name>through.hpp</name>
+    <member refid="through_8hpp_1a10a5a202e599a78286b05fa944a5407e" kind="variable"><name>through</name></member>
   </compound>
   <compound refid="view__base_8hpp" kind="file"><name>view_base.hpp</name>
     <member refid="view__base_8hpp_1a0bfa78158c37a174a6732b6ce91b3d55" kind="function"><name>operator&lt;&lt;</name></member>

@@ -18,9 +18,13 @@
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
 #   define CONSTEXPR /* no constexpr for MSVC */
 #   define STATIC_ASSERT(expr, msg) BOOST_TEST(expr && msg)
+#elif BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
+#   define CONSTEXPR /* no constexpr for GCC due to this bug
+                        https://gcc.gnu.org/bugzilla/show_bug.cgi?id=71504 */
+#   define STATIC_ASSERT(expr, msg) BOOST_TEST(expr && msg)
 #else
 #   define CONSTEXPR BOOST_STATIC_VIEWS_CONSTEXPR
-#   define STATIC_ASSERT(expr, msg) BOOST_TEST(expr && msg) // static_assert(expr, msg)
+#   define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #endif
 
 
@@ -36,28 +40,27 @@ auto create_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
     // View of a reference
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::slice(
         std::declval<std::size_t>(), std::declval<std::size_t>())(raw1)) v1[] =
-            { ( (Js / N <= Js % N) 
-                ? boost::static_views::slice(Js / N, Js % N)(raw1)
-                : boost::static_views::slice(Js / N, Js / N)(raw1) )... };
+            { boost::static_views::slice(Js / N, Js % N)(raw1) ... };
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        noexcept(boost::static_views::slice(Js / N, Js % N)(raw1))...),
+        "slice's noexcept specifiers are broken.");
 
     // View of an rvalue
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::slice(
         std::declval<std::size_t>(), std::declval<std::size_t>())(
         boost::static_views::raw_view(xs))) v2[] = 
-            { ( (Js / N <= Js % N) 
-                ? boost::static_views::slice(Js / N, Js % N)(
-                    boost::static_views::raw_view(xs))
-                : boost::static_views::slice(Js / N, Js / N)(
-                    boost::static_views::raw_view(xs)) )... };
+            { boost::static_views::slice(Js / N, Js % N)(
+                    boost::static_views::raw_view(xs))... };
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        noexcept(boost::static_views::slice(Js / N, Js % N)(
+            boost::static_views::raw_view(xs)))...),
+        "slice's noexcept specifiers are broken.");
 
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::slice(
         std::declval<std::size_t>(), std::declval<std::size_t>())(
         std::declval<decltype(raw2)>())) v3[] = 
-            { ( (Js / N <= Js % N) 
-                ? boost::static_views::slice(Js / N, Js % N)(
-                    decltype(raw2){raw2})
-                : boost::static_views::slice(Js / N, Js / N)(
-                    decltype(raw2){raw2}) )... };
+            { boost::static_views::slice(Js / N, Js % N)(
+                    decltype(raw2){raw2})... };
 }
 
 template <class T, std::size_t N, std::size_t M>
@@ -68,43 +71,33 @@ auto test_create()
 }
 
 
-template <std::size_t N>
-constexpr auto all(bool const (&rng)[N])
-{
-    for (std::size_t i = 0; i < N; ++i) {
-        if (!rng[i]) return false;
-    }
-    return true;
-}
-
-
 template <class T, std::size_t N, std::size_t... Is, std::size_t... Js>
 auto size_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 {
     static constexpr T    xs[] = { ((void)Is, T{})... };
     static CONSTEXPR auto raw1 = boost::static_views::raw_view(xs);
 
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR std::size_t sizes[] =
-        { ( (Js / N <= Js % N) 
-            ? boost::static_views::slice(Js / N, Js % N)(raw1)
-            : boost::static_views::slice(Js / N, Js / N)(raw1) ).size()... };
+    using _Strange = decltype(std::declval<std::size_t>() -
+        std::declval<std::size_t>());
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        boost::static_views::slice(Js / N, Js % N)(raw1).size()
+            == static_cast<std::size_t>(std::max(
+                std::min(Js % N, raw1.size()) - std::min(Js / N, 
+                    std::min(Js % N, raw1.size())),
+                    _Strange{0}))...),
+        "slice::size() is broken.");
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        noexcept(boost::static_views::slice(Js / N, Js % N)(raw1).size())...),
+        "slice's size() noexcept qualifiers are broken.");
 
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR std::size_t capacities[] =
-        { ( (Js / N <= Js % N) 
-            ? boost::static_views::slice(Js / N, Js % N)(raw1)
-            : boost::static_views::slice(Js / N, Js / N)(raw1)).capacity()... };
-
-    for (std::size_t i = 0; i < N; ++i) {
-        for (std::size_t j = 0; j < N; ++j) {
-            BOOST_TEST_EQ((boost::static_views::slice(i, j)(raw1).size()),
-                ( (i < j)
-                  ? static_cast<std::size_t>(std::min(j, raw1.size()) -
-                        std::min(i, raw1.size()))
-                  : 0));
-            BOOST_TEST_EQ(boost::static_views::slice(i, j)(raw1).capacity(),
-                sizeof...(Is));
-        }
-    }
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        boost::static_views::slice(Js / N, Js % N)(raw1).capacity()
+            == raw1.capacity()...),
+        "slice::capacity() is broken.");
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        noexcept(boost::static_views::slice(Js / N, Js % N)(raw1)
+            .capacity())...),
+        "slice's capacity() noexcept qualifiers are broken.");
 }
 
 template <class T, std::size_t N, std::size_t M>
@@ -124,13 +117,11 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>) -> void
     // Through an lvalue rerefence
     CONSTEXPR auto v1 = boost::static_views::slice(B, E)(raw1);
     // Compile-time access
-    CONSTEXPR bool lvalue_results_compile [] = 
-        { ((Js < v1.size()) ? (v1[Js] == Js + B) : (true))... };
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        (Js < v1.size()) ? (v1[Js] == Js + B) : true...),
+        "slice::operator[] const& is broken.");
     BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(v1[0]), 
         std::size_t const&> ));
-    STATIC_ASSERT(all(lvalue_results_compile), 
-        "slice::operator[] const&  does not work correctly."); 
-    // Run-time access
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (j < v1.size()) {
             BOOST_TEST_EQ(v1[j], j + B);
@@ -142,18 +133,17 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>) -> void
 
     // Through an rvalue reference
     // Compile-time access
-    CONSTEXPR bool rvalue_results_compile[] = 
-        { ( (Js < boost::static_views::slice(B, E)(raw1).size()) 
+    STATIC_ASSERT(boost::static_views::detail::utils::all(
+        Js < boost::static_views::slice(B, E)(raw1).size()
             ? (boost::static_views::slice(B, E)(raw1)[Js] == Js + B)
-            : (true) )... };
+            : true...),
+        "slice::operator[] && is broken.");
     BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(
         boost::static_views::slice(B, E)(raw1)[0]), std::size_t const&> ));
-    STATIC_ASSERT(all(rvalue_results_compile),
-        "slice::operator[] &&  does not work correctly."); 
     // Run-time access
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (j < boost::static_views::slice(B, E)(raw1).size()) {
-            BOOST_TEST_EQ(boost::static_views::slice(B, E)(raw1)[j], j);
+            BOOST_TEST_EQ(boost::static_views::slice(B, E)(raw1)[j], B + j);
         }
         else {
             BOOST_TEST_THROWS(boost::static_views::slice(B, E)(raw1)[j],
@@ -261,7 +251,7 @@ int main(void)
     test_size<double, 10, 20>();
     test_size<std::pair<float, float>, 2, 3>();
 
-    // test_access<5, 10, 6>();
+    test_access<5, 10, 6>();
     // test_access<20, 26, 22>();
     test_access<1, 2, 3>();
 

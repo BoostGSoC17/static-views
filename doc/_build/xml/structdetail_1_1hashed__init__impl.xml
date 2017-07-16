@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="26" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="26" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="27" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="27" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="29" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="29" bodyend="39"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="31" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="31" bodyend="41"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
@@ -73,14 +73,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="42" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="42" bodyend="45"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="44" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="44" bodyend="47"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
-      <memberdef kind="function" id="structdetail_1_1hashed__init__impl_1ac6b9b338fdf2ea20e3315029d7271409" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1hashed__init__impl_1aacf7f889f76ed18008b307ebd1bdf919" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto detail::hashed_init_impl&lt; BucketSize, Is &gt;::insert</definition>
-        <argsstring>(std::size_t const i, std::size_t const guess)</argsstring>
+        <argsstring>(std::size_t const i, std::size_t const guess) -&gt; void</argsstring>
         <name>insert</name>
         <param>
           <type>std::size_t const</type>
@@ -96,18 +96,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="48" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="48" bodyend="67"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="50" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="50" bodyend="70"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="25" bodyend="68"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="26" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="26" bodyend="71"/>
     <listofallmembers>
       <member refid="structdetail_1_1hashed__init__impl_1ae88c3e13075b7f7c83a423f304b472b6" prot="private" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>capacity</name></member>
       <member refid="structdetail_1_1hashed__init__impl_1ac5fcde0324ddfb37238a9eaf3845027c" prot="public" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>hashed_init_impl</name></member>
-      <member refid="structdetail_1_1hashed__init__impl_1ac6b9b338fdf2ea20e3315029d7271409" prot="private" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>insert</name></member>
+      <member refid="structdetail_1_1hashed__init__impl_1aacf7f889f76ed18008b307ebd1bdf919" prot="private" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>insert</name></member>
       <member refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" prot="public" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>storage</name></member>
     </listofallmembers>
   </compounddef>

@@ -16,7 +16,7 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structdetail_1_1make__hashed__impl_1acb57948ec45c22f6cbc83d7fcd27c29b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1make__hashed__impl_1a45ec79a17ec795c77af26f30fc769806" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>class View</type>
@@ -27,7 +27,7 @@
         </templateparamlist>
         <type>constexpr auto</type>
         <definition>constexpr auto detail::make_hashed_impl&lt; BucketCount, BucketSize &gt;::operator()</definition>
-        <argsstring>(View &amp;&amp;xs, Hasher &amp;&amp;hf) const </argsstring>
+        <argsstring>(View &amp;&amp;xs, Hasher &amp;&amp;hf) const BOOST_STATIC_VIEWS_NOEXCEPT_IF(detail</argsstring>
         <name>operator()</name>
         <param>
           <type>View &amp;&amp;</type>
@@ -43,16 +43,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="146" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="146" bodyend="153"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="211" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="211" bodyend="228"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="143" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="143" bodyend="154"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="207" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="207" bodyend="229"/>
     <listofallmembers>
-      <member refid="structdetail_1_1make__hashed__impl_1acb57948ec45c22f6cbc83d7fcd27c29b" prot="public" virt="non-virtual"><scope>detail::make_hashed_impl</scope><name>operator()</name></member>
+      <member refid="structdetail_1_1make__hashed__impl_1a45ec79a17ec795c77af26f30fc769806" prot="public" virt="non-virtual"><scope>detail::make_hashed_impl</scope><name>operator()</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

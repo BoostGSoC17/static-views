@@ -5,6 +5,13 @@
                               Reference
 *********************************************************************
 
+.. contents::
+  :local:
+
+   
+
+.. _concepts:
+
 Concepts
 ========
 
@@ -23,7 +30,15 @@ Sequence
 View
   Is a proxy that provides access into another `view <view-concept>`_ or
   `sequence <sequence-concept>`_.
+
+.. _algorithm-concept:
+
+Algorithm
+  Is a function that takes a `view <view-concept>`_ and returns something
+  (usually another view).
   
+
+.. _views-and-adaptors:
 
 Views and Adaptors
 ==================
@@ -31,17 +46,10 @@ Views and Adaptors
 .. doxygenstruct:: view_base
   :project: static-views
 
+.. doxygenstruct:: algorithm_base
+  :project: static-views
+
 .. doxygenstruct:: sequence_traits
-  :project: static-views
-  :members:
-  :undoc-members:
-
-.. doxygenstruct:: view_adaptor_core_access
-  :project: static-views
-  :members:
-  :undoc-members:
-
-.. doxygenstruct:: view_adaptor_base
   :project: static-views
   :members:
   :undoc-members:
@@ -49,6 +57,41 @@ Views and Adaptors
 .. doxygenvariable:: raw_view
   :project: static-views
 
+.. doxygenvariable:: drop
+  :project: static-views
+
+.. doxygenvariable:: take
+  :project: static-views
+
+.. doxygenvariable:: slice
+  :project: static-views
+
+.. doxygenvariable:: through
+  :project: static-views
+
+.. doxygenvariable:: hashed
+  :project: static-views
+
+Errors
+======
+
+.. doxygenclass:: out_of_bound
+  :project: static-views
+
+.. doxygenclass:: full_bucket
+  :project: static-views
+
+Utility functions
+=================
+
+.. doxygenfunction:: make_wrapper
+  :project: static-views
+
+.. doxygenstruct:: is_view
+  :project: static-views
+
+.. doxygenstruct:: is_algorithm
+  :project: static-views
 
 Details
 =======
@@ -63,11 +106,27 @@ Details
   :members:
   :undoc-members:
 
-Utility functions
-=================
-
-.. doxygenfunction:: make_wrapper
+.. doxygenstruct:: detail::drop_impl
   :project: static-views
+  :members:
+  :undoc-members:
 
-.. doxygenstruct:: is_view
+.. doxygenstruct:: detail::take_impl
   :project: static-views
+  :members:
+  :undoc-members:
+
+.. doxygenstruct:: detail::slice_impl
+  :project: static-views
+  :members:
+  :undoc-members:
+
+.. doxygenstruct:: detail::through_impl
+  :project: static-views
+  :members:
+  :undoc-members:
+
+.. doxygenstruct:: detail::hashed_impl
+  :project: static-views
+  :members:
+  :undoc-members:

@@ -25,42 +25,70 @@
           <declname>xs</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Converts <computeroutput>xs</computeroutput> to &quot;slice view&quot;. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>View</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><verbatim>embed:rst:leading-slashes
+/// Wrapper around a view, i.e. ``typename View::type`` is a view and
+/// must model the :ref:`view &lt;view-concept&gt;` concept. It is furthermore
+/// assumed that ``View`` is of the form
+/// ``wrapper&lt;drop_impl&lt;wrapper&lt;take_impl&lt;wrapper&lt;V&amp;(&amp;)&gt;&amp;&amp;&gt;&gt;&gt;&amp;&amp;&gt;`` for
+/// some view ``V``.
+/// </verbatim> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rvalue reference to a wrapper around a take view of a drop view of a view.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<verbatim>embed:rst:leading-slashes
+/// .. note::
+///   It&apos;s pretty impossible to specify ``DropTake`` and ``View``
+///   template parameters correctly. For this reason a :cpp:var:`slice`
+///   factory function is provided. Use it instead to construct slice
+///   views.
+/// </verbatim> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="25" bodyend="30"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="45" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="45" bodyend="50"/>
       </memberdef>
-      <memberdef kind="function" id="structdetail_1_1slice__impl_1a9cc3b13a84a807c211cf6d9e5fb5f614" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1slice__impl_1a75d81cda954774e75508538688b50da5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto detail::slice_impl&lt; DropTake &gt;::map</definition>
-        <argsstring>(std::size_t const i) const -&gt; std::size_t</argsstring>
+        <argsstring>(std::size_t const i) const </argsstring>
         <name>map</name>
         <param>
           <type>std::size_t const</type>
           <declname>i</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>&quot;Maps&quot; index <computeroutput>i</computeroutput> to the corresponding index in the parent view. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Let <computeroutput>xs</computeroutput> be of type <ref refid="structdetail_1_1slice__impl_1a0ba36a57fa53c5eb87079878ac3a8736" kindref="member">slice_impl</ref>. The following relation then holds</para><para><computeroutput>xs[i] = xs.</computeroutput> <ref refid="structdetail_1_1slice__impl_1a4b579c5cd86c6cac63558fcefc5d673b" kindref="member">parent</ref> <computeroutput>()[xs.</computeroutput> <ref refid="structdetail_1_1slice__impl_1a75d81cda954774e75508538688b50da5" kindref="member">map</ref> <computeroutput>(i)]</computeroutput> <formula id="8">$ \forall i \in \{0, 1, \dots, \text{xs.size}()-1\}$</formula>.</para><para>This function and the <ref refid="structdetail_1_1slice__impl_1a4b579c5cd86c6cac63558fcefc5d673b" kindref="member">parent()</ref> member function are what distinguish slice view from the &quot;drop view of take view of view&quot;. Although slice is implemented in terms of the latter, this function goes two steps up and thus makes the rest of the library think that slice is a single view. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="33" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="33" bodyend="38"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="66" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="66" bodyend="70"/>
       </memberdef>
-      <memberdef kind="function" id="structdetail_1_1slice__impl_1a90350a150b382fe68f20787b7bb5319a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>constexpr <ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref></type>
-        <definition>constexpr BOOST_STATIC_VIEWS_DECLTYPE_AUTO detail::slice_impl&lt; DropTake &gt;::parent</definition>
+      <memberdef kind="function" id="structdetail_1_1slice__impl_1a4b579c5cd86c6cac63558fcefc5d673b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::slice_impl&lt; DropTake &gt;::parent</definition>
         <argsstring>() const </argsstring>
         <name>parent</name>
         <briefdescription>
-        </briefdescription>
+<para>Returns the &quot;parent&quot; view. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Let <computeroutput>xs_ptr</computeroutput> be of a pointer to some view. The following relation then holds</para><para><computeroutput>xs_ptr = &amp;</computeroutput> <ref refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kindref="member">slice</ref> <computeroutput>(b, e)(*xs_ptr).</computeroutput> <ref refid="structdetail_1_1slice__impl_1a4b579c5cd86c6cac63558fcefc5d673b" kindref="member">parent</ref> <computeroutput>(),</computeroutput> <formula id="9">$\forall \text{b},\text{e} \in \mathbb{N}$</formula>. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="42" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="42" bodyend="45"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="82" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="82" bodyend="85"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -68,31 +96,31 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="179">
+      <node id="171">
         <label>detail::slice_impl&lt; DropTake &gt;</label>
         <link refid="structdetail_1_1slice__impl"/>
-        <childnode refid="180" relation="public-inheritance">
+        <childnode refid="172" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="180">
+      <node id="172">
         <label>DropTake</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="181">
+      <node id="173">
         <label>detail::slice_impl&lt; DropTake &gt;</label>
         <link refid="structdetail_1_1slice__impl"/>
-        <childnode refid="182" relation="public-inheritance">
+        <childnode refid="174" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="182">
+      <node id="174">
         <label>DropTake</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="22" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="22" bodyend="46"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="22" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="22" bodyend="86"/>
     <listofallmembers>
-      <member refid="structdetail_1_1slice__impl_1a9cc3b13a84a807c211cf6d9e5fb5f614" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>map</name></member>
-      <member refid="structdetail_1_1slice__impl_1a90350a150b382fe68f20787b7bb5319a" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>parent</name></member>
+      <member refid="structdetail_1_1slice__impl_1a75d81cda954774e75508538688b50da5" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>map</name></member>
+      <member refid="structdetail_1_1slice__impl_1a4b579c5cd86c6cac63558fcefc5d673b" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>parent</name></member>
       <member refid="structdetail_1_1slice__impl_1a0ba36a57fa53c5eb87079878ac3a8736" prot="public" virt="non-virtual"><scope>detail::slice_impl</scope><name>slice_impl</name></member>
     </listofallmembers>
   </compounddef>

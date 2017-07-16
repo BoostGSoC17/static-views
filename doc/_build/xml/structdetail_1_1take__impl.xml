@@ -9,21 +9,6 @@
         <type>class View</type>
       </param>
     </templateparamlist>
-      <sectiondef kind="friend">
-      <memberdef kind="friend" id="structdetail_1_1take__impl_1a15e6389c0e5f7593c838dee2a02e25b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>friend struct</type>
-        <definition>friend struct BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</definition>
-        <argsstring></argsstring>
-        <name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="56" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="56" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structdetail_1_1take__impl_1abef305ce8e4e2e6e55e8de9da2d3bd81" prot="private" static="no" mutable="no">
         <type>std::size_t</type>
@@ -36,7 +21,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="57" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="57" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="100" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="100" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -54,12 +39,43 @@
           <declname>n</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Constructs a view of <computeroutput>xs</computeroutput> consisting of at most <computeroutput>e</computeroutput> elements of <computeroutput>xs</computeroutput>. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>View</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><verbatim>embed:rst:leading-slashes
+/// Wrapper around a view, i.e. ``typename View::type`` is a view and
+/// must model the :ref:`view &lt;view-concept&gt;` concept.
+/// </verbatim> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rvalue reference to a wrapper around a view. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of elements to take. The resulting view will contain <formula id="11">$min(\text{xs.get}()\text{.size}(), \text{e})$</formula> elements.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<verbatim>embed:rst:leading-slashes
+/// .. note::
+///   It&apos;s annoying to have to specify the View template parameter
+///   all the time. For this reason a :cpp:var:`take` factory
+///   function is provided. Use it instead to construct take views.
+/// </verbatim> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="27" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="27" bodyend="39"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="51" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="51" bodyend="65"/>
       </memberdef>
       <memberdef kind="function" id="structdetail_1_1take__impl_1acadc0bdca66193a5f797b6be26a09ac6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
@@ -67,12 +83,15 @@
         <argsstring>() const noexcept</argsstring>
         <name>size</name>
         <briefdescription>
-        </briefdescription>
+<para>Returns the number of elements viewed. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// This function is required by the :ref:`view &lt;view-concept&gt;`
+/// concept. It never throws.
+/// </verbatim> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="41" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="41" bodyend="44"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="73" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="73" bodyend="76"/>
       </memberdef>
       <memberdef kind="function" id="structdetail_1_1take__impl_1ac1a4d824fb3487992ebb50cde5e4f9be" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
@@ -84,12 +103,12 @@
           <declname>i</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>&quot;Maps&quot; index <computeroutput>i</computeroutput> to the corresponding index in the parent view. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Let <computeroutput>xs</computeroutput> be of type <ref refid="structdetail_1_1take__impl_1a08bdb3d96f2059fb3082978cc2dd3092" kindref="member">take_impl</ref>. The following relation then holds <formula id="2">\[ \text{xs}[i] = \text{xs.parent}()[\text{xs.map}(i)]\;, \forall i \in \{0, 1, \dots, \text{xs.size}()-1\}. \]</formula></para><para>If the condition <computeroutput>i &lt; <ref refid="structdetail_1_1take__impl_1acadc0bdca66193a5f797b6be26a09ac6" kindref="member">size()</ref></computeroutput> is not satisfied, this function throws an <ref refid="classout__of__bound" kindref="compound">out_of_bound</ref> exception. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="47" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="47" bodyend="53"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="90" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="90" bodyend="96"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
@@ -104,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="59" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="59" bodyend="62"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="102" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="102" bodyend="105"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -112,55 +131,54 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="183">
+      <node id="175">
         <label>detail::take_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1take__impl"/>
-        <childnode refid="184" relation="public-inheritance">
+        <childnode refid="176" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="184">
+      <node id="176">
         <label>view_adaptor_base&lt; take_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="185" relation="public-inheritance">
+        <childnode refid="177" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="185">
+      <node id="177">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="186">
+      <node id="178">
         <label>detail::take_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1take__impl"/>
-        <childnode refid="187" relation="public-inheritance">
+        <childnode refid="179" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="187">
+      <node id="179">
         <label>view_adaptor_base&lt; take_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="188" relation="public-inheritance">
+        <childnode refid="180" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="188">
+      <node id="180">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="25" bodyend="63"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="30" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="30" bodyend="106"/>
     <listofallmembers>
       <member refid="structdetail_1_1take__impl_1abef305ce8e4e2e6e55e8de9da2d3bd81" prot="private" virt="non-virtual"><scope>detail::take_impl</scope><name>_n</name></member>
-      <member refid="structdetail_1_1take__impl_1a15e6389c0e5f7593c838dee2a02e25b9" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name></member>
       <member refid="structview__adaptor__base_1a0b692a86a1f36bf02bc71a55d5a86d81" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>capacity</name></member>
       <member refid="structdetail_1_1take__impl_1a57616c3f25e6c8776f226b4b827b79da" prot="private" virt="non-virtual"><scope>detail::take_impl</scope><name>is_noexcept_parent_size</name></member>
       <member refid="structdetail_1_1take__impl_1ac1a4d824fb3487992ebb50cde5e4f9be" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>map</name></member>
       <member refid="structview__adaptor__base_1a9fead4eeb8ce03baaa1b232c4cea0e8e" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator=</name></member>
       <member refid="structview__adaptor__base_1a22143f370952734cf4c80659929874b9" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator=</name></member>
-      <member refid="structview__adaptor__base_1a64351f5becf885c78a44dcd4c9dedb33" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1a61a9b5888a0e7d7d1d7ea8e3dcb3486c" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1a02bffee1ad74bdf1ec4e34aa5faed259" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1ac6d0e2b2daeccf0562c59bfb23f35b6d" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>parent</name></member>
-      <member refid="structview__adaptor__base_1acb4b860f420bdcdbfed06d52a36d8f16" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>parent</name></member>
+      <member refid="structview__adaptor__base_1a7c477df3bdd93b8f8983325006ed4f27" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a0c839ea46bad2e630109fdacc47c2df8" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a844c5f4446e821d074bbc17977149561" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a767124ab23a20fded7bc6edb7cbcaac1" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>parent</name></member>
+      <member refid="structview__adaptor__base_1a5a27d8dea803e58a7699ca7189941cca" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>parent</name></member>
       <member refid="structdetail_1_1take__impl_1acadc0bdca66193a5f797b6be26a09ac6" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>size</name></member>
       <member refid="structdetail_1_1take__impl_1a08bdb3d96f2059fb3082978cc2dd3092" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>take_impl</name></member>
       <member refid="structview__adaptor__base_1a081ca186c301145c8ca08674c9c83702" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>view_adaptor_base</name></member>

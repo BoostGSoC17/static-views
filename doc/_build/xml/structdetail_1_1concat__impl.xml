@@ -78,26 +78,26 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="116">
+      <node id="112">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="115">
+      <node id="111">
         <label>detail::concat_impl&lt; Views &gt;</label>
         <link refid="structdetail_1_1concat__impl"/>
-        <childnode refid="116" relation="public-inheritance">
+        <childnode refid="112" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="118">
+      <node id="114">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
-      <node id="117">
+      <node id="113">
         <label>detail::concat_impl&lt; Views &gt;</label>
         <link refid="structdetail_1_1concat__impl"/>
-        <childnode refid="118" relation="public-inheritance">
+        <childnode refid="114" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

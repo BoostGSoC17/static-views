@@ -31,14 +31,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" line="64" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" bodystart="64" bodyend="70"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" line="119" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" bodystart="119" bodyend="125"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" line="61" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" bodystart="61" bodyend="72"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" line="116" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/through.hpp" bodystart="116" bodyend="127"/>
     <listofallmembers>
       <member refid="structdetail_1_1make__through__impl_1aecd6e7bb2c6896b5aced39f49fad196a" prot="public" virt="non-virtual"><scope>detail::make_through_impl</scope><name>operator()</name></member>
     </listofallmembers>

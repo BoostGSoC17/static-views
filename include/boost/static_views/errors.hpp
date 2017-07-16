@@ -15,6 +15,8 @@
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 
+/// \brief Exception that is thrown when an "index out of bounds error" is
+/// encountered.
 class out_of_bound : std::exception {
     char const* _msg;
 public:
@@ -25,7 +27,7 @@ public:
     { return _msg; }
 };
 
-
+/*
 class invalid_range : std::exception {
     char const* _msg;
 public:
@@ -35,7 +37,10 @@ public:
     auto what() const noexcept -> char const* override
     { return _msg; }
 };
+*/
 
+/// \brief Exception that is thrown when an insert into a full bucket is
+/// attempted.
 class full_bucket : std::exception {
     char const* _msg;
 public:
@@ -54,11 +59,13 @@ namespace detail {
         throw out_of_bound{msg};
     }
 
+    /*
     BOOST_NORETURN 
     auto make_invalid_range(char const* msg) -> void
     {
         throw invalid_range{msg};
     }
+    */
 
     BOOST_NORETURN 
     auto make_full_bucket(char const* msg) -> void
@@ -68,7 +75,7 @@ namespace detail {
 } // end namespace detail
 
 void (*make_out_of_bound_error)(char const*)  = &detail::make_out_of_bound;
-void (*make_invalid_range_error)(char const*) = &detail::make_invalid_range;
+// void (*make_invalid_range_error)(char const*) = &detail::make_invalid_range;
 void (*make_full_bucket_error)(char const*) = &detail::make_full_bucket;
 
 

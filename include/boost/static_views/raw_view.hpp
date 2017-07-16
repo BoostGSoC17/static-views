@@ -24,47 +24,58 @@ namespace detail {
     template <class Sequence>
     struct raw_view_impl : view_base {
 
-        /// \brief Constructs a view of sequece \p xs.
+        /// \brief Constructs a view of \p xs.
 
-        /// \tparam Sequence Must model the sequence (TODO: link to concept
-        /// definition) concept.
+        /// \tparam Sequence
+        /// \verbatim embed:rst:leading-slashes
+        /// Must model the :ref:`sequence <sequence-concept>` concept.
+        /// \endverbatim
         /// \param xs Reference to the sequence.
+        /// 
+        /// \verbatim embed:rst:leading-slashes
+        /// .. note::
+        ///   It's annoying to have to specify Sequence template parameter
+        ///   all the time. For this reason a :cpp:var:`raw_view` factory
+        ///   function is provided. Use it instead to construct raw views
+        ///   of data.
+        /// \endverbatim
         explicit BOOST_STATIC_VIEWS_CONSTEXPR raw_view_impl(Sequence& xs)
             noexcept
-            : _xs{ xs }
+            : _xs{ &xs }
         {
         }
 
-        /// \name Copy and move constructors/assignments.
-        /// 
-        /// \{
-        /// Default copy and move constructors and assignment operators. They
-        /// are all \f$ \mathcal{O}(1) \f$.
+        /// \brief Copy constructor.
         BOOST_STATIC_VIEWS_CONSTEXPR
-        raw_view_impl(raw_view_impl const&) = default;
+        raw_view_impl(raw_view_impl const&) noexcept = default;
 
+        /// \brief Move constructor.
         BOOST_STATIC_VIEWS_CONSTEXPR
-        raw_view_impl(raw_view_impl &&) = default;
+        raw_view_impl(raw_view_impl &&) noexcept = default;
 
+        /// \brief Copy assignment operator.
         BOOST_STATIC_VIEWS_CONSTEXPR
-        raw_view_impl& operator=(raw_view_impl const&) = default;
+        raw_view_impl& operator=(raw_view_impl const&) noexcept = default;
 
+        /// \brief Move assignment operator.
         BOOST_STATIC_VIEWS_CONSTEXPR
-        raw_view_impl& operator=(raw_view_impl &&) = default;
-        /// \}
+        raw_view_impl& operator=(raw_view_impl &&) noexcept = default;
 
-        /// \brief Returns the size of the sequence it's viewing.
+
+        /// \brief Returns the size of the sequence.
 
         /// \snippet raw_view.hpp raw_view_impl::capacity() implementation
         /// 
-        /// This function is required by the View concept. It returns the
-        /// maximum possible number of elements this view can have. In this
-        /// case, just the number of elements in the sequence.
+        /// \verbatim embed:rst:leading-slashes
+        /// This function is required by the :ref:`view <view-concept>`
+        /// concept. It returns the maximum possible number of elements this
+        /// view can have. In this case, just the number of elements in the
+        /// sequence.
         ///
-        /// \note This function is marked `static constexpr` and may thus be
-        /// freely used in constant expressions.
-        ///
-        /// \sa size()
+        /// .. note::
+        ///   This function is marked `static constexpr` and may thus be
+        ///   freely used in constant expressions.
+        /// \endverbatim
         static constexpr auto capacity() noexcept
         {
             //! [raw_view_impl::capacity() implementation]
@@ -72,14 +83,16 @@ namespace detail {
             //! [raw_view_impl::capacity() implementation]
         }
 
-        /// \brief Returns the size of the sequence it's viewing.
+        /// \brief Returns the size of the sequence.
 
         /// \snippet raw_view.hpp raw_view_impl::size() implementation
-        /// This function is required by the View concept. It's behavior is
-        /// equivalent to #capacity() function, i.e. it returns the number of
-        /// elements in the sequence.
         ///
-        /// \sa capacity()
+        /// \verbatim embed:rst:leading-slashes
+        /// This function is required by the :ref:`view <view-concept>`
+        /// concept. It's behavior is equivalent to :cpp:func:`capacity()
+        /// <detail::raw_view_impl::capacity()>` function, i.e. it returns
+        /// the number of elements in the sequence.
+        /// \endverbatim
         constexpr auto size() const noexcept
         { 
             //! [raw_view_impl::size() implementation]
@@ -90,26 +103,31 @@ namespace detail {
 
         /// \brief Element access
 
-        /// \details This function is required by the View concept. It provides
-        /// access to element at index \p i. Return type is determined by the
-        /// corresponding specialisation of #sequence_traits. It may be a
-        /// reference to element, or a value, or something else. Behavior of
-        /// this function is well-described by the following code snippet:
-        /// \code{.py}
-        /// if i < sequence.size():
-        ///     return sequence[i]
-        /// else:
-        ///     raise out_of_bound
-        /// \endcode
+        /// \verbatim embed:rst:leading-slashes
+        /// This function is required by the :ref:`view <view-concept>`
+        /// concept. It provides access to element at index `i`. Return
+        /// type is determined by the corresponding specialisation of
+        /// :cpp:class:`sequence_traits`. It may be a reference to element,
+        /// or a value, or something else. Behavior of this function is
+        /// well-described by the following code snippet:
+        /// 
+        /// .. code-block:: python
+        /// 
+        ///   if i < sequence.size():
+        ///       return sequence[i]
+        ///   else:
+        ///       raise out_of_bound
+        ///
+        /// \endverbatim
         BOOST_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR
         BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) const
         {
             return BOOST_LIKELY(i < size())
-                ? sequence_traits<sequence_type>::at(_xs, i)
+                ? sequence_traits<sequence_type>::at(*_xs, i)
                 : ( make_out_of_bound_error(
                         "Index `i` exceeds size of sequence."),
-                    sequence_traits<sequence_type>::at(_xs, i) );
+                    sequence_traits<sequence_type>::at(*_xs, i) );
         }
 
 /*
@@ -132,7 +150,7 @@ namespace detail {
         using sequence_type = std::remove_const_t<
                               std::remove_reference_t<
                                   Sequence >>;
-        Sequence& _xs;
+        Sequence* _xs;
     };
 
     /// \cond
@@ -150,14 +168,18 @@ namespace detail {
 
 /// \brief A functor for creating raw views of sequences.
 
-/// `raw_view : Sequence --> View`
-/// 
-/// *Raw view* is the simplest view there is. It does no manipulations and is
-/// just wrapper around a sequence type to implement the View concept. It should
-/// work for any sequence for which there exists a specialisation of
-/// #boost::static_views::sequence_traits.
+/// \f[
+/// \text{raw_view} : \text{Sequence} \to \text{View}
+/// \f]
+///
+/// \verbatim embed:rst:leading-slashes
+/// Here, ``Sequence`` is any type that models the :ref:`sequence
+/// <sequence-concept>` concept. The exact type of view created is an
+/// implementation detail. What's important is that it models the :ref:`view
+/// <view-concept>` concept.
+/// \endverbatim
 #if defined(DOXYGEN_IN_HOUSE)
-constexpr auto raw_view = [](auto& seq) { return detail::raw_view_impl{seq}; };
+constexpr auto raw_view = implementation detail;
 #else
 BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_raw_view, raw_view)
 #endif

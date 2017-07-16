@@ -1976,8 +1976,9 @@ INCLUDE_FILE_PATTERNS  =
 
 PREDEFINED             = DOXYGEN_IN_HOUSE \
                          BOOST_FORCEINLINE= \
-			 BOOST_STATIC_VIEWS_CONSTEXPR=constexpr \
-
+                         BOOST_STATIC_VIEWS_CONSTEXPR=constexpr \
+                         BOOST_STATIC_VIEWS_DECLTYPE_AUTO=auto \
+                         "BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type, name)=constexpr auto name = implementation detail;"
 
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this

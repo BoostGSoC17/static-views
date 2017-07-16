@@ -4,7 +4,7 @@
     <compoundname>detail::make_slice_impl</compoundname>
     <includes refid="slice_8hpp" local="no">slice.hpp</includes>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structdetail_1_1make__slice__impl_1a611150106c6319df8c8c6590b91a162e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1make__slice__impl_1a022dd48f8ea0251e4ee500b6222de08d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>class View</type>
@@ -12,7 +12,7 @@
         </templateparamlist>
         <type>constexpr auto</type>
         <definition>constexpr auto detail::make_slice_impl::operator()</definition>
-        <argsstring>(View &amp;&amp;xs, std::size_t const b, std::size_t const e) const </argsstring>
+        <argsstring>(View &amp;&amp;xs, std::size_t const b, std::size_t const e) const BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(slice_impl&lt; std</argsstring>
         <name>operator()</name>
         <param>
           <type>View &amp;&amp;</type>
@@ -32,16 +32,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="52" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="52" bodyend="58"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="92" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="92" bodyend="98"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="48" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="48" bodyend="59"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="88" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="88" bodyend="100"/>
     <listofallmembers>
-      <member refid="structdetail_1_1make__slice__impl_1a611150106c6319df8c8c6590b91a162e" prot="public" virt="non-virtual"><scope>detail::make_slice_impl</scope><name>operator()</name></member>
+      <member refid="structdetail_1_1make__slice__impl_1a022dd48f8ea0251e4ee500b6222de08d" prot="public" virt="non-virtual"><scope>detail::make_slice_impl</scope><name>operator()</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

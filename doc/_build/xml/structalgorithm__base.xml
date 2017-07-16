@@ -5,22 +5,25 @@
     <derivedcompoundref refid="structdetail_1_1algorithm__impl" prot="public" virt="non-virtual">detail::algorithm_impl&lt; Function, Args &gt;</derivedcompoundref>
     <includes refid="algorithm__base_8hpp" local="no">algorithm_base.hpp</includes>
     <briefdescription>
-    </briefdescription>
+<para>Base class for all the algorithms. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// By deriving from :cpp:class:`algorithm_base`, you tell StaticView that the
+/// derived class models the :ref:`view &lt;algorithm-concept&gt;` concept.
+/// </verbatim> </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="109">
+      <node id="105">
         <label>detail::algorithm_impl&lt; Function, Args &gt;</label>
         <link refid="structdetail_1_1algorithm__impl"/>
-        <childnode refid="108" relation="public-inheritance">
+        <childnode refid="104" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="108">
+      <node id="104">
         <label>algorithm_base</label>
         <link refid="structalgorithm__base"/>
       </node>
     </inheritancegraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="25" bodyend="25"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="31" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="31" bodyend="31"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>
