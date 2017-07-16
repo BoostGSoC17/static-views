@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structdetail_1_1hashed__init__impl" kind="struct" prot="public">
+    <compoundname>detail::hashed_init_impl</compoundname>
+    <includes refid="hashed_8hpp" local="no">hashed.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>std::size_t</type>
+        <declname>BucketSize</declname>
+        <defname>BucketSize</defname>
+      </param>
+      <param>
+        <type>std::size_t...</type>
+        <declname>Is</declname>
+        <defname>Is</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" prot="public" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t detail::hashed_init_impl&lt; BucketSize, Is &gt;::storage[sizeof...(Is)]</definition>
+        <argsstring>[sizeof...(Is)]</argsstring>
+        <name>storage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="27" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1hashed__init__impl_1ac5fcde0324ddfb37238a9eaf3845027c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>class Hasher</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr</type>
+        <definition>constexpr detail::hashed_init_impl&lt; BucketSize, Is &gt;::hashed_init_impl</definition>
+        <argsstring>(View &amp;&amp;xs, Hasher &amp;&amp;h)</argsstring>
+        <name>hashed_init_impl</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>Hasher &amp;&amp;</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="31" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="31" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="structdetail_1_1hashed__init__impl_1ae88c3e13075b7f7c83a423f304b472b6" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto detail::hashed_init_impl&lt; BucketSize, Is &gt;::capacity</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>capacity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="44" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="44" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structdetail_1_1hashed__init__impl_1aacf7f889f76ed18008b307ebd1bdf919" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::hashed_init_impl&lt; BucketSize, Is &gt;::insert</definition>
+        <argsstring>(std::size_t const i, std::size_t const guess) -&gt; void</argsstring>
+        <name>insert</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>guess</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="50" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="50" bodyend="70"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="26" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="26" bodyend="71"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1hashed__init__impl_1ae88c3e13075b7f7c83a423f304b472b6" prot="private" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>capacity</name></member>
+      <member refid="structdetail_1_1hashed__init__impl_1ac5fcde0324ddfb37238a9eaf3845027c" prot="public" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>hashed_init_impl</name></member>
+      <member refid="structdetail_1_1hashed__init__impl_1aacf7f889f76ed18008b307ebd1bdf919" prot="private" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>insert</name></member>
+      <member refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" prot="public" virt="non-virtual"><scope>detail::hashed_init_impl</scope><name>storage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

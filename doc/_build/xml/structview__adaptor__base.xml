@@ -17,6 +17,27 @@
       </param>
     </templateparamlist>
       <sectiondef kind="user-defined">
+      <header>Constructors</header>
+      <description><para>Constructs an adaptor of <computeroutput>view</computeroutput>.</para><para>Here, <computeroutput>view</computeroutput> is a wrapper around the actual view created with <ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper(T&amp;&amp;)</ref> function. </para></description>
+      <memberdef kind="function" id="structview__adaptor__base_1a081ca186c301145c8ca08674c9c83702" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr view_adaptor_base&lt; Derived, View &gt;::view_adaptor_base</definition>
+        <argsstring>(View &amp;&amp;view) BOOST_STATIC_VIEWS_NOEXCEPT_IF(std</argsstring>
+        <name>view_adaptor_base</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>view</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="98" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="98" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
       <header>Copy and move constructors/assignments</header>
       <description><para>Defines default copy and move constructors and assignments, i.e. is copy/move-constructible/assignable if <computeroutput>View</computeroutput> is. </para></description>
       <memberdef kind="function" id="structview__adaptor__base_1a95d73d5dea98d1d9fb667e0de3d2db20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -33,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="101" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="111" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structview__adaptor__base_1a6b801b834ff65616ebd0b201bf2ccb08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>constexpr</type>
@@ -49,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="102" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="114" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structview__adaptor__base_1a9fead4eeb8ce03baaa1b232c4cea0e8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>constexpr <ref refid="structview__adaptor__base" kindref="compound">view_adaptor_base</ref> &amp;</type>
@@ -65,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="103" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="117" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structview__adaptor__base_1a22143f370952734cf4c80659929874b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>constexpr <ref refid="structview__adaptor__base" kindref="compound">view_adaptor_base</ref> &amp;</type>
@@ -81,13 +102,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="104" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="120" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
-      <memberdef kind="function" id="structview__adaptor__base_1a787a3bec9c97494a114b75ac51f648ea" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>constexpr const underlying_view_type &amp;</type>
-        <definition>constexpr const underlying_view_type&amp; view_adaptor_base&lt; Derived, View &gt;::parent</definition>
+      <memberdef kind="function" id="structview__adaptor__base_1a767124ab23a20fded7bc6edb7cbcaac1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto view_adaptor_base&lt; Derived, View &gt;::parent</definition>
         <argsstring>() const &amp;BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::declval&lt; wrapper_type const &amp; &gt;().get()))</argsstring>
         <name>parent</name>
         <briefdescription>
@@ -96,11 +117,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="138" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="138" bodyend="147"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="154" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="154" bodyend="160"/>
       </memberdef>
-      <memberdef kind="function" id="structview__adaptor__base_1a0294f7b5b5a4004f01e5303174bf867c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>constexpr underlying_view_type &amp;&amp;</type>
-        <definition>constexpr underlying_view_type&amp;&amp; view_adaptor_base&lt; Derived, View &gt;::parent</definition>
+      <memberdef kind="function" id="structview__adaptor__base_1a5a27d8dea803e58a7699ca7189941cca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto view_adaptor_base&lt; Derived, View &gt;::parent</definition>
         <argsstring>()&amp;&amp;BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::declval&lt; wrapper_type &amp;&amp; &gt;().get()))</argsstring>
         <name>parent</name>
         <briefdescription>
@@ -109,14 +130,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="164" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="164" bodyend="173"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="177" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="177" bodyend="183"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
       <header>Element access</header>
-      <memberdef kind="function" id="structview__adaptor__base_1abb8b4fc893c5d7373e1ad4178ddd4d8a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>constexpr const element_type &amp;</type>
-        <definition>constexpr const element_type&amp; view_adaptor_base&lt; Derived, View &gt;::operator[]</definition>
+      <memberdef kind="function" id="structview__adaptor__base_1a7c477df3bdd93b8f8983325006ed4f27" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto view_adaptor_base&lt; Derived, View &gt;::operator[]</definition>
         <argsstring>(std::size_t const i) const &amp;BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::declval&lt; view_adaptor_base const &amp; &gt;().parent()[view_adaptor_core_access::map(std::declval&lt; derived_type const &amp; &gt;(), std::declval&lt; std::size_t &gt;())]))</argsstring>
         <name>operator[]</name>
         <param>
@@ -129,11 +150,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="180" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="180" bodyend="192"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="190" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="190" bodyend="199"/>
       </memberdef>
-      <memberdef kind="function" id="structview__adaptor__base_1ae7461a20f626f8dc59d95d0a2250a9a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>constexpr element_type &amp;</type>
-        <definition>constexpr element_type&amp; view_adaptor_base&lt; Derived, View &gt;::operator[]</definition>
+      <memberdef kind="function" id="structview__adaptor__base_1a0c839ea46bad2e630109fdacc47c2df8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto view_adaptor_base&lt; Derived, View &gt;::operator[]</definition>
         <argsstring>(std::size_t const i)&amp;BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::declval&lt; view_adaptor_base &amp; &gt;().parent()[view_adaptor_core_access::map(std::declval&lt; derived_type const &amp; &gt;(), std::declval&lt; std::size_t &gt;())]))</argsstring>
         <name>operator[]</name>
         <param>
@@ -146,11 +167,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="195" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="195" bodyend="207"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="202" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="202" bodyend="211"/>
       </memberdef>
-      <memberdef kind="function" id="structview__adaptor__base_1affb09becd875f41a5b853c24a390b298" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>constexpr element_type &amp;&amp;</type>
-        <definition>constexpr element_type&amp;&amp; view_adaptor_base&lt; Derived, View &gt;::operator[]</definition>
+      <memberdef kind="function" id="structview__adaptor__base_1a844c5f4446e821d074bbc17977149561" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto view_adaptor_base&lt; Derived, View &gt;::operator[]</definition>
         <argsstring>(std::size_t const i)&amp;&amp;BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::declval&lt; view_adaptor_base &amp;&amp; &gt;().parent()[view_adaptor_core_access::map(std::declval&lt; derived_type const &amp; &gt;(), std::declval&lt; std::size_t &gt;())]))</argsstring>
         <name>operator[]</name>
         <param>
@@ -163,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="210" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="210" bodyend="222"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="214" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="214" bodyend="224"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-type">
@@ -178,7 +199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="82" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="82" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="85" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structview__adaptor__base_1a50c91b8c5d88513afedad56988a2aee4" prot="private" static="no">
         <type>View</type>
@@ -191,7 +212,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="83" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="83" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="86" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structview__adaptor__base_1a54cf9387b6fcbff3798064eeaf3447fb" prot="private" static="no">
         <type>typename View::type</type>
@@ -204,7 +225,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="84" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="84" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="87" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="87" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-type">
@@ -219,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="87" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="87" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="90" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="90" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -234,27 +255,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="226" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="226" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="228" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="228" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structview__adaptor__base_1a40e941afb041b1a2b6f39b7b10ecc416" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
-        <type>constexpr</type>
-        <definition>constexpr view_adaptor_base&lt; Derived, View &gt;::view_adaptor_base</definition>
-        <argsstring>(View &amp;&amp;view) noexcept(std::is_nothrow_move_constructible&lt; View &gt;::value)</argsstring>
-        <name>view_adaptor_base</name>
-        <param>
-          <type>View &amp;&amp;</type>
-          <declname>view</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="90" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="90" bodyend="94"/>
-      </memberdef>
       <memberdef kind="function" id="structview__adaptor__base_1a37bdf2676b001c4a6aa4f9ef2ed0a581" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto view_adaptor_base&lt; Derived, View &gt;::size</definition>
@@ -269,7 +273,7 @@
 /// </verbatim> Just calls <computeroutput><ref refid="structview__adaptor__base_1a37bdf2676b001c4a6aa4f9ef2ed0a581" kindref="member">size()</ref></computeroutput> on the underlying view. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="126" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="126" bodyend="132"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="142" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="142" bodyend="148"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -287,7 +291,7 @@
 /// </verbatim> Just calls <computeroutput><ref refid="structview__adaptor__base_1a0b692a86a1f36bf02bc71a55d5a86d81" kindref="member">capacity()</ref></computeroutput> on the underlying view. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="115" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="115" bodyend="116"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="131" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="131" bodyend="132"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -302,7 +306,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="230" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="230" bodyend="233"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="232" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="232" bodyend="236"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -313,30 +317,30 @@
 /// concept.
 /// </verbatim> </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="92">
+      <node id="187">
         <label>view_adaptor_base&lt; Derived, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="93" relation="public-inheritance">
+        <childnode refid="188" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="93">
+      <node id="188">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="94">
+      <node id="189">
         <label>view_adaptor_base&lt; Derived, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="95" relation="public-inheritance">
+        <childnode refid="190" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="95">
+      <node id="190">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="79" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="79" bodyend="234"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="82" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="82" bodyend="237"/>
     <listofallmembers>
       <member refid="structview__adaptor__base_1ae6a2bae0ee0ac4d0f783702540aac345" prot="private" virt="non-virtual"><scope>view_adaptor_base</scope><name>_xs</name></member>
       <member refid="structview__adaptor__base_1a0b692a86a1f36bf02bc71a55d5a86d81" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>capacity</name></member>
@@ -344,13 +348,13 @@
       <member refid="structview__adaptor__base_1a6bada55094d7f43ee322d1fccbf3f292" prot="private" virt="non-virtual"><scope>view_adaptor_base</scope><name>derived_type</name></member>
       <member refid="structview__adaptor__base_1a9fead4eeb8ce03baaa1b232c4cea0e8e" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator=</name></member>
       <member refid="structview__adaptor__base_1a22143f370952734cf4c80659929874b9" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator=</name></member>
-      <member refid="structview__adaptor__base_1abb8b4fc893c5d7373e1ad4178ddd4d8a" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1ae7461a20f626f8dc59d95d0a2250a9a2" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1affb09becd875f41a5b853c24a390b298" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1a787a3bec9c97494a114b75ac51f648ea" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>parent</name></member>
-      <member refid="structview__adaptor__base_1a0294f7b5b5a4004f01e5303174bf867c" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>parent</name></member>
+      <member refid="structview__adaptor__base_1a7c477df3bdd93b8f8983325006ed4f27" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a0c839ea46bad2e630109fdacc47c2df8" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a844c5f4446e821d074bbc17977149561" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a767124ab23a20fded7bc6edb7cbcaac1" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>parent</name></member>
+      <member refid="structview__adaptor__base_1a5a27d8dea803e58a7699ca7189941cca" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>parent</name></member>
       <member refid="structview__adaptor__base_1a37bdf2676b001c4a6aa4f9ef2ed0a581" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>size</name></member>
-      <member refid="structview__adaptor__base_1a40e941afb041b1a2b6f39b7b10ecc416" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>view_adaptor_base</name></member>
+      <member refid="structview__adaptor__base_1a081ca186c301145c8ca08674c9c83702" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>view_adaptor_base</name></member>
       <member refid="structview__adaptor__base_1a95d73d5dea98d1d9fb667e0de3d2db20" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>view_adaptor_base</name></member>
       <member refid="structview__adaptor__base_1a6b801b834ff65616ebd0b201bf2ccb08" prot="public" virt="non-virtual"><scope>view_adaptor_base</scope><name>view_adaptor_base</name></member>
       <member refid="structview__adaptor__base_1a5a4854293c96582b2a65d3db30c9ce4c" prot="protected" virt="non-virtual"><scope>view_adaptor_base</scope><name>view_adaptor_base_type</name></member>

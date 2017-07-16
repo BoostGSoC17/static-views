@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="structdetail_1_1concat__impl" kind="struct" prot="public">
+    <compoundname>detail::concat_impl</compoundname>
+    <basecompoundref refid="structview__base" prot="public" virt="non-virtual">view_base</basecompoundref>
+    <includes refid="concat_8hpp" local="no">concat.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class...</type>
+        <declname>Views</declname>
+        <defname>Views</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structdetail_1_1concat__impl_1a82998e886e566d756dc2528cd69678ef" prot="private" static="no" mutable="no">
+        <type>std::tuple&lt; Views...&gt;</type>
+        <definition>std::tuple&lt;Views...&gt; detail::concat_impl&lt; Views &gt;::_views</definition>
+        <argsstring></argsstring>
+        <name>_views</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" line="62" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1concat__impl_1a60bf36da90b6eaad4d314bc41eea6ad4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr detail::concat_impl&lt; Views &gt;::concat_impl</definition>
+        <argsstring>(Views &amp;&amp;...xs) BOOST_STATIC_VIEWS_NOEXCEPT_IF(all(std</argsstring>
+        <name>concat_impl</name>
+        <param>
+          <type>Views &amp;&amp;...</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" line="38" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" bodystart="38" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="structdetail_1_1concat__impl_1a278b7320d41c81674cc7ef103443e734" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::concat_impl&lt; Views &gt;::size</definition>
+        <argsstring>() noexcept-&gt; std::size_t</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" line="51" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" bodystart="51" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structdetail_1_1concat__impl_1a2932a97e7d7b9bc6a9bd265aeb514ca7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto detail::concat_impl&lt; Views &gt;::capacity</definition>
+        <argsstring>() noexcept-&gt; std::size_t</argsstring>
+        <name>capacity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" line="44" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" bodystart="44" bodyend="49"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="112">
+        <label>view_base</label>
+        <link refid="structview__base"/>
+      </node>
+      <node id="111">
+        <label>detail::concat_impl&lt; Views &gt;</label>
+        <link refid="structdetail_1_1concat__impl"/>
+        <childnode refid="112" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="114">
+        <label>view_base</label>
+        <link refid="structview__base"/>
+      </node>
+      <node id="113">
+        <label>detail::concat_impl&lt; Views &gt;</label>
+        <link refid="structdetail_1_1concat__impl"/>
+        <childnode refid="114" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" line="36" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/concat.hpp" bodystart="36" bodyend="63"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1concat__impl_1a82998e886e566d756dc2528cd69678ef" prot="private" virt="non-virtual"><scope>detail::concat_impl</scope><name>_views</name></member>
+      <member refid="structdetail_1_1concat__impl_1a2932a97e7d7b9bc6a9bd265aeb514ca7" prot="public" virt="non-virtual"><scope>detail::concat_impl</scope><name>capacity</name></member>
+      <member refid="structdetail_1_1concat__impl_1a60bf36da90b6eaad4d314bc41eea6ad4" prot="public" virt="non-virtual"><scope>detail::concat_impl</scope><name>concat_impl</name></member>
+      <member refid="structdetail_1_1concat__impl_1a278b7320d41c81674cc7ef103443e734" prot="public" virt="non-virtual"><scope>detail::concat_impl</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

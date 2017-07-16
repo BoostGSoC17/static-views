@@ -10,32 +10,42 @@
       </param>
     </templateparamlist>
     <briefdescription>
-    </briefdescription>
+<para>Checks whether <computeroutput>T</computeroutput> models the Algorithm concept. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// Metafunction that returns whether ``T`` models the :ref:`algorithm
+/// &lt;algorithm-concept&gt;` concept:
+/// 
+/// .. code-block:: cpp
+/// 
+///   template &lt;class T&gt; 
+///   struct is_algorithm : std::is_base_of&lt;algorithm_base, T&gt; 
+///   {};
+///
+/// </verbatim> </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="66">
+      <node id="135">
         <label>is_algorithm&lt; V &gt;</label>
         <link refid="structis__algorithm"/>
-        <childnode refid="67" relation="public-inheritance">
+        <childnode refid="136" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="67">
+      <node id="136">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="68">
+      <node id="137">
         <label>is_algorithm&lt; V &gt;</label>
         <link refid="structis__algorithm"/>
-        <childnode refid="69" relation="public-inheritance">
+        <childnode refid="138" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="69">
+      <node id="138">
         <label>std::is_base_of&lt; algorithm_base, V &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="28" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="28" bodyend="28"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" line="48" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/algorithm_base.hpp" bodystart="48" bodyend="48"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

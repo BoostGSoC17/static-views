@@ -1,0 +1,485 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="hashed_8hpp" kind="file">
+    <compoundname>hashed.hpp</compoundname>
+    <includes local="no">type_traits</includes>
+    <includes local="no">boost/config.hpp</includes>
+    <includes refid="config_8hpp" local="no">boost/static_views/detail/config.hpp</includes>
+    <includes refid="find__first_8hpp" local="no">boost/static_views/detail/find_first.hpp</includes>
+    <includes refid="invoke_8hpp" local="no">boost/static_views/detail/invoke.hpp</includes>
+    <includes refid="view__base_8hpp" local="no">boost/static_views/view_base.hpp</includes>
+    <includes refid="algorithm__base_8hpp" local="no">boost/static_views/algorithm_base.hpp</includes>
+    <includes refid="slice_8hpp" local="no">boost/static_views/slice.hpp</includes>
+    <includes refid="through_8hpp" local="no">boost/static_views/through.hpp</includes>
+    <incdepgraph>
+      <node id="417">
+        <label>functional</label>
+      </node>
+      <node id="424">
+        <label>boost/static_views/detail/utils.hpp</label>
+        <link refid="utils_8hpp"/>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+      </node>
+      <node id="427">
+        <label>boost/static_views/slice.hpp</label>
+        <link refid="slice_8hpp"/>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="428" relation="include">
+        </childnode>
+        <childnode refid="431" relation="include">
+        </childnode>
+      </node>
+      <node id="432">
+        <label>boost/static_views/through.hpp</label>
+        <link refid="through_8hpp"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="421" relation="include">
+        </childnode>
+      </node>
+      <node id="410">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp</label>
+        <link refid="hashed.hpp"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="418" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="421" relation="include">
+        </childnode>
+        <childnode refid="427" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+      </node>
+      <node id="418">
+        <label>boost/static_views/detail/invoke.hpp</label>
+        <link refid="invoke_8hpp"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+      </node>
+      <node id="426">
+        <label>boost/detail/workaround.hpp</label>
+      </node>
+      <node id="414">
+        <label>exception</label>
+      </node>
+      <node id="413">
+        <label>boost/static_views/detail/config.hpp</label>
+        <link refid="config_8hpp"/>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="414" relation="include">
+        </childnode>
+        <childnode refid="415" relation="include">
+        </childnode>
+      </node>
+      <node id="430">
+        <label>boost/static_views/errors.hpp</label>
+        <link refid="errors_8hpp"/>
+        <childnode refid="414" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+      </node>
+      <node id="425">
+        <label>boost/static_views/detail/wrapper.hpp</label>
+        <link refid="wrapper_8hpp"/>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="426" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="418" relation="include">
+        </childnode>
+      </node>
+      <node id="422">
+        <label>tuple</label>
+      </node>
+      <node id="431">
+        <label>boost/static_views/take.hpp</label>
+        <link refid="take_8hpp"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="429" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="424" relation="include">
+        </childnode>
+        <childnode refid="430" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="421" relation="include">
+        </childnode>
+      </node>
+      <node id="419">
+        <label>boost/static_views/view_base.hpp</label>
+        <link refid="view__base_8hpp"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="420" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+      </node>
+      <node id="423">
+        <label>utility</label>
+      </node>
+      <node id="416">
+        <label>boost/static_views/detail/find_first.hpp</label>
+        <link refid="find__first_8hpp"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+      </node>
+      <node id="420">
+        <label>boost/core/demangle.hpp</label>
+      </node>
+      <node id="415">
+        <label>iostream</label>
+      </node>
+      <node id="412">
+        <label>boost/config.hpp</label>
+      </node>
+      <node id="411">
+        <label>type_traits</label>
+      </node>
+      <node id="421">
+        <label>boost/static_views/algorithm_base.hpp</label>
+        <link refid="algorithm__base_8hpp"/>
+        <childnode refid="422" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="423" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="424" relation="include">
+        </childnode>
+        <childnode refid="425" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+      </node>
+      <node id="429">
+        <label>algorithm</label>
+      </node>
+      <node id="428">
+        <label>boost/static_views/drop.hpp</label>
+        <link refid="drop_8hpp"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="429" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="424" relation="include">
+        </childnode>
+        <childnode refid="430" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="421" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structdetail_1_1hashed__init__impl" prot="public">detail::hashed_init_impl</innerclass>
+    <innerclass refid="structdetail_1_1hashed__impl" prot="public">detail::hashed_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__hashed__impl" prot="public">detail::make_hashed_impl</innerclass>
+    <innernamespace refid="namespacedetail">detail</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="hashed_8hpp_1a19e702f8c5de62522aa325d836d96da4" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>std::size_t</type>
+            <declname>BucketCount</declname>
+            <defname>BucketCount</defname>
+          </param>
+          <param>
+            <type>std::size_t</type>
+            <declname>BucketSize</declname>
+            <defname>BucketSize</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto hashed</definition>
+        <argsstring></argsstring>
+        <name>hashed</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+<para>A functor for creating &quot;hashed views&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><formula id="3">\[ \text{hashed} : (\text{T} \to \mathbb{N}) \to \text{View} \to \text{View} \]</formula></para><para>Given a hash function <computeroutput>hf</computeroutput> and a view <computeroutput>xs</computeroutput>, creates a view of <computeroutput>xs</computeroutput> which uses hashes as indices to access elements.</para><para>So, say, <formula id="4">$ \text{hf} : \text{T} \to \mathbb{N} $</formula> is a hash function, <computeroutput>xs</computeroutput> is a view of elements of type <computeroutput>T</computeroutput>, and <computeroutput>ys =</computeroutput> <ref refid="hashed_8hpp_1a19e702f8c5de62522aa325d836d96da4" kindref="member">hashed</ref> <computeroutput>(hf)(xs)</computeroutput>. Then</para><para><formula id="5">\[ \{ x \in \text{xs} \;\;|\;\; \text{hf}(x) = h \,\%\, \text{ys.bucket_count}() \} = \text{ys}[h] \;, \forall h \in \mathbb{N}\;. \]</formula></para><para><verbatim>embed:rst:leading-slashes
+/// .. note::
+///   Haskell notation is used here, i.e. the function is curried and
+///   :math:`\text{hashed}(\text{hf}) : \text{View} \to \text{View}` models
+///   the :ref:`algorithm &lt;algorithm-concept&gt;` concept.
+/// </verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" line="259" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>Tom<sp/>Westerhout<sp/>2017.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Distributed<sp/>under<sp/>the<sp/>Boost<sp/>Software<sp/>License,<sp/>Version<sp/>1.0.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>(See<sp/>accompanying<sp/>file<sp/>LICENSE_1_0.txt<sp/>or<sp/>copy<sp/>at</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http://www.boost.org/LICENSE_1_0.txt)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BOOST_STATIC_VIEWS_HASHED_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_HASHED_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;type_traits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/config.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="config_8hpp" kindref="compound">boost/static_views/detail/config.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="find__first_8hpp" kindref="compound">boost/static_views/detail/find_first.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="invoke_8hpp" kindref="compound">boost/static_views/detail/invoke.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="view__base_8hpp" kindref="compound">boost/static_views/view_base.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="algorithm__base_8hpp" kindref="compound">boost/static_views/algorithm_base.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="slice_8hpp" kindref="compound">boost/static_views/slice.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="through_8hpp" kindref="compound">boost/static_views/through.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacedetail" kindref="compound">detail</ref><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;std::size_t<sp/>BucketSize,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
+<codeline lineno="26" refid="structdetail_1_1hashed__init__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1hashed__init__impl" kindref="compound">hashed_init_impl</ref><sp/>{</highlight></codeline>
+<codeline lineno="27" refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/><ref refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" kindref="member">storage</ref>[</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Is)];</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Hasher&gt;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="31" refid="structdetail_1_1hashed__init__impl_1ac5fcde0324ddfb37238a9eaf3845027c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/><ref refid="structdetail_1_1hashed__init__impl_1ac5fcde0324ddfb37238a9eaf3845027c" kindref="member">hashed_init_impl</ref>(View&amp;&amp;<sp/>xs,<sp/>Hasher&amp;&amp;<sp/>h)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" kindref="member">storage</ref>{<sp/>((void)Is,<sp/>hashed_init_impl::capacity())...<sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Is)<sp/>%<sp/>BucketSize<sp/>==<sp/>0,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;hashed_init_impl<sp/>is<sp/>broken.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>std::size_t<sp/>bucket_count<sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Is)<sp/>/<sp/>BucketSize;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>size<sp/>=<sp/>xs.size();</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(std::size_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>size;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>insert(i,<sp/>BucketSize<sp/>*<sp/>(h(xs[i])<sp/>%<sp/>bucket_count));</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>capacity()<sp/>noexcept<sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Is);<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>insert(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>guess)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">is_empty<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>operator()(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x)<sp/>noexcept</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x<sp/>==<sp/>hashed_init_impl::capacity();</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>bucket<sp/>=<sp/><ref refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kindref="member">slice</ref>(guess,<sp/>guess<sp/>+<sp/>BucketSize)(</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref>(<ref refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" kindref="member">storage</ref>));</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>p<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="find__first_8hpp_1ac0eed068dd22e82a33d225267c2be81e" kindref="member">find_first_i</ref>(bucket,<sp/>is_empty{});</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BOOST_LIKELY(p<sp/>!=<sp/>BucketSize))<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" kindref="member">storage</ref>[guess<sp/>+<sp/>p]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="errors_8hpp_1a4615c2225e3815c9028f3fc02c41df59" kindref="member">make_full_bucket_error</ref>(</highlight><highlight class="stringliteral">&quot;Bucket<sp/>is<sp/>full.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;std::size_t<sp/>BucketSize,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">V,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">H,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
+<codeline lineno="75" refid="namespacedetail_1ab32602b992294b4881aded303a8d3e46" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacedetail_1ab32602b992294b4881aded303a8d3e46" kindref="member">make_hashed_init_impl</ref>(V&amp;&amp;<sp/>xs,<sp/>H&amp;&amp;<sp/>h,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1hashed__init__impl" kindref="compound">hashed_init_impl</ref>&lt;BucketSize,<sp/>Is...&gt;{std::forward&lt;V&gt;(xs),</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward&lt;H&gt;(h)};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketCount,<sp/>std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketSize,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>V,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>H&gt;</highlight></codeline>
+<codeline lineno="83" refid="namespacedetail_1aeeeecaf0ed459661b28bdce3fbc0e1bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespacedetail_1ab32602b992294b4881aded303a8d3e46" kindref="member">make_hashed_init_impl</ref>(V&amp;&amp;<sp/>xs,<sp/>H&amp;&amp;<sp/>h)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>make_hashed_init_impl&lt;BucketSize&gt;(std::forward&lt;V&gt;(xs),</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward&lt;H&gt;(h),<sp/>std::make_index_sequence&lt;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BucketCount<sp/>*<sp/>BucketSize&gt;{});</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;<sp/>std::size_t<sp/>BucketCount</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>std::size_t<sp/>BucketSize</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">View</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Hasher<sp/>&gt;</highlight></codeline>
+<codeline lineno="94" refid="structdetail_1_1hashed__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1hashed__impl" kindref="compound">hashed_impl</ref></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structview__adaptor__base" kindref="compound">view_adaptor_base</ref>&lt;<sp/>hashed_impl&lt;<sp/>BucketCount</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>BucketSize</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>View</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>Hasher<sp/>&gt;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>View<sp/>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">HashFunction,<sp/>std::size_t...<sp/>Is&gt;</highlight></codeline>
+<codeline lineno="127" refid="structdetail_1_1hashed__impl_1a01d5bdd38a24ad49cdc448dfd2f3af2b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/><ref refid="structdetail_1_1hashed__impl_1a01d5bdd38a24ad49cdc448dfd2f3af2b" kindref="member">hashed_impl</ref>(View&amp;&amp;<sp/>xs,<sp/>HashFunction&amp;&amp;<sp/>hf,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/>(&amp;<ref refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" kindref="member">storage</ref>)[BucketCount<sp/>*<sp/>BucketSize],</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::index_sequence&lt;Is...&gt;)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(utils::<ref refid="namespacedetail_1_1utils_1adb3f52296e671c0cc215b9d6d30e4d10" kindref="member">all</ref>(</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_constructible&lt;typename</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1hashed__impl" kindref="compound">hashed_impl</ref>::<ref refid="structview__adaptor__base" kindref="compound">view_adaptor_base_type</ref>,<sp/>View&amp;&amp;&gt;::value,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_constructible&lt;Hasher,<sp/>HashFunction&amp;&amp;&gt;::value</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>))</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structdetail_1_1hashed__impl" kindref="compound">hashed_impl</ref>::view_adaptor_base_type{<sp/>std::move(xs)<sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_hf{<sp/>std::forward&lt;HashFunction&gt;(hf)<sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>_storage{<sp/><ref refid="structdetail_1_1hashed__init__impl_1a44db2fbb66ddc72148701ad2cd78cba2" kindref="member">storage</ref>[Is]...<sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="structdetail_1_1hashed__impl_1afc14aa02e999360518806f6c00e78da2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1hashed__impl_1afc14aa02e999360518806f6c00e78da2" kindref="member">bucket_count</ref>()<sp/>noexcept</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BucketCount;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149" refid="structdetail_1_1hashed__impl_1a3de0f484e1b921fb36eb0b13dab6827a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1hashed__impl_1a3de0f484e1b921fb36eb0b13dab6827a" kindref="member">bucket_size</ref>()<sp/>noexcept</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BucketSize;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"></codeline>
+<codeline lineno="162" refid="structdetail_1_1hashed__impl_1a261e4b2100432e6465c01619f735293f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1hashed__impl_1a261e4b2100432e6465c01619f735293f" kindref="member">capacity</ref>()<sp/>noexcept</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>bucket_count();</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="169" refid="structdetail_1_1hashed__impl_1a6fa63d0e7cad2ad1e38d71682a90ef15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structdetail_1_1hashed__impl_1a6fa63d0e7cad2ad1e38d71682a90ef15" kindref="member">hash_function</ref>()<sp/>const<sp/>noexcept</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_hf;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="184" refid="structdetail_1_1hashed__impl_1ac715b4ccb7288d8a615fbfba25b9f0d2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1hashed__impl_1ac715b4ccb7288d8a615fbfba25b9f0d2" kindref="member">operator[]</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>hash)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>noexcept<sp/>/*<sp/>TODO<sp/>add<sp/>specifiers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">is_empty<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>operator()(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x)<sp/>noexcept</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x<sp/>==<sp/>bucket_count()<sp/>*<sp/>bucket_size();</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>bucket_size()<sp/>*<sp/>(hash<sp/>%<sp/>bucket_count());</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>n<sp/>=<sp/><ref refid="find__first_8hpp_1ac0eed068dd22e82a33d225267c2be81e" kindref="member">find_first_i</ref>(<ref refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kindref="member">slice</ref>(i,<sp/>i<sp/>+<sp/>bucket_size())(</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref>(_storage)),<sp/>is_empty{});</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="through_8hpp_1a10a5a202e599a78286b05fa944a5407e" kindref="member">through</ref>(<ref refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kindref="member">slice</ref>(i,<sp/>i<sp/>+<sp/>n)(<ref refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref>(_storage)))(</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;parent());</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Hasher<sp/><sp/><sp/><sp/><sp/><sp/><sp/>_hf;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/><sp/>_storage[bucket_count()<sp/>*<sp/>bucket_size()];</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketCount,<sp/>std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketSize&gt;</highlight></codeline>
+<codeline lineno="207" refid="structdetail_1_1make__hashed__impl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1make__hashed__impl" kindref="compound">make_hashed_impl</ref><sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Hasher&gt;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FORCEINLINE</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="211" refid="structdetail_1_1make__hashed__impl_1a45ec79a17ec795c77af26f30fc769806" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1make__hashed__impl_1a45ec79a17ec795c77af26f30fc769806" kindref="member">operator()</ref>(View&amp;&amp;<sp/>xs,<sp/>Hasher&amp;&amp;<sp/>hf)<sp/>const</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(<ref refid="namespacedetail" kindref="compound">detail</ref>::utils::<ref refid="namespacedetail_1_1utils_1adb3f52296e671c0cc215b9d6d30e4d10" kindref="member">all</ref>(</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(<ref refid="namespacedetail" kindref="compound">detail</ref>::<ref refid="namespacedetail_1ab32602b992294b4881aded303a8d3e46" kindref="member">make_hashed_init_impl</ref>&lt;BucketCount,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BucketSize&gt;(xs.get(),<sp/>hf)),</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(<ref refid="namespacedetail" kindref="compound">detail</ref>::<ref refid="structdetail_1_1hashed__impl" kindref="compound">hashed_impl</ref>&lt;BucketCount,<sp/>BucketSize,<sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::decay_t&lt;View&gt;,<sp/>std::decay_t&lt;Hasher&gt;&gt;{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward&lt;View&gt;(xs),<sp/>std::forward&lt;Hasher&gt;(hf),</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;std::size_t<sp/>(&amp;)[BucketCount<sp/>*<sp/>BucketSize]&gt;(),</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;BucketCount<sp/>*<sp/>BucketSize&gt;{}})</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>))</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>init<sp/>=<sp/><ref refid="namespacedetail_1ab32602b992294b4881aded303a8d3e46" kindref="member">detail::make_hashed_init_impl</ref>&lt;BucketCount,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BucketSize&gt;(xs.get(),<sp/>hf);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1hashed__impl" kindref="compound">detail::hashed_impl</ref>&lt;BucketCount,<sp/>BucketSize,<sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::decay_t&lt;View&gt;,<sp/>std::decay_t&lt;Hasher&gt;&gt;{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward&lt;View&gt;(xs),<sp/>std::forward&lt;Hasher&gt;(hf),<sp/>init.storage,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::make_index_sequence&lt;BucketCount<sp/>*<sp/>BucketSize&gt;{}};</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketCount,<sp/>std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketSize&gt;</highlight></codeline>
+<codeline lineno="259" refid="hashed_8hpp_1a19e702f8c5de62522aa325d836d96da4" refkind="member"><highlight class="normal">constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="hashed_8hpp_1a19e702f8c5de62522aa325d836d96da4" kindref="member">hashed</ref><sp/>=<sp/>implementation<sp/><ref refid="namespacedetail" kindref="compound">detail</ref>;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketCount,<sp/>std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>BucketSize&gt;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>hashed<sp/>=</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::detail::make_algorithm_impl&lt;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1make__hashed__impl" kindref="compound">detail::make_hashed_impl&lt;BucketCount, BucketSize&gt;</ref><sp/>&gt;&gt;;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_HASHED_HPP</highlight></codeline>
+    </programlisting>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/hashed.hpp"/>
+  </compounddef>
+</doxygen>

@@ -9,21 +9,6 @@
         <type>class View</type>
       </param>
     </templateparamlist>
-      <sectiondef kind="friend">
-      <memberdef kind="friend" id="structdetail_1_1drop__impl_1a15e6389c0e5f7593c838dee2a02e25b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>friend struct</type>
-        <definition>friend struct BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</definition>
-        <argsstring></argsstring>
-        <name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="39" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="39" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structdetail_1_1drop__impl_1af68e32ca9e9832285db539c074f183ea" prot="private" static="no" mutable="no">
         <type>std::size_t</type>
@@ -36,14 +21,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="40" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="104" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="104" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structdetail_1_1drop__impl_1acf83fbd7a92b0b1d2ed5ef5f15bbefb4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1drop__impl_1a8d910b71e11d48d8f2dbde147b035ef0" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
         <type>constexpr</type>
         <definition>constexpr detail::drop_impl&lt; View &gt;::drop_impl</definition>
-        <argsstring>(View &amp;&amp;xs, std::size_t const b) noexcept</argsstring>
+        <argsstring>(View &amp;&amp;xs, std::size_t const b) BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils</argsstring>
         <name>drop_impl</name>
         <param>
           <type>View &amp;&amp;</type>
@@ -54,29 +39,62 @@
           <declname>b</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Constructs a view of <computeroutput>xs</computeroutput> with the first <computeroutput>b</computeroutput> elements dropped. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>View</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><verbatim>embed:rst:leading-slashes
+/// Wrapper around a view, i.e. ``typename View::type`` is a view and
+/// must model the :ref:`view &lt;view-concept&gt;` concept.
+/// </verbatim> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rvalue reference to a wrapper around a view. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of elements to drop. The resulting view will contain <formula id="1">$ max(\text{xs.get().size()} - \text{b}, 0)$</formula> elements.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<verbatim>embed:rst:leading-slashes
+/// .. note::
+///   It&apos;s annoying to have to specify the View template parameter
+///   all the time. For this reason a :cpp:var:`drop` factory
+///   function is provided. Use it instead to construct drop views.
+/// </verbatim> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="25" bodyend="30"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="51" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="51" bodyend="67"/>
       </memberdef>
-      <memberdef kind="function" id="structdetail_1_1drop__impl_1ab96edeb2f74211a6d8839eaf3e982a07" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1drop__impl_1a3d5ca28dea6acea1dbb52918a7e83b1a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto detail::drop_impl&lt; View &gt;::size</definition>
-        <argsstring>() const noexcept</argsstring>
+        <argsstring>() const BOOST_STATIC_VIEWS_NOEXCEPT_IF(drop_impl</argsstring>
         <name>size</name>
         <briefdescription>
-        </briefdescription>
+<para>Returns the number of elements viewed. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// This function is required by the :ref:`view &lt;view-concept&gt;`
+/// concept. It never fails unless a call to ``parent().size()``
+/// fails.
+/// </verbatim> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="32" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="32" bodyend="36"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="76" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="76" bodyend="80"/>
       </memberdef>
-      </sectiondef>
-      <sectiondef kind="private-func">
-      <memberdef kind="function" id="structdetail_1_1drop__impl_1af2c2b01c070b96a5ccb88f141c0a5d0f" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1drop__impl_1af2c2b01c070b96a5ccb88f141c0a5d0f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto detail::drop_impl&lt; View &gt;::map</definition>
         <argsstring>(std::size_t const i) const </argsstring>
@@ -86,12 +104,27 @@
           <declname>i</declname>
         </param>
         <briefdescription>
+<para>&quot;Maps&quot; index <computeroutput>i</computeroutput> to the corresponding index in the parent view. </para>        </briefdescription>
+        <detaileddescription>
+<para>Let <computeroutput>xs</computeroutput> be of type <ref refid="structdetail_1_1drop__impl_1a8d910b71e11d48d8f2dbde147b035ef0" kindref="member">drop_impl</ref>. The following relation then holds <formula id="2">\[ \text{xs}[i] = \text{xs.parent}()[\text{xs.map}(i)]\;, \forall i \in \{0, 1, \dots, \text{xs.size}()-1\}. \]</formula></para><para>If the condition <computeroutput>i &lt; <ref refid="structdetail_1_1drop__impl_1a3d5ca28dea6acea1dbb52918a7e83b1a" kindref="member">size()</ref></computeroutput> is not satisfied, this function throws an <ref refid="classout__of__bound" kindref="compound">out_of_bound</ref> exception. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="94" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="94" bodyend="100"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="structdetail_1_1drop__impl_1a987d39011748119c8bb6727b70fe507f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto detail::drop_impl&lt; View &gt;::is_noexcept_parent_size</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>is_noexcept_parent_size</name>
+        <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="43" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="43" bodyend="58"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="106" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="106" bodyend="109"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -99,57 +132,57 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="61">
+      <node id="116">
         <label>view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="62" relation="public-inheritance">
+        <childnode refid="117" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="60">
+      <node id="115">
         <label>detail::drop_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1drop__impl"/>
-        <childnode refid="61" relation="public-inheritance">
+        <childnode refid="116" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="62">
+      <node id="117">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="64">
+      <node id="119">
         <label>view_adaptor_base&lt; drop_impl&lt; View &gt;, View &gt;</label>
         <link refid="structview__adaptor__base"/>
-        <childnode refid="65" relation="public-inheritance">
+        <childnode refid="120" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="63">
+      <node id="118">
         <label>detail::drop_impl&lt; View &gt;</label>
         <link refid="structdetail_1_1drop__impl"/>
-        <childnode refid="64" relation="public-inheritance">
+        <childnode refid="119" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="65">
+      <node id="120">
         <label>view_base</label>
         <link refid="structview__base"/>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="23" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="23" bodyend="59"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="30" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="30" bodyend="110"/>
     <listofallmembers>
       <member refid="structdetail_1_1drop__impl_1af68e32ca9e9832285db539c074f183ea" prot="private" virt="non-virtual"><scope>detail::drop_impl</scope><name>_b</name></member>
-      <member refid="structdetail_1_1drop__impl_1a15e6389c0e5f7593c838dee2a02e25b9" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access</name></member>
       <member refid="structview__adaptor__base_1a0b692a86a1f36bf02bc71a55d5a86d81" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>capacity</name></member>
-      <member refid="structdetail_1_1drop__impl_1acf83fbd7a92b0b1d2ed5ef5f15bbefb4" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>drop_impl</name></member>
-      <member refid="structdetail_1_1drop__impl_1af2c2b01c070b96a5ccb88f141c0a5d0f" prot="private" virt="non-virtual"><scope>detail::drop_impl</scope><name>map</name></member>
+      <member refid="structdetail_1_1drop__impl_1a8d910b71e11d48d8f2dbde147b035ef0" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>drop_impl</name></member>
+      <member refid="structdetail_1_1drop__impl_1a987d39011748119c8bb6727b70fe507f" prot="private" virt="non-virtual"><scope>detail::drop_impl</scope><name>is_noexcept_parent_size</name></member>
+      <member refid="structdetail_1_1drop__impl_1af2c2b01c070b96a5ccb88f141c0a5d0f" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>map</name></member>
       <member refid="structview__adaptor__base_1a9fead4eeb8ce03baaa1b232c4cea0e8e" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator=</name></member>
       <member refid="structview__adaptor__base_1a22143f370952734cf4c80659929874b9" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator=</name></member>
-      <member refid="structview__adaptor__base_1abb8b4fc893c5d7373e1ad4178ddd4d8a" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1ae7461a20f626f8dc59d95d0a2250a9a2" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1affb09becd875f41a5b853c24a390b298" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator[]</name></member>
-      <member refid="structview__adaptor__base_1a787a3bec9c97494a114b75ac51f648ea" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>parent</name></member>
-      <member refid="structview__adaptor__base_1a0294f7b5b5a4004f01e5303174bf867c" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>parent</name></member>
-      <member refid="structdetail_1_1drop__impl_1ab96edeb2f74211a6d8839eaf3e982a07" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>size</name></member>
-      <member refid="structview__adaptor__base_1a40e941afb041b1a2b6f39b7b10ecc416" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>view_adaptor_base</name></member>
+      <member refid="structview__adaptor__base_1a7c477df3bdd93b8f8983325006ed4f27" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a0c839ea46bad2e630109fdacc47c2df8" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a844c5f4446e821d074bbc17977149561" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>operator[]</name></member>
+      <member refid="structview__adaptor__base_1a767124ab23a20fded7bc6edb7cbcaac1" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>parent</name></member>
+      <member refid="structview__adaptor__base_1a5a27d8dea803e58a7699ca7189941cca" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>parent</name></member>
+      <member refid="structdetail_1_1drop__impl_1a3d5ca28dea6acea1dbb52918a7e83b1a" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>size</name></member>
+      <member refid="structview__adaptor__base_1a081ca186c301145c8ca08674c9c83702" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>view_adaptor_base</name></member>
       <member refid="structview__adaptor__base_1a95d73d5dea98d1d9fb667e0de3d2db20" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>view_adaptor_base</name></member>
       <member refid="structview__adaptor__base_1a6b801b834ff65616ebd0b201bf2ccb08" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>view_adaptor_base</name></member>
       <member refid="structview__adaptor__base_1a5a4854293c96582b2a65d3db30c9ce4c" prot="protected" virt="non-virtual"><scope>detail::drop_impl</scope><name>view_adaptor_base_type</name></member>

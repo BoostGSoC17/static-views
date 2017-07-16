@@ -95,7 +95,6 @@ interested in is how memory usage scales with input size. To accomplish
 this, we define the data in an external file. For example
 
 .. code-block:: cpp
-  :dedent: 2
 
   static constexpr int random_array[] = {
   #   include "test_data.txt"
@@ -140,6 +139,10 @@ Sorts an array of integers at compile-time.
 * ``Clang-5.0.0``:
 
   .. image:: ../test/benchmarks/results/sort.clang-5.0.0.png
+
+* ``XCode 9``:
+
+  .. image:: ../test/benchmarks/results/sort.clang-4.2.1.png
 
 * ``Clang/C2``:
 

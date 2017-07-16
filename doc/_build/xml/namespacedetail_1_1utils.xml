@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="namespacedetail_1_1utils" kind="namespace">
+    <compoundname>detail::utils</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacedetail_1_1utils_1adb3f52296e671c0cc215b9d6d30e4d10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::utils::all</definition>
+        <argsstring>() noexcept-&gt; bool</argsstring>
+        <name>all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="19" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacedetail_1_1utils_1af1009920966ecc819c0f865e49589f63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>Bools</declname>
+            <defname>Bools</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::utils::all</definition>
+        <argsstring>(bool const x, Bools...xs) noexcept-&gt; bool</argsstring>
+        <name>all</name>
+        <param>
+          <type>bool const</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>Bools...</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="25" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="17" column="1"/>
+  </compounddef>
+</doxygen>

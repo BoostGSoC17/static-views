@@ -9,3 +9,5 @@ import testing ;
 run invoke.cpp ;
 run raw_view.cpp ;
 run drop.cpp ;
+run take.cpp ;
+run slice.cpp ;

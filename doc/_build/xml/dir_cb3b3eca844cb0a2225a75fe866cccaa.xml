@@ -4,10 +4,16 @@
     <compoundname>/home/tom/GSoC2017/static-views/include/boost/static_views</compoundname>
     <innerdir refid="dir_2f2c661e6760eb4da03caa567846a72d">/home/tom/GSoC2017/static-views/include/boost/static_views/detail</innerdir>
     <innerfile refid="algorithm__base_8hpp">algorithm_base.hpp</innerfile>
+    <innerfile refid="concat_8hpp">concat.hpp</innerfile>
     <innerfile refid="drop_8hpp">drop.hpp</innerfile>
     <innerfile refid="errors_8hpp">errors.hpp</innerfile>
+    <innerfile refid="hashed_8hpp">hashed.hpp</innerfile>
+    <innerfile refid="lfold_8hpp">lfold.hpp</innerfile>
     <innerfile refid="raw__view_8hpp">raw_view.hpp</innerfile>
     <innerfile refid="sequence__traits_8hpp">sequence_traits.hpp</innerfile>
+    <innerfile refid="slice_8hpp">slice.hpp</innerfile>
+    <innerfile refid="take_8hpp">take.hpp</innerfile>
+    <innerfile refid="through_8hpp">through.hpp</innerfile>
     <innerfile refid="view__base_8hpp">view_base.hpp</innerfile>
     <briefdescription>
     </briefdescription>

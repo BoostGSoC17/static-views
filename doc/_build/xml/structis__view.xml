@@ -24,28 +24,28 @@
 ///
 /// </verbatim> </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="74">
+      <node id="143">
         <label>is_view&lt; V &gt;</label>
         <link refid="structis__view"/>
-        <childnode refid="75" relation="public-inheritance">
+        <childnode refid="144" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="75">
+      <node id="144">
         <label>std::is_base_of&lt; view_base, V &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="76">
+      <node id="145">
         <label>is_view&lt; V &gt;</label>
         <link refid="structis__view"/>
-        <childnode refid="77" relation="public-inheritance">
+        <childnode refid="146" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="77">
+      <node id="146">
         <label>std::is_base_of&lt; view_base, V &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="43" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="43" bodyend="43"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="46" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="46" bodyend="46"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

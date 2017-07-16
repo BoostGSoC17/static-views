@@ -1956,7 +1956,7 @@ SEARCH_INCLUDES        = YES
 # preprocessor.
 # This tag requires that the tag SEARCH_INCLUDES is set to YES.
 
-INCLUDE_PATH           =
+INCLUDE_PATH           = ../include/boost/static_views/detail/config.hpp
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1975,7 +1975,10 @@ INCLUDE_FILE_PATTERNS  =
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
 PREDEFINED             = DOXYGEN_IN_HOUSE \
-                         BOOST_FORCEINLINE=
+                         BOOST_FORCEINLINE= \
+                         BOOST_STATIC_VIEWS_CONSTEXPR=constexpr \
+                         BOOST_STATIC_VIEWS_DECLTYPE_AUTO=auto \
+                         "BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type, name)=constexpr auto name = implementation detail;"
 
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this

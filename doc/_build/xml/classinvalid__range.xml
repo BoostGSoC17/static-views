@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="classinvalid__range" kind="class" prot="public">
+    <compoundname>invalid_range</compoundname>
+    <basecompoundref prot="private" virt="non-virtual">exception</basecompoundref>
+    <includes refid="errors_8hpp" local="no">errors.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classinvalid__range_1a466f896ac5fcf92f2c948925add10458" prot="private" static="no" mutable="no">
+        <type>char const *</type>
+        <definition>char const* invalid_range::_msg</definition>
+        <argsstring></argsstring>
+        <name>_msg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="30" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classinvalid__range_1a2ff17c5b405c3f8101d2a9cf72fecbab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>invalid_range::invalid_range</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>invalid_range</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="32" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classinvalid__range_1aa26bed9ad6f1dca2bdd4d18008a43eda" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>invalid_range::invalid_range</definition>
+        <argsstring>(char const *msg) noexcept</argsstring>
+        <name>invalid_range</name>
+        <param>
+          <type>char const *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="33" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classinvalid__range_1abe025d3f4170bd6fa3ee43f8e913fa75" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto invalid_range::what</definition>
+        <argsstring>() const noexcept-&gt; char const *override</argsstring>
+        <name>what</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="35" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="35" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="140">
+        <label>exception</label>
+      </node>
+      <node id="139">
+        <label>invalid_range</label>
+        <link refid="classinvalid__range"/>
+        <childnode refid="140" relation="private-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="142">
+        <label>exception</label>
+      </node>
+      <node id="141">
+        <label>invalid_range</label>
+        <link refid="classinvalid__range"/>
+        <childnode refid="142" relation="private-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" line="29" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/errors.hpp" bodystart="29" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classinvalid__range_1a466f896ac5fcf92f2c948925add10458" prot="private" virt="non-virtual"><scope>invalid_range</scope><name>_msg</name></member>
+      <member refid="classinvalid__range_1a2ff17c5b405c3f8101d2a9cf72fecbab" prot="public" virt="non-virtual"><scope>invalid_range</scope><name>invalid_range</name></member>
+      <member refid="classinvalid__range_1aa26bed9ad6f1dca2bdd4d18008a43eda" prot="public" virt="non-virtual"><scope>invalid_range</scope><name>invalid_range</name></member>
+      <member refid="classinvalid__range_1abe025d3f4170bd6fa3ee43f8e913fa75" prot="public" virt="non-virtual"><scope>invalid_range</scope><name>what</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
