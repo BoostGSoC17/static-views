@@ -188,11 +188,14 @@ namespace detail {
         template <class... Args>
         BOOST_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(Args&&... args) const
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            algorithm_impl<Function, Args&&...>(Function{},
-                make_wrapper(std::forward<Args>(args))...)
-        )
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                algorithm_impl<Function, Args&&...>(Function{},
+                    make_wrapper(std::forward<Args>(args))...)
+            ))
+        {
+            return algorithm_impl<Function, Args&&...>(Function{},
+                make_wrapper(std::forward<Args>(args))...);
+        }
     };
 } // end namespace detail
 

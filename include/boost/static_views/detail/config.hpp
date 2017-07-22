@@ -62,7 +62,7 @@
         /**/
 #endif
     
-
+#if 1
 #if defined(DOXYGEN_IN_HOUSE)
 #   define BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(...)                       \
         noexcept( whenever possible )                                         \
@@ -77,7 +77,7 @@
         /**/
 
 #endif
-
+#endif
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 

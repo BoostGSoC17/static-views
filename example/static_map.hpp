@@ -119,10 +119,13 @@ namespace {
 struct hash_c {
     template <class T>
     BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(T&& x) const
-    BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-    (
-        hash_impl<std::decay_t<T>>{}(std::forward<T>(x))  
-    )
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            hash_impl<std::decay_t<T>>{}(std::forward<T>(x))
+        ))
+    {
+        return hash_impl<std::decay_t<T>>{}(std::forward<T>(x));
+    }
+
 };
 
 
@@ -154,19 +157,25 @@ private:
     BOOST_FORCEINLINE
     static BOOST_STATIC_VIEWS_CONSTEXPR 
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO _get_key(ValueType&& x)
-    BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-    (
-        std::get<0>(std::forward<ValueType>(x)) 
-    )
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            std::get<0>(std::forward<ValueType>(x))
+        ))
+    {
+        return std::get<0>(std::forward<ValueType>(x));
+    }
+
 
     template <class ValueType>
     BOOST_FORCEINLINE
     static BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO _get_value(ValueType&& x)
-    BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-    (
-        std::get<1>(std::forward<ValueType>(x)) 
-    )
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            std::get<1>(std::forward<ValueType>(x))
+        ))
+    {
+        return std::get<1>(std::forward<ValueType>(x));
+    }
+
 
     BOOST_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR

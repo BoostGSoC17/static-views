@@ -117,13 +117,18 @@ namespace detail {
         template <class View, class Proxy>
         BOOST_STATIC_VIEWS_CONSTEXPR
         auto operator()(View&& xs, Proxy&& proxy) const
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            through_impl<std::decay_t<View>, std::decay_t<
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                through_impl<std::decay_t<View>, std::decay_t<
+                    decltype(make_wrapper(std::forward<Proxy>(proxy)))>>{
+                    std::forward<View>(xs),
+                    make_wrapper(std::forward<Proxy>(proxy))}
+            ))
+        {
+            return through_impl<std::decay_t<View>, std::decay_t<
                 decltype(make_wrapper(std::forward<Proxy>(proxy)))>>{
                 std::forward<View>(xs),
-                make_wrapper(std::forward<Proxy>(proxy))}
-        )
+                make_wrapper(std::forward<Proxy>(proxy))};
+        }
     };
 } // end namespace detail
 

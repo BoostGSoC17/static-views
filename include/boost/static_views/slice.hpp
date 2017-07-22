@@ -91,12 +91,16 @@ namespace detail {
         BOOST_STATIC_VIEWS_CONSTEXPR
         auto operator()(View&& xs, std::size_t const b,
             std::size_t const e) const
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            slice_impl<std::decay_t<decltype(
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                slice_impl<std::decay_t<decltype(
+                    drop(b)(take(e)(std::forward<View>(xs).get()))
+                )>>{ drop(b)(take(e)(std::forward<View>(xs).get())) }
+            ))
+        {
+            return slice_impl<std::decay_t<decltype(
                 drop(b)(take(e)(std::forward<View>(xs).get()))
-            )>>{ drop(b)(take(e)(std::forward<View>(xs).get())) }
-        )
+            )>>{ drop(b)(take(e)(std::forward<View>(xs).get())) };
+        }
     };
 } // end namespace detail
 

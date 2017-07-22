@@ -66,10 +66,12 @@ private:
 
     template <class View>
     static BOOST_STATIC_VIEWS_CONSTEXPR auto map(View const& xs, std::size_t const i) 
-    BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-    (
-        xs.map(i)
-    )
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            xs.map(i)
+        ))
+    {
+        return xs.map(i);
+    }
 };
 
 

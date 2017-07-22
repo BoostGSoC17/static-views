@@ -113,10 +113,12 @@ namespace detail {
         template <class View>
         BOOST_STATIC_VIEWS_CONSTEXPR
         auto operator()(View&& xs, std::size_t const b) const 
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            drop_impl<std::decay_t<View>>{std::forward<View>(xs), b}
-        )
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                drop_impl<std::decay_t<View>>{std::forward<View>(xs), b}
+            ))
+        {
+            return drop_impl<std::decay_t<View>>{std::forward<View>(xs), b};
+        }
     };
 } // end namespace detail
 

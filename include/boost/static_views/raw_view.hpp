@@ -157,10 +157,12 @@ namespace detail {
     struct make_raw_view {
         template <class Sequence>
         BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(Sequence& sequence) const
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            raw_view_impl<Sequence>(sequence)
-        )
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                raw_view_impl<Sequence>(sequence)
+            ))
+        {
+            return raw_view_impl<Sequence>(sequence);
+        }
     };
     /// \endcond
 } // end namespace detail

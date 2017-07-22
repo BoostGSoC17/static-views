@@ -108,10 +108,12 @@ namespace detail {
     struct make_take_impl {
         template <class View>
         constexpr auto operator()(View&& xs, std::size_t const n) const 
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             take_impl<std::decay_t<View>>{std::forward<View>(xs), n}
-        )
+        ))
+        {
+            return take_impl<std::decay_t<View>>{std::forward<View>(xs), n};
+        }
     };
 } // end namespace detail
 

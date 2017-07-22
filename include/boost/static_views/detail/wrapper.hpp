@@ -228,10 +228,12 @@ namespace detail {
 template <class T>
 BOOST_FORCEINLINE
 BOOST_STATIC_VIEWS_CONSTEXPR auto make_wrapper(T&& x)
-BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-(
-    detail::wrapper<decltype(x)>{ std::forward<T>(x) }
-)
+    BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+        detail::wrapper<decltype(x)>{ std::forward<T>(x) }
+    ))
+{
+    return detail::wrapper<decltype(x)>{ std::forward<T>(x) };
+}
 
 
 BOOST_STATIC_VIEWS_END_NAMESPACE

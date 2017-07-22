@@ -30,6 +30,7 @@ namespace detail {
     struct is_reference_wrapper<std::reference_wrapper<T>> : std::true_type {};
     /// \endcond
 
+    // clang-format off
     template <class Any, class Pointer, class Object, class... Args>
     BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_func_impl
@@ -85,7 +86,6 @@ namespace detail {
             , std::forward<Args>(args)... )
     )
 
-
     template <class Any, class Pointer, class Object>
     BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_member_data_impl
@@ -136,7 +136,6 @@ namespace detail {
             , std::forward<Object>(obj) )
     )
 
-
     template <class Function, class... Args>
     BOOST_FORCEINLINE
     constexpr decltype(auto) invoke_nonmember
@@ -146,6 +145,7 @@ namespace detail {
     (
         std::forward<Function>(f)(std::forward<Args>(args)... )
     )
+    // clang-format on
 
 
     struct invoke_impl {
@@ -157,10 +157,12 @@ namespace detail {
         static constexpr decltype(auto) call_impl
             ( Function (T::*f)
             , Object&& obj )
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            invoke_member_data(f, std::forward<Object>(obj))
-        )
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                invoke_member_data(f, std::forward<Object>(obj))
+            ))
+        {
+            return invoke_member_data(f, std::forward<Object>(obj));
+        }
 
         template <class Function, class T, class Object, class... Args,
             class = std::enable_if_t<std::is_member_function_pointer<
@@ -170,11 +172,14 @@ namespace detail {
             ( Function (T::*f)
             , Object&& obj
             , Args&&... args )
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            invoke_member_func(f, std::forward<Object>(obj),
-                std::forward<Args>(args)...)
-        )
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                invoke_member_func(f, std::forward<Object>(obj),
+                    std::forward<Args>(args)...)
+            ))
+        {
+            return invoke_member_func(f, std::forward<Object>(obj),
+                std::forward<Args>(args)...);
+        }
 
         template <class Function, class... Args,
             class = std::enable_if_t<!std::is_member_pointer<
@@ -183,22 +188,28 @@ namespace detail {
         static constexpr decltype(auto) call_impl
             ( Function&& f
             , Args&&... args )
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
-            invoke_nonmember(std::forward<Function>(f),
-                std::forward<Args>(args)...)
-        )
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+                invoke_nonmember(std::forward<Function>(f),
+                    std::forward<Args>(args)...)
+            ))
+        {
+            return invoke_nonmember(std::forward<Function>(f),
+                std::forward<Args>(args)...);
+        }
 
     public:
 
         template <class Function, class... Args>    
         BOOST_FORCEINLINE
         constexpr decltype(auto) operator()(Function&& f, Args&&... args) const
-        BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT
-        (
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             call_impl(std::forward<Function>(f),
                 std::forward<Args>(args)...)
-        )
+        ))
+        {
+            return call_impl(std::forward<Function>(f),
+                std::forward<Args>(args)...);
+        }
     };
 
 } // end namespace detail
