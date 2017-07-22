@@ -5,24 +5,21 @@
 
 #include <utility>
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
+#include <boost/detail/workaround.hpp>
 
 #include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/raw_view.hpp>
 #include <boost/static_views/hashed.hpp>
-
-
+#include <boost/static_views/raw_view.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
-#   define CONSTEXPR /* no constexpr for MSVC */
-#   define STATIC_ASSERT(expr, msg) BOOST_TEST(expr && msg)
+#define CONSTEXPR /* no constexpr for MSVC */
+#define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
 #else
-#   define CONSTEXPR constexpr
-#   define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
+#define CONSTEXPR constexpr
+#define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #endif
-
 
 /*
 template <class T, std::size_t N, std::size_t... Is, std::size_t... Js>
@@ -36,15 +33,15 @@ auto create_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
     // View of a reference
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::slice(
         std::declval<std::size_t>(), std::declval<std::size_t>())(raw1)) v1[] =
-            { ( (Js / N <= Js % N) 
+            { ( (Js / N <= Js % N)
                 ? boost::static_views::slice(Js / N, Js % N)(raw1)
                 : boost::static_views::slice(Js / N, Js / N)(raw1) )... };
 
     // View of an rvalue
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::slice(
         std::declval<std::size_t>(), std::declval<std::size_t>())(
-        boost::static_views::raw_view(xs))) v2[] = 
-            { ( (Js / N <= Js % N) 
+        boost::static_views::raw_view(xs))) v2[] =
+            { ( (Js / N <= Js % N)
                 ? boost::static_views::slice(Js / N, Js % N)(
                     boost::static_views::raw_view(xs))
                 : boost::static_views::slice(Js / N, Js / N)(
@@ -52,8 +49,8 @@ auto create_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::slice(
         std::declval<std::size_t>(), std::declval<std::size_t>())(
-        std::declval<decltype(raw2)>())) v3[] = 
-            { ( (Js / N <= Js % N) 
+        std::declval<decltype(raw2)>())) v3[] =
+            { ( (Js / N <= Js % N)
                 ? boost::static_views::slice(Js / N, Js % N)(
                     decltype(raw2){raw2})
                 : boost::static_views::slice(Js / N, Js / N)(
@@ -85,12 +82,12 @@ auto size_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
     static CONSTEXPR auto raw1 = boost::static_views::raw_view(xs);
 
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR std::size_t sizes[] =
-        { ( (Js / N <= Js % N) 
+        { ( (Js / N <= Js % N)
             ? boost::static_views::slice(Js / N, Js % N)(raw1)
             : boost::static_views::slice(Js / N, Js / N)(raw1) ).size()... };
 
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR std::size_t capacities[] =
-        { ( (Js / N <= Js % N) 
+        { ( (Js / N <= Js % N)
             ? boost::static_views::slice(Js / N, Js % N)(raw1)
             : boost::static_views::slice(Js / N, Js / N)(raw1)).capacity()... };
 
@@ -104,7 +101,8 @@ auto size_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
                     sizeof...(Is));
             }
             else {
-                BOOST_TEST_THROWS((boost::static_views::slice(i, j)(raw1).size()),
+                BOOST_TEST_THROWS((boost::static_views::slice(i,
+j)(raw1).size()),
                     boost::static_views::invalid_range);
             }
         }
@@ -128,12 +126,12 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
     // Through an lvalue rerefence
     CONSTEXPR auto v1 = boost::static_views::slice(B, E)(raw1);
     // Compile-time access
-    CONSTEXPR bool lvalue_results_compile [] = 
+    CONSTEXPR bool lvalue_results_compile [] =
         { ((Js < v1.size()) ? (v1[Js] == Js + B) : (true))... };
-    BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(v1[0]), 
+    BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(v1[0]),
         std::size_t const&> ));
-    STATIC_ASSERT(all(lvalue_results_compile), 
-        "take::operator[] const&  does not work correctly."); 
+    STATIC_ASSERT(all(lvalue_results_compile),
+        "take::operator[] const&  does not work correctly.");
     // Run-time access
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (j < v1.size()) {
@@ -146,14 +144,14 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 
     // Through an rvalue reference
     // Compile-time access
-    CONSTEXPR bool rvalue_results_compile[] = 
-        { ( (Js < boost::static_views::slice(B, E)(raw1).size()) 
+    CONSTEXPR bool rvalue_results_compile[] =
+        { ( (Js < boost::static_views::slice(B, E)(raw1).size())
             ? (boost::static_views::slice(B, E)(raw1)[Js] == Js + B)
             : (true) )... };
     BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(
         boost::static_views::slice(B, E)(raw1)[0]), std::size_t const&> ));
     STATIC_ASSERT(all(rvalue_results_compile),
-        "take::operator[] &&  does not work correctly."); 
+        "take::operator[] &&  does not work correctly.");
     // Run-time access
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (j < boost::static_views::slice(B, E)(raw1).size()) {
@@ -263,12 +261,11 @@ int main(void)
         }
     };
 
-
     static constexpr int xs[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
-    BOOST_STATIC_VIEWS_CONSTEXPR auto vs = boost::static_views::hashed<5, 3>(hasher{})(
-        boost::static_views::raw_view(xs));
-   
+    BOOST_STATIC_VIEWS_CONSTEXPR auto vs = boost::static_views::hashed<5, 3>(
+        hasher{})(boost::static_views::raw_view(xs));
+
     for (std::size_t i = 0; i < vs.bucket_count(); ++i) {
         std::cout << "i = " << i << ": [";
         for (std::size_t j = 0; j < vs[i].size(); ++j) {
@@ -295,5 +292,3 @@ int main(void)
 
     return boost::report_errors();
 }
-
-

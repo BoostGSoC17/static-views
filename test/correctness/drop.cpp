@@ -5,75 +5,74 @@
 
 #include <utility>
 #include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/core/lightweight_test_trait.hpp>
+#include <boost/detail/workaround.hpp>
 
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/detail/utils.hpp>
-#include <boost/static_views/raw_view.hpp>
 #include <boost/static_views/drop.hpp>
-
-
+#include <boost/static_views/raw_view.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
-#   define CONSTEXPR /* no constexpr for MSVC */
-#   define STATIC_ASSERT(expr, msg) BOOST_TEST(expr && msg)
+#define CONSTEXPR /* no constexpr for MSVC */
+#define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
 #else
-#   define CONSTEXPR constexpr
-#   define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
+#define CONSTEXPR constexpr
+#define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #endif
-
-
 
 template <class T, std::size_t N, std::size_t... Is>
 auto create_impl(std::index_sequence<Is...>)
 {
     // Notice the `static`.
-    static constexpr T    xs[] = { ((void)Is, T{})... };
+    static constexpr T    xs[] = {((void)Is, T{})...};
     static CONSTEXPR auto raw1 = boost::static_views::raw_view(xs);
-           CONSTEXPR auto raw2 = boost::static_views::raw_view(xs);
+    CONSTEXPR auto        raw2 = boost::static_views::raw_view(xs);
 
     // View of a reference
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::drop(
-        std::declval<std::size_t>())(raw1)) v1[] =
-            { ((void)Is, boost::static_views::drop(Is)(raw1))... };
+    BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(
+        boost::static_views::drop(std::declval<std::size_t>())(raw1)) v1[] = {
+        ((void)Is, boost::static_views::drop(Is)(raw1))...};
     STATIC_ASSERT(boost::static_views::detail::utils::all(
-        noexcept(boost::static_views::drop(Is)(raw1))...),
+                      noexcept(boost::static_views::drop(Is)(raw1))...),
         "drop's noexcept specifiers are broken.");
 
     // View of an rvalue
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR
-    decltype(boost::static_views::drop(std::declval<std::size_t>())(
-        boost::static_views::raw_view(xs))) v2[] = 
-            { ((void)Is, boost::static_views::drop(Is)(
-                boost::static_views::raw_view(xs)))... };
+    BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(
+        boost::static_views::drop(std::declval<std::size_t>())(
+            boost::static_views::raw_view(xs))) v2[] = {((void)Is,
+        boost::static_views::drop(Is)(boost::static_views::raw_view(xs)))...};
     STATIC_ASSERT(boost::static_views::detail::utils::all(
-        noexcept(boost::static_views::drop(Is)(
-            boost::static_views::raw_view(xs)))...),
+                      noexcept(boost::static_views::drop(Is)(
+                          boost::static_views::raw_view(xs)))...),
         "drop's noexcept specifiers are broken.");
 
-    // View of a copy, i.e. rvalue again
-    //
-    // This does not work with MSVC. The following error is produced:
-    // correctness\drop.cpp(51): error C2440: 'initializing': cannot convert from 'boost::static_views::detail::drop_impl<boost::static_views::detail::wrapper<T>>' to 'boost::static_views::detail::drop_impl<boost::static_views::detail::wrapper<T &&>>'
-    //         with
-    //         [
-    //             T=boost::static_views::detail::raw_view_impl<const int [5]> &
-    //         ]
-    //         and
-    //         [
-    //             T=boost::static_views::detail::raw_view_impl<const int [5]>
-    //         ]
-    // correctness\drop.cpp(51): note: No constructor could take the source type, or constructor overload resolution was ambiguous
-    //
+// View of a copy, i.e. rvalue again
+//
+// This does not work with MSVC. The following error is produced:
+// correctness\drop.cpp(51): error C2440: 'initializing': cannot convert from
+// 'boost::static_views::detail::drop_impl<boost::static_views::detail::wrapper<T>>'
+// to
+// 'boost::static_views::detail::drop_impl<boost::static_views::detail::wrapper<T
+// &&>>'
+//         with
+//         [
+//             T=boost::static_views::detail::raw_view_impl<const int [5]> &
+//         ]
+//         and
+//         [
+//             T=boost::static_views::detail::raw_view_impl<const int [5]>
+//         ]
+// correctness\drop.cpp(51): note: No constructor could take the source type, or
+// constructor overload resolution was ambiguous
+//
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
-    // nothing
+// nothing
 #else
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR
-    decltype(boost::static_views::drop(std::declval<std::size_t>())(
-        std::declval<decltype(raw2)>())) v3[] = 
-            { ((void)Is, boost::static_views::drop(Is)(decltype(raw2){raw2}))... };
+    BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::drop(
+        std::declval<std::size_t>())(std::declval<decltype(raw2)>())) v3[] = {
+        ((void)Is, boost::static_views::drop(Is)(decltype(raw2){raw2}))...};
 #endif
 }
 
@@ -86,46 +85,44 @@ auto test_create()
 template <class T, std::size_t... Is, std::size_t... Js>
 auto size_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 {
-    static constexpr T    xs[] = { ((void)Is, T{})... };
+    static constexpr T    xs[] = {((void)Is, T{})...};
     static CONSTEXPR auto raw  = boost::static_views::raw_view(xs);
-           constexpr auto N    = sizeof...(Is);
+    constexpr auto        N    = sizeof...(Is);
 
     STATIC_ASSERT(boost::static_views::detail::utils::all(
-        boost::static_views::drop(Js)(raw).size()
-            == ((N >= Js) ? (N - Js) : 0)...),
+                      boost::static_views::drop(Js)(raw).size()
+                      == ((N >= Js) ? (N - Js) : 0)...),
         "drop::size() does not work correctly.");
     STATIC_ASSERT(boost::static_views::detail::utils::all(
-        noexcept(boost::static_views::drop(Js)(raw).size())...),
+                      noexcept(boost::static_views::drop(Js)(raw).size())...),
         "drop's size() noexcept specifiers are broken.");
 
     STATIC_ASSERT(boost::static_views::detail::utils::all(
-        boost::static_views::drop(Js)(raw).capacity() == N...),
+                      boost::static_views::drop(Js)(raw).capacity() == N...),
         "drop::capacity() does not work correctly.");
 }
 
 template <class T, std::size_t N, std::size_t M>
 auto test_size()
 {
-    return size_impl<T>(std::make_index_sequence<N>{},
-        std::make_index_sequence<M>{});
+    return size_impl<T>(
+        std::make_index_sequence<N>{}, std::make_index_sequence<M>{});
 }
-
 
 template <std::size_t K, std::size_t... Is, std::size_t... Js>
 auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 {
-    static constexpr std::size_t xs[] = { Is... };
-           constexpr auto        N    = sizeof...(Is);
+    static constexpr std::size_t xs[] = {Is...};
+    constexpr auto               N    = sizeof...(Is);
     static CONSTEXPR auto        raw1 = boost::static_views::raw_view(xs);
 
     // Through an lvalue rerefence
     CONSTEXPR auto v1 = boost::static_views::drop(K)(raw1);
     // Compile-time access
     STATIC_ASSERT(boost::static_views::detail::utils::all(
-        (Js < v1.size()) ? (v1[Js] == K + Js) : true...),
+                      (Js < v1.size()) ? (v1[Js] == K + Js) : true...),
         "drop::operator[] const&  does not work correctly.");
-    BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(v1[0]), 
-        std::size_t const&> ));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<decltype(v1[0]), std::size_t const&>));
     // Run-time access
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (K + j < N) {
@@ -139,12 +136,13 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
     // Through an rvalue reference
     // Compile-time access
     STATIC_ASSERT(boost::static_views::detail::utils::all(
-        (Js < boost::static_views::drop(K)(raw1).size()) 
-            ? (boost::static_views::drop(K)(raw1)[Js] == K + Js)
-            : (true)...),
+                      (Js < boost::static_views::drop(K)(raw1).size())
+                          ? (boost::static_views::drop(K)(raw1)[Js] == K + Js)
+                          : (true)...),
         "drop::operator[] &&  does not work correctly.");
-    BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(
-        boost::static_views::drop(K)(raw1)[0]), std::size_t const&> ));
+    BOOST_TEST_TRAIT_TRUE(
+        (std::is_same<decltype(boost::static_views::drop(K)(raw1)[0]),
+            std::size_t const&>));
     // Run-time access
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (K + j < N) {
@@ -158,11 +156,12 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 }
 
 template <std::size_t M, std::size_t... Is>
-auto test_access_impl(std::index_sequence<Is...>)
+auto                  test_access_impl(std::index_sequence<Is...>)
 {
-    BOOST_ATTRIBUTE_UNUSED int dummy[] =
-        { ((void)access_impl<Is>(std::make_index_sequence<sizeof...(Is)>{},
-            std::make_index_sequence<M>{}), 0)... };
+    BOOST_ATTRIBUTE_UNUSED int dummy[] = {
+        ((void)access_impl<Is>(std::make_index_sequence<sizeof...(Is)>{},
+             std::make_index_sequence<M>{}),
+            0)...};
 }
 
 template <std::size_t N, std::size_t M>
@@ -174,14 +173,13 @@ auto test_access()
 template <std::size_t K, std::size_t... Is, std::size_t... Js>
 auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 {
-    std::size_t xs[] = { Is... };
-    constexpr auto N = sizeof...(Is);
-    auto const raw1 = boost::static_views::raw_view(xs);
+    std::size_t    xs[] = {Is...};
+    constexpr auto N    = sizeof...(Is);
+    auto const     raw1 = boost::static_views::raw_view(xs);
 
     // Through an lvalue rerefence
     auto const v1 = boost::static_views::drop(K)(raw1);
-    BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(v1[0]), 
-        std::size_t&> ));
+    BOOST_TEST_TRAIT_TRUE((std::is_same<decltype(v1[0]), std::size_t&>));
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (K + j < N) {
             BOOST_TEST_EQ(v1[j], K + j);
@@ -189,7 +187,6 @@ auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
             BOOST_TEST_EQ(v1[j], 0xABCD);
             v1[j] = K + j;
             BOOST_TEST_EQ(v1[j], K + j);
-
         }
         else {
             BOOST_TEST_THROWS(v1[j], boost::static_views::out_of_bound);
@@ -197,8 +194,9 @@ auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
     }
 
     // Through an rvalue reference
-    BOOST_TEST_TRAIT_TRUE(( std::is_same<decltype(
-        boost::static_views::drop(K)(raw1)[0]), std::size_t&> ));
+    BOOST_TEST_TRAIT_TRUE(
+        (std::is_same<decltype(boost::static_views::drop(K)(raw1)[0]),
+            std::size_t&>));
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (K + j < N) {
             BOOST_TEST_EQ(boost::static_views::drop(K)(raw1)[j], K + j);
@@ -215,11 +213,12 @@ auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 }
 
 template <std::size_t M, std::size_t... Is>
-auto test_modify_impl(std::index_sequence<Is...>)
+auto                  test_modify_impl(std::index_sequence<Is...>)
 {
-    BOOST_ATTRIBUTE_UNUSED int dummy[] =
-        { ((void)modify_impl<Is>(std::make_index_sequence<sizeof...(Is)>{},
-            std::make_index_sequence<M>{}), 0)... };
+    BOOST_ATTRIBUTE_UNUSED int dummy[] = {
+        ((void)modify_impl<Is>(std::make_index_sequence<sizeof...(Is)>{},
+             std::make_index_sequence<M>{}),
+            0)...};
 }
 
 template <std::size_t N, std::size_t M>
