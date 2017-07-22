@@ -8,8 +8,6 @@
 #ifndef BOOST_STATIC_VIEWS_DETAIL_WRAPPER_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_WRAPPER_HPP
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/detail/invoke.hpp>
 
@@ -53,7 +51,7 @@ struct wrapper<T&> {
     }
 
     BOOST_STATIC_VIEWS_CONSTEXPR wrapper(wrapper const& other) =
-#if BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
+#if defined(BOOST_STATIC_VIEWS_GCC)
         default;
 #else
         // default;

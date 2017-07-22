@@ -9,7 +9,6 @@
 #include <boost/core/lightweight_test_trait.hpp>
 #include <boost/static_views/detail/invoke.hpp>
 
-
 constexpr auto foo() { return 10; }
 
 struct bar {
@@ -17,41 +16,35 @@ struct bar {
     constexpr auto operator()() const noexcept { return 10; }
 };
 
-
 auto test_nonmember()
 {
-    BOOST_TEST_EQ( boost::static_views::invoke(
-        [](auto&& p) noexcept { return p.second; }, std::make_pair(1, 2.0)),
-        2.0
-    );
+    BOOST_TEST_EQ(
+        boost::static_views::invoke([](auto&& p) noexcept { return p.second; },
+            std::make_pair(1, 2.0)),
+        2.0);
 
-    BOOST_TEST_EQ( boost::static_views::invoke(&foo), 10 );
-    BOOST_TEST_EQ( boost::static_views::invoke( foo), 10 );
-    BOOST_TEST_EQ( boost::static_views::invoke(bar{}), 10 );
+    BOOST_TEST_EQ(boost::static_views::invoke(&foo), 10);
+    BOOST_TEST_EQ(boost::static_views::invoke(foo), 10);
+    BOOST_TEST_EQ(boost::static_views::invoke(bar{}), 10);
 
     constexpr auto r = boost::static_views::invoke(&foo);
-    BOOST_TEST_EQ( r, 10 );
+    BOOST_TEST_EQ(r, 10);
 }
-
 
 auto test_member_function()
 {
-    BOOST_TEST_EQ( boost::static_views::invoke(&bar::get, bar{}), 10 );
+    BOOST_TEST_EQ(boost::static_views::invoke(&bar::get, bar{}), 10);
 
     constexpr auto r = boost::static_views::invoke(&bar::get, bar{});
     BOOST_TEST_EQ(r, 10);
-
 }
 
 auto test_data()
 {
-    BOOST_TEST_EQ( boost::static_views::invoke(
-        &std::pair<int, double>::first, std::make_pair(1, 2.0)),
-        1
-    );
-
+    BOOST_TEST_EQ(boost::static_views::invoke(
+                      &std::pair<int, double>::first, std::make_pair(1, 2.0)),
+        1);
 }
-
 
 int main(void)
 {

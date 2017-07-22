@@ -8,24 +8,93 @@
 
 #include <exception>
 #include <iostream>
+
+// Define the following macro if you want to use StaticViews as part of Boost.
+//#define BOOST_STATIC_VIEWS_USE_BOOST
+
+// Define the following macro if when using Doxygen.
+//#define DOXYGEN_IN_HOUSE
+
+#if defined(BOOST_STATIC_VIEWS_USE_BOOST)
+//////////////////////////////////////////////////////////////////////////////
+// We have Boost at our disposal
+//////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 
-#define BOOST_STATIC_VIEWS_CONSTEXPR constexpr
-/* Ooops debugging */
-
-#define NEGLECT_STD_TUPLE
-
-#if __cplusplus > 201402L
-#define BOOST_CONSTEXPR_AFTER_CXX14 BOOST_STATIC_VIEWS_CONSTEXPR
-#else
-#define BOOST_CONSTEXPR_AFTER_CXX14
-#endif
-
+// Check for compilers
 #if defined(BOOST_CLANG)
-#define BOOST_CLANG_VERSION                                                    \
+#define BOOST_STATIC_VIEWS_CLANG                                               \
     (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
+
+#elif defined(BOOST_GCC)
+#define BOOST_STATIC_VIEWS_GCC BOOST_GCC
+
+#elif defined(BOOST_MSVC)
+#define BOOST_STATIC_VIEWS_MSVC BOOST_MSVC
 #endif
 
+// Force inlining
+#define BOOST_STATIC_VIEWS_FORCEINLINE BOOST_FORCEINLINE
+
+// Ask compiler not to inline
+#define BOOST_STATIC_VIEWS_NOINLINE BOOST_NOINLINE
+
+// Unused variable
+#define BOOST_STATIC_VIEWS_UNUSED BOOST_ATTRIBUTE_UNUSED
+
+#else
+//////////////////////////////////////////////////////////////////////////////
+// No Boost --> do everything manually
+//////////////////////////////////////////////////////////////////////////////
+
+#if defined(__clang__)
+// We're being compiled with Clang
+#define BOOST_STATIC_VIEWS_CLANG                                               \
+    (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
+
+#define BOOST_STATIC_VIEWS_FORCEINLINE inline __attribute__((__always_inline__))
+
+#define BOOST_STATIC_VIEWS_NOINLINE __attribute__((__noinline__))
+
+#define BOOST_STATIC_VIEWS_UNUSED __attribute__((__unused__))
+
+#elif defined(__GNUC__)
+// We're being compiled with GCC
+#define BOOST_STATIC_VIEWS_GCC                                                 \
+    (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+
+#define BOOST_STATIC_VIEWS_FORCEINLINE inline __attribute__((__always_inline__))
+
+#define BOOST_STATIC_VIEWS_NOINLINE __attribute__((__noinline__))
+
+#define BOOST_STATIC_VIEWS_UNUSED __attribute__((__unused__))
+
+#elif defined(_MSC_VER)
+// We're being compiled with Microsoft Visual C++
+#define BOOST_STATIC_VIEWS_MSVC _MSC_VER
+
+#define BOOST_STATIC_VIEWS_FORCEINLINE inline __forceinline
+
+#define BOOST_STATIC_VIEWS_NOINLINE
+
+#define BOOST_STATIC_VIEWS_UNUSED
+
+#else
+// clang-format off
+#   error "Unsupported compiler. Please, submit a request to https://github.com/boostgsoc17/static-views/issues."
+// clang-format on
+#endif
+
+#endif
+
+// Easily turn off constexpr-ness to add some debug output, for example.
+#define BOOST_STATIC_VIEWS_CONSTEXPR constexpr
+
+/// \brief Chooses whether to ignore the actual noexcept-ness of std::tuple
+/// implementstion and make some reasonable assumptions instead.
+#define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
+
+// Boost.StaticViews namespace
 #define BOOST_STATIC_VIEWS_NAMESPACE boost::static_views
 
 #define BOOST_STATIC_VIEWS_BEGIN_NAMESPACE                                     \
@@ -37,15 +106,19 @@
     } /* boost */
 
 #if defined(DOXYGEN_IN_HOUSE)
+// It's a bad idea to let Doxygen try deduce noexcept-ness.
 #define BOOST_STATIC_VIEWS_NOEXCEPT_IF(...) noexcept(whenever possible) /**/
 #else
 #define BOOST_STATIC_VIEWS_NOEXCEPT_IF(...) noexcept(__VA_ARGS__) /**/
 #endif
 
 #if defined(DOXYGEN_IN_HOUSE)
-#define BOOST_STATIC_VIEWS_DECLTYPE_AUTO auto /**/
+// Breathe does not handle decltype(auto) correctly, see
+// https://github.com/michaeljones/breathe/issues/330. Hence, trick it into
+// thinking that the function returns a plain auto insted.
+#define BOOST_STATIC_VIEWS_DECLTYPE_AUTO auto
 #else
-#define BOOST_STATIC_VIEWS_DECLTYPE_AUTO decltype(auto) /**/
+#define BOOST_STATIC_VIEWS_DECLTYPE_AUTO decltype(auto)
 #endif
 
 #if 1
