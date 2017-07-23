@@ -13,10 +13,9 @@
 #include <algorithm>
 #include <type_traits>
 
-#include <boost/config.hpp>
-#include <boost/static_views/algorithm_base.hpp>
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/detail/utils.hpp>
+#include <boost/static_views/algorithm_base.hpp>
 #include <boost/static_views/errors.hpp>
 #include <boost/static_views/view_base.hpp>
 
@@ -45,13 +44,15 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
     /// .. note::
     ///   It's annoying to have to specify the View template parameter
     ///   all the time. For this reason a :cpp:var:`drop` factory
-    ///   function is provided. Use it instead to construct drop views.
+    ///   function is provided. Use it instead to construct drop
+    ///   views.
     /// \endverbatim
     explicit BOOST_STATIC_VIEWS_CONSTEXPR drop_impl(
         View&& xs, std::size_t const b)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
             std::is_nothrow_constructible<
-                typename drop_impl::view_adaptor_base_type, View&&>::value,
+                typename drop_impl::view_adaptor_base_type,
+                View&&>::value,
             // This is formally wrong, but come on, std::min(size_t,
             // size_t)
             // _should_ be noexcept.
@@ -61,10 +62,6 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
         : drop_impl::view_adaptor_base_type{std::move(xs)}
         , _b{std::min(this->parent().size(), b)}
     {
-        static_assert(
-            std::is_nothrow_constructible<
-                typename drop_impl::view_adaptor_base_type, View&&>::value,
-            "");
     }
 
     /// \brief Returns the number of elements viewed.
@@ -75,7 +72,8 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
     /// fails.
     /// \endverbatim
     BOOST_STATIC_VIEWS_CONSTEXPR auto size() const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(drop_impl::is_noexcept_parent_size())
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            drop_impl::is_noexcept_parent_size())
     {
         return this->parent().size() - _b;
     }
@@ -93,12 +91,13 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
     ///
     /// If the condition `i < size()` is not satisfied, this function
     /// throws an #out_of_bound exception.
-    BOOST_FORCEINLINE
+    BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
     {
-        return i < size() ? (_b + i) : ((void)make_out_of_bound_error(
-                                            "`i < size()` not satisfied."),
-                                           _b + i);
+        return i < size() ? (_b + i)
+                          : ((void)make_out_of_bound_error(
+                                 "`i < size()` not satisfied."),
+                                _b + i);
     }
 
   private:
@@ -108,19 +107,23 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
 
     static constexpr auto is_noexcept_parent_size() noexcept
     {
-        return noexcept(std::declval<drop_impl const&>().parent().size());
+        return noexcept(
+            std::declval<drop_impl const&>().parent().size());
     }
 };
 
 struct make_drop_impl {
+    // clang-format off
     template <class View>
-    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
-        View&& xs, std::size_t const b) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(drop_impl<std::decay_t<View>>{std::forward<View>(xs), b}))
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(View&& xs, std::size_t const b) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            drop_impl<std::decay_t<View>>{std::forward<View>(xs), b}))
     {
-        return drop_impl<std::decay_t<View>>{std::forward<View>(xs), b};
+        return drop_impl<std::decay_t<View>>{
+            std::forward<View>(xs), b};
     }
+    // clang-format on
 };
 } // end namespace detail
 
@@ -131,12 +134,12 @@ struct make_drop_impl {
 /// \f]
 ///
 /// \verbatim embed:rst:leading-slashes
-/// Given a count ``n`` and a view ``xs``, creates a view of ``xs`` with the
-/// first ``n`` elements dropped. Type of ``xs`` may be anything as long as
-/// it
-/// models the :ref:`view <view-concept>` concept. The exact type of the
-/// returned view is an implementation detail. What's important is that it
-/// also models the :ref:`view <view-concept>` concept.
+/// Given a count ``n`` and a view ``xs``, creates a view of ``xs``
+/// with the first ``n`` elements dropped. Type of ``xs`` may be
+/// anything as long as it models the :ref:`view <view-concept>`
+/// concept. The exact type of the returned view is an implementation
+/// detail. What's important is that it also models the :ref:`view
+/// <view-concept>` concept.
 ///
 /// .. note::
 ///   Haskell notation is used here, i.e. the function is curried and

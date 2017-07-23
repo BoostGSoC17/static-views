@@ -18,9 +18,9 @@ struct bar {
 
 auto test_nonmember()
 {
-    BOOST_TEST_EQ(
-        boost::static_views::invoke([](auto&& p) noexcept { return p.second; },
-            std::make_pair(1, 2.0)),
+    BOOST_TEST_EQ(boost::static_views::invoke(
+                      [](auto&& p) noexcept { return p.second; },
+                      std::make_pair(1, 2.0)),
         2.0);
 
     BOOST_TEST_EQ(boost::static_views::invoke(&foo), 10);
@@ -41,8 +41,9 @@ auto test_member_function()
 
 auto test_data()
 {
-    BOOST_TEST_EQ(boost::static_views::invoke(
-                      &std::pair<int, double>::first, std::make_pair(1, 2.0)),
+    BOOST_TEST_EQ(
+        boost::static_views::invoke(
+            &std::pair<int, double>::first, std::make_pair(1, 2.0)),
         1);
 }
 

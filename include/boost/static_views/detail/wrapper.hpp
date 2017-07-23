@@ -17,10 +17,10 @@ namespace detail {
 
 /// \brief Wraps an lvalue or an rvalue reference.
 
-/// This is basically a `constexpr` version of `std::reference_wrapper`.
-/// The
-/// difference is that #detail::wrapper can wrap both lvalue and rvalue
-/// references. This is just syntactic sugar.
+/// This is basically a `constexpr` version of
+/// `std::reference_wrapper`. The difference is that #detail::wrapper
+/// can wrap both lvalue and rvalue references. This is just syntactic
+/// sugar.
 ///
 /// \code{.cpp}
 /// template <class T>
@@ -35,8 +35,8 @@ namespace detail {
 /// };
 /// \endcode
 ///
-/// Constructors are intentionally not listed. Use make_wrapper(T&&) to
-/// create wrappers.
+/// Constructors are intentionally not listed. Use make_wrapper(T&&)
+/// to create wrappers.
 template <class T>
 struct wrapper;
 
@@ -54,27 +54,33 @@ struct wrapper<T&> {
 #if defined(BOOST_STATIC_VIEWS_GCC)
         default;
 #else
-        // default;
         delete;
 #endif
 
     BOOST_STATIC_VIEWS_CONSTEXPR
-    wrapper(wrapper&&) = default;
+    wrapper(wrapper&&) noexcept = default;
 
     BOOST_STATIC_VIEWS_CONSTEXPR
-    wrapper& operator=(wrapper const& other) = delete;
+    wrapper& operator=(wrapper const& other) noexcept = delete;
 
     BOOST_STATIC_VIEWS_CONSTEXPR
-    wrapper& operator=(wrapper&&) = default;
+    wrapper& operator=(wrapper&&) noexcept = default;
 
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto get() const noexcept -> type&
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto get() const noexcept
+        -> type const&
+    {
+        return *_payload;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto get() noexcept -> type&
     {
         return *_payload;
     }
 
     /*
-    BOOST_FORCEINLINE
+    BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR operator type&() const noexcept
     {
         return get();
@@ -82,12 +88,16 @@ struct wrapper<T&> {
     */
 
     template <class... Args>
-    BOOST_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR decltype(auto)
-                      operator()(Args&&... args) const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-        noexcept(invoke(std::declval<T const&>(), std::declval<Args&&>()...)))
+    BOOST_STATIC_VIEWS_FORCEINLINE
+        BOOST_STATIC_VIEWS_CONSTEXPR decltype(auto)
+        operator()(Args&&... args) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke(
+            std::declval<T const&>(), std::declval<Args&&>()...)))
     {
         return invoke(*_payload, std::forward<Args>(args)...);
     }
+
+    ~wrapper() = default;
 
   private:
     T* _payload;
@@ -107,42 +117,41 @@ struct wrapper<T&&> {
     }
 
     BOOST_STATIC_VIEWS_CONSTEXPR wrapper(wrapper const&) =
-#if BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
+#if defined(BOOST_STATIC_VIEWS_GCC)
         default;
 #else
         // default;
         delete;
 #endif
 
-    BOOST_STATIC_VIEWS_CONSTEXPR wrapper(wrapper&&) = default;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    wrapper(wrapper&&) noexcept = default;
 
-    BOOST_STATIC_VIEWS_CONSTEXPR wrapper& operator=(wrapper const&) = delete;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    wrapper& operator=(wrapper const&) = delete;
 
-    BOOST_STATIC_VIEWS_CONSTEXPR wrapper& operator=(wrapper&&) = default;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    wrapper& operator=(wrapper&&) noexcept = default;
 
-#if BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto
-    get() const & BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+#if defined(BOOST_STATIC_VIEWS_GCC)
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto get() const & BOOST_STATIC_VIEWS_NOEXCEPT_IF(
         std::is_nothrow_copy_constructible<type>::value) -> type
     {
         return _payload;
     }
 #else
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto get() & noexcept -> type&
-    {
-        return _payload;
-    }
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto get() & noexcept -> type& { return _payload; }
 
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto get() const & noexcept -> type const&
-    {
-        return _payload;
-    }
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto get() const & noexcept -> type const& { return _payload; }
 #endif
 
-    BOOST_FORCEINLINE
+    BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR auto get()
         && BOOST_STATIC_VIEWS_NOEXCEPT_IF(
                std::is_nothrow_move_constructible<T>::value) -> type
@@ -162,35 +171,47 @@ struct wrapper<T&&> {
     }
     */
 
+    // clang-format off
     template <class... Args>
-        BOOST_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR decltype(auto)
-                          operator()(Args&&... args)
-        & BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke(
-              std::declval<wrapper&>().get(), std::declval<Args&&>()...)))
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    decltype(auto) operator()(Args&&... args) &
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(invoke(std::declval<wrapper&>().get(),
+                std::declval<Args&&>()...)))
     {
-        return invoke(
-            std::forward<wrapper>(*this).get(), std::forward<Args>(args)...);
+        return invoke(std::forward<wrapper>(*this).get(),
+            std::forward<Args>(args)...);
     }
+    // clang-format on
+
+    // clang-format off
+    template <class... Args>
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    decltype(auto) operator()(Args&&... args) const&
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(invoke(std::declval<wrapper const&>().get(),
+                std::declval<Args&&>()...)))
+    {
+        return invoke(std::forward<wrapper>(*this).get(),
+            std::forward<Args>(args)...);
+    }
+    // clang-format on
 
     template <class... Args>
-    BOOST_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR decltype(auto)
-                      operator()(Args&&... args) const & BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-        noexcept(invoke(
-            std::declval<wrapper const&>().get(), std::declval<Args&&>()...)))
+        BOOST_STATIC_VIEWS_FORCEINLINE
+            BOOST_STATIC_VIEWS_CONSTEXPR decltype(auto)
+            operator()(Args&&... args)
+        && BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+               noexcept(invoke(std::declval<wrapper&&>().get(),
+                   std::declval<Args&&>()...)))
     {
-        return invoke(
-            std::forward<wrapper>(*this).get(), std::forward<Args>(args)...);
+        return invoke(std::forward<wrapper>(*this).get(),
+            std::forward<Args>(args)...);
     }
 
-    template <class... Args>
-        BOOST_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR decltype(auto)
-                          operator()(Args&&... args)
-        && BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke(
-               std::declval<wrapper&&>().get(), std::declval<Args&&>()...)))
-    {
-        return invoke(
-            std::forward<wrapper>(*this).get(), std::forward<Args>(args)...);
-    }
+    ~wrapper() = default;
 
   private:
     T _payload;
@@ -201,15 +222,31 @@ struct wrapper<T&&> {
 
 /// \brief Makes a wrapper around an rvalue or lvalue reference.
 
-/// Creates a #detail::wrapper of `T&` or `T&&` depending on the type of
-/// `x`.
+/// Creates a #detail::wrapper of `T&` or `T&&` depending on the type
+/// of `x`.
+// clang-format off
 template <class T>
-BOOST_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR auto make_wrapper(T&& x)
+BOOST_STATIC_VIEWS_FORCEINLINE
+BOOST_STATIC_VIEWS_CONSTEXPR
+auto make_wrapper(T&& x)
     BOOST_STATIC_VIEWS_NOEXCEPT_IF(
         noexcept(detail::wrapper<decltype(x)>{std::forward<T>(x)}))
 {
     return detail::wrapper<decltype(x)>{std::forward<T>(x)};
 }
+// clang-format on
+/*
+ So much for good formatting... :(
+
+template <class T>
+BOOST_STATIC_VIEWS_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR auto
+                               make_wrapper(T&& x)
+BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+    noexcept(detail::wrapper<decltype(x)>{std::forward<T>(x)}))
+{
+    return detail::wrapper<decltype(x)>{std::forward<T>(x)};
+}
+ */
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

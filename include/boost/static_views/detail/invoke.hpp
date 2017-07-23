@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-// Implementation of boost::static_views::invoke. It is a constexpr equivalent
-// of std::invoke.
+// Implementation of boost::static_views::invoke. It is a constexpr
+// equivalent of std::invoke.
 
 #ifndef BOOST_STATIC_VIEWS_DETAIL_INVOKE_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_INVOKE_HPP
@@ -24,7 +24,8 @@ struct is_reference_wrapper : std::false_type {
 
 /// \cond
 template <class T>
-struct is_reference_wrapper<std::reference_wrapper<T>> : std::true_type {
+struct is_reference_wrapper<std::reference_wrapper<T>>
+    : std::true_type {
 };
 /// \endcond
 
@@ -196,33 +197,33 @@ constexpr decltype(auto) invoke_nonmember
 struct invoke_impl {
   private:
     template <class Function, class T, class Object,
-        class = std::enable_if_t<std::is_member_object_pointer<Function(
-            T::*)>::value>>
-    BOOST_STATIC_VIEWS_FORCEINLINE static constexpr decltype(auto) call_impl(
-        Function(T::*f), Object&& obj)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(invoke_member_data(f, std::forward<Object>(obj))))
+        class = std::enable_if_t<
+            std::is_member_object_pointer<Function(T::*)>::value>>
+    BOOST_STATIC_VIEWS_FORCEINLINE static constexpr decltype(auto)
+    call_impl(Function(T::*f), Object&& obj)
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            invoke_member_data(f, std::forward<Object>(obj))))
     {
         return invoke_member_data(f, std::forward<Object>(obj));
     }
 
     template <class Function, class T, class Object, class... Args,
-        class = std::enable_if_t<std::is_member_function_pointer<Function(
-            T::*)>::value>>
-    BOOST_STATIC_VIEWS_FORCEINLINE static constexpr decltype(auto) call_impl(
-        Function(T::*f), Object&& obj, Args&&... args)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke_member_func(
-            f, std::forward<Object>(obj), std::forward<Args>(args)...)))
+        class = std::enable_if_t<
+            std::is_member_function_pointer<Function(T::*)>::value>>
+    BOOST_STATIC_VIEWS_FORCEINLINE static constexpr decltype(auto)
+    call_impl(Function(T::*f), Object&& obj, Args&&... args)
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke_member_func(f,
+            std::forward<Object>(obj), std::forward<Args>(args)...)))
     {
-        return invoke_member_func(
-            f, std::forward<Object>(obj), std::forward<Args>(args)...);
+        return invoke_member_func(f, std::forward<Object>(obj),
+            std::forward<Args>(args)...);
     }
 
     template <class Function, class... Args,
-        class = std::
-            enable_if_t<!std::is_member_pointer<std::decay_t<Function>>::value>>
-    BOOST_STATIC_VIEWS_FORCEINLINE static constexpr decltype(auto) call_impl(
-        Function&& f, Args&&... args)
+        class = std::enable_if_t<
+            !std::is_member_pointer<std::decay_t<Function>>::value>>
+    BOOST_STATIC_VIEWS_FORCEINLINE static constexpr decltype(auto)
+    call_impl(Function&& f, Args&&... args)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke_nonmember(
             std::forward<Function>(f), std::forward<Args>(args)...)))
     {
@@ -232,10 +233,10 @@ struct invoke_impl {
 
   public:
     template <class Function, class... Args>
-    BOOST_STATIC_VIEWS_FORCEINLINE constexpr decltype(auto) operator()(
-        Function&& f, Args&&... args) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            call_impl(std::forward<Function>(f), std::forward<Args>(args)...)))
+    BOOST_STATIC_VIEWS_FORCEINLINE constexpr decltype(auto)
+    operator()(Function&& f, Args&&... args) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(call_impl(
+            std::forward<Function>(f), std::forward<Args>(args)...)))
     {
         return call_impl(
             std::forward<Function>(f), std::forward<Args>(args)...);

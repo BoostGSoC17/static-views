@@ -13,9 +13,12 @@
 
 struct equal_c {
     template <class _Char>
-    constexpr auto operator()(_Char const* const a, _Char const* const b) const
-        noexcept(noexcept(std::declval<_Char>() == std::declval<_Char>())
-                 && noexcept(std::declval<_Char>() != std::declval<_Char>()))
+    constexpr auto operator()(
+        _Char const* const a, _Char const* const b) const
+        noexcept(
+            noexcept(std::declval<_Char>() == std::declval<_Char>())
+            && noexcept(
+                   std::declval<_Char>() != std::declval<_Char>()))
     {
         std::size_t i = 0;
         while (a[i] != _Char{} && a[i] == b[i]) {
@@ -36,12 +39,12 @@ enum class weekday {
 };
 
 using std::experimental::string_view;
-#define STRING_VIEW(str)                                                       \
+#define STRING_VIEW(str)                                             \
     std::experimental::string_view { str, sizeof(str) - 1 }
 
 struct equal_string_view {
-    constexpr auto operator()(string_view const& a, string_view const& b) const
-        noexcept -> bool
+    constexpr auto operator()(string_view const& a,
+        string_view const& b) const noexcept -> bool
     {
         return equal_c{}(a.data(), b.data());
     }
@@ -50,10 +53,10 @@ struct equal_string_view {
 void test1()
 {
     {
-        static constexpr std::pair<int const, const char*> map_data[] = {
-            {5, "apple"}, {8, "pear"}, {0, "banana"}};
-        constexpr auto cmap =
-            make_static_map<10, 1>(boost::static_views::raw_view(map_data));
+        static constexpr std::pair<int const, const char*>
+                       map_data[] = {{5, "apple"}, {8, "pear"}, {0, "banana"}};
+        constexpr auto cmap = make_static_map<10, 1>(
+            boost::static_views::raw_view(map_data));
 
         static_assert(equal_c{}(cmap[5], "apple"), "");
         static_assert(equal_c{}(cmap[8], "pear"), "");
@@ -66,9 +69,10 @@ void test1()
 
     {
         // Working with string_view
-        static constexpr std::pair<const std::experimental::string_view,
-            weekday>
-            string_to_weekday[]{{STRING_VIEW("sunday"), weekday::sunday},
+        static constexpr std::pair<
+            const std::experimental::string_view, weekday>
+            string_to_weekday[]{
+                {STRING_VIEW("sunday"), weekday::sunday},
                 {STRING_VIEW("monday"), weekday::monday},
                 {STRING_VIEW("tuesday"), weekday::tuesday},
                 {STRING_VIEW("wednesday"), weekday::wednesday},
@@ -79,17 +83,24 @@ void test1()
             boost::static_views::raw_view(string_to_weekday),
             equal_string_view{});
 
-        static_assert(to_weekday[STRING_VIEW("sunday")] == weekday::sunday, "");
-        static_assert(to_weekday[STRING_VIEW("monday")] == weekday::monday, "");
         static_assert(
-            to_weekday[STRING_VIEW("tuesday")] == weekday::tuesday, "");
+            to_weekday[STRING_VIEW("sunday")] == weekday::sunday, "");
         static_assert(
-            to_weekday[STRING_VIEW("wednesday")] == weekday::wednesday, "");
+            to_weekday[STRING_VIEW("monday")] == weekday::monday, "");
         static_assert(
-            to_weekday[STRING_VIEW("thursday")] == weekday::thursday, "");
-        static_assert(to_weekday[STRING_VIEW("friday")] == weekday::friday, "");
+            to_weekday[STRING_VIEW("tuesday")] == weekday::tuesday,
+            "");
+        static_assert(to_weekday[STRING_VIEW("wednesday")]
+                          == weekday::wednesday,
+            "");
         static_assert(
-            to_weekday[STRING_VIEW("saturday")] == weekday::saturday, "");
+            to_weekday[STRING_VIEW("thursday")] == weekday::thursday,
+            "");
+        static_assert(
+            to_weekday[STRING_VIEW("friday")] == weekday::friday, "");
+        static_assert(
+            to_weekday[STRING_VIEW("saturday")] == weekday::saturday,
+            "");
     }
 }
 
@@ -97,7 +108,8 @@ void test2()
 {
     static constexpr std::pair<int const, const char*> map_data[] = {
         {5, "apple"}, {8, "pear"}, {0, "banana"}};
-    auto cmap = make_static_map<10, 1>(boost::static_views::raw_view(map_data));
+    auto cmap = make_static_map<10, 1>(
+        boost::static_views::raw_view(map_data));
 
     if (!equal_c{}(cmap[5], "apple")) std::terminate();
     if (!equal_c{}(cmap[8], "pear")) std::terminate();

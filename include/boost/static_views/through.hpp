@@ -8,16 +8,16 @@
 
 #include <type_traits>
 
-#include <boost/config.hpp>
-#include <boost/static_views/algorithm_base.hpp>
 #include <boost/static_views/detail/config.hpp>
+#include <boost/static_views/algorithm_base.hpp>
 #include <boost/static_views/view_base.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 template <class View, class Proxy>
-struct through_impl : view_adaptor_base<through_impl<View, Proxy>, View> {
+struct through_impl
+    : view_adaptor_base<through_impl<View, Proxy>, View> {
 
     /// \brief Constructs a view of \p xs through \p proxy.
 
@@ -34,7 +34,8 @@ struct through_impl : view_adaptor_base<through_impl<View, Proxy>, View> {
     /// elements must be of type ``std::size_t``.
     /// \endverbatim
     /// \param xs    Rvalue reference to a wrapper around a view.
-    /// \param proxy Rvalue reference to a wrapper around a view. It is
+    /// \param proxy Rvalue reference to a wrapper around a view. It
+    /// is
     ///              used as a proxy to access elements of \p xs, i.e.
     ///              if `ys = through_impl{xs, proxy}`, then
     ///              \f[
@@ -52,10 +53,12 @@ struct through_impl : view_adaptor_base<through_impl<View, Proxy>, View> {
     ///   instead
     ///   to construct views through other views.
     /// \endverbatim
-    BOOST_STATIC_VIEWS_CONSTEXPR through_impl(View&& xs, Proxy&& proxy)
+    explicit BOOST_STATIC_VIEWS_CONSTEXPR through_impl(
+        View&& xs, Proxy&& proxy)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
             std::is_nothrow_constructible<
-                typename through_impl::view_adaptor_base_type, View&&>::value,
+                typename through_impl::view_adaptor_base_type,
+                View&&>::value,
             std::is_nothrow_move_constructible<Proxy>::value))
         : through_impl::view_adaptor_base_type{std::move(xs)}
         , _proxy{std::move(proxy)}
@@ -91,17 +94,19 @@ struct through_impl : view_adaptor_base<through_impl<View, Proxy>, View> {
 
     /// \brief "Maps" index \p i to the corresponding index in the
     /// parent
-    /// view. Actually, it just calls ``operator[]`` on the proxy view.
+    /// view. Actually, it just calls ``operator[]`` on the proxy
+    /// view.
 
     /// Let `ys` be of type #through_impl, i.e. `ys = ` #through
     /// `(proxy)(xs)`. The following relation then holds
     ///
     /// `ys.` #map `(i) = proxy[i],`
-    ///     \f$\forall i \in \{0, 1, \dots, \text{proxy.size}()-1\}.\f$
+    ///     \f$\forall i \in \{0, 1, \dots,
+    ///     \text{proxy.size}()-1\}.\f$
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            std::declval<Proxy const&>().get()[std::declval<std::size_t>()]))
-            -> std::size_t
+            std::declval<Proxy const&>()
+                .get()[std::declval<std::size_t>()])) -> std::size_t
     {
         return _proxy.get()[i];
     }
@@ -113,16 +118,24 @@ struct through_impl : view_adaptor_base<through_impl<View, Proxy>, View> {
 };
 
 struct make_through_impl {
+    // clang-format off
     template <class View, class Proxy>
-    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(View&& xs, Proxy&& proxy) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(through_impl<std::decay_t<View>,
-            std::decay_t<decltype(make_wrapper(std::forward<Proxy>(proxy)))>>{
-            std::forward<View>(xs), make_wrapper(std::forward<Proxy>(proxy))}))
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(View&& xs, Proxy&& proxy) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(through_impl<std::decay_t<View>,
+                std::decay_t<decltype(
+                    make_wrapper(std::forward<Proxy>(proxy)))>>{
+                        std::forward<View>(xs),
+                        make_wrapper(std::forward<Proxy>(proxy))}))
     {
         return through_impl<std::decay_t<View>,
-            std::decay_t<decltype(make_wrapper(std::forward<Proxy>(proxy)))>>{
-            std::forward<View>(xs), make_wrapper(std::forward<Proxy>(proxy))};
+            std::decay_t<decltype(make_wrapper(
+                std::forward<Proxy>(proxy)))>>{
+                    std::forward<View>(xs),
+                    make_wrapper(std::forward<Proxy>(proxy))};
     }
+    // clang-format on
 };
 } // end namespace detail
 
@@ -136,20 +149,20 @@ struct make_through_impl {
 /// Given a view ``proxy`` and a view ``xs``, creates a view of ``xs``
 /// through
 /// ``proxy``. Type of ``xs`` may be anything as long as it models the
-/// :ref:`view <view-concept>` concept. ``proxy`` must be a view of elements
-/// of
-/// type ``std::size_t``. The exact type of the returned view is an
-/// implementation detail. What's important is that it also models the
-/// :ref:`view <view-concept>` concept.
+/// :ref:`view <view-concept>` concept. ``proxy`` must be a view of
+/// elements of type ``std::size_t``. The exact type of the returned
+/// view is an implementation detail. What's important is that it also
+/// models the :ref:`view <view-concept>` concept.
 ///
 /// .. note::
 ///   Haskell notation is used here, i.e. the function is curried and
-///   :math:`\text{through}(\text{proxy}) : \text{View} \to \text{View}`
-///   models
-///   the :ref:`algorithm <algorithm-concept>` concept.
+///   :math:`\text{through}(\text{proxy}) : \text{View} \to
+///   \text{View}` models the :ref:`algorithm <algorithm-concept>`
+///   concept.
 ///
 /// \endverbatim
-BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_through_impl, through)
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(
+    detail::make_through_impl, through)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

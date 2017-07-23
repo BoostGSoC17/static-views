@@ -29,9 +29,9 @@ BOOST_FORCEINLINE constexpr auto create_impl(
     std::size_t xs[] = {Is...};
     auto const  raw  = boost::static_views::raw_view(xs);
 
-    auto results = {
-        (boost::static_views::drop(Js)(boost::static_views::drop(Js)(raw))[0]
-            == 2 * Js)...};
+    auto results = {(boost::static_views::drop(Js)(
+                         boost::static_views::drop(Js)(raw))[0]
+                     == 2 * Js)...};
     assert_all(results);
 
     static_assert(sizeof...(Is) > 1, "");

@@ -35,24 +35,25 @@ auto operator<<(OStream& out, std::vector<T> const& xs) -> OStream&
     return out;
 }
 
-// Clang 3.8 wants operator<< to be defined before the BOOST_TEST_* macro
+// Clang 3.8 wants operator<< to be defined before the BOOST_TEST_*
+// macro
 #include <boost/core/lightweight_test.hpp>
 
 // Tests from stdlibc++-v3 test suite
 auto test01()
 {
     constexpr int  xs[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    CONSTEXPR auto sum =
-        boost::static_views::lfold(boost::static_views::raw_view(xs), 11);
+    CONSTEXPR auto sum  = boost::static_views::lfold(
+        boost::static_views::raw_view(xs), 11);
     STATIC_ASSERT(sum == 66, "lfold() is broken.");
 }
 
 auto test02()
 {
-    static constexpr bool xs[] = {
-        true, false, true, true, false, true, false, true, true, false};
-    CONSTEXPR auto ys  = boost::static_views::raw_view(xs);
-    CONSTEXPR auto sum = boost::static_views::lfold(ys, 100);
+    static constexpr bool xs[] = {true, false, true, true, false,
+        true, false, true, true, false};
+    CONSTEXPR auto        ys   = boost::static_views::raw_view(xs);
+    CONSTEXPR auto        sum  = boost::static_views::lfold(ys, 100);
     STATIC_ASSERT(sum == 106, "lfold() is broken.");
 }
 
@@ -65,7 +66,8 @@ auto test03()
                 v.push_back(x);
                 return std::move(v);
             });
-    BOOST_TEST_EQ(ys, (std::vector<int>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}));
+    BOOST_TEST_EQ(
+        ys, (std::vector<int>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}));
 }
 
 int main(void)

@@ -8,8 +8,6 @@
 
 #include <functional>
 #include <type_traits>
-
-#include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
@@ -17,9 +15,10 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 namespace detail {
 
 struct left_fold_impl {
-    template <class View, class T, class BinaryOperation = std::plus<T>>
-    constexpr auto operator()(
-        View&& xs, T init, BinaryOperation&& op = BinaryOperation{}) const
+    template <class View, class T,
+        class BinaryOperation = std::plus<T>>
+    constexpr auto operator()(View&& xs, T init,
+        BinaryOperation&& op = BinaryOperation{}) const
         noexcept /* TODO add specifier */
         -> T
     {
@@ -36,11 +35,7 @@ struct left_fold_impl {
 
 } // end namespace detail
 
-#if defined(DOXYGEN_IN_HOUSE)
-constexpr auto lfold = [](auto&& view, auto init, auto&& op) { ... };
-#else
 BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::left_fold_impl, lfold)
-#endif
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

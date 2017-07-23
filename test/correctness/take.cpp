@@ -32,25 +32,28 @@ auto create_impl(std::index_sequence<Is...>)
 
     // View of a reference
     BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(
-        boost::static_views::take(std::declval<std::size_t>())(raw1)) v1[] = {
+        boost::static_views::take(std::declval<std::size_t>())(
+            raw1)) v1[] = {
         ((void)Is, boost::static_views::take(Is)(raw1))...};
-    STATIC_ASSERT(boost::static_views::detail::utils::all(
-                      noexcept(boost::static_views::take(Is)(raw1))...),
+    STATIC_ASSERT(boost::static_views::detail::utils::all(noexcept(
+                      boost::static_views::take(Is)(raw1))...),
         "take's noexcept specifiers are broken.");
 
     // View of an rvalue
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(
+    BOOST_ATTRIBUTE_UNUSED                      CONSTEXPR decltype(
         boost::static_views::take(std::declval<std::size_t>())(
-            boost::static_views::raw_view(xs))) v2[] = {((void)Is,
-        boost::static_views::take(Is)(boost::static_views::raw_view(xs)))...};
+            boost::static_views::raw_view(xs))) v2[] = {
+        ((void)Is, boost::static_views::take(Is)(
+                       boost::static_views::raw_view(xs)))...};
     STATIC_ASSERT(boost::static_views::detail::utils::all(
                       noexcept(boost::static_views::take(Is)(
                           boost::static_views::raw_view(xs)))...),
         "take's noexcept specifiers are broken.");
 
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(boost::static_views::take(
-        std::declval<std::size_t>())(std::declval<decltype(raw2)>())) v3[] = {
-        ((void)Is, boost::static_views::take(Is)(decltype(raw2){raw2}))...};
+    BOOST_ATTRIBUTE_UNUSED                   CONSTEXPR decltype(
+        boost::static_views::take(std::declval<std::size_t>())(
+            std::declval<decltype(raw2)>())) v3[] = {((void)Is,
+        boost::static_views::take(Is)(decltype(raw2){raw2}))...};
 }
 
 template <class T, std::size_t N>
@@ -70,15 +73,17 @@ auto size_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
                       boost::static_views::take(Js)(raw).size()
                       == ((Js < N) ? Js : N)...),
         "take::size() does not work correctly.");
-    STATIC_ASSERT(boost::static_views::detail::utils::all(
-                      noexcept(boost::static_views::take(Js)(raw).size())...),
+    STATIC_ASSERT(boost::static_views::detail::utils::all(noexcept(
+                      boost::static_views::take(Js)(raw).size())...),
         "take's size() noexcept qualifiers are broken.");
 
-    STATIC_ASSERT(boost::static_views::detail::utils::all(
-                      boost::static_views::take(Js)(raw).capacity() == N...),
+    STATIC_ASSERT(
+        boost::static_views::detail::utils::all(
+            boost::static_views::take(Js)(raw).capacity() == N...),
         "take::capacity() does not work correctly.");
-    STATIC_ASSERT(boost::static_views::detail::utils::all(noexcept(
-                      boost::static_views::take(Js)(raw).capacity())...),
+    STATIC_ASSERT(
+        boost::static_views::detail::utils::all(noexcept(
+            boost::static_views::take(Js)(raw).capacity())...),
         "take's capacity() noexcept qualifiers are broken.");
 }
 
@@ -90,10 +95,11 @@ auto test_size()
 }
 
 template <std::size_t K, std::size_t... Is, std::size_t... Js>
-auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
+auto access_impl(
+    std::index_sequence<Is...>, std::index_sequence<Js...>)
 {
     static constexpr std::size_t xs[] = {Is...};
-    static CONSTEXPR auto        raw1 = boost::static_views::raw_view(xs);
+    static CONSTEXPR auto raw1 = boost::static_views::raw_view(xs);
 
     // Through an lvalue rerefence
     CONSTEXPR auto v1 = boost::static_views::take(K)(raw1);
@@ -101,23 +107,26 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
     STATIC_ASSERT(boost::static_views::detail::utils::all(
                       (Js < v1.size()) ? (v1[Js] == Js) : true...),
         "take::operator[] const&  does not work correctly.");
-    BOOST_TEST_TRAIT_TRUE((std::is_same<decltype(v1[0]), std::size_t const&>));
+    BOOST_TEST_TRAIT_TRUE(
+        (std::is_same<decltype(v1[0]), std::size_t const&>));
     // Run-time access
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (j < v1.size()) {
             BOOST_TEST_EQ(v1[j], j);
         }
         else {
-            BOOST_TEST_THROWS(v1[j], boost::static_views::out_of_bound);
+            BOOST_TEST_THROWS(
+                v1[j], boost::static_views::out_of_bound);
         }
     }
 
     // Through an rvalue reference
     // Compile-time access
-    STATIC_ASSERT(boost::static_views::detail::utils::all(
-                      (Js < boost::static_views::take(K)(raw1).size())
-                          ? (boost::static_views::take(K)(raw1)[Js] == Js)
-                          : true...),
+    STATIC_ASSERT(
+        boost::static_views::detail::utils::all(
+            (Js < boost::static_views::take(K)(raw1).size())
+                ? (boost::static_views::take(K)(raw1)[Js] == Js)
+                : true...),
         "take::operator[] &&  does not work correctly.");
     BOOST_TEST_TRAIT_TRUE(
         (std::is_same<decltype(boost::static_views::take(K)(raw1)[0]),
@@ -135,10 +144,11 @@ auto access_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 }
 
 template <std::size_t M, std::size_t... Is>
-auto                  test_access_impl(std::index_sequence<Is...>)
+auto test_access_impl(std::index_sequence<Is...>)
 {
     BOOST_ATTRIBUTE_UNUSED int dummy[] = {
-        ((void)access_impl<Is>(std::make_index_sequence<sizeof...(Is)>{},
+        ((void)access_impl<Is>(
+             std::make_index_sequence<sizeof...(Is)>{},
              std::make_index_sequence<M>{}),
             0)...};
 }
@@ -150,14 +160,16 @@ auto test_access()
 }
 
 template <std::size_t K, std::size_t... Is, std::size_t... Js>
-auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
+auto modify_impl(
+    std::index_sequence<Is...>, std::index_sequence<Js...>)
 {
     std::size_t xs[] = {Is...};
     auto const  raw1 = boost::static_views::raw_view(xs);
 
     // Through an lvalue rerefence
     auto const v1 = boost::static_views::take(K)(raw1);
-    BOOST_TEST_TRAIT_TRUE((std::is_same<decltype(v1[0]), std::size_t&>));
+    BOOST_TEST_TRAIT_TRUE(
+        (std::is_same<decltype(v1[0]), std::size_t&>));
     for (std::size_t j = 0; j < sizeof...(Js); ++j) {
         if (j < v1.size()) {
             BOOST_TEST_EQ(v1[j], j);
@@ -167,7 +179,8 @@ auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
             BOOST_TEST_EQ(v1[j], j);
         }
         else {
-            BOOST_TEST_THROWS(v1[j], boost::static_views::out_of_bound);
+            BOOST_TEST_THROWS(
+                v1[j], boost::static_views::out_of_bound);
         }
     }
 
@@ -179,7 +192,8 @@ auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
         if (j < boost::static_views::take(K)(raw1).size()) {
             BOOST_TEST_EQ(boost::static_views::take(K)(raw1)[j], j);
             boost::static_views::take(K)(raw1)[j] = 0xABCD;
-            BOOST_TEST_EQ(boost::static_views::take(K)(raw1)[j], 0xABCD);
+            BOOST_TEST_EQ(
+                boost::static_views::take(K)(raw1)[j], 0xABCD);
             boost::static_views::take(K)(raw1)[j] = j;
             BOOST_TEST_EQ(boost::static_views::take(K)(raw1)[j], j);
         }
@@ -191,10 +205,11 @@ auto modify_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
 }
 
 template <std::size_t M, std::size_t... Is>
-auto                  test_modify_impl(std::index_sequence<Is...>)
+auto test_modify_impl(std::index_sequence<Is...>)
 {
     BOOST_ATTRIBUTE_UNUSED int dummy[] = {
-        ((void)modify_impl<Is>(std::make_index_sequence<sizeof...(Is)>{},
+        ((void)modify_impl<Is>(
+             std::make_index_sequence<sizeof...(Is)>{},
              std::make_index_sequence<M>{}),
             0)...};
 }

@@ -27,8 +27,8 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto bsearch_impl(Slice&& ys, T const& x)
                                 std::forward<Slice>(ys).parent()),
             x);
     else if (x > ys[i])
-        return bsearch_impl(boost::static_views::slice(ys.map(i) + 1, e)(
-                                std::forward<Slice>(ys).parent()),
+        return bsearch_impl(boost::static_views::slice(ys.map(i) + 1,
+                                e)(std::forward<Slice>(ys).parent()),
             x);
     return ys.map(i);
 }
@@ -37,8 +37,9 @@ template <class View, class T>
 BOOST_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR auto bsearch(
     View&& ys, T const& x) -> std::size_t
 {
-    return bsearch_impl(
-        boost::static_views::slice(0ul, ys.size())(std::forward<View>(ys)), x);
+    return bsearch_impl(boost::static_views::slice(0ul, ys.size())(
+                            std::forward<View>(ys)),
+        x);
 }
 
 } // unnamed namespace

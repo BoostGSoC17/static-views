@@ -25,41 +25,52 @@ struct mem_info {
     std::size_t swap;
 };
 
-constexpr auto operator+(mem_info const& x, mem_info const& y) -> mem_info
+constexpr auto operator+(mem_info const& x, mem_info const& y)
+    -> mem_info
 {
-    BOOST_ASSERT_MSG(std::numeric_limits<std::size_t>::max() - x.ram >= y.ram,
+    BOOST_ASSERT_MSG(
+        std::numeric_limits<std::size_t>::max() - x.ram >= y.ram,
         "Overflow detected.");
-    BOOST_ASSERT_MSG(std::numeric_limits<std::size_t>::max() - x.swap >= y.swap,
+    BOOST_ASSERT_MSG(
+        std::numeric_limits<std::size_t>::max() - x.swap >= y.swap,
         "Overflow detected.");
     return {x.ram + y.ram, x.swap + y.swap};
 }
 
-constexpr auto operator-(mem_info const& x, mem_info const& y) -> mem_info
+constexpr auto operator-(mem_info const& x, mem_info const& y)
+    -> mem_info
 {
     BOOST_ASSERT_MSG(x.ram >= y.ram, "Overflow detected.");
     BOOST_ASSERT_MSG(x.swap >= y.swap, "Overflow detected.");
     return {x.ram - y.ram, x.swap - y.swap};
 }
 
-constexpr auto operator*(mem_info const& x, mem_info const& y) -> mem_info
+constexpr auto operator*(mem_info const& x, mem_info const& y)
+    -> mem_info
 {
-    BOOST_ASSERT_MSG(std::numeric_limits<std::size_t>::max() / x.ram >= y.ram,
+    BOOST_ASSERT_MSG(
+        std::numeric_limits<std::size_t>::max() / x.ram >= y.ram,
         "Overflow detected.");
-    BOOST_ASSERT_MSG(std::numeric_limits<std::size_t>::max() / x.swap >= y.swap,
+    BOOST_ASSERT_MSG(
+        std::numeric_limits<std::size_t>::max() / x.swap >= y.swap,
         "Overflow detected.");
     return {x.ram * y.ram, x.swap * y.swap};
 }
 
-constexpr auto operator*(std::size_t const k, mem_info const& x) -> mem_info
+constexpr auto operator*(std::size_t const k, mem_info const& x)
+    -> mem_info
 {
-    BOOST_ASSERT_MSG(std::numeric_limits<std::size_t>::max() / k >= x.ram,
+    BOOST_ASSERT_MSG(
+        std::numeric_limits<std::size_t>::max() / k >= x.ram,
         "Overflow detected.");
-    BOOST_ASSERT_MSG(std::numeric_limits<std::size_t>::max() / k >= x.swap,
+    BOOST_ASSERT_MSG(
+        std::numeric_limits<std::size_t>::max() / k >= x.swap,
         "Overflow detected.");
     return {k * x.ram, k * x.swap};
 }
 
-constexpr auto operator/(mem_info const& x, std::size_t const k) -> mem_info
+constexpr auto operator/(mem_info const& x, std::size_t const k)
+    -> mem_info
 {
     return {x.ram / k, x.swap / k};
 }
@@ -84,7 +95,8 @@ auto _call_global_memory_status_ex(MEMORYSTATUSEX& ms) -> void
     std::memset(&ms, 0, sizeof(ms));
     ms.dwLength = sizeof(ms);
     if (GlobalMemoryStatusEx(&ms) == 0) {
-        throw std::system_error{GetLastError(), std::generic_category()};
+        throw std::system_error{
+            GetLastError(), std::generic_category()};
     }
 }
 
@@ -166,7 +178,7 @@ auto get_avail_mem() -> mem_info
         static_cast<std::size_t>(info.freeswap) * info.mem_unit};
 }
 
-#elif defined(__unix__) || defined(__unix)                                     \
+#elif defined(__unix__) || defined(__unix)                           \
     || (defined(__APPLE__) && defined(__MACH__))
 // UNIX
 #include <sys/param.h>
@@ -194,7 +206,8 @@ auto get_total_mem() -> mem_info
     std::size_t const page_size  = _call_sysconf(_SC_PAGESIZE);
 
     BOOST_ASSERT_MSG(
-        std::numeric_limits<std::size_t>::max() / page_size >= phys_pages,
+        std::numeric_limits<std::size_t>::max() / page_size
+            >= phys_pages,
         "Overflow detected.");
     return {phys_pages * page_size, std::size_t{}};
 #else
@@ -227,7 +240,8 @@ auto get_avail_mem() -> mem_info
     std::size_t const page_size  = _call_sysconf(_SC_PAGESIZE);
 
     BOOST_ASSERT_MSG(
-        std::numeric_limits<std::size_t>::max() / page_size >= free_pages,
+        std::numeric_limits<std::size_t>::max() / page_size
+            >= free_pages,
         "Overflow detected.");
     return {free_pages * page_size, std::size_t{}};
 }
@@ -258,7 +272,8 @@ struct mem_usage_accumulator {
     template <class TimePoint>
     auto _measure_point(TimePoint&& t)
     {
-        return std::make_tuple(_interval_to(std::forward<TimePoint>(t)),
+        return std::make_tuple(
+            _interval_to(std::forward<TimePoint>(t)),
             _total - get_avail_mem() / 1024);
     }
 
@@ -283,8 +298,8 @@ struct mem_usage_accumulator {
 
                 do {
                     std::this_thread::sleep_for(ts);
-                    _data.push_back(
-                        this->_measure_point(std::chrono::steady_clock::now()));
+                    _data.push_back(this->_measure_point(
+                        std::chrono::steady_clock::now()));
                 } while (!_ready);
             },
             std::forward<Duration>(time_step));
@@ -311,14 +326,17 @@ template <class DataPoints>
 auto avg_and_stddev_Kb(DataPoints const& data)
 {
     // Average memory usage in Kb
-    auto const avg_x_Kb =
-        std::accumulate(std::begin(data), std::end(data), mem_info{0, 0},
-            [](auto const& acc, auto const& x) { return acc + std::get<1>(x); })
-        / data.size();
+    auto const avg_x_Kb = std::accumulate(std::begin(data),
+                              std::end(data), mem_info{0, 0},
+                              [](auto const& acc, auto const& x) {
+                                  return acc + std::get<1>(x);
+                              })
+                          / data.size();
 
     // Average squared memory usage in Kb^2
     auto const avg_x2_Kb2 =
-        std::accumulate(std::begin(data), std::end(data), mem_info{0, 0},
+        std::accumulate(std::begin(data), std::end(data),
+            mem_info{0, 0},
             [](auto const& acc, auto const& x) {
                 return acc + std::get<1>(x) * std::get<1>(x);
             })
@@ -329,7 +347,8 @@ auto avg_and_stddev_Kb(DataPoints const& data)
 
     // Calculate a square root of size_t using long double precision
     auto const _sqrt = [](std::size_t const x) -> std::size_t {
-        return static_cast<std::size_t>(std::sqrt(static_cast<long double>(x)));
+        return static_cast<std::size_t>(
+            std::sqrt(static_cast<long double>(x)));
     };
 
     // Standard deviation in Kb
@@ -360,14 +379,17 @@ int main(int argc, char** argv)
 
     std::cout << "# command `" << command << "`\n"
               << "# time(ms)\tram(Kb)\tswap(Kb)\n";
-    std::for_each(std::begin(results), std::end(results), [](auto const& x) {
-        std::cout << std::get<0>(x).count() << '\t' << std::get<1>(x).ram
-                  << '\t' << std::get<1>(x).swap << '\n';
-    });
-    std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(
-                     stop - start)
-                     .count()
-              << '\n';
+    std::for_each(
+        std::begin(results), std::end(results), [](auto const& x) {
+            std::cout << std::get<0>(x).count() << '\t'
+                      << std::get<1>(x).ram << '\t'
+                      << std::get<1>(x).swap << '\n';
+        });
+    std::cout
+        << std::chrono::duration_cast<std::chrono::milliseconds>(
+               stop - start)
+               .count()
+        << '\n';
 
     return return_code;
 }

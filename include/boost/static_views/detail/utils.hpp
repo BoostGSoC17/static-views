@@ -6,13 +6,11 @@
 #ifndef BOOST_STATIC_VIEWS_DETAIL_UTILS_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_UTILS_HPP
 
-#include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
-
 namespace utils {
 
     constexpr auto all() noexcept -> bool { return true; }
@@ -23,9 +21,8 @@ namespace utils {
         return x && all(xs...);
     }
 
-} // end namespace utils
-
-} // end namespace detail
+} // namespace utils
+} // namespace detail
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

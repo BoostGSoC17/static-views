@@ -8,19 +8,22 @@
 
 #include <functional>
 #include <type_traits>
-
-#include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
+#include <boost/static_views/detail/utils.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
 struct find_first_i_impl {
+    // clang-format off
     template <class View, class Predicate>
-    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
-        View&& xs, Predicate&& p = Predicate{}) const
-        // noexcept /* TODO add specifier */
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(View&& xs, Predicate&& p = Predicate{}) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
+            noexcept(xs.size()),
+            noexcept(p(xs[std::declval<std::size_t>()]))
+        ))
         -> std::size_t
     {
         std::size_t const n = xs.size();
@@ -31,16 +34,13 @@ struct find_first_i_impl {
         }
         return i;
     }
+    // clang-format on
 };
 
-} // end namespace detail
+} // namespace detail
 
-#if defined(DOXYGEN_IN_HOUSE)
-constexpr auto find_first_i = [](
-    auto&& view, auto&& x, auto&& eq) -> std::size_t { ... };
-#else
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::find_first_i_impl, find_first_i)
-#endif
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(
+    detail::find_first_i_impl, find_first_i)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

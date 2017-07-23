@@ -37,7 +37,8 @@ struct raw_view_impl : view_base {
     ///   function is provided. Use it instead to construct raw views
     ///   of data.
     /// \endverbatim
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR raw_view_impl(Sequence& xs) noexcept
+    explicit BOOST_STATIC_VIEWS_CONSTEXPR raw_view_impl(
+        Sequence& xs) noexcept
         : _xs{&xs}
     {
     }
@@ -58,15 +59,17 @@ struct raw_view_impl : view_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     raw_view_impl& operator=(raw_view_impl&&) noexcept = default;
 
+    ~raw_view_impl() = default;
+
     /// \brief Returns the size of the sequence.
 
     /// \snippet raw_view.hpp raw_view_impl::capacity() implementation
     ///
     /// \verbatim embed:rst:leading-slashes
     /// This function is required by the :ref:`view <view-concept>`
-    /// concept. It returns the maximum possible number of elements this
-    /// view can have. In this case, just the number of elements in the
-    /// sequence.
+    /// concept. It returns the maximum possible number of elements
+    /// this view can have. In this case, just the number of elements
+    /// in the sequence.
     ///
     /// .. note::
     ///   This function is marked `static constexpr` and may thus be
@@ -102,9 +105,9 @@ struct raw_view_impl : view_base {
     /// This function is required by the :ref:`view <view-concept>`
     /// concept. It provides access to element at index `i`. Return
     /// type is determined by the corresponding specialisation of
-    /// :cpp:class:`sequence_traits`. It may be a reference to element,
-    /// or a value, or something else. Behavior of this function is
-    /// well-described by the following code snippet:
+    /// :cpp:class:`sequence_traits`. It may be a reference to
+    /// element, or a value, or something else. Behavior of this
+    /// function is well-described by the following code snippet:
     ///
     /// .. code-block:: python
     ///
@@ -114,9 +117,10 @@ struct raw_view_impl : view_base {
     ///       raise out_of_bound
     ///
     /// \endverbatim
-    BOOST_FORCEINLINE
+    BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) const
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](
+        std::size_t const i) const
     {
         return BOOST_LIKELY(i < size())
                    ? sequence_traits<sequence_type>::at(*_xs, i)
@@ -129,7 +133,7 @@ struct raw_view_impl : view_base {
     #if defined(DOXYGEN_IN_HOUSE)
             constexpr element_type& operator[](std::size_t const i)
     #else
-            BOOST_FORCEINLINE
+            BOOST_STATIC_VIEWS_FORCEINLINE
             constexpr decltype(auto) operator[](std::size_t const i)
     #endif
             {
@@ -149,16 +153,20 @@ struct raw_view_impl : view_base {
 
 /// \cond
 struct make_raw_view {
+    // clang-format off
     template <class Sequence>
-    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(Sequence& sequence) const
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(Sequence& sequence) const
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             noexcept(raw_view_impl<Sequence>(sequence)))
     {
         return raw_view_impl<Sequence>(sequence);
     }
+    // clang-format on
 };
 /// \endcond
-} // end namespace detail
+
+} // namespace detail
 
 /// \brief A functor for creating raw views of sequences.
 
@@ -169,14 +177,9 @@ struct make_raw_view {
 /// \verbatim embed:rst:leading-slashes
 /// Here, ``Sequence`` is any type that models the :ref:`sequence
 /// <sequence-concept>` concept. The exact type of view created is an
-/// implementation detail. What's important is that it models the :ref:`view
-/// <view-concept>` concept.
-/// \endverbatim
-#if defined(DOXYGEN_IN_HOUSE)
-constexpr auto raw_view = implementation detail;
-#else
+/// implementation detail. What's important is that it models the
+/// :ref:`view <view-concept>` concept. \endverbatim
 BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_raw_view, raw_view)
-#endif
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

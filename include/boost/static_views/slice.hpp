@@ -6,7 +6,7 @@
 #ifndef BOOST_STATIC_VIEWS_SLICE_HPP
 #define BOOST_STATIC_VIEWS_SLICE_HPP
 
-#include <boost/config.hpp>
+#include <type_traits>
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/drop.hpp>
 #include <boost/static_views/take.hpp>
@@ -31,9 +31,8 @@ struct slice_impl : DropTake {
     /// for
     /// some view ``V``.
     /// \endverbatim
-    /// \param xs Rvalue reference to a wrapper around a take view of a
-    /// drop
-    /// view of a view.
+    /// \param xs Rvalue reference to a wrapper around a take view of
+    /// a drop view of a view.
     ///
     /// \verbatim embed:rst:leading-slashes
     /// .. note::
@@ -44,8 +43,10 @@ struct slice_impl : DropTake {
     ///   slice
     ///   views.
     /// \endverbatim
-    template <class View>
-    BOOST_STATIC_VIEWS_CONSTEXPR slice_impl(View&& xs)
+    template <class View,
+        class = std::enable_if_t<!std::is_same<std::decay_t<View>,
+            slice_impl<DropTake>>::value>>
+    explicit BOOST_STATIC_VIEWS_CONSTEXPR slice_impl(View&& xs)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             std::is_nothrow_constructible<DropTake, View&&>::value)
         : DropTake{std::forward<View>(xs)}
@@ -68,10 +69,14 @@ struct slice_impl : DropTake {
     /// slice
     /// is implemented in terms of the latter, this function goes two
     /// steps
-    /// up and thus makes the rest of the library think that slice is a
-    /// single view.
-    BOOST_FORCEINLINE
+    /// up and thus makes the rest of the library think that slice is
+    /// a single view.
+    BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(std::declval<DropTake const&>().parent().map(
+                std::declval<DropTake const&>().map(
+                    std::declval<std::size_t>()))))
     {
         auto const* p = static_cast<DropTake const*>(this);
         return p->parent().map(p->map(i));
@@ -85,7 +90,6 @@ struct slice_impl : DropTake {
     ///
     /// `xs_ptr = &` #slice `(b, e)(*xs_ptr).` #parent `(),`
     ///     \f$\forall \text{b},\text{e} \in \mathbb{N}\f$.
-    BOOST_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() const
     {
@@ -94,50 +98,54 @@ struct slice_impl : DropTake {
 };
 
 struct make_slice_impl {
+    // clang-format off
     template <class View>
-    BOOST_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
-        View&& xs, std::size_t const b, std::size_t const e) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            slice_impl<std::decay_t<decltype(drop(b)(take(e)(std::forward<View>(
-                xs).get())))>>{drop(b)(take(e)(std::forward<View>(xs).get()))}))
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(View&& xs, std::size_t const b, std::size_t const e) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(slice_impl<std::decay_t<decltype(
+                    drop(b)(take(e)(std::forward<View>(xs).get())))>>{
+                drop(b)(take(e)(std::forward<View>(xs).get()))}))
     {
         return slice_impl<std::decay_t<decltype(
             drop(b)(take(e)(std::forward<View>(xs).get())))>>{
             drop(b)(take(e)(std::forward<View>(xs).get()))};
     }
+    // clang-format on
 };
 } // end namespace detail
 
 /// \brief A functor for creating "slice views"
 
 /// \f[
-/// \text{slice} : \mathbb{N} \to \mathbb{N} \to \text{View} \to \text{View}
-/// \f]
+/// \text{slice} : \mathbb{N} \to \mathbb{N} \to \text{View} \to
+/// \text{View} \f]
 ///
 /// \verbatim embed:rst:leading-slashes
 /// Given a lower bound ``b``, an upper bound ``e`` and a view ``xs``,
 /// creates
-/// a view of the ``[b, e)`` part of ``xs``. Type of ``xs`` may be anything
-/// as
-/// long as it models the :ref:`view <view-concept>` concept. The exact type
-/// of the returned view is an implementation detail. What's important is
-/// that
-/// it also models the :ref:`view <view-concept>` concept.
+/// a view of the ``[b, e)`` part of ``xs``. Type of ``xs`` may be
+/// anything as long as it models the :ref:`view <view-concept>`
+/// concept. The exact type of the returned view is an implementation
+/// detail. What's important is that it also models the :ref:`view
+/// <view-concept>` concept.
 ///
 /// Calling ``slice(b, e)(xs)`` is almost equivalent to calling
-/// ``drop(b)(take(e)(xs))``. The difference is that slice is a single view,
-/// and, for example, calling :cpp:func:`parent()
+/// ``drop(b)(take(e)(xs))``. The difference is that slice is a single
+/// view, and, for example, calling :cpp:func:`parent()
 /// <detail::slice_impl::parent()>` on it will return xs. Calling
 /// ``parent()``
 /// on the drop view of take view of view will return the take view.
 ///
 /// .. note::
 ///   Haskell notation is used here, i.e. the function is curried and
-///   :math:`\text{slice}(b, e) : \text{View} \to \text{View}` models the
-///   :ref:`algorithm <algorithm-concept>` concept.
+///   :math:`\text{slice}(b, e) : \text{View} \to \text{View}` models
+///   the :ref:`algorithm <algorithm-concept>` concept.
 ///
 /// \endverbatim
-BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(detail::make_slice_impl, slice)
+BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(
+    detail::make_slice_impl, slice)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

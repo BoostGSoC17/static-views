@@ -40,8 +40,8 @@ struct sort_init_impl {
             View const&      _xs;
             Predicate const& _p;
 
-            constexpr auto operator()(std::size_t const i, std::size_t const j)
-                -> bool
+            constexpr auto operator()(
+                std::size_t const i, std::size_t const j) -> bool
             {
                 return _p(_xs[i], _xs[j]);
             }
@@ -54,24 +54,27 @@ template <class V, class P, std::size_t... Is>
 constexpr auto _make_sort_init_impl(
     V&& xs, P&& p, std::index_sequence<Is...>) noexcept
 {
-    return sort_init_impl<Is...>{std::forward<V>(xs), std::forward<P>(p)};
+    return sort_init_impl<Is...>{
+        std::forward<V>(xs), std::forward<P>(p)};
 }
 
 template <class V, class P>
 constexpr auto make_sort_init_impl(V&& xs, P&& p) noexcept
 {
     constexpr auto capacity = std::remove_reference_t<V>::capacity();
-    return _make_sort_init_impl(std::forward<V>(xs), std::forward<P>(p),
-        std::make_index_sequence<capacity>{});
+    return _make_sort_init_impl(std::forward<V>(xs),
+        std::forward<P>(p), std::make_index_sequence<capacity>{});
 }
 
 template <class V>
-struct sort_impl : boost::static_views::view_adaptor_base<sort_impl<V>, V> {
+struct sort_impl
+    : boost::static_views::view_adaptor_base<sort_impl<V>, V> {
     friend struct boost::static_views::view_adaptor_core_access;
 
     template <std::size_t... Is>
     constexpr sort_impl(V&& xs, sort_init_impl<Is...>&& init) noexcept
-        : sort_impl::view_adaptor_base_type{std::move(xs)}, _is{init._is[Is]...}
+        : sort_impl::view_adaptor_base_type{std::move(xs)}
+        , _is{init._is[Is]...}
     {
     }
 
@@ -92,8 +95,10 @@ struct make_sort_impl {
     template <class View, class Predicate>
     constexpr auto operator()(View&& xs, Predicate&& p) const noexcept
     {
-        auto init = make_sort_init_impl(xs.get(), std::forward<Predicate>(p));
-        return detail::sort_impl<View>(std::forward<View>(xs), std::move(init));
+        auto init =
+            make_sort_init_impl(xs.get(), std::forward<Predicate>(p));
+        return detail::sort_impl<View>(
+            std::forward<View>(xs), std::move(init));
     }
 };
 } // end namespace detail
@@ -106,7 +111,7 @@ static constexpr int random_array[] = {
 
 int main()
 {
-    BOOST_ATTRIBUTE_UNUSED constexpr auto sorted_view =
-        sort(std::less<>{})(boost::static_views::raw_view(random_array));
+    BOOST_ATTRIBUTE_UNUSED constexpr auto sorted_view = sort(
+        std::less<>{})(boost::static_views::raw_view(random_array));
     return 0;
 }

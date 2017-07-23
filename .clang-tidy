@@ -1,0 +1,6 @@
+---
+Checks: '*,-misc-macro-parentheses,-llvm-include-order,-cert-dcl59-cpp,-google-build-namespaces,-misc-definitions-in-headers,-misc-noexcept-move-constructor'
+WarningsAsErrors: '*'
+HeaderFilterRegex: ''
+AnalyzeTemporaryDtors: true
+...

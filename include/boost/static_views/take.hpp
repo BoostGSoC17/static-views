@@ -12,11 +12,9 @@
 
 #include <algorithm>
 #include <type_traits>
-
-#include <boost/config.hpp>
-#include <boost/static_views/algorithm_base.hpp>
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/detail/utils.hpp>
+#include <boost/static_views/algorithm_base.hpp>
 #include <boost/static_views/errors.hpp>
 #include <boost/static_views/view_base.hpp>
 
@@ -45,13 +43,15 @@ struct take_impl : view_adaptor_base<take_impl<View>, View> {
     /// .. note::
     ///   It's annoying to have to specify the View template parameter
     ///   all the time. For this reason a :cpp:var:`take` factory
-    ///   function is provided. Use it instead to construct take views.
+    ///   function is provided. Use it instead to construct take
+    ///   views.
     /// \endverbatim
     explicit BOOST_STATIC_VIEWS_CONSTEXPR take_impl(
         View&& xs, std::size_t const n)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
             std::is_nothrow_constructible<
-                typename take_impl::view_adaptor_base_type, View&&>::value,
+                typename take_impl::view_adaptor_base_type,
+                View&&>::value,
             // This is formally wrong, but come on, std::min(size_t,
             // size_t)
             // _should_ be noexcept.
@@ -69,7 +69,10 @@ struct take_impl : view_adaptor_base<take_impl<View>, View> {
     /// This function is required by the :ref:`view <view-concept>`
     /// concept. It never throws.
     /// \endverbatim
-    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept { return _n; }
+    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
+    {
+        return _n;
+    }
 
     /// \brief "Maps" index \p i to the corresponding index in the
     /// parent
@@ -84,12 +87,13 @@ struct take_impl : view_adaptor_base<take_impl<View>, View> {
     ///
     /// If the condition `i < size()` is not satisfied, this function
     /// throws an #out_of_bound exception.
-    BOOST_FORCEINLINE
+    BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
     {
-        return i < size() ? i : ((void)make_out_of_bound_error(
-                                     "`i < size()` not satisfied."),
-                                    i);
+        return i < size() ? i
+                          : ((void)make_out_of_bound_error(
+                                 "`i < size()` not satisfied."),
+                                i);
     }
 
   private:
@@ -99,18 +103,23 @@ struct take_impl : view_adaptor_base<take_impl<View>, View> {
 
     static constexpr auto is_noexcept_parent_size() noexcept
     {
-        return noexcept(std::declval<take_impl const&>().parent().size());
+        return noexcept(
+            std::declval<take_impl const&>().parent().size());
     }
 };
 
 struct make_take_impl {
+    // clang-format off
     template <class View>
-    constexpr auto operator()(View&& xs, std::size_t const n) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(take_impl<std::decay_t<View>>{std::forward<View>(xs), n}))
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(View&& xs, std::size_t const n) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            take_impl<std::decay_t<View>>{std::forward<View>(xs), n}))
     {
-        return take_impl<std::decay_t<View>>{std::forward<View>(xs), n};
+        return take_impl<std::decay_t<View>>{
+            std::forward<View>(xs), n};
     }
+    // clang-format on
 };
 } // end namespace detail
 
