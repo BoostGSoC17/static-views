@@ -6,9 +6,6 @@
 #ifndef BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
 
-#include <exception>
-#include <iostream>
-
 // Define the following macro if you want to use StaticViews as part
 // of Boost.
 //#define BOOST_STATIC_VIEWS_USE_BOOST
@@ -108,7 +105,7 @@
 /// \brief Chooses whether to ignore the actual noexcept-ness of
 /// std::tuple implementstion and make some reasonable assumptions
 /// instead.
-#define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
+// #define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
 
 // Boost.StaticViews namespace
 #define BOOST_STATIC_VIEWS_NAMESPACE boost::static_views
@@ -120,6 +117,11 @@
 #define BOOST_STATIC_VIEWS_END_NAMESPACE                             \
     } /* static_views */                                             \
     } /* boost */
+
+#define BOOST_STATIC_VIEWS_BUG_MESSAGE                               \
+    "Congratulations, you've found a bug in the StaticViews "        \
+    "library! Please, be so kind to submit here "                    \
+    "https://github.com/BoostGSoC17/static-views/issues."
 
 #if defined(DOXYGEN_IN_HOUSE)
 // It's a bad idea to let Doxygen try deduce noexcept-ness.

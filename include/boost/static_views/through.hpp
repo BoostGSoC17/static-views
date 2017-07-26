@@ -74,7 +74,7 @@ struct through_impl
     /// \endverbatim
     static constexpr auto capacity() noexcept
     {
-        return typename Proxy::type::capacity();
+        return Proxy::type::capacity();
     }
 
     /// \brief Returns the number of elements viewed.

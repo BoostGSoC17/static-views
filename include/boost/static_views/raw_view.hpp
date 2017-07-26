@@ -12,6 +12,7 @@
 
 #include <type_traits>
 #include <boost/static_views/detail/config.hpp>
+#include <boost/static_views/detail/utils.hpp>
 #include <boost/static_views/errors.hpp>
 #include <boost/static_views/sequence_traits.hpp>
 #include <boost/static_views/view_base.hpp>
@@ -19,6 +20,9 @@
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
+
+
+
 template <class Sequence>
 struct raw_view_impl : view_base {
 
@@ -122,7 +126,7 @@ struct raw_view_impl : view_base {
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](
         std::size_t const i) const
     {
-        return BOOST_LIKELY(i < size())
+        return i < size()
                    ? sequence_traits<sequence_type>::at(*_xs, i)
                    : (make_out_of_bound_error(
                           "Index `i` exceeds size of sequence."),
@@ -160,6 +164,8 @@ struct make_raw_view {
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             noexcept(raw_view_impl<Sequence>(sequence)))
     {
+        concepts::assert_Sequence<std::remove_reference_t<
+            std::remove_cv_t<Sequence>>>();
         return raw_view_impl<Sequence>(sequence);
     }
     // clang-format on

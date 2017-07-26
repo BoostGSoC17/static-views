@@ -120,6 +120,11 @@ struct make_drop_impl {
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             drop_impl<std::decay_t<View>>{std::forward<View>(xs), b}))
     {
+        static_assert(is_wrapper<std::decay_t<View>>::value,
+            "Congratulations! You've found a bug in the StaticViews "
+            "library. Please, create an issue here "
+            "https://github.com/BoostGSoC17/static-views/issues.");
+        concepts::assert_View<typename std::decay_t<View>::type>();
         return drop_impl<std::decay_t<View>>{
             std::forward<View>(xs), b};
     }
