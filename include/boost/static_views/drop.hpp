@@ -25,6 +25,13 @@ namespace detail {
 template <class View>
 struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
 
+    static_assert(std::is_same<View, std::decay_t<View>>::value,
+        BOOST_STATIC_VIEWS_BUG_MESSAGE);
+    static_assert(
+        is_wrapper<View>::value, BOOST_STATIC_VIEWS_BUG_MESSAGE);
+    static_assert(detail::concepts::is_View<typename View::type>(),
+        "[INTERNAL] invalid use of drop_impl.");
+
     /// \brief Constructs a view of \p xs with the first \p b elements
     /// dropped.
 
@@ -52,13 +59,13 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
             std::is_nothrow_constructible<
                 typename drop_impl::view_adaptor_base_type,
-                View&&>::value,
+                View&&>::value
             // This is formally wrong, but come on, std::min(size_t,
             // size_t)
             // _should_ be noexcept.
             // noexcept(std::min(std::declval<std::size_t>(),
             //    std::declval<std::size_t>())),
-            drop_impl::is_noexcept_parent_size()))
+            ))
         : drop_impl::view_adaptor_base_type{std::move(xs)}
         , _b{std::min(this->parent().size(), b)}
     {
@@ -71,10 +78,13 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
     /// concept. It never fails unless a call to ``parent().size()``
     /// fails.
     /// \endverbatim
-    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            drop_impl::is_noexcept_parent_size())
+    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
     {
+        static_assert(noexcept(this->parent()),
+            "[INTERNAL] Why is parent() not noexcept?");
+        static_assert(
+            noexcept(std::declval<decltype(this->parent())>().size()),
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
         return this->parent().size() - _b;
     }
 
@@ -104,12 +114,6 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
     // friend struct
     // BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access;
     std::size_t _b;
-
-    static constexpr auto is_noexcept_parent_size() noexcept
-    {
-        return noexcept(
-            std::declval<drop_impl const&>().parent().size());
-    }
 };
 
 struct make_drop_impl {
@@ -121,9 +125,7 @@ struct make_drop_impl {
             drop_impl<std::decay_t<View>>{std::forward<View>(xs), b}))
     {
         static_assert(is_wrapper<std::decay_t<View>>::value,
-            "Congratulations! You've found a bug in the StaticViews "
-            "library. Please, create an issue here "
-            "https://github.com/BoostGSoC17/static-views/issues.");
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
         concepts::assert_View<typename std::decay_t<View>::type>();
         return drop_impl<std::decay_t<View>>{
             std::forward<View>(xs), b};

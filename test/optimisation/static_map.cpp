@@ -10,21 +10,41 @@
 #include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/raw_view.hpp>
+#include <boost/static_views/hashed.hpp>
 
 struct equal_c {
-    template <class _Char>
-    constexpr auto operator()(
-        _Char const* const a, _Char const* const b) const
-        noexcept(
-            noexcept(std::declval<_Char>() == std::declval<_Char>())
-            && noexcept(
-                   std::declval<_Char>() != std::declval<_Char>()))
+
+    template <class T>
+    using equal_t = decltype( std::declval<T>() == std::declval<T>() );
+
+    template <class T>
+    using not_equal_t = decltype( std::declval<T>() != std::declval<T>() );
+
+    template <class Char>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
+        Char const* const a, Char const* const b) const noexcept
     {
+        using boost::static_views::detail::is_detected;
+        static_assert(
+            std::is_nothrow_default_constructible<Char>::value,
+            "`equal_c` requires `Char` to be nothrow "
+            "default-constructible.");
+        static_assert(is_detected<equal_t, Char>::value
+                          && is_detected<not_equal_t, Char>::value,
+            "`equal_c` requires `Char` to define `operator==` and "
+            "`operator!=`.");
+        static_assert(
+            noexcept(std::declval<Char>() == std::declval<Char>())
+                && noexcept(
+                       std::declval<Char>() != std::declval<Char>()),
+            "`equal_c` requires `Char`'s `operator==` and "
+            "`operator!=` to be noexcept.");
+
         std::size_t i = 0;
-        while (a[i] != _Char{} && a[i] == b[i]) {
+        while (a[i] != Char{} && a[i] == b[i]) {
             ++i;
         }
-        return a[i] == _Char{} && b[i] == _Char{};
+        return a[i] == Char{} && b[i] == Char{};
     }
 };
 
@@ -38,25 +58,54 @@ enum class weekday {
     saturday
 };
 
-using std::experimental::string_view;
+#if defined(BOOST_STATIC_VIEWS_HAVE_STRING_VIEW)
+using boost::static_views::string_view;
 #define STRING_VIEW(str)                                             \
-    std::experimental::string_view { str, sizeof(str) - 1 }
+    string_view { str, sizeof(str) - 1 }
 
 struct equal_string_view {
-    constexpr auto operator()(string_view const& a,
-        string_view const& b) const noexcept -> bool
+    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(string_view const a,
+        string_view const b) const noexcept -> bool
     {
         return equal_c{}(a.data(), b.data());
     }
 };
+#endif
 
 void test1()
 {
     {
-        static constexpr std::pair<int const, const char*>
-                       map_data[] = {{5, "apple"}, {8, "pear"}, {0, "banana"}};
-        constexpr auto cmap = make_static_map<10, 1>(
-            boost::static_views::raw_view(map_data));
+        using value_type = std::pair<int const, char const*>;
+        static constexpr value_type map_data[] = {
+            {5, "apple"}, {8, "pear"}, {0, "banana"}};
+
+#if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
+// Use C++17 lambdas
+        constexpr auto cmap =
+            boost::static_views::static_map::make_static_map<10, 1>(
+                boost::static_views::raw_view(map_data),
+                [](auto&& x) -> decltype(auto) { return x.first; },
+                [](auto&& x) -> decltype(auto) { return x.second; });
+#else
+        struct get_key {
+            constexpr decltype(auto) operator()(
+                std::pair<int const, char const*> const& x) const noexcept
+            {
+                return x.first;
+            }
+        };
+        struct get_mapped {
+            constexpr decltype(auto) operator()(
+                std::pair<int const, char const*> const& x) const noexcept
+            {
+                return x.second;
+            }
+        };
+        constexpr auto cmap =
+            boost::static_views::static_map::make_static_map<10, 1>(
+                boost::static_views::raw_view(map_data), get_key{},
+                get_mapped{});
+#endif
 
         static_assert(equal_c{}(cmap[5], "apple"), "");
         static_assert(equal_c{}(cmap[8], "pear"), "");
@@ -68,9 +117,9 @@ void test1()
     }
 
     {
+#if defined(BOOST_STATIC_VIEWS_HAVE_STRING_VIEW)
         // Working with string_view
-        static constexpr std::pair<
-            const std::experimental::string_view, weekday>
+        static constexpr std::tuple<string_view, weekday>
             string_to_weekday[]{
                 {STRING_VIEW("sunday"), weekday::sunday},
                 {STRING_VIEW("monday"), weekday::monday},
@@ -79,43 +128,64 @@ void test1()
                 {STRING_VIEW("thursday"), weekday::thursday},
                 {STRING_VIEW("friday"), weekday::friday},
                 {STRING_VIEW("saturday"), weekday::saturday}};
-        constexpr auto to_weekday = make_static_map<10, 2>(
-            boost::static_views::raw_view(string_to_weekday),
-            equal_string_view{});
 
-        static_assert(
-            to_weekday[STRING_VIEW("sunday")] == weekday::sunday, "");
-        static_assert(
-            to_weekday[STRING_VIEW("monday")] == weekday::monday, "");
-        static_assert(
-            to_weekday[STRING_VIEW("tuesday")] == weekday::tuesday,
-            "");
-        static_assert(to_weekday[STRING_VIEW("wednesday")]
-                          == weekday::wednesday,
-            "");
-        static_assert(
-            to_weekday[STRING_VIEW("thursday")] == weekday::thursday,
-            "");
-        static_assert(
-            to_weekday[STRING_VIEW("friday")] == weekday::friday, "");
-        static_assert(
-            to_weekday[STRING_VIEW("saturday")] == weekday::saturday,
-            "");
+#if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
+        // clang-format off
+        constexpr auto to_weekday =
+            boost::static_views::static_map::make_static_map<10, 2>(
+                boost::static_views::raw_view(string_to_weekday),
+                [](auto&& x) -> decltype(auto) { return std::get<0>(x); },
+                [](auto&& x) -> decltype(auto) { return std::get<1>(x); },
+                equal_string_view{});
+        // clang-format on
+#else
+#error "Why do you have C++17 string_view, but no constexpr lambdas?"
+#endif
+        // clang-format off
+        static_assert(to_weekday[STRING_VIEW("sunday")] == weekday::sunday, "");
+        static_assert(to_weekday[STRING_VIEW("monday")] == weekday::monday, "");
+        static_assert(to_weekday[STRING_VIEW("tuesday")] == weekday::tuesday, "");
+        static_assert(to_weekday[STRING_VIEW("wednesday")] == weekday::wednesday, "");
+        static_assert(to_weekday[STRING_VIEW("thursday")] == weekday::thursday, "");
+        static_assert(to_weekday[STRING_VIEW("friday")] == weekday::friday, "");
+        static_assert(to_weekday[STRING_VIEW("saturday")] == weekday::saturday, "");
+        // clang-format on
+#endif
     }
 }
 
 void test2()
 {
-    static constexpr std::pair<int const, const char*> map_data[] = {
-        {5, "apple"}, {8, "pear"}, {0, "banana"}};
-    auto cmap = make_static_map<10, 1>(
-        boost::static_views::raw_view(map_data));
+    // from Niall's ntkernel-error-category
+    struct field {
+        int ntstatus;
+        int win32;
+        int posix;
+        char const* message;
+    };
 
-    if (!equal_c{}(cmap[5], "apple")) std::terminate();
-    if (!equal_c{}(cmap[8], "pear")) std::terminate();
-    if (!equal_c{}(cmap[0], "banana")) std::terminate();
-    if (cmap.find(8) != &map_data[1]) std::terminate();
-    if (cmap.find(10) != nullptr) std::terminate();
+    static constexpr field error_codes[] = {
+        {static_cast<int>(0x80000001), static_cast<int>(0x0), 0,
+            "{EXCEPTION}\nGuard Page Exception\nA page of memory "
+            "that marks the end of a data structure, such as a stack "
+            "or an array, has been accessed."},
+        {static_cast<int>(0x80000002), static_cast<int>(0x3e6),
+            EACCES,
+            "{EXCEPTION}\nAlignment Fault\nA datatype misalignment "
+            "was detected in a load or store instruction."},
+        {static_cast<int>(0x80000003), static_cast<int>(0x0), 0,
+            "{EXCEPTION}\nBreakpoint\nA breakpoint has been "
+            "reached."}};
+
+    // Notice the use of pointers to member data!
+    constexpr auto cmap = boost::static_views::static_map::make_static_map<5, 3>(
+        /* error_codes,*/ // produces a static_assert-failure
+        boost::static_views::raw_view(error_codes),
+        &field::posix,
+        &field::ntstatus);
+
+    static_assert(cmap[0] == static_cast<int>(0x80000001), "");
+    static_assert(cmap[EACCES] == static_cast<int>(0x80000002), "");
 }
 
 int main(void)

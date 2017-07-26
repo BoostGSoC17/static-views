@@ -18,6 +18,57 @@ namespace detail {
 template <class DropTake>
 struct slice_impl : DropTake {
 
+    static_assert(
+        std::is_same<DropTake, std::decay_t<DropTake>>::value,
+        BOOST_STATIC_VIEWS_BUG_MESSAGE);
+    static_assert(detail::concepts::is_View<DropTake>(),
+        "[INTERNAL] invalid use of drop_impl.");
+
+  private:
+
+    template <class T>
+    using call_parent_t = decltype( std::declval<T const&>().parent() );
+
+    template <class T>
+    static constexpr auto check_has_parent() noexcept -> bool
+    {
+        return is_detected<call_parent_t, T>::value;
+    }
+
+    template <class T,
+        class = std::enable_if_t<check_has_parent<T>()>, class = void>
+    static constexpr auto check_parent_returns_view() noexcept -> bool
+    {
+        return concepts::is_View<
+            std::decay_t<detected_t<call_parent_t, T>>>();
+    }
+
+    template <class T,
+        class = std::enable_if_t<!check_has_parent<T>()>>
+    static constexpr auto check_parent_returns_view() noexcept -> bool
+    {
+        return false;
+    }
+
+    template <class T>
+    static constexpr auto check_parent() noexcept -> bool
+    {
+        return utils::all(
+            check_has_parent<T>(),
+            check_parent_returns_view<T>());
+    }
+
+    template <class T>
+    static constexpr auto assert_parent() noexcept -> bool
+    {
+        constexpr bool x = check_parent<T>();
+        static_assert(x,
+            "[INTERNAL] `T` is required to have a `parent()` member "
+            "function with return type modeling the View concept.");
+        return x;
+    }
+
+  public:
     /// \brief Converts \p xs to "slice view".
 
     /// \tparam View
@@ -44,6 +95,7 @@ struct slice_impl : DropTake {
     ///   views.
     /// \endverbatim
     template <class View,
+        // avoid clashes with copy/move constructors
         class = std::enable_if_t<!std::is_same<std::decay_t<View>,
             slice_impl<DropTake>>::value>>
     explicit BOOST_STATIC_VIEWS_CONSTEXPR slice_impl(View&& xs)
@@ -51,6 +103,7 @@ struct slice_impl : DropTake {
             std::is_nothrow_constructible<DropTake, View&&>::value)
         : DropTake{std::forward<View>(xs)}
     {
+        assert_parent<DropTake>();
     }
 
     /// \brief "Maps" index \p i to the corresponding index in the
@@ -78,6 +131,9 @@ struct slice_impl : DropTake {
                 std::declval<DropTake const&>().map(
                     std::declval<std::size_t>()))))
     {
+        static_assert(
+            noexcept(std::declval<DropTake const&>().parent()),
+            "[INTERNAL] Why is parent() not noexcept?");
         auto const* p = static_cast<DropTake const*>(this);
         return p->parent().map(p->map(i));
     }
@@ -91,13 +147,22 @@ struct slice_impl : DropTake {
     /// `xs_ptr = &` #slice `(b, e)(*xs_ptr).` #parent `(),`
     ///     \f$\forall \text{b},\text{e} \in \mathbb{N}\f$.
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() const
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() const noexcept
     {
+        static_assert(
+            noexcept(std::declval<DropTake const&>().parent()),
+            "[INTERNAL] Why is parent() not noexcept?");
+        using parent_type = std::decay_t<decltype(
+            std::declval<DropTake const&>().parent())>;
+        assert_parent<parent_type>();
+        static_assert(noexcept(std::declval<parent_type>().parent()),
+            "[INTERNAL] Why is parent() not noexcept?");
         return static_cast<DropTake const*>(this)->parent().parent();
     }
 };
 
 struct make_slice_impl {
+
     // clang-format off
     template <class View>
     BOOST_STATIC_VIEWS_FORCEINLINE

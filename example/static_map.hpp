@@ -149,7 +149,8 @@ namespace detail {
         std::size_t hash = 0;
         std::size_t i    = 0;
         while (str[i] != Char{}) {
-            hash = 37 * hash + str[i];
+            hash = 37 * hash
+                   + static_cast<std::make_unsigned_t<Char>>(str[i]);
             ++i;
         }
         return hash;
@@ -350,7 +351,7 @@ namespace detail {
                 auto operator()(value_type const& y) -> bool
                 {
                     return boost::static_views::invoke(
-                        equal, x, get_key(y));
+                        equal, x, boost::static_views::invoke(get_key, y));
                 }
             };
 
@@ -448,11 +449,13 @@ auto make_static_map(View&& xs, GetKey&& get_key, GetMapped&& get_mapped,
         tricky_hasher{std::move(hf), key})(
         std::forward<View>(xs));
 
+    /*
     using key_getter = boost::static_views::detail::wrapper<
         std::add_lvalue_reference_t<
         std::add_const_t<
         std::remove_reference_t<
             GetKey >>> >;
+    */
     return detail::static_map<decltype(view), decltype(equal),
         decltype(key), decltype(mapped)>{
         std::move(view),

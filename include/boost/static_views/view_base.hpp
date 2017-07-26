@@ -79,11 +79,7 @@ struct view_adaptor_core_access {
 namespace detail {
 namespace concepts {
 namespace view {
-    template <class T>
-    using static_capacity_t = decltype(T::capacity());
 
-    template <class T>
-    using member_size_t = decltype(std::declval<T const&>().size());
 
     template <class T>
     using operator_access_t =
@@ -124,10 +120,36 @@ namespace view {
     }
 
     template <class T>
-    constexpr auto check_static_capacity() noexcept -> bool
+    using static_capacity_t = decltype(T::capacity());
+
+    template <class T>
+    constexpr auto check_exists_static_capacity() noexcept -> bool
     {
         return std::is_convertible<detected_t<static_capacity_t, T>,
             std::size_t>::value;
+    }
+
+    template <class T,
+        class = std::enable_if_t<check_exists_static_capacity<T>()>,
+        class = void>
+    constexpr auto check_noexcept_static_capacity() noexcept -> bool
+    {
+        return noexcept(T::capacity());
+    }
+
+    template <class T,
+        class = std::enable_if_t<!check_exists_static_capacity<T>()>>
+    constexpr auto check_noexcept_static_capacity() noexcept -> bool
+    {
+        return false;
+    }
+
+    template <class T>
+    constexpr auto check_static_capacity() noexcept -> bool
+    {
+        return utils::all(
+            check_exists_static_capacity<T>(),
+            check_noexcept_static_capacity<T>());
     }
 
     template <class T>
@@ -142,10 +164,36 @@ namespace view {
     }
 
     template <class T>
-    constexpr auto check_member_size() noexcept -> bool
+    using member_size_t = decltype(std::declval<T const&>().size());
+
+    template <class T>
+    constexpr auto check_exists_member_size() noexcept -> bool
     {
         return std::is_convertible<detected_t<member_size_t, T>,
             std::size_t>::value;
+    }
+
+    template <class T,
+        class = std::enable_if_t<check_exists_member_size<T>()>,
+        class = void>
+    constexpr auto check_noexcept_member_size() noexcept -> bool
+    {
+        return noexcept(std::declval<T const&>().size());
+    }
+
+    template <class T,
+        class = std::enable_if_t<!check_exists_member_size<T>()>>
+    constexpr auto check_noexcept_member_size() noexcept -> bool
+    {
+        return false;
+    }
+
+    template <class T>
+    constexpr auto check_member_size() noexcept -> bool
+    {
+        return utils::all(
+            check_exists_member_size<T>(),
+            check_noexcept_member_size<T>());
     }
 
     template <class T>
@@ -191,6 +239,8 @@ constexpr auto is_View() noexcept -> bool
 template <class T>
 constexpr auto assert_View() noexcept -> bool
 {
+    static_assert(is_View<T>(),
+        "I'm sorry, but `T` needs to model the View concept.");
     constexpr bool x = check(&view::assert_derive<T>,
         &view::assert_copy_or_move<T>,
         &view::assert_static_capacity<T>,
@@ -309,10 +359,9 @@ struct view_adaptor_base : view_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() const & noexcept
     {
-        static_assert(noexcept(_xs.get()), "view_adaptor_base<> "
-                                           "assumes that "
-                                           "`wrapper::get() const&` "
-                                           "is noexcept.");
+        static_assert(noexcept(_xs.get()),
+            "view_adaptor_base<> assumes that "
+            "`wrapper::get() const&` is noexcept.");
         return _xs.get();
     }
 
@@ -395,59 +444,6 @@ struct view_adaptor_base : view_base {
     }
 };
 
-
-namespace detail {
-
-struct dummy_view : view_base {
-
-    static constexpr int x = 12345;
-
-    constexpr dummy_view() noexcept
-    {
-    }
-
-    constexpr dummy_view(dummy_view const&) noexcept
-    {
-    }
-
-    constexpr dummy_view(dummy_view &&) noexcept
-    {
-    }
-
-    constexpr dummy_view& operator=(dummy_view const&) noexcept
-    {
-        return *this;
-    }
-
-    constexpr dummy_view& operator=(dummy_view &&) noexcept
-    {
-        return *this;
-    }
-
-    static constexpr auto capacity() noexcept -> std::size_t
-    {
-        return 1;
-    }
-
-    constexpr auto size() const noexcept -> std::size_t
-    {
-        return 1;
-    }
-
-    constexpr auto operator[](std::size_t const) -> int const&
-    {
-        return x;
-    }
-
-    constexpr auto operator[](std::size_t const) const -> int const&
-    {
-        return x;
-    }
-};
-
-constexpr int dummy_view::x;
-
-} // namespace detail
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
