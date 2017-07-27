@@ -21,29 +21,47 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
-template <class View>
-struct hasher_compat_checker {
-    template <class Hasher>
-    using call_t = decltype( invoke(
-        std::declval<Hasher const&>(),
-        std::declval<View const&>()[std::declval<std::size_t>()]) );
+template <class View, class Hasher>
+struct Constrains {
 
-    template <class Hasher>
-    static constexpr auto is_compatible() noexcept -> bool
+  private:
+    template <class H>
+    struct Impl {
+        template <class T>
+        using call_t = decltype(invoke(std::declval<H>(),
+            concepts::View::unsafe_at(
+                std::declval<T>(), std::declval<std::size_t>())));
+
+        BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_callable, T,
+            (is_detected<call_t, T>::value),
+            "`boost::static_views::hashed(hf)(xs)` requires hash "
+            "function `hf` to be callable with `xs[i]` as an "
+            "argument. This seems to be not the case here. Hence, "
+            "the error.");
+
+        BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_correct_return_type, T,
+            (std::is_convertible<detected_t<call_t, T>,
+                std::size_t>::value),
+            "`boost::static_views::hashed(hf)(xs)` requires the "
+            "return type of the hash function to be convertible to "
+            "`size_t`, i.e. `size_t hash = invoke(hf, xs[i]);` "
+            "should compile cleanly. This condition has, I'm afraid, "
+            "been violated. Hence, the error.");
+    };
+
+    using constrains = concepts::and_<concepts::View,
+        typename Impl<Hasher>::Is_callable,
+        typename Impl<Hasher>::Has_correct_return_type>;
+
+  public:
+    static constexpr auto test() noexcept -> bool
     {
-        return concepts::is_View<View>()
-               && std::is_convertible<detected_t<call_t, Hasher>,
-                      std::size_t>::value;
+        return constrains::template test<View>();
     }
 
-    template <class Hasher>
-    static constexpr auto assert_compatible() noexcept -> bool
+    static constexpr auto check() noexcept -> bool
     {
-        constexpr bool x = is_compatible<Hasher>();
-        static_assert(x,
-            "`Hasher` must be a function that takes an element of "
-            "`View` and returns a type convertible to size_t.");
-        return x;
+        return constrains::template check<View>();
     }
 };
 
@@ -52,19 +70,17 @@ struct hashed_init_impl {
     std::size_t storage[sizeof...(Is)];
 
     // clang-format off
-    template <class View, class Hasher>
+    template <class View, class Hasher,
+        class = std::enable_if_t<Constrains<View, Hasher>::test()>>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     explicit hashed_init_impl(View const& xs, Hasher const& h)
         : storage{((void)Is, hashed_init_impl::capacity())...}
     {
-        static_assert(hasher_compat_checker<View>::template
-                        is_compatible<Hasher>(),
-            "[INTERNAL] Invalid use of hashed_init_impl.");
-
         auto const size = xs.size();
         for (std::size_t i = 0; i < size; ++i) {
-            insert(i, bucket_size() * (invoke(h, xs[i]) % bucket_count()));
+            auto const hash = invoke(h, concepts::View::unsafe_at(xs, i));
+            insert(i, bucket_size() * (hash % bucket_count()));
         }
     }
     // clang-format on
@@ -152,37 +168,28 @@ struct hashed_impl
           hashed_impl<BucketCount, BucketSize, View, Hasher>, View> {
 
   private:
-    static_assert(
-        BucketCount > 0, "[INTERNAL] Invalid use of hashed_impl.");
-    static_assert(
-        BucketSize > 0, "[INTERNAL] Invalid use of hashed_impl.");
-    static_assert(
-        is_wrapper<View>(), "[INTERNAL] Invalid use of hashed_impl.");
 
     using view_type = typename View::type;
 
-    static_assert(concepts::is_View<view_type>(),
-        "[INTERNAL] Invalid use of hashed_impl.");
     static_assert(is_wrapper<Hasher>(),
         "[INTERNAL] Invalid use of hashed_impl.");
 
     using hasher_type = typename Hasher::type;
 
-    static_assert(
-        hasher_compat_checker<view_type>::template is_compatible<
-            hasher_type>(),
-        "[INTERNAL] Invalid use of hashed_impl.");
-
   public:
     /// \brief Returns the number buckets.
     static constexpr auto bucket_count() noexcept
     {
+        static_assert(BucketCount > 0,
+            "[INTERNAL] Invalid use of hashed_impl.");
         return BucketCount;
     }
 
     /// \brief Returns the capacity of each bucket.
     static constexpr auto bucket_size() noexcept
     {
+        static_assert(
+            BucketSize > 0, "[INTERNAL] Invalid use of hashed_impl.");
         return BucketSize;
     }
 
@@ -223,8 +230,7 @@ struct hashed_impl
             std::is_nothrow_constructible<
                 typename hashed_impl::view_adaptor_base_type,
                 View&&>::value,
-            std::is_nothrow_move_constructible<
-                std::decay_t<Hasher>>::value))
+            std::is_nothrow_move_constructible<Hasher>::value))
         : hashed_impl::view_adaptor_base_type{std::move(xs)}
         , _hf{std::move(hf)}
         , _storage{storage[Is]...}
@@ -314,9 +320,8 @@ struct make_hashed_impl {
         static_assert(is_wrapper<std::decay_t<View>>::value,
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
         using view_type = typename std::decay_t<View>::type;
-        concepts::assert_View<view_type>();
-        detail::hasher_compat_checker<view_type>::template
-            assert_compatible<std::decay_t<Hasher>>();
+        concepts::View::check<view_type>();
+        Constrains<view_type, std::decay_t<Hasher>>::check();
 
         auto init = detail::make_hashed_init_impl<
             BucketCount, BucketSize>(xs.get(), hf);

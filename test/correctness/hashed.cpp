@@ -13,13 +13,16 @@
 #include <boost/static_views/hashed.hpp>
 #include <boost/static_views/raw_view.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
+#if defined(BOOST_STATIC_VIEWS_MSVC)
 #define CONSTEXPR /* no constexpr for MSVC */
 #define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
 #else
-#define CONSTEXPR constexpr
+#define CONSTEXPR BOOST_STATIC_VIEWS_CONSTEXPR
 #define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #endif
+
+
+
 
 /*
 template <class T, std::size_t N, std::size_t... Is, std::size_t...

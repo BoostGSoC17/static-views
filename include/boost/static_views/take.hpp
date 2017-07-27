@@ -25,13 +25,6 @@ namespace detail {
 template <class View>
 struct take_impl : view_adaptor_base<take_impl<View>, View> {
 
-    static_assert(std::is_same<View, std::decay_t<View>>::value,
-        BOOST_STATIC_VIEWS_BUG_MESSAGE);
-    static_assert(
-        is_wrapper<View>::value, BOOST_STATIC_VIEWS_BUG_MESSAGE);
-    static_assert(detail::concepts::is_View<typename View::type>(),
-        "[INTERNAL] invalid use of take_impl.");
-
     /// \brief Constructs a view of \p xs consisting of at most \p e
     /// elements of \p xs.
 
@@ -71,9 +64,6 @@ struct take_impl : view_adaptor_base<take_impl<View>, View> {
     {
         static_assert(noexcept(this->parent()),
             "[INTERNAL] Why is parent() not noexcept?");
-        static_assert(
-            noexcept(std::declval<decltype(this->parent())>().size()),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
     }
 
     /// \brief Returns the number of elements viewed.
@@ -102,11 +92,15 @@ struct take_impl : view_adaptor_base<take_impl<View>, View> {
     /// throws an #out_of_bound exception.
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
+        noexcept
     {
+        return i;
+        /*
         return i < size() ? i
                           : ((void)make_out_of_bound_error(
                                  "`i < size()` not satisfied."),
                                 i);
+        */
     }
 
   private:
@@ -123,11 +117,7 @@ struct make_take_impl {
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             take_impl<std::decay_t<View>>{std::forward<View>(xs), n}))
     {
-        static_assert(is_wrapper<std::decay_t<View>>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        concepts::assert_View<typename std::decay_t<View>::type>();
-        return take_impl<std::decay_t<View>>{
-            std::forward<View>(xs), n};
+        return take_impl<std::decay_t<View>>{std::forward<View>(xs), n};
     }
     // clang-format on
 };

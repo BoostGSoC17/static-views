@@ -25,13 +25,6 @@ namespace detail {
 template <class View>
 struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
 
-    static_assert(std::is_same<View, std::decay_t<View>>::value,
-        BOOST_STATIC_VIEWS_BUG_MESSAGE);
-    static_assert(
-        is_wrapper<View>::value, BOOST_STATIC_VIEWS_BUG_MESSAGE);
-    static_assert(detail::concepts::is_View<typename View::type>(),
-        "[INTERNAL] invalid use of drop_impl.");
-
     /// \brief Constructs a view of \p xs with the first \p b elements
     /// dropped.
 
@@ -102,12 +95,15 @@ struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
     /// If the condition `i < size()` is not satisfied, this function
     /// throws an #out_of_bound exception.
     BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
+    BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const noexcept
     {
+        return (_b + i);
+        /*
         return i < size() ? (_b + i)
                           : ((void)make_out_of_bound_error(
                                  "`i < size()` not satisfied."),
                                 _b + i);
+        */
     }
 
   private:
@@ -124,11 +120,7 @@ struct make_drop_impl {
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
             drop_impl<std::decay_t<View>>{std::forward<View>(xs), b}))
     {
-        static_assert(is_wrapper<std::decay_t<View>>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        concepts::assert_View<typename std::decay_t<View>::type>();
-        return drop_impl<std::decay_t<View>>{
-            std::forward<View>(xs), b};
+        return drop_impl<std::decay_t<View>>{std::forward<View>(xs), b};
     }
     // clang-format on
 };

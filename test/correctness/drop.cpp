@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+
 #include <utility>
 #include <boost/config.hpp>
 #include <boost/core/lightweight_test.hpp>
@@ -18,103 +19,112 @@
 #define CONSTEXPR /* no constexpr for MSVC */
 #define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
 #else
-#define CONSTEXPR constexpr
+#define CONSTEXPR BOOST_STATIC_VIEWS_CONSTEXPR
 #define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #endif
 
-template <class T, std::size_t N, std::size_t... Is>
-auto create_impl(std::index_sequence<Is...>)
+
+class non_copyable_int {
+  public:
+    constexpr non_copyable_int(int const x) noexcept
+        : _payload{x}
+    {
+    }
+
+    non_copyable_int(non_copyable_int const&) = delete;
+
+    constexpr non_copyable_int(non_copyable_int&& other) noexcept
+        : _payload{other._payload}
+    {
+    }
+
+    non_copyable_int& operator=(non_copyable_int const& other) = delete;
+    non_copyable_int& operator=(non_copyable_int&& other) = delete;
+
+    explicit constexpr operator int() noexcept
+    {
+        return _payload;
+    }
+
+  private:
+    int _payload;
+};
+
+
+#define MAKE_DROP(x)                                                 \
+    boost::static_views::drop(std::declval<std::size_t>())(          \
+        std::declval<x>())
+
+template <class T>
+using compile_make_drop_t = decltype( MAKE_DROP(T) );
+
+#define TEST_MAKE_IMPL(view_type, q)                                 \
+    static_assert(boost::static_views::detail::is_detected<          \
+                      compile_make_drop_t, view_type q>::value,      \
+        "passing `" #view_type " " #q "` to `drop` doesn't work.");  \
+    static_assert(noexcept(MAKE_DROP(view_type q)),                  \
+        "passing `" #view_type " " #q                                \
+        "` to `drop` is not noexcept.");                             \
+    boost::static_views::detail::concepts::View::check<              \
+        boost::static_views::detail::detected_t<compile_make_drop_t, \
+            view_type q>>();
+
+#define TEST_MAKE(view_type)                                         \
+    do {                                                             \
+        TEST_MAKE_IMPL(view_type, &)                                 \
+        TEST_MAKE_IMPL(view_type, const&)                            \
+        TEST_MAKE_IMPL(view_type, &&)                                \
+        TEST_MAKE_IMPL(view_type, const&&)                           \
+    } while (false)
+
+auto test_make()
 {
-    // Notice the `static`.
-    static constexpr T    xs[] = {((void)Is, T{})...};
-    static CONSTEXPR auto raw1 = boost::static_views::raw_view(xs);
-    CONSTEXPR auto        raw2 = boost::static_views::raw_view(xs);
+    using namespace boost::static_views;
+    using detail::detected_t;
 
-    // View of a reference
-    BOOST_ATTRIBUTE_UNUSED CONSTEXPR decltype(
-        boost::static_views::drop(std::declval<std::size_t>())(
-            raw1)) v1[] = {
-        ((void)Is, boost::static_views::drop(Is)(raw1))...};
-    STATIC_ASSERT(boost::static_views::detail::utils::all(noexcept(
-                      boost::static_views::drop(Is)(raw1))...),
-        "drop's noexcept specifiers are broken.");
+    using data_1_t = std::add_lvalue_reference_t<int[20]>;
+    using raw_view_1_t =
+        std::decay_t<decltype(raw_view(std::declval<data_1_t>()))>;
+    TEST_MAKE(raw_view_1_t);
+    using drop_view_1_t = detected_t<compile_make_drop_t, raw_view_1_t>;
+    TEST_MAKE(drop_view_1_t);
 
-    // View of an rvalue
-    BOOST_ATTRIBUTE_UNUSED                      CONSTEXPR decltype(
-        boost::static_views::drop(std::declval<std::size_t>())(
-            boost::static_views::raw_view(xs))) v2[] = {
-        ((void)Is, boost::static_views::drop(Is)(
-                       boost::static_views::raw_view(xs)))...};
-    STATIC_ASSERT(boost::static_views::detail::utils::all(
-                      noexcept(boost::static_views::drop(Is)(
-                          boost::static_views::raw_view(xs)))...),
-        "drop's noexcept specifiers are broken.");
-
-// View of a copy, i.e. rvalue again
-//
-// This does not work with MSVC. The following error is produced:
-// correctness\drop.cpp(51): error C2440: 'initializing': cannot
-// convert from
-// 'boost::static_views::detail::drop_impl<boost::static_views::detail::wrapper<T>>'
-// to
-// 'boost::static_views::detail::drop_impl<boost::static_views::detail::wrapper<T
-// &&>>'
-//         with
-//         [
-//             T=boost::static_views::detail::raw_view_impl<const int
-//             [5]> &
-//         ]
-//         and
-//         [
-//             T=boost::static_views::detail::raw_view_impl<const int
-//             [5]>
-//         ]
-// correctness\drop.cpp(51): note: No constructor could take the
-// source type, or constructor overload resolution was ambiguous
-//
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
-// nothing
-#else
-    BOOST_ATTRIBUTE_UNUSED                   CONSTEXPR decltype(
-        boost::static_views::drop(std::declval<std::size_t>())(
-            std::declval<decltype(raw2)>())) v3[] = {((void)Is,
-        boost::static_views::drop(Is)(decltype(raw2){raw2}))...};
-#endif
+    using data_2_t = std::add_lvalue_reference_t<non_copyable_int[20]>;
+    using raw_view_2_t =
+        std::decay_t<decltype(raw_view(std::declval<data_2_t>()))>;
+    TEST_MAKE(raw_view_2_t);
+    using drop_view_2_t = detected_t<compile_make_drop_t, raw_view_2_t>;
+    TEST_MAKE(drop_view_2_t);
 }
 
-template <class T, std::size_t N>
-auto test_create()
+template <class T, std::size_t n, std::size_t expected,
+    std::size_t... Is>
+CONSTEXPR auto test_size_impl(std::index_sequence<Is...>)
 {
-    return create_impl<T, N>(std::make_index_sequence<N>{});
+    T xs[] = {T{Is}...};
+    auto const raw = boost::static_views::raw_view(xs);
+    return boost::static_views::drop(n)(raw).size() == expected;
 }
 
-template <class T, std::size_t... Is, std::size_t... Js>
-auto size_impl(std::index_sequence<Is...>, std::index_sequence<Js...>)
+template <class T, std::size_t N, std::size_t n, std::size_t expected>
+CONSTEXPR auto test_size_impl()
 {
-    static constexpr T    xs[] = {((void)Is, T{})...};
-    static CONSTEXPR auto raw  = boost::static_views::raw_view(xs);
-    constexpr auto        N    = sizeof...(Is);
-
-    STATIC_ASSERT(boost::static_views::detail::utils::all(
-                      boost::static_views::drop(Js)(raw).size()
-                      == ((N >= Js) ? (N - Js) : 0)...),
-        "drop::size() does not work correctly.");
-    STATIC_ASSERT(boost::static_views::detail::utils::all(noexcept(
-                      boost::static_views::drop(Js)(raw).size())...),
-        "drop's size() noexcept specifiers are broken.");
-
     STATIC_ASSERT(
-        boost::static_views::detail::utils::all(
-            boost::static_views::drop(Js)(raw).capacity() == N...),
-        "drop::capacity() does not work correctly.");
+        (test_size_impl<T, n, expected>(std::make_index_sequence<N>{})),
+        "drop::size() does not work correctly.");
 }
 
-template <class T, std::size_t N, std::size_t M>
 auto test_size()
 {
-    return size_impl<T>(
-        std::make_index_sequence<N>{}, std::make_index_sequence<M>{});
+    //             type      data      how many     expected
+    //                       size      to drop      size
+    test_size_impl<int,        10,            5,           5>();
+    test_size_impl<int,        13,            0,           13>();
+    test_size_impl<int,         1,            5,           0>();
+    test_size_impl<int,         7,            6,           1>();
 }
+
+
 
 template <std::size_t K, std::size_t... Is, std::size_t... Js>
 auto access_impl(
@@ -250,17 +260,10 @@ auto test_modify()
 
 int main(void)
 {
-    test_create<int, 5>();
-    test_create<double, 10>();
-    test_create<std::pair<float, float>, 2>();
+    test_make();
+    test_size();
 
-    test_size<int, 5, 8>();
-    test_size<double, 10, 20>();
-    test_size<std::pair<float, float>, 2, 3>();
-
-    test_size<int, 5, 8>();
-    test_size<double, 10, 20>();
-    test_size<std::pair<float, float>, 2, 3>();
+    test_size();
 
     test_access<5, 10>();
     test_access<20, 26>();

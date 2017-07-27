@@ -21,9 +21,9 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
-
-
-template <class Sequence>
+template <class Sequence,
+    class = std::enable_if_t<concepts::Sequence::test<
+        std::remove_cv_t<std::remove_reference_t<Sequence>>>()>>
 struct raw_view_impl : view_base {
 
     /// \brief Constructs a view of \p xs.
@@ -63,8 +63,6 @@ struct raw_view_impl : view_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     raw_view_impl& operator=(raw_view_impl&&) noexcept = default;
 
-    ~raw_view_impl() = default;
-
     /// \brief Returns the size of the sequence.
 
     /// \snippet raw_view.hpp raw_view_impl::capacity() implementation
@@ -103,6 +101,18 @@ struct raw_view_impl : view_base {
         //! [raw_view_impl::size() implementation]
     }
 
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(
+        std::size_t const i) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(sequence_traits<sequence_type>::at(
+                std::declval<Sequence&>(),
+                std::declval<std::size_t>())))
+    {
+        return sequence_traits<sequence_type>::at(*_xs, i);
+    }
+
     /// \brief Element access
 
     /// \verbatim embed:rst:leading-slashes
@@ -126,11 +136,10 @@ struct raw_view_impl : view_base {
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](
         std::size_t const i) const
     {
-        return i < size()
-                   ? sequence_traits<sequence_type>::at(*_xs, i)
-                   : (make_out_of_bound_error(
-                          "Index `i` exceeds size of sequence."),
-                         sequence_traits<sequence_type>::at(*_xs, i));
+        return (i < size()) ? unsafe_at(i)
+                            : (make_out_of_bound_error(
+                                   "`i < size()` not satisfied."),
+                                  unsafe_at(i));
     }
 
     /*
@@ -157,16 +166,22 @@ struct raw_view_impl : view_base {
 
 /// \cond
 struct make_raw_view {
+
+  private:
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_construction_noexcept, T,
+        (noexcept(raw_view_impl<T>{std::declval<T&>()})), "");
+
+  public:
     // clang-format off
     template <class Sequence>
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto operator()(Sequence& sequence) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(raw_view_impl<Sequence>(sequence)))
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(concepts::and_<
+            concepts::Sequence, Is_construction_noexcept>
+                ::test<std::remove_cv_t<Sequence>>())
     {
-        concepts::assert_Sequence<std::remove_reference_t<
-            std::remove_cv_t<Sequence>>>();
-        return raw_view_impl<Sequence>(sequence);
+        concepts::Sequence::check<std::remove_cv_t<Sequence>>();
+        return raw_view_impl<Sequence>{sequence};
     }
     // clang-format on
 };

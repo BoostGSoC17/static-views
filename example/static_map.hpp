@@ -15,7 +15,7 @@
 #include <boost/static_views/hashed.hpp>
 
 
-
+// clang-format off
 #if __cplusplus > 201402L
 #if defined(__has_include)
 #   if __has_include(<string_view>)
@@ -45,6 +45,7 @@
 #   endif
 #endif
 #endif
+// clang-format on
 
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
@@ -218,49 +219,9 @@ namespace detail {
     template <class HashedView, class Pred, class GetKey, class GetMapped>
     class static_map : private HashedView {
 
-        // Make sure HashedView is actually a View.
-        static_assert(boost::static_views::detail::concepts::is_View<
-                          HashedView>(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
-        // Make sure Pred is not a strange reference or something.
-        static_assert(std::is_same<Pred, std::decay_t<Pred>>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
-        // Make sure Pred is a wrapper.
-        static_assert(
-            boost::static_views::detail::is_wrapper<Pred>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
-        // Make sure GetKey is not a strange reference or something.
-        static_assert(
-            std::is_same<GetKey, std::decay_t<GetKey>>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
-        // Make sure GetKey is a wrapper.
-        static_assert(
-            boost::static_views::detail::is_wrapper<GetKey>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
-        // Make sure GetMapped is not a strange reference or something.
-        static_assert(
-            std::is_same<GetMapped, std::decay_t<GetMapped>>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
-        // Make sure GetMapped is a wrapper.
-        static_assert(
-            boost::static_views::detail::is_wrapper<GetMapped>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
       private:
         using bucket_type = std::decay_t<decltype(
             std::declval<HashedView>()[std::declval<std::size_t>()])>;
-
-        // Make sure buckets are actually Views.
-        static_assert(boost::static_views::detail::concepts::is_View<
-                          bucket_type>(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
 
       public:
         using type = static_map<HashedView, Pred, GetKey, GetMapped>;

@@ -98,6 +98,6 @@ explicit _static_map ;
 notfile static_map
     : @checking-optimisation
     : _static_map
-    : <opcodes-limit>700 <function>test2
+    : <opcodes-limit>700 <function>test3
     ;
 explicit static_map ;

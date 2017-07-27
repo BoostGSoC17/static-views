@@ -196,19 +196,125 @@ using detected_t = typename detector<nonesuch, void, Op, Args...>::type;
 
 namespace concepts {
 
-constexpr auto check() noexcept -> bool
-{
-    return true;
-}
 
-template <class Check, class... Checks>
-constexpr auto check(Check&& head, Checks&&... tail) noexcept -> bool
-{
-    bool const passed = std::forward<Check>(head)();
-    return passed
-        ? check(std::forward<Checks>(tail)...)
-        : false;
-}
+template <class...>
+struct and_;
+
+template <class...>
+struct all_;
+
+
+template <>
+struct and_<> {
+    template <class T>
+    static constexpr auto test() noexcept -> bool
+    {
+        return true;
+    }
+
+    template <class T>
+    static constexpr auto check() noexcept -> bool
+    {
+        return true;
+    }
+};
+
+template <class C1, class... C2>
+struct and_<C1, C2...> {
+
+  private:
+    template <class T,
+        class = std::enable_if_t<C1::template test<T>()>,
+        class = void>
+    static constexpr auto test_impl() noexcept -> bool
+    {
+        return and_<C2...>::template test<T>();
+    }
+
+    template <class T,
+        class = std::enable_if_t<!C1::template test<T>()>>
+    static constexpr auto test_impl() noexcept -> bool
+    {
+        return false;
+    }
+
+    template <class T,
+        class = std::enable_if_t<C1::template test<T>()>,
+        class = void>
+    static constexpr auto check_impl() noexcept -> bool
+    {
+        return and_<C2...>::template check<T>();
+    }
+
+    template <class T,
+        class = std::enable_if_t<!C1::template test<T>()>>
+    static constexpr auto check_impl() noexcept -> bool
+    {
+        C1::template check<T>();
+        return false;
+    }
+
+  public:
+    template <class T>
+    static constexpr auto test() noexcept -> bool
+    {
+        return test_impl<T>();
+    }
+
+    template <class T>
+    static constexpr auto check() noexcept -> bool
+    {
+        return check_impl<T>();
+    }
+};
+
+
+template <>
+struct all_<> {
+    template <class T>
+    static constexpr auto test() noexcept -> bool
+    {
+        return true;
+    }
+
+    template <class T>
+    static constexpr auto check() noexcept -> bool
+    {
+        return true;
+    }
+};
+
+template <class C1, class... C2>
+struct all_<C1, C2...> {
+    template <class T>
+    static constexpr auto test() noexcept -> bool
+    {
+        return C1::template test<T>() && all_<C2...>::template test<T>();
+    }
+
+    template <class T>
+    static constexpr auto check() noexcept -> bool
+    {
+        return C1::template check<T>() && all_<C2...>::template check<T>();
+    }
+};
+
+#define BOOST_STATIC_VIEWS_DEFINE_CHECK(name, T, expr, msg)          \
+    struct name {                                                    \
+        template <class T>                                           \
+        static constexpr auto test() noexcept -> bool                \
+        {                                                            \
+            return expr;                                             \
+        }                                                            \
+                                                                     \
+        template <class T>                                           \
+        static constexpr auto check() noexcept -> bool               \
+        {                                                            \
+            constexpr bool x = test<T>();                            \
+            static_assert(x, msg);                                   \
+            return x;                                                \
+        }                                                            \
+    } /**/
 
 } // namespace concepts
 

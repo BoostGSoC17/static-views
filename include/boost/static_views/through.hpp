@@ -105,10 +105,11 @@ struct through_impl
     ///     \text{proxy.size}()-1\}.\f$
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            std::declval<Proxy const&>()
-                .get()[std::declval<std::size_t>()])) -> std::size_t
+            concepts::View::unsafe_at(
+                std::declval<Proxy const&>().get(),
+                std::declval<std::size_t>()))) -> std::size_t
     {
-        return _proxy.get()[i];
+        return concepts::View::unsafe_at(_proxy.get(), i);
     }
 
   private:
@@ -122,19 +123,13 @@ struct make_through_impl {
     template <class View, class Proxy>
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto operator()(View&& xs, Proxy&& proxy) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(through_impl<std::decay_t<View>,
-                std::decay_t<decltype(
-                    make_wrapper(std::forward<Proxy>(proxy)))>>{
-                        std::forward<View>(xs),
-                        make_wrapper(std::forward<Proxy>(proxy))}))
-    {
-        return through_impl<std::decay_t<View>,
-            std::decay_t<decltype(make_wrapper(
-                std::forward<Proxy>(proxy)))>>{
-                    std::forward<View>(xs),
-                    make_wrapper(std::forward<Proxy>(proxy))};
-    }
+    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+    (
+        through_impl<std::decay_t<View>, std::decay_t<
+            decltype(make_wrapper(std::forward<Proxy>(proxy)))>>{
+                std::forward<View>(xs),
+                make_wrapper(std::forward<Proxy>(proxy))}
+    );
     // clang-format on
 };
 } // end namespace detail

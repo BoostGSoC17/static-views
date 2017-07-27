@@ -50,21 +50,34 @@ struct algorithm_impl : algorithm_base {
     Function                     _func;
     std::tuple<wrapper<Args>...> _args;
 
-    template <class View>
-    static constexpr auto is_noexcept_call_cref() noexcept -> bool
-    {
-        return noexcept(invoke(std::declval<Function const&>(),
-            make_wrapper(std::declval<View&&>()),
+    template <class T>
+    using compile_call_cref_t =
+        decltype(invoke(std::declval<Function const&>(),
+            make_wrapper(std::declval<T>()),
             std::declval<Args const&>()...));
-    }
 
-    template <class View>
-    static constexpr auto is_noexcept_call_move() noexcept -> bool
-    {
-        return noexcept(invoke(std::declval<Function&&>(),
-            make_wrapper(std::declval<View&&>()),
-            std::declval<Args&&>()...));
-    }
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_cref_callable, T,
+        (is_detected<compile_call_cref_t, T>::value), "");
+
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_cref_call, T,
+        (noexcept(invoke(std::declval<Function const&>(),
+            make_wrapper(std::declval<T>()),
+            std::declval<Args const&>()...))),
+        "");
+
+    template <class T>
+    using compile_call_move_t = decltype(invoke(
+        std::declval<Function&&>(), make_wrapper(std::declval<T>()),
+        std::declval<Args&&>()...));
+
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_move_callable, T,
+        (is_detected<compile_call_move_t, T>::value), "");
+
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_move_call, T,
+        (noexcept(invoke(std::declval<Function&&>(),
+            make_wrapper(std::declval<T>()),
+            std::declval<Args&&>()...))),
+        "");
 
     // clang-format off
     template <class View, std::size_t... Is>
@@ -72,25 +85,14 @@ struct algorithm_impl : algorithm_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
         std::index_sequence<Is...> /*unused*/) const&
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(is_noexcept_call_cref<View&&>())
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            concepts::and_<Is_cref_callable, Is_noexcept_cref_call>
+                ::template test<View&&>())
     {
-        concepts::assert_View<std::remove_reference_t<View>>();
         return invoke(_func, make_wrapper(std::forward<View>(xs)),
             std::get<Is>(_args).get()...);
     }
     // clang-format on
-
-    /* // I think that this overload makes little sense
-    template <class View, std::size_t... Is>
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
-        std::index_sequence<Is...>) &
-    {
-        return invoke(_func, make_wrapper(std::forward<View>(xs)),
-            std::get<Is>(_args).get()...);
-    }
-    */
 
     // clang-format off
     template <class View, std::size_t... Is>
@@ -98,9 +100,10 @@ struct algorithm_impl : algorithm_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
         std::index_sequence<Is...> /*unused*/) &&
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(is_noexcept_call_move<View&&>())
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            concepts::and_<Is_move_callable, Is_noexcept_move_call>
+                ::template test<View&&>())
     {
-        concepts::assert_View<std::remove_reference_t<View>>();
         return invoke(std::move(_func),
             make_wrapper(std::forward<View>(xs)),
             std::get<Is>(std::move(_args)).get()...);
@@ -132,53 +135,50 @@ struct algorithm_impl : algorithm_base {
     {
     }
 
-#define FAKE_CALL_IMPL(qualifiers)                                   \
-    std::declval<algorithm_impl qualifiers>().call_impl(             \
-        std::forward<View>(xs),                                      \
-        std::make_index_sequence<sizeof...(Args)>{})
-
     // clang-format off
-    template <class View>
+    template <class View,
+        class = std::enable_if_t<concepts::View::template test<
+            std::remove_cv_t<std::remove_reference_t<View>>>()>>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator()(View&& xs) const&
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(FAKE_CALL_IMPL(const&)))
-    {
-        concepts::assert_View<std::remove_reference_t<View>>();
-        return call_impl(std::forward<View>(xs),
-            std::make_index_sequence<sizeof...(Args)>{});
-    }
+    auto operator()(View&& xs) const&
+    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+    (
+        call_impl(std::forward<View>(xs),
+            std::make_index_sequence<sizeof...(Args)>{})
+    );
     // clang-format on
 
-    /*
-    template <class View>
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator()(View&& xs) &
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(FAKE_CALL_IMPL(&)))
-    {
-        static_assert(is_view<std::decay_t<View>>::value,
-            "`View` must model the View concept.");
-        return call_impl(std::forward<View>(xs),
-            std::make_index_sequence<sizeof...(Args)>{});
-    }
-    */
-
     // clang-format off
-    template <class View>
+    template <class View,
+        class = std::enable_if_t<concepts::View::template test<
+            std::remove_cv_t<std::remove_reference_t<View>>>()>>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator()(View&& xs) &&
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(FAKE_CALL_IMPL(&&)))
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            concepts::and_<Is_move_callable, Is_noexcept_move_call>
+                ::template test<View&&>())
     {
-        concepts::assert_View<std::remove_reference_t<View>>();
         return std::forward<algorithm_impl>(*this).call_impl(
             std::forward<View>(xs),
             std::make_index_sequence<sizeof...(Args)>{});
     }
     // clang-format on
 
-#undef FAKE_CALL_IMPL
+    template <class View,
+        class = std::enable_if_t<!concepts::View::template test<
+            std::remove_cv_t<std::remove_reference_t<View>>>()>,
+        class = void>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
+        View&& /*unused*/) const noexcept
+    {
+        static_assert(concepts::View::template test<
+            std::remove_cv_t<std::remove_reference_t<View>>>(),
+            "I'm sorry, but `View` must model the View concept!");
+        concepts::View::template
+            check<std::remove_cv_t<std::remove_reference_t<View>>>();
+    }
 
     BOOST_STATIC_VIEWS_CONSTEXPR
     algorithm_impl(algorithm_impl const& other)
@@ -261,19 +261,11 @@ struct make_algorithm_impl {
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto operator()(Args&&... args) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(algorithm_impl<Function, Args&&...>(Function{},
-                make_wrapper(std::forward<Args>(args))...)))
-    {
-        /*
-        concepts::assert_View<decltype(
-            std::declval<Function>()(
-                make_wrapper(dummy_view{}),
-                std::forward<Args>(args)...))>();
-        */
-        return algorithm_impl<Function, Args&&...>(
-            Function{}, make_wrapper(std::forward<Args>(args))...);
-    }
+    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+    (
+        algorithm_impl<Function, Args&&...>(
+            Function{}, make_wrapper(std::forward<Args>(args))...)
+    );
     // clang-format on
 };
 
