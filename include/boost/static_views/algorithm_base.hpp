@@ -6,13 +6,14 @@
 #ifndef BOOST_STATIC_VIEWS_ALGORITHM_BASE_HPP
 #define BOOST_STATIC_VIEWS_ALGORITHM_BASE_HPP
 
+#include "detail/config.hpp"
+#include "detail/utils.hpp"
+#include "detail/wrapper.hpp"
+#include "view_base.hpp"
+
 #include <tuple>
 #include <type_traits>
 #include <utility>
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/detail/utils.hpp>
-#include <boost/static_views/detail/wrapper.hpp>
-#include <boost/static_views/view_base.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -22,8 +23,7 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 /// By deriving from :cpp:class:`algorithm_base`, you tell StaticView
 /// that the derived class models the :ref:`view <algorithm-concept>`
 /// concept. \endverbatim
-struct algorithm_base {
-};
+struct algorithm_base {};
 
 /// \brief Checks whether `T` models the Algorithm concept.
 
@@ -38,35 +38,31 @@ struct algorithm_base {
 ///   {};
 ///
 /// \endverbatim
-template <class V>
-struct is_algorithm : std::is_base_of<algorithm_base, V> {
-};
+template <class V> struct is_algorithm : std::is_base_of<algorithm_base, V> {};
 
 namespace detail {
 template <class Function, class... Args>
 struct algorithm_impl : algorithm_base {
 
-  private:
-    Function                     _func;
-    std::tuple<wrapper<Args>...> _args;
+private:
+  Function _func;
+  std::tuple<wrapper<Args>...> _args;
 
-    template <class View>
-    static constexpr auto is_noexcept_call_cref() noexcept -> bool
-    {
-        return noexcept(invoke(std::declval<Function const&>(),
-            make_wrapper(std::declval<View&&>()),
-            std::declval<Args const&>()...));
-    }
+  template <class View>
+  static constexpr auto is_noexcept_call_cref() noexcept -> bool {
+    return noexcept(invoke(std::declval<Function const &>(),
+                           make_wrapper(std::declval<View &&>()),
+                           std::declval<Args const &>()...));
+  }
 
-    template <class View>
-    static constexpr auto is_noexcept_call_move() noexcept -> bool
-    {
-        return noexcept(invoke(std::declval<Function&&>(),
-            make_wrapper(std::declval<View&&>()),
-            std::declval<Args&&>()...));
-    }
+  template <class View>
+  static constexpr auto is_noexcept_call_move() noexcept -> bool {
+    return noexcept(invoke(std::declval<Function &&>(),
+                           make_wrapper(std::declval<View &&>()),
+                           std::declval<Args &&>()...));
+  }
 
-    // clang-format off
+  // clang-format off
     template <class View, std::size_t... Is>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -78,21 +74,21 @@ struct algorithm_impl : algorithm_base {
         return invoke(_func, make_wrapper(std::forward<View>(xs)),
             std::get<Is>(_args).get()...);
     }
-    // clang-format on
+  // clang-format on
 
-    /* // I think that this overload makes little sense
-    template <class View, std::size_t... Is>
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
-        std::index_sequence<Is...>) &
-    {
-        return invoke(_func, make_wrapper(std::forward<View>(xs)),
-            std::get<Is>(_args).get()...);
-    }
-    */
+  /* // I think that this overload makes little sense
+  template <class View, std::size_t... Is>
+  BOOST_FORCEINLINE
+  BOOST_STATIC_VIEWS_CONSTEXPR
+  BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
+      std::index_sequence<Is...>) &
+  {
+      return invoke(_func, make_wrapper(std::forward<View>(xs)),
+          std::get<Is>(_args).get()...);
+  }
+  */
 
-    // clang-format off
+  // clang-format off
     template <class View, std::size_t... Is>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -105,39 +101,35 @@ struct algorithm_impl : algorithm_base {
             make_wrapper(std::forward<View>(xs)),
             std::get<Is>(std::move(_args)).get()...);
     }
-    // clang-format on
+  // clang-format on
 
-  public:
-
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR algorithm_impl(
-        Function&& f, wrapper<Args>&&... args)
+public:
+  explicit BOOST_STATIC_VIEWS_CONSTEXPR algorithm_impl(Function &&f,
+                                                       wrapper<Args> &&... args)
 #if defined(BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE)
-        // std::tuple's constructor is not marked noexcept in most of
-        // the implementations. We "know", however, that the only
-        // thing std::tuple's move constructor needs is for each Args
-        // to be nothrow move constructible. Hence, we can "neglect"
-        // the fact that std::tuple's move constructor is not
-        // noexcept.
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            utils::all(std::is_nothrow_move_constructible<
-                           wrapper<Args>>::value...,
-                std::is_nothrow_move_constructible<Function>::value))
+      // std::tuple's constructor is not marked noexcept in most of
+      // the implementations. We "know", however, that the only
+      // thing std::tuple's move constructor needs is for each Args
+      // to be nothrow move constructible. Hence, we can "neglect"
+      // the fact that std::tuple's move constructor is not
+      // noexcept.
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
+          std::is_nothrow_move_constructible<wrapper<Args>>::value...,
+          std::is_nothrow_move_constructible<Function>::value))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            utils::all(std::is_nothrow_move_constructible<
-                           std::tuple<wrapper<Args>...>>::value,
-                std::is_nothrow_move_constructible<Function>::value))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+          utils::all(std::is_nothrow_move_constructible<
+                         std::tuple<wrapper<Args>...>>::value,
+                     std::is_nothrow_move_constructible<Function>::value))
 #endif
-        : _func{std::move(f)}, _args{std::move(args)...}
-    {
-    }
+      : _func{std::move(f)}, _args{std::move(args)...} {
+  }
 
-#define FAKE_CALL_IMPL(qualifiers)                                   \
-    std::declval<algorithm_impl qualifiers>().call_impl(             \
-        std::forward<View>(xs),                                      \
-        std::make_index_sequence<sizeof...(Args)>{})
+#define FAKE_CALL_IMPL(qualifiers)                                             \
+  std::declval<algorithm_impl qualifiers>().call_impl(                         \
+      std::forward<View>(xs), std::make_index_sequence<sizeof...(Args)>{})
 
-    // clang-format off
+  // clang-format off
     template <class View>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -148,23 +140,23 @@ struct algorithm_impl : algorithm_base {
         return call_impl(std::forward<View>(xs),
             std::make_index_sequence<sizeof...(Args)>{});
     }
-    // clang-format on
+  // clang-format on
 
-    /*
-    template <class View>
-    BOOST_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator()(View&& xs) &
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(FAKE_CALL_IMPL(&)))
-    {
-        static_assert(is_view<std::decay_t<View>>::value,
-            "`View` must model the View concept.");
-        return call_impl(std::forward<View>(xs),
-            std::make_index_sequence<sizeof...(Args)>{});
-    }
-    */
+  /*
+  template <class View>
+  BOOST_FORCEINLINE
+  BOOST_STATIC_VIEWS_CONSTEXPR
+  BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator()(View&& xs) &
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(FAKE_CALL_IMPL(&)))
+  {
+      static_assert(is_view<std::decay_t<View>>::value,
+          "`View` must model the View concept.");
+      return call_impl(std::forward<View>(xs),
+          std::make_index_sequence<sizeof...(Args)>{});
+  }
+  */
 
-    // clang-format off
+  // clang-format off
     template <class View>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -176,87 +168,79 @@ struct algorithm_impl : algorithm_base {
             std::forward<View>(xs),
             std::make_index_sequence<sizeof...(Args)>{});
     }
-    // clang-format on
+// clang-format on
 
 #undef FAKE_CALL_IMPL
 
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl(algorithm_impl const& other)
+  BOOST_STATIC_VIEWS_CONSTEXPR
+  algorithm_impl(algorithm_impl const &other)
 #if defined(BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_copy_constructible<Function>::value,
-            std::is_nothrow_copy_constructible<
-                wrapper<Args>>::value...))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
+          std::is_nothrow_copy_constructible<Function>::value,
+          std::is_nothrow_copy_constructible<wrapper<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_copy_constructible<Function>::value,
-            std::is_nothrow_copy_constructible<
-                std::tuple<wrapper<Args>...>>::value))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+          utils::all(std::is_nothrow_copy_constructible<Function>::value,
+                     std::is_nothrow_copy_constructible<
+                         std::tuple<wrapper<Args>...>>::value))
 #endif
-        : _func{other._func}, _args{other._args}
-    {
-    }
+      : _func{other._func}, _args{other._args} {
+  }
 
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl(algorithm_impl&& other)
+  BOOST_STATIC_VIEWS_CONSTEXPR
+  algorithm_impl(algorithm_impl &&other)
 #if defined(BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_move_constructible<Function>::value,
-            std::is_nothrow_move_constructible<
-                wrapper<Args>>::value...))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
+          std::is_nothrow_move_constructible<Function>::value,
+          std::is_nothrow_move_constructible<wrapper<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_move_constructible<Function>::value,
-            std::is_nothrow_move_constructible<
-                std::tuple<wrapper<Args>...>>::value))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+          utils::all(std::is_nothrow_move_constructible<Function>::value,
+                     std::is_nothrow_move_constructible<
+                         std::tuple<wrapper<Args>...>>::value))
 #endif
-        : _func{std::move(other._func)}, _args{std::move(other._args)}
-    {
-    }
+      : _func{std::move(other._func)}, _args{std::move(other._args)} {
+  }
 
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl& operator=(algorithm_impl const& other)
+  BOOST_STATIC_VIEWS_CONSTEXPR
+  algorithm_impl &operator=(algorithm_impl const &other)
 #if defined(BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_copy_assignable<Function>::value,
-            std::is_nothrow_copy_assignable<wrapper<Args>>::value...))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+          utils::all(std::is_nothrow_copy_assignable<Function>::value,
+                     std::is_nothrow_copy_assignable<wrapper<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_copy_assignable<Function>::value,
-            std::is_nothrow_copy_assignable<
-                std::tuple<wrapper<Args>...>>::value))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
+          std::is_nothrow_copy_assignable<Function>::value,
+          std::is_nothrow_copy_assignable<std::tuple<wrapper<Args>...>>::value))
 #endif
-    {
-        _func = other._func;
-        _args = other._args;
-        return *this;
-    }
+  {
+    _func = other._func;
+    _args = other._args;
+    return *this;
+  }
 
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl& operator=(algorithm_impl&& other)
+  BOOST_STATIC_VIEWS_CONSTEXPR
+  algorithm_impl &operator=(algorithm_impl &&other)
 #if defined(BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_move_assignable<Function>::value,
-            std::is_nothrow_move_assignable<wrapper<Args>>::value...))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+          utils::all(std::is_nothrow_move_assignable<Function>::value,
+                     std::is_nothrow_move_assignable<wrapper<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_move_assignable<Function>::value,
-            std::is_nothrow_move_assignable<
-                std::tuple<wrapper<Args>...>>::value))
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
+          std::is_nothrow_move_assignable<Function>::value,
+          std::is_nothrow_move_assignable<std::tuple<wrapper<Args>...>>::value))
 #endif
-    {
-        _func = std::move(other._func);
-        _args = std::move(other._args);
-        return *this;
-    }
+  {
+    _func = std::move(other._func);
+    _args = std::move(other._args);
+    return *this;
+  }
 
-    ~algorithm_impl() = default;
-
+  ~algorithm_impl() = default;
 };
 
-template <class Function>
-struct make_algorithm_impl {
-    // clang-format off
+template <class Function> struct make_algorithm_impl {
+  // clang-format off
     template <class... Args>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -274,19 +258,18 @@ struct make_algorithm_impl {
         return algorithm_impl<Function, Args&&...>(
             Function{}, make_wrapper(std::forward<Args>(args))...);
     }
-    // clang-format on
+  // clang-format on
 };
 
 } // namespace detail
 
-#define BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type, name)          \
-    inline namespace {                                               \
-        BOOST_STATIC_VIEWS_CONSTEXPR auto const& name =              \
-            ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const<           \
-                ::BOOST_STATIC_VIEWS_NAMESPACE::detail::             \
-                    make_algorithm_impl<type>>;                      \
-    }                                                                \
-    /**/
+#define BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type, name)                    \
+  inline namespace {                                                           \
+  BOOST_STATIC_VIEWS_CONSTEXPR auto const &name =                              \
+      ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const<                           \
+          ::BOOST_STATIC_VIEWS_NAMESPACE::detail::make_algorithm_impl<type>>;  \
+  } \
+/**/
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

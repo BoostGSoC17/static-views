@@ -8,15 +8,16 @@
 
 #include <functional>
 #include <type_traits>
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/detail/utils.hpp>
+
+#include "config.hpp"
+#include "utils.hpp"
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
 struct find_first_i_impl {
-    // clang-format off
+  // clang-format off
     template <class View, class Predicate>
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto operator()(View&& xs, Predicate&& p = Predicate{}) const
@@ -34,13 +35,12 @@ struct find_first_i_impl {
         }
         return i;
     }
-    // clang-format on
+  // clang-format on
 };
 
 } // namespace detail
 
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(
-    detail::find_first_i_impl, find_first_i)
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::find_first_i_impl, find_first_i)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

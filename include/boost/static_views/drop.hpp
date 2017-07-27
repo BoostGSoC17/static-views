@@ -13,11 +13,11 @@
 #include <algorithm>
 #include <type_traits>
 
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/detail/utils.hpp>
-#include <boost/static_views/algorithm_base.hpp>
-#include <boost/static_views/errors.hpp>
-#include <boost/static_views/view_base.hpp>
+#include "algorithm_base.hpp"
+#include "detail/config.hpp"
+#include "detail/utils.hpp"
+#include "errors.hpp"
+#include "view_base.hpp"
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -25,99 +25,92 @@ namespace detail {
 template <class View>
 struct drop_impl : view_adaptor_base<drop_impl<View>, View> {
 
-    static_assert(std::is_same<View, std::decay_t<View>>::value,
-        BOOST_STATIC_VIEWS_BUG_MESSAGE);
-    static_assert(
-        is_wrapper<View>::value, BOOST_STATIC_VIEWS_BUG_MESSAGE);
-    static_assert(detail::concepts::is_View<typename View::type>(),
-        "[INTERNAL] invalid use of drop_impl.");
+  static_assert(std::is_same<View, std::decay_t<View>>::value,
+                BOOST_STATIC_VIEWS_BUG_MESSAGE);
+  static_assert(is_wrapper<View>::value, BOOST_STATIC_VIEWS_BUG_MESSAGE);
+  static_assert(detail::concepts::is_View<typename View::type>(),
+                "[INTERNAL] invalid use of drop_impl.");
 
-    /// \brief Constructs a view of \p xs with the first \p b elements
-    /// dropped.
+  /// \brief Constructs a view of \p xs with the first \p b elements
+  /// dropped.
 
-    /// \tparam View
-    /// \verbatim embed:rst:leading-slashes
-    /// Wrapper around a view, i.e. ``typename View::type`` is a view
-    /// and
-    /// must model the :ref:`view <view-concept>` concept.
-    /// \endverbatim
-    /// \param xs Rvalue reference to a wrapper around a view.
-    /// \param b  Number of elements to drop. The resulting view will
-    ///           contain \f$ max(\text{xs.get().size()} - \text{b},
-    ///           0)\f$
-    ///           elements.
-    ///
-    /// \verbatim embed:rst:leading-slashes
-    /// .. note::
-    ///   It's annoying to have to specify the View template parameter
-    ///   all the time. For this reason a :cpp:var:`drop` factory
-    ///   function is provided. Use it instead to construct drop
-    ///   views.
-    /// \endverbatim
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR drop_impl(
-        View&& xs, std::size_t const b)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_constructible<
-                typename drop_impl::view_adaptor_base_type,
-                View&&>::value
-            // This is formally wrong, but come on, std::min(size_t,
-            // size_t)
-            // _should_ be noexcept.
-            // noexcept(std::min(std::declval<std::size_t>(),
-            //    std::declval<std::size_t>())),
-            ))
-        : drop_impl::view_adaptor_base_type{std::move(xs)}
-        , _b{std::min(this->parent().size(), b)}
-    {
-    }
+  /// \tparam View
+  /// \verbatim embed:rst:leading-slashes
+  /// Wrapper around a view, i.e. ``typename View::type`` is a view
+  /// and
+  /// must model the :ref:`view <view-concept>` concept.
+  /// \endverbatim
+  /// \param xs Rvalue reference to a wrapper around a view.
+  /// \param b  Number of elements to drop. The resulting view will
+  ///           contain \f$ max(\text{xs.get().size()} - \text{b},
+  ///           0)\f$
+  ///           elements.
+  ///
+  /// \verbatim embed:rst:leading-slashes
+  /// .. note::
+  ///   It's annoying to have to specify the View template parameter
+  ///   all the time. For this reason a :cpp:var:`drop` factory
+  ///   function is provided. Use it instead to construct drop
+  ///   views.
+  /// \endverbatim
+  explicit BOOST_STATIC_VIEWS_CONSTEXPR drop_impl(View &&xs,
+                                                  std::size_t const b)
+      BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+          utils::all(std::is_nothrow_constructible<
+                     typename drop_impl::view_adaptor_base_type, View &&>::value
+                     // This is formally wrong, but come on, std::min(size_t,
+                     // size_t)
+                     // _should_ be noexcept.
+                     // noexcept(std::min(std::declval<std::size_t>(),
+                     //    std::declval<std::size_t>())),
+                     ))
+      : drop_impl::view_adaptor_base_type{std::move(xs)},
+        _b{std::min(this->parent().size(), b)} {}
 
-    /// \brief Returns the number of elements viewed.
+  /// \brief Returns the number of elements viewed.
 
-    /// \verbatim embed:rst:leading-slashes
-    /// This function is required by the :ref:`view <view-concept>`
-    /// concept. It never fails unless a call to ``parent().size()``
-    /// fails.
-    /// \endverbatim
-    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
-    {
-        static_assert(noexcept(this->parent()),
-            "[INTERNAL] Why is parent() not noexcept?");
-        static_assert(
-            noexcept(std::declval<decltype(this->parent())>().size()),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        return this->parent().size() - _b;
-    }
+  /// \verbatim embed:rst:leading-slashes
+  /// This function is required by the :ref:`view <view-concept>`
+  /// concept. It never fails unless a call to ``parent().size()``
+  /// fails.
+  /// \endverbatim
+  BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept {
+    static_assert(noexcept(this->parent()),
+                  "[INTERNAL] Why is parent() not noexcept?");
+    static_assert(noexcept(std::declval<decltype(this->parent())>().size()),
+                  BOOST_STATIC_VIEWS_BUG_MESSAGE);
+    return this->parent().size() - _b;
+  }
 
-    /// \brief "Maps" index \p i to the corresponding index in the
-    /// parent
-    /// view.
+  /// \brief "Maps" index \p i to the corresponding index in the
+  /// parent
+  /// view.
 
-    /// Let `xs` be of type #drop_impl. The following relation then
-    /// holds
-    /// \f[
-    /// \text{xs}[i] = \text{xs.parent}()[\text{xs.map}(i)]\;,
-    ///     \forall i \in \{0, 1, \dots, \text{xs.size}()-1\}.
-    /// \f]
-    ///
-    /// If the condition `i < size()` is not satisfied, this function
-    /// throws an #out_of_bound exception.
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
-    {
-        return i < size() ? (_b + i)
-                          : ((void)make_out_of_bound_error(
-                                 "`i < size()` not satisfied."),
-                                _b + i);
-    }
+  /// Let `xs` be of type #drop_impl. The following relation then
+  /// holds
+  /// \f[
+  /// \text{xs}[i] = \text{xs.parent}()[\text{xs.map}(i)]\;,
+  ///     \forall i \in \{0, 1, \dots, \text{xs.size}()-1\}.
+  /// \f]
+  ///
+  /// If the condition `i < size()` is not satisfied, this function
+  /// throws an #out_of_bound exception.
+  BOOST_STATIC_VIEWS_FORCEINLINE
+  BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const {
+    return i < size()
+               ? (_b + i)
+               : ((void)make_out_of_bound_error("`i < size()` not satisfied."),
+                  _b + i);
+  }
 
-  private:
-    // friend struct
-    // BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access;
-    std::size_t _b;
+private:
+  // friend struct
+  // BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access;
+  std::size_t _b;
 };
 
 struct make_drop_impl {
-    // clang-format off
+  // clang-format off
     template <class View>
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto operator()(View&& xs, std::size_t const b) const
@@ -130,7 +123,7 @@ struct make_drop_impl {
         return drop_impl<std::decay_t<View>>{
             std::forward<View>(xs), b};
     }
-    // clang-format on
+  // clang-format on
 };
 } // end namespace detail
 
