@@ -22,10 +22,15 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 namespace detail {
 
 template <class Sequence,
-    class = std::enable_if_t<concepts::Sequence::test<
-        std::remove_cv_t<std::remove_reference_t<Sequence>>>()>>
+//    class = std::enable_if_t<concepts::Sequence::test<
+//        std::remove_cv_t<std::remove_reference_t<Sequence>>>()>>
 struct raw_view_impl : view_base {
 
+  private:
+    using sequence_type =
+        std::remove_const_t<std::remove_reference_t<Sequence>>;
+
+  public:
     /// \brief Constructs a view of \p xs.
 
     /// \tparam Sequence
@@ -159,8 +164,6 @@ struct raw_view_impl : view_base {
     */
 
   private:
-    using sequence_type =
-        std::remove_const_t<std::remove_reference_t<Sequence>>;
     Sequence* _xs;
 };
 

@@ -7,7 +7,14 @@ import testing ;
 
 
 run invoke.cpp ;
+
 run raw_view.cpp ;
+compile-fail raw_view_fail_1.cpp ;
+
+
 run drop.cpp ;
 run take.cpp ;
 run slice.cpp ;
+run wrapper.cpp ;
+run hashed.cpp ;
+explicit hashed ;

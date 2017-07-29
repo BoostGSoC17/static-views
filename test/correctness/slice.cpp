@@ -277,12 +277,14 @@ int main(void)
     static constexpr int  xs[] = {1, 2, 3, 4, 5};
     static constexpr auto v    = boost::static_views::raw_view(xs);
 
+    /*
     std::cout << boost::static_views::slice(1ul, 3ul)(v) << '\n';
     std::cout << boost::static_views::slice(1ul, 3ul)(v).parent()
               << '\n';
     std::cout << "1 --> "
               << boost::static_views::slice(1ul, 3ul)(v).map(1)
               << '\n';
+    */
 
     /*
     test_modify<5, 10>();
