@@ -7,7 +7,6 @@
 #include <cassert>
 #include <iostream>
 #include <utility>
-#include <boost/config.hpp>
 #include <boost/static_views/detail/config.hpp>
 #include <boost/static_views/raw_view.hpp>
 #include <boost/static_views/hashed.hpp>
@@ -184,13 +183,47 @@ void test2()
         &field::posix,
         &field::ntstatus);
 
-    static_assert(cmap[0] == static_cast<int>(0x80000001), "");
+    if (cmap[0] != static_cast<int>(0x80000001)) std::terminate();
     static_assert(cmap[EACCES] == static_cast<int>(0x80000002), "");
+
+}
+
+void test3()
+{
+    struct field {
+        char const* code;
+        char const* area;
+        double      latitude;
+        double      longitude;
+    };
+
+#if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
+// Use C++17 lambdas
+
+    static constexpr field table[] = {
+#include "../../example/phone_codes.txt"
+    };
+
+
+    constexpr std::size_t table_size = sizeof(table) / sizeof(table[0]);
+    constexpr auto        phone_codes =
+        boost::static_views::static_map::make_static_map<table_size,
+            5>(boost::static_views::raw_view(table), //
+            &field::code, &field::area, equal_c{});
+
+    if (!equal_c{}(phone_codes["01564"], "Lapworth")) std::terminate();
+    if (!equal_c{}(phone_codes["01706"], "Rochdale")) std::terminate();
+    if (!equal_c{}(phone_codes["028 82"], "Omagh")) std::terminate();
+
+#else
+#warning "C++17 only"
+#endif
 }
 
 int main(void)
 {
     test1();
     test2();
+    test3();
     return 0;
 }

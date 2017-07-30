@@ -22,251 +22,297 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
-template <class View> struct hasher_compat_checker {
-  template <class Hasher>
-  using call_t = decltype(
-      invoke(std::declval<Hasher const &>(),
-             std::declval<View const &>()[std::declval<std::size_t>()]));
+template <class View, class Hasher>
+struct Constrains {
 
-  template <class Hasher>
-  static constexpr auto is_compatible() noexcept -> bool {
-    return concepts::is_View<View>() &&
-           std::is_convertible<detected_t<call_t, Hasher>, std::size_t>::value;
-  }
+  private:
+    template <class H>
+    struct Impl {
+        template <class T>
+        using call_t = decltype(invoke(std::declval<H>(),
+            concepts::View::unsafe_at(
+                std::declval<T>(), std::declval<std::size_t>())));
 
-  template <class Hasher>
-  static constexpr auto assert_compatible() noexcept -> bool {
-    constexpr bool x = is_compatible<Hasher>();
-    static_assert(x, "`Hasher` must be a function that takes an element of "
-                     "`View` and returns a type convertible to size_t.");
-    return x;
-  }
+        BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_callable, T,
+            (is_detected<call_t, T>::value),
+            "`boost::static_views::hashed(hf)(xs)` requires hash "
+            "function `hf` to be callable with `xs[i]` as an "
+            "argument. This seems to be not the case here. Hence, "
+            "the error.");
+
+        BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_correct_return_type, T,
+            (std::is_convertible<detected_t<call_t, T>,
+                std::size_t>::value),
+            "`boost::static_views::hashed(hf)(xs)` requires the "
+            "return type of the hash function to be convertible to "
+            "`size_t`, i.e. `size_t hash = invoke(hf, xs[i]);` "
+            "should compile cleanly. This condition has, I'm afraid, "
+            "been violated. Hence, the error.");
+    };
+
+    using constrains = concepts::and_<concepts::View,
+        typename Impl<Hasher>::Is_callable,
+        typename Impl<Hasher>::Has_correct_return_type>;
+
+  public:
+    static constexpr auto test() noexcept -> bool
+    {
+        return constrains::template test<View>();
+    }
+
+    static constexpr auto check() noexcept -> bool
+    {
+        return constrains::template check<View>();
+    }
 };
 
-template <std::size_t BucketSize, std::size_t... Is> struct hashed_init_impl {
-  std::size_t storage[sizeof...(Is)];
+template <std::size_t BucketSize, std::size_t... Is>
+struct hashed_init_impl {
+    std::size_t storage[sizeof...(Is)];
 
-  // clang-format off
-    template <class View, class Hasher>
+    // clang-format off
+    template <class View, class Hasher,
+        class = std::enable_if_t<Constrains<View, Hasher>::test()>>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     explicit hashed_init_impl(View const& xs, Hasher const& h)
         : storage{((void)Is, hashed_init_impl::capacity())...}
     {
-        static_assert(hasher_compat_checker<View>::template
-                        is_compatible<Hasher>(),
-            "[INTERNAL] Invalid use of hashed_init_impl.");
-
         auto const size = xs.size();
         for (std::size_t i = 0; i < size; ++i) {
-            insert(i, bucket_size() * (invoke(h, xs[i]) % bucket_count()));
+            auto const hash = invoke(h, concepts::View::unsafe_at(xs, i));
+            insert(i, bucket_size() * (hash % bucket_count()));
         }
     }
-  // clang-format on
+    // clang-format on
 
-private:
-  static constexpr auto capacity() noexcept -> std::size_t {
-    static_assert(sizeof...(Is) > 0,
-                  "[INTERNAL] Invalid use of hashed_init_impl.");
-    return sizeof...(Is);
-  }
+  private:
+    static constexpr auto capacity() noexcept -> std::size_t
+    {
+        static_assert(sizeof...(Is) > 0,
+            "[INTERNAL] Invalid use of hashed_init_impl.");
+        return sizeof...(Is);
+    }
 
-  static constexpr auto bucket_size() noexcept -> std::size_t {
-    static_assert(BucketSize > 0,
-                  "[INTERNAL] Invalid use of hashed_init_impl.");
-    return BucketSize;
-  }
+    static constexpr auto bucket_size() noexcept -> std::size_t
+    {
+        static_assert(BucketSize > 0,
+            "[INTERNAL] Invalid use of hashed_init_impl.");
+        return BucketSize;
+    }
 
-  static constexpr auto bucket_count() noexcept -> std::size_t {
-    static_assert(sizeof...(Is) % bucket_size() == 0,
-                  "[INTERNAL] Invalid use of hashed_init_impl.");
-    return capacity() / bucket_size();
-  }
+    static constexpr auto bucket_count() noexcept -> std::size_t
+    {
+        static_assert(sizeof...(Is) % bucket_size() == 0,
+            "[INTERNAL] Invalid use of hashed_init_impl.");
+        return capacity() / bucket_size();
+    }
 
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  auto insert(std::size_t const i, std::size_t const guess) -> void {
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto insert(std::size_t const i, std::size_t const guess) -> void
+    {
 #if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
-    // We have C++17 constexpr lambdas
-    constexpr auto is_empty = [](auto const x) noexcept {
-      return x == hashed_init_impl::capacity();
-    };
+        // We have C++17 constexpr lambdas
+        constexpr auto is_empty = [](auto const x) noexcept
+        {
+            return x == hashed_init_impl::capacity();
+        };
 #else
-    struct is_empty_impl {
-      BOOST_STATIC_VIEWS_CONSTEXPR
-      auto operator()(std::size_t const x) const noexcept {
-        return x == hashed_init_impl::capacity();
-      }
-    };
-    constexpr is_empty_impl is_empty{};
+        struct is_empty_impl {
+            BOOST_STATIC_VIEWS_CONSTEXPR
+            auto operator()(std::size_t const x) const noexcept
+            {
+                return x == hashed_init_impl::capacity();
+            }
+        };
+        constexpr is_empty_impl is_empty{};
 #endif
 
-    auto const bucket = slice(guess, guess + bucket_size())(raw_view(storage));
-    auto const p = find_first_i(bucket, is_empty);
+        auto const bucket =
+            slice(guess, guess + bucket_size())(raw_view(storage));
+        auto const p = find_first_i(bucket, is_empty);
 
-    if (p != bucket_size()) {
-      storage[guess + p] = i;
-    } else {
-      make_full_bucket_error("Bucket is full.");
+        if (p != bucket_size()) {
+            storage[guess + p] = i;
+        }
+        else {
+            make_full_bucket_error("Bucket is full.");
+        }
     }
-  }
 };
 
 template <std::size_t BucketSize, class V, class H, std::size_t... Is>
-BOOST_STATIC_VIEWS_CONSTEXPR auto
-make_hashed_init_impl(V const &xs, H const &h,
-                      std::index_sequence<Is...> /*unused*/) {
-  return hashed_init_impl<BucketSize, Is...>{xs, h};
+BOOST_STATIC_VIEWS_CONSTEXPR auto make_hashed_init_impl(
+    V const& xs, H const& h, std::index_sequence<Is...> /*unused*/)
+{
+    return hashed_init_impl<BucketSize, Is...>{xs, h};
 }
 
-template <std::size_t BucketCount, std::size_t BucketSize, class V, class H>
-BOOST_STATIC_VIEWS_CONSTEXPR auto make_hashed_init_impl(V const &xs,
-                                                        H const &h) {
-  static_assert(std::numeric_limits<std::size_t>::max() / BucketCount >=
-                    BucketSize,
-                "[INTERNAL] Overflow detected.");
-  return make_hashed_init_impl<BucketSize>(
-      xs, h, std::make_index_sequence<BucketCount * BucketSize>{});
+template <std::size_t BucketCount, std::size_t BucketSize, class V,
+    class H>
+BOOST_STATIC_VIEWS_CONSTEXPR auto make_hashed_init_impl(
+    V const& xs, H const& h)
+{
+    static_assert(
+        std::numeric_limits<std::size_t>::max() / BucketCount
+            >= BucketSize,
+        "[INTERNAL] Overflow detected.");
+    return make_hashed_init_impl<BucketSize>(
+        xs, h, std::make_index_sequence<BucketCount * BucketSize>{});
 }
 
 template <std::size_t BucketCount, std::size_t BucketSize, class View,
-          class Hasher>
+    class Hasher>
 struct hashed_impl
-    : view_adaptor_base<hashed_impl<BucketCount, BucketSize, View, Hasher>,
-                        View> {
+    : view_adaptor_base<
+          hashed_impl<BucketCount, BucketSize, View, Hasher>, View> {
 
-private:
-  static_assert(BucketCount > 0, "[INTERNAL] Invalid use of hashed_impl.");
-  static_assert(BucketSize > 0, "[INTERNAL] Invalid use of hashed_impl.");
-  static_assert(is_wrapper<View>(), "[INTERNAL] Invalid use of hashed_impl.");
+  private:
 
-  using view_type = typename View::type;
+    using view_type = typename View::type;
 
-  static_assert(concepts::is_View<view_type>(),
-                "[INTERNAL] Invalid use of hashed_impl.");
-  static_assert(is_wrapper<Hasher>(), "[INTERNAL] Invalid use of hashed_impl.");
+    static_assert(is_wrapper<Hasher>(),
+        "[INTERNAL] Invalid use of hashed_impl.");
 
-  using hasher_type = typename Hasher::type;
+    using hasher_type = typename Hasher::type;
 
-  static_assert(
-      hasher_compat_checker<view_type>::template is_compatible<hasher_type>(),
-      "[INTERNAL] Invalid use of hashed_impl.");
+  public:
+    /// \brief Returns the number buckets.
+    static constexpr auto bucket_count() noexcept
+    {
+        static_assert(BucketCount > 0,
+            "[INTERNAL] Invalid use of hashed_impl.");
+        return BucketCount;
+    }
 
-public:
-  /// \brief Returns the number buckets.
-  static constexpr size_t bucket_count() noexcept { return BucketCount; }
+    /// \brief Returns the capacity of each bucket.
+    static constexpr auto bucket_size() noexcept
+    {
+        static_assert(
+            BucketSize > 0, "[INTERNAL] Invalid use of hashed_impl.");
+        return BucketSize;
+    }
 
-  /// \brief Returns the capacity of each bucket.
-  static constexpr size_t bucket_size() noexcept { return BucketSize; }
+    /// \brief Constructs a hashed view of \p xs using \p hf as a hash
+    /// function.
 
-  /// \brief Constructs a hashed view of \p xs using \p hf as a hash
-  /// function.
+    /// \tparam BucketCount
+    /// Number of buckets.
+    /// \tparam BucketSize
+    /// Capacity of each bucket.
+    /// \tparam View
+    /// \verbatim embed:rst:leading-slashes
+    /// Wrapper around a view, i.e. ``typename View::type`` is a view
+    /// and
+    /// must model the :ref:`view <view-concept>` concept.
+    /// \endverbatim
+    /// \param xs      Rvalue reference to a wrapper around a view.
+    /// \param hf      Hash function to use.
+    /// \param storage Array of indices initialised by
+    /// #hashed_init_impl.
+    ///
+    ///
+    /// \verbatim embed:rst:leading-slashes
+    /// .. note::
+    ///   This function requires an initialiser storage as an argument
+    ///   which
+    ///   is an implementation detail. This constructor is thus not
+    ///   meant to
+    ///   be used explicitly, use the :cpp:var:`hashed` factory
+    ///   function instead.
+    /// \endverbatim
+    template <std::size_t... Is>
+    BOOST_STATIC_VIEWS_CONSTEXPR hashed_impl(View&& xs, Hasher&& hf,
+        std::size_t (&storage)[hashed_impl::bucket_count()
+                               * hashed_impl::bucket_size()],
+        std::index_sequence<Is...> /*unused*/)
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
+            std::is_nothrow_constructible<
+                typename hashed_impl::view_adaptor_base_type,
+                View&&>::value,
+            std::is_nothrow_move_constructible<Hasher>::value))
+        : hashed_impl::view_adaptor_base_type{std::move(xs)}
+        , _hf{std::move(hf)}
+        , _storage{storage[Is]...}
+    {
+    }
 
-  /// \tparam BucketCount
-  /// Number of buckets.
-  /// \tparam BucketSize
-  /// Capacity of each bucket.
-  /// \tparam View
-  /// \verbatim embed:rst:leading-slashes
-  /// Wrapper around a view, i.e. ``typename View::type`` is a view
-  /// and
-  /// must model the :ref:`view <view-concept>` concept.
-  /// \endverbatim
-  /// \param xs      Rvalue reference to a wrapper around a view.
-  /// \param hf      Hash function to use.
-  /// \param storage Array of indices initialised by
-  /// #hashed_init_impl.
-  ///
-  ///
-  /// \verbatim embed:rst:leading-slashes
-  /// .. note::
-  ///   This function requires an initialiser storage as an argument
-  ///   which
-  ///   is an implementation detail. This constructor is thus not
-  ///   meant to
-  ///   be used explicitly, use the :cpp:var:`hashed` factory
-  ///   function instead.
-  /// \endverbatim
-  template <std::size_t... Is>
-  BOOST_STATIC_VIEWS_CONSTEXPR hashed_impl(
-      View &&xs, Hasher &&hf,
-      std::size_t (
-          &storage)[hashed_impl::bucket_count() * hashed_impl::bucket_size()],
-      std::index_sequence<Is...> /*unused*/)
-      BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-          std::is_nothrow_constructible<
-              typename hashed_impl::view_adaptor_base_type, View &&>::value,
-          std::is_nothrow_move_constructible<std::decay_t<Hasher>>::value))
-      : hashed_impl::view_adaptor_base_type{std::move(xs)}, _hf{std::move(hf)},
-        _storage{storage[Is]...} {}
+    /// \brief Returns the capacity of the view.
 
-  /// \brief Returns the capacity of the view.
+    /// \verbatim embed:rst:leading-slashes
+    /// This function is required by the :ref:`view <view-concept>`
+    /// concept. Hashed view is a view of buckets rather than
+    /// individual elements. This function is thus equivalent to
+    /// :cpp:func:`bucket_count()
+    /// <detail::hashed_impl::bucket_count()>`.
+    /// \endverbatim
+    static constexpr auto capacity() noexcept
+    {
+        return bucket_count();
+    }
 
-  /// \verbatim embed:rst:leading-slashes
-  /// This function is required by the :ref:`view <view-concept>`
-  /// concept. Hashed view is a view of buckets rather than
-  /// individual elements. This function is thus equivalent to
-  /// :cpp:func:`bucket_count()
-  /// <detail::hashed_impl::bucket_count()>`.
-  /// \endverbatim
-  static constexpr auto capacity() noexcept { return bucket_count(); }
+    /// \brief Returns a reference to the hash function.
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO hash_function() const noexcept
+    {
+        static_assert(noexcept(_hf.get()),
+            "[INTERNAL] hashed_impl assumes that _hf has a noexcept "
+            "get().");
+        return _hf.get();
+    }
 
-  /// \brief Returns a reference to the hash function.
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  BOOST_STATIC_VIEWS_DECLTYPE_AUTO hash_function() const noexcept {
-    static_assert(noexcept(_hf.get()),
-                  "[INTERNAL] hashed_impl assumes that _hf has a noexcept "
-                  "get().");
-    return _hf.get();
-  }
+    /// \brief Returns the bucket corresponding to \p hash.
 
-  /// \brief Returns the bucket corresponding to \p hash.
-
-  /// \verbatim embed:rst:leading-slashes
-  /// This function is required by the :ref:`view <view-concept>`
-  /// concept. It returns a view of elements that have hash
-  /// ``hash``. If there are no such elements, the returned view
-  /// will have size zero. \endverbatim
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  auto operator[](std::size_t const hash) const
-  // noexcept /* TODO add specifiers */
-  {
+    /// \verbatim embed:rst:leading-slashes
+    /// This function is required by the :ref:`view <view-concept>`
+    /// concept. It returns a view of elements that have hash
+    /// ``hash``. If there are no such elements, the returned view
+    /// will have size zero. \endverbatim
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator[](std::size_t const hash) const
+    // noexcept /* TODO add specifiers */
+    {
 #if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
-    constexpr auto is_empty = [](auto const x) noexcept {
-      return x == bucket_count() * bucket_size();
-    };
+        constexpr auto is_empty = [](auto const x) noexcept
+        {
+            return x == bucket_count() * bucket_size();
+        };
 #else
-    struct is_empty_impl {
-      BOOST_STATIC_VIEWS_CONSTEXPR
-      auto operator()(std::size_t const x) const noexcept {
-        return x == bucket_count() * bucket_size();
-      }
-    };
-    constexpr is_empty_impl is_empty{};
+        struct is_empty_impl {
+            BOOST_STATIC_VIEWS_CONSTEXPR
+            auto operator()(std::size_t const x) const noexcept
+            {
+                return x == bucket_count() * bucket_size();
+            }
+        };
+        constexpr is_empty_impl is_empty{};
 #endif
-    auto const i = bucket_size() * (hash % bucket_count());
-    auto const n =
-        find_first_i(slice(i, i + bucket_size())(raw_view(_storage)), is_empty);
-    return through(slice(i, i + n)(raw_view(_storage)))(this->parent());
-  }
+        auto const i = bucket_size() * (hash % bucket_count());
+        auto const n = find_first_i(
+            slice(i, i + bucket_size())(raw_view(_storage)),
+            is_empty);
+        return through(slice(i, i + n)(raw_view(_storage)))(
+            this->parent());
+    }
 
-private:
-  Hasher _hf;
-  std::size_t _storage[bucket_count() * bucket_size()];
+  private:
+    Hasher      _hf;
+    std::size_t _storage[bucket_count() * bucket_size()];
 };
 
 template <std::size_t BucketCount, std::size_t BucketSize>
 struct make_hashed_impl {
 
-  static_assert(BucketCount > 0,
-                "`boost::static_views::hashed<BucketCount, BucketSize>` "
-                "requires BucketCount to be greater than zero.");
-  static_assert(BucketCount > 0,
-                "`boost::static_views::hashed<BucketCount, BucketSize>` "
-                "requires BucketSize to be greater than zero.");
+    static_assert(BucketCount > 0,
+        "`boost::static_views::hashed<BucketCount, BucketSize>` "
+        "requires BucketCount to be greater than zero.");
+    static_assert(BucketCount > 0,
+        "`boost::static_views::hashed<BucketCount, BucketSize>` "
+        "requires BucketSize to be greater than zero.");
 
-  // clang-format off
+    // clang-format off
     template <class View, class Hasher>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -275,9 +321,8 @@ struct make_hashed_impl {
         static_assert(is_wrapper<std::decay_t<View>>::value,
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
         using view_type = typename std::decay_t<View>::type;
-        concepts::assert_View<view_type>();
-        detail::hasher_compat_checker<view_type>::template
-            assert_compatible<std::decay_t<Hasher>>();
+        concepts::View::check<view_type>();
+        Constrains<view_type, std::decay_t<Hasher>>::check();
 
         auto init = detail::make_hashed_init_impl<
             BucketCount, BucketSize>(xs.get(), hf);
@@ -288,7 +333,7 @@ struct make_hashed_impl {
             init.storage,
             std::make_index_sequence<BucketCount * BucketSize>{}};
     }
-  // clang-format on
+    // clang-format on
 };
 } // end namespace detail
 
@@ -323,7 +368,7 @@ constexpr auto hashed = implementation detail;
 #else
 inline namespace {
 template <std::size_t BucketCount, std::size_t BucketSize>
-BOOST_STATIC_VIEWS_CONSTEXPR auto const &hashed =
+BOOST_STATIC_VIEWS_CONSTEXPR auto const& hashed =
     ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const<
         ::BOOST_STATIC_VIEWS_NAMESPACE::detail::make_algorithm_impl<
             detail::make_hashed_impl<BucketCount, BucketSize>>>;

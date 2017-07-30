@@ -44,6 +44,8 @@
 // Noreturn
 #define BOOST_STATIC_VIEWS_NORETURN BOOST_NORETURN
 
+#define BOOST_STATIC_VIEWS_JOIN(X, Y) BOOST_JOIN(X, Y)
+
 #else
 //////////////////////////////////////////////////////////////////////////////
 // No Boost --> do everything manually
@@ -96,7 +98,14 @@
 // clang-format on
 #endif
 
-#endif
+// Borrowed from Boost.Config
+#define BOOST_STATIC_VIEWS_JOIN(X, Y)                                \
+    BOOST_STATIC_VIEWS_DO_JOIN1(X, Y)
+#define BOOST_STATIC_VIEWS_DO_JOIN1(X, Y)                            \
+    BOOST_STATIC_VIEWS_DO_JOIN2(X, Y)
+#define BOOST_STATIC_VIEWS_DO_JOIN2(X, Y) X##Y
+
+#endif // use Boost.Config
 
 // Easily turn off constexpr-ness to add some debug output, for
 // example.
@@ -123,6 +132,10 @@
     "library! Please, be so kind to submit here "                    \
     "https://github.com/BoostGSoC17/static-views/issues."
 
+
+
+
+
 #if defined(DOXYGEN_IN_HOUSE)
 // It's a bad idea to let Doxygen try deduce noexcept-ness.
 #define BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)                          \
@@ -140,20 +153,17 @@
 #define BOOST_STATIC_VIEWS_DECLTYPE_AUTO decltype(auto)
 #endif
 
-#if 1
-#if defined(DOXYGEN_IN_HOUSE)
-#define BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(...)                 \
-    noexcept(whenever possible) { return (__VA_ARGS__); }            \
-/**/
-#else
-// If a function body is just a return-statement, we can deduce the
-// noexcept-ness automatically. This idea taken from range-v3.
-#define BOOST_STATIC_VIEWS_AUTO_RETURN_NOEXCEPT(...)                 \
-    noexcept(noexcept(__VA_ARGS__)) { return (__VA_ARGS__); }        \
-    /**/
-
-#endif
-#endif
+// Automatic noexcept deduction + trailing return type + body creation
+#define BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN(...)             \
+    BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(__VA_ARGS__))            \
+        ->decltype(__VA_ARGS__)                                      \
+    {                                                                \
+        return (__VA_ARGS__);                                        \
+    }                                                                \
+    /* This is needed to make clang-format think we've just */       \
+    /* declared a function. It then doesn't that annoying   */       \
+    /* extra indent. */                                              \
+    static_assert(true, "")
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
