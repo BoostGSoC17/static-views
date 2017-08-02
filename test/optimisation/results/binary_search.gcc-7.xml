@@ -7,9 +7,9 @@
   </status>
   <opcodes count=0>
 <![CDATA[
-  400ec0:	f3 c3                	repz retq
-  400ec2:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
-  400ecc:	0f 1f 40 00          	nopl   0x0(%rax)
+  400f40:	f3 c3                	repz retq
+  400f42:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  400f4c:	0f 1f 40 00          	nopl   0x0(%rax)
 ]]>
   </opcodes>
 </testcase>
