@@ -62,7 +62,7 @@ project
     ;
 
 
-alias static_views_tests : correctness optimisation ;
+alias static_views_tests : headers correctness optimisation ;
 
 alias minimal : static_views_tests ;
 alias ful     : static_views_tests ;

@@ -6,11 +6,11 @@
 #ifndef BOOST_STATIC_VIEWS_DETAIL_FIND_FIRST_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_FIND_FIRST_HPP
 
+#include "../view_base.hpp"
+#include "config.hpp"
+#include "utils.hpp"
 #include <functional>
 #include <type_traits>
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/detail/utils.hpp>
-#include <boost/static_views/view_base.hpp> // new
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -38,16 +38,19 @@ struct find_first_i_impl {
             BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_callable, T,
                 (is_detected<has_call_t, T>::value),
                 "`boost::static_views::detail::find_first_i(xs, p)` "
-                "requires `p` to be callable with `xs`' element type. "
-                "This condition has, I'm afraid, been violated. Hence, "
+                "requires `p` to be callable with `xs`' element "
+                "type. "
+                "This condition has, I'm afraid, been violated. "
+                "Hence, "
                 "the error.");
 
-            BOOST_STATIC_VIEWS_DEFINE_CHECK(Call_has_correct_return_type,
-                T,
+            BOOST_STATIC_VIEWS_DEFINE_CHECK(
+                Call_has_correct_return_type, T,
                 (std::is_convertible<detected_t<has_call_t, T>,
                     bool>::value),
                 "`boost::static_views::detail::find_first_i(xs, p)` "
-                "requires `p(xs[i])` to return something convertible to "
+                "requires `p(xs[i])` to return something convertible "
+                "to "
                 "`bool`. That's, unfortunately, not the case here. "
                 "Hence, the error.");
 
@@ -61,7 +64,8 @@ struct find_first_i_impl {
             static constexpr auto check() noexcept -> bool
             {
                 return concepts::and_<concepts::View, Is_callable,
-                    Call_has_correct_return_type>::template check<T>();
+                    Call_has_correct_return_type>::
+                    template check<T>();
             }
         };
 

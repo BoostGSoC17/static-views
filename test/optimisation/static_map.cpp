@@ -8,16 +8,17 @@
 #include <iostream>
 #include <utility>
 #include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/raw_view.hpp>
 #include <boost/static_views/hashed.hpp>
+#include <boost/static_views/raw_view.hpp>
 
 struct equal_c {
 
     template <class T>
-    using equal_t = decltype( std::declval<T>() == std::declval<T>() );
+    using equal_t = decltype(std::declval<T>() == std::declval<T>());
 
     template <class T>
-    using not_equal_t = decltype( std::declval<T>() != std::declval<T>() );
+    using not_equal_t =
+        decltype(std::declval<T>() != std::declval<T>());
 
     template <class Char>
     BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
@@ -79,7 +80,7 @@ void test1()
             {5, "apple"}, {8, "pear"}, {0, "banana"}};
 
 #if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
-// Use C++17 lambdas
+        // Use C++17 lambdas
         constexpr auto cmap =
             boost::static_views::static_map::make_static_map<10, 1>(
                 boost::static_views::raw_view(map_data),
@@ -88,14 +89,16 @@ void test1()
 #else
         struct get_key {
             constexpr decltype(auto) operator()(
-                std::pair<int const, char const*> const& x) const noexcept
+                std::pair<int const, char const*> const& x) const
+                noexcept
             {
                 return x.first;
             }
         };
         struct get_mapped {
             constexpr decltype(auto) operator()(
-                std::pair<int const, char const*> const& x) const noexcept
+                std::pair<int const, char const*> const& x) const
+                noexcept
             {
                 return x.second;
             }
@@ -157,9 +160,9 @@ void test2()
 {
     // from Niall's ntkernel-error-category
     struct field {
-        int ntstatus;
-        int win32;
-        int posix;
+        int         ntstatus;
+        int         win32;
+        int         posix;
         char const* message;
     };
 
@@ -177,15 +180,14 @@ void test2()
             "reached."}};
 
     // Notice the use of pointers to member data!
-    constexpr auto cmap = boost::static_views::static_map::make_static_map<5, 3>(
-        /* error_codes,*/ // produces a static_assert-failure
-        boost::static_views::raw_view(error_codes),
-        &field::posix,
-        &field::ntstatus);
+    constexpr auto cmap =
+        boost::static_views::static_map::make_static_map<5, 3>(
+            /* error_codes,*/ // produces a static_assert-failure
+            boost::static_views::raw_view(error_codes), &field::posix,
+            &field::ntstatus);
 
     if (cmap[0] != static_cast<int>(0x80000001)) std::terminate();
     static_assert(cmap[EACCES] == static_cast<int>(0x80000002), "");
-
 }
 
 void test3()
@@ -198,21 +200,23 @@ void test3()
     };
 
 #if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
-// Use C++17 lambdas
+    // Use C++17 lambdas
 
     static constexpr field table[] = {
 #include "../../example/phone_codes.txt"
     };
 
-
-    constexpr std::size_t table_size = sizeof(table) / sizeof(table[0]);
-    constexpr auto        phone_codes =
+    constexpr std::size_t table_size =
+        sizeof(table) / sizeof(table[0]);
+    constexpr auto phone_codes =
         boost::static_views::static_map::make_static_map<table_size,
             5>(boost::static_views::raw_view(table), //
             &field::code, &field::area, equal_c{});
 
-    if (!equal_c{}(phone_codes["01564"], "Lapworth")) std::terminate();
-    if (!equal_c{}(phone_codes["01706"], "Rochdale")) std::terminate();
+    if (!equal_c{}(phone_codes["01564"], "Lapworth"))
+        std::terminate();
+    if (!equal_c{}(phone_codes["01706"], "Rochdale"))
+        std::terminate();
     if (!equal_c{}(phone_codes["028 82"], "Omagh")) std::terminate();
 
 #else

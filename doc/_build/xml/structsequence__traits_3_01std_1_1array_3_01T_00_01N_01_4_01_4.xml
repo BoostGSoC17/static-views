@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structsequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>sequence_traits&lt; std::array&lt; T, N &gt; &gt;</compoundname>
+    <includes refid="sequence__traits_8hpp" local="no">sequence_traits.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+      <param>
+        <type>std::size_t</type>
+        <declname>N</declname>
+        <defname>N</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structsequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4_1a689267075adbebde7b69e73721edadb0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto sequence_traits&lt; std::array&lt; T, N &gt; &gt;::extent</definition>
+        <argsstring>() noexcept -&gt; std::ptrdiff_t</argsstring>
+        <name>extent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="148" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="148" bodyend="155"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Specialisation of <ref refid="structsequence__traits" kindref="compound">sequence_traits</ref> for std::array. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="143" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="143" bodyend="156"/>
+    <listofallmembers>
+      <member refid="structsequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4_1a689267075adbebde7b69e73721edadb0" prot="public" virt="non-virtual"><scope>sequence_traits&lt; std::array&lt; T, N &gt; &gt;</scope><name>extent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -39,6 +39,7 @@
     </xsd:sequence>
     <xsd:attribute name="id" type="xsd:string" />
     <xsd:attribute name="kind" type="DoxCompoundKind" />
+    <xsd:attribute name="language" type="DoxLanguage" use="optional"/>
     <xsd:attribute name="prot" type="DoxProtectionKind" />
     <xsd:attribute name="final" type="DoxBool" use="optional"/>
     <xsd:attribute name="sealed" type="DoxBool" use="optional"/>
@@ -148,6 +149,7 @@
     <xsd:attribute name="const" type="DoxBool" use="optional"/>
     <xsd:attribute name="explicit" type="DoxBool" use="optional"/>
     <xsd:attribute name="inline" type="DoxBool" use="optional"/>
+    <xsd:attribute name="refqual" type="DoxRefQualifierKind" use="optional"/>
     <xsd:attribute name="virt" type="DoxVirtualKind" use="optional"/>
     <xsd:attribute name="volatile" type="DoxBool" use="optional"/>
     <xsd:attribute name="mutable" type="DoxBool" use="optional"/>
@@ -219,6 +221,7 @@
       <xsd:element name="defname" minOccurs="0" />
       <xsd:element name="array" minOccurs="0" />
       <xsd:element name="defval" type="linkedTextType" minOccurs="0" />
+      <xsd:element name="typeconstraint" type="linkedTextType" minOccurs="0" />
       <xsd:element name="briefdescription" type="descriptionType" minOccurs="0" />
     </xsd:sequence>
   </xsd:complexType>
@@ -546,7 +549,7 @@
       <xsd:element name="oline" type="docEmptyType" />
       <xsd:element name="frasl" type="docEmptyType" />
       <xsd:element name="weierp" type="docEmptyType" />
-      <xsd:element name="image" type="docEmptyType" />
+      <xsd:element name="imaginary" type="docEmptyType" />
       <xsd:element name="real" type="docEmptyType" />
       <xsd:element name="trademark" type="docEmptyType" />
       <xsd:element name="alefsym" type="docEmptyType" />
@@ -638,7 +641,7 @@
       <xsd:element name="lsaquo" type="docEmptyType" />
       <xsd:element name="rsaquo" type="docEmptyType" />
       <xsd:element name="euro" type="docEmptyType" />
-      <xsd:element name="trademark" type="docEmptyType" />
+      <xsd:element name="tm" type="docEmptyType" />
     </xsd:choice>
   </xsd:group>
 
@@ -896,6 +899,7 @@
       <xsd:enumeration value="public-inheritance" />
       <xsd:enumeration value="protected-inheritance" />
       <xsd:enumeration value="private-inheritance" />
+      <xsd:enumeration value="type-constraint" />
     </xsd:restriction>
   </xsd:simpleType>
 
@@ -931,6 +935,34 @@
       <xsd:enumeration value="protected" />
       <xsd:enumeration value="private" />
       <xsd:enumeration value="package" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="DoxRefQualifierKind">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="lvalue" />
+      <xsd:enumeration value="rvalue" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="DoxLanguage">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Unknown" />
+      <xsd:enumeration value="IDL" />
+      <xsd:enumeration value="Java" />
+      <xsd:enumeration value="C#" />
+      <xsd:enumeration value="D" />
+      <xsd:enumeration value="PHP" />
+      <xsd:enumeration value="Objective-C" />
+      <xsd:enumeration value="C++" />
+      <xsd:enumeration value="Javascript" />
+      <xsd:enumeration value="Python" />
+      <xsd:enumeration value="Fortran" />
+      <xsd:enumeration value="VHDL" />
+      <xsd:enumeration value="XML" />
+      <xsd:enumeration value="SQL" />
+      <xsd:enumeration value="Tcl" />
+      <xsd:enumeration value="Markdown" />
     </xsd:restriction>
   </xsd:simpleType>
 

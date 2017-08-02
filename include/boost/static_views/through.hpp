@@ -6,11 +6,10 @@
 #ifndef BOOST_STATIC_VIEWS_THROUGH_HPP
 #define BOOST_STATIC_VIEWS_THROUGH_HPP
 
+#include "algorithm_base.hpp"
+#include "detail/config.hpp"
+#include "view_base.hpp"
 #include <type_traits>
-
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/algorithm_base.hpp>
-#include <boost/static_views/view_base.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -72,9 +71,9 @@ struct through_impl
     /// concept. It just calls ``capacity()`` on the proxy view. This
     /// function never fails.
     /// \endverbatim
-    static constexpr auto capacity() noexcept
+    static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
-        return Proxy::type::capacity();
+        return Proxy::type::extent();
     }
 
     /// \brief Returns the number of elements viewed.
@@ -104,8 +103,8 @@ struct through_impl
     ///     \f$\forall i \in \{0, 1, \dots,
     ///     \text{proxy.size}()-1\}.\f$
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            concepts::View::unsafe_at(
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(concepts::View::unsafe_at(
                 std::declval<Proxy const&>().get(),
                 std::declval<std::size_t>()))) -> std::size_t
     {
@@ -125,13 +124,32 @@ struct make_through_impl {
     auto operator()(View&& xs, Proxy&& proxy) const
     BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
     (
-        through_impl<std::decay_t<View>, std::decay_t<
-            decltype(make_wrapper(std::forward<Proxy>(proxy)))>>{
+        through_impl<std::decay_t<View>,
+            decltype(make_wrapper(std::forward<Proxy>(proxy).get()))>{
                 std::forward<View>(xs),
-                make_wrapper(std::forward<Proxy>(proxy))}
+                make_wrapper(std::forward<Proxy>(proxy).get())}
     );
     // clang-format on
 };
+
+struct make_through_algo_impl {
+    // clang-format off
+    template <class Proxy>
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(Proxy&& proxy) const
+    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+    (
+        algorithm(make_through_impl{},
+            make_wrapper(std::forward<Proxy>(proxy)))
+        /*
+        algorithm_impl<make_through_impl,
+            decltype(make_wrapper(std::forward<Proxy>(proxy)))>{
+            make_through_impl{}, make_wrapper(std::forward<Proxy>(proxy))}*/
+    );
+    // clang-format on
+};
+
 } // end namespace detail
 
 /// \brief A functor for creating "through views"
@@ -156,8 +174,8 @@ struct make_through_impl {
 ///   concept.
 ///
 /// \endverbatim
-BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(
-    detail::make_through_impl, through)
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(
+    detail::make_through_algo_impl, through)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

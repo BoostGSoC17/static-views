@@ -6,9 +6,9 @@
 #ifndef BOOST_STATIC_VIEWS_LFOLD_HPP
 #define BOOST_STATIC_VIEWS_LFOLD_HPP
 
+#include "detail/config.hpp"
 #include <functional>
 #include <type_traits>
-#include <boost/static_views/detail/config.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 

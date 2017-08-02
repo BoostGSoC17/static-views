@@ -3,16 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-// Implementation of boost::static_views::invoke. It is a BOOST_STATIC_VIEWS_CONSTEXPR
+// Implementation of boost::static_views::invoke. It is a
+// BOOST_STATIC_VIEWS_CONSTEXPR
 
 // equivalent of std::invoke.
 
 #ifndef BOOST_STATIC_VIEWS_DETAIL_INVOKE_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_INVOKE_HPP
 
+#include "config.hpp"
 #include <functional>
 #include <type_traits>
-#include <boost/static_views/detail/config.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 

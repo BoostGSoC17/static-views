@@ -1,27 +1,82 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
-  <compounddef id="structsequence__traits" kind="struct" prot="public">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structsequence__traits" kind="struct" language="C++" prot="public">
     <compoundname>sequence_traits</compoundname>
     <includes refid="sequence__traits_8hpp" local="no">sequence_traits.hpp</includes>
     <templateparamlist>
       <param>
-        <type>class Sequence</type>
+        <type>class T</type>
       </param>
     </templateparamlist>
     <briefdescription>
-<para>Proxy through which StaticViews functions access sequences. </para>    </briefdescription>
+<para>A proxy through which functions access sequences. </para>    </briefdescription>
     <detaileddescription>
-<para><programlisting><codeline><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Sequence&gt;<sp/></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structsequence__traits" kindref="compound">sequence_traits</ref><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>type<sp/>=<sp/>Sequence;</highlight></codeline>
-<codeline><highlight class="normal"><sp/></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>std::size_t<sp/>size()<sp/>noexcept;</highlight></codeline>
-<codeline><highlight class="normal"><sp/></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>template<sp/>&lt;class<sp/>S&gt;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>static<sp/>constexpr<sp/>reference<sp/>at(S&amp;&amp;<sp/>xs,<sp/>std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i)<sp/>noexcept;</highlight></codeline>
-<codeline><highlight class="normal">};</highlight></codeline>
-</programlisting> </para>    </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="31" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="31" bodyend="-1"/>
+<para><verbatim>embed:rst:leading-slashes
+///
+/// :ref:`As mentioned &lt;sequence-concept&gt;` earlier, sequences are
+/// homogeneous collections with random random access to elements.
+/// Sequences of length known at compile-time are called *static
+/// sequences*. Sequences of unknown (at compile-time) length are,
+/// obviously, called *dynamic sequences*. The distinction is made
+/// using the property called *extent* which is similar to the
+/// ``Extent`` template parameter in the |std::span proposal|_.
+///
+/// .. |std::span proposal| replace:: ``std::span`` proposal
+/// .. _std::span proposal: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0122r4.pdf
+///
+/// :cpp:class:`sequence_traits` provides a uniform interface for
+/// working with sequences. A general :cpp:class:`sequence_traits`
+/// declaration may look like this:
+///
+/// .. code-block:: cpp
+///
+///   namespace boost {
+///   namespace static_views {
+///
+///   template &lt;class T&gt;
+///   struct sequence_traits {
+///       static constexpr auto size(T const&amp;)
+///           noexcept -&gt;std::size_t;
+///
+///       static constexpr auto extent()
+///           noexcept -&gt;std::ptrdiff_t;
+///
+///       static constexpr auto at(T&amp;, std::size_t)
+///           noexcept -&gt;reference;
+///
+///       static constexpr auto at(T const&amp;, std::size_t)
+///           noexcept -&gt;const_reference;
+///   };
+///
+///   } // namespace static_views
+///   } // namespace boost
+///
+/// To make a type ``T`` model
+/// the :ref:`sequence &lt;sequence-concept&gt;` concept one only needs to
+/// specialise :cpp:class:`sequence_traits` for ``T``.
+///
+/// * Elements are accessed by calling
+///   ``sequence_traits&lt;T&gt;::at(xs, i)`` with a (const) reference to
+///   ``T`` ``xs`` and index ``i``. ``at()`` must furthermore be
+///   ``static`` and ``noexcept``.
+///
+/// * Extent is detemined by calling ``sequence_traits&lt;T&gt;::extent()``.
+///   It should be ``static``, ``noexcept``, and have return type
+///   convertible to ``std::ptrdiff_t``. If the size of ``T`` is known
+///   at compile-time, ``extent()`` should return it. Otherwise, a
+///   special value :cpp:var:`dynamic_extent` should be returned.
+///
+/// * Number of elements in a sequence ``xs`` is determined by calling
+///   ``sequence_traits&lt;T&gt;::size(xs)``. ``size()`` must be ``static``,
+///   ``noexcept``, and have return type convertible to
+///   ``std::size_t``. Furthermore it it assumed that if
+///   ``sequence_traits&lt;T&gt;::extent()`` returns a non-negative number,
+///   calling ``size`` with any sequence of type ``T`` will return the
+///   same result.
+///
+///
+/// </verbatim> </para>    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="89" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="89" bodyend="-1"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

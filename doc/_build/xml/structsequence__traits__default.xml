@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structsequence__traits__default" kind="struct" language="C++" prot="public">
+    <compoundname>sequence_traits_default</compoundname>
+    <includes refid="sequence__traits_8hpp" local="no">sequence_traits.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structsequence__traits__default_1a86b747efb28f93c77eb1d09257898a1a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class S</type>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto) constexpr</type>
+        <definition>static decltype(auto) constexpr sequence_traits_default&lt; T &gt;::at</definition>
+        <argsstring>(S &amp;&amp;xs, std::size_t i) noexcept</argsstring>
+        <name>at</name>
+        <param>
+          <type>S &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="98" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="98" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="structsequence__traits__default_1a4ca1624dc8a4426cba45ebd29fc5691a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto sequence_traits_default&lt; T &gt;::size</definition>
+        <argsstring>(T const &amp;xs) noexcept -&gt; std::size_t</argsstring>
+        <name>size</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="105" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="105" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="structsequence__traits__default_1a94f4c409b0f3d029510e189e3b855d28" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto sequence_traits_default&lt; T &gt;::extent</definition>
+        <argsstring>() noexcept -&gt; std::ptrdiff_t</argsstring>
+        <name>extent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="111" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="111" bodyend="114"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="96" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="96" bodyend="115"/>
+    <listofallmembers>
+      <member refid="structsequence__traits__default_1a86b747efb28f93c77eb1d09257898a1a" prot="public" virt="non-virtual"><scope>sequence_traits_default</scope><name>at</name></member>
+      <member refid="structsequence__traits__default_1a94f4c409b0f3d029510e189e3b855d28" prot="public" virt="non-virtual"><scope>sequence_traits_default</scope><name>extent</name></member>
+      <member refid="structsequence__traits__default_1a4ca1624dc8a4426cba45ebd29fc5691a" prot="public" virt="non-virtual"><scope>sequence_traits_default</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

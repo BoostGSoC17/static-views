@@ -114,7 +114,7 @@
 /// \brief Chooses whether to ignore the actual noexcept-ness of
 /// std::tuple implementstion and make some reasonable assumptions
 /// instead.
-// #define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
+#define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
 
 // Boost.StaticViews namespace
 #define BOOST_STATIC_VIEWS_NAMESPACE boost::static_views
@@ -131,10 +131,6 @@
     "Congratulations, you've found a bug in the StaticViews "        \
     "library! Please, be so kind to submit here "                    \
     "https://github.com/BoostGSoC17/static-views/issues."
-
-
-
-
 
 #if defined(DOXYGEN_IN_HOUSE)
 // It's a bad idea to let Doxygen try deduce noexcept-ness.

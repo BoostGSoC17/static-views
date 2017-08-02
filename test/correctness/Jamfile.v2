@@ -8,13 +8,35 @@ import testing ;
 
 run invoke.cpp ;
 
-run raw_view.cpp ;
-compile-fail raw_view_fail_1.cpp ;
+alias "raw_view" :
+    [ run raw_view_pass.cpp ]
+    [ compile-fail raw_view_fail_1.cpp ]
+    [ compile-fail raw_view_fail_2.cpp ]
+    [ compile-fail raw_view_fail_3.cpp ]
+    [ compile-fail raw_view_fail_4.cpp ]
+    [ compile-fail raw_view_fail_5.cpp ]
+    [ compile-fail raw_view_fail_6.cpp ]
+    [ compile-fail raw_view_fail_7.cpp ]
+    ;
 
+alias "drop_view" :
+    [ run drop_pass.cpp ]
+    [ compile-fail drop_fail_1.cpp ]
+    [ compile-fail drop_fail_2.cpp ]
+    ;
 
-run drop.cpp ;
-run take.cpp ;
-run slice.cpp ;
+alias "take_view" :
+    [ run take_pass.cpp ]
+    [ compile-fail take_fail_1.cpp ]
+    [ compile-fail take_fail_2.cpp ]
+    ;
+
+alias "slice_view" :
+    [ run slice_pass.cpp ]
+    [ compile-fail slice_fail_1.cpp ]
+    [ compile-fail slice_fail_2.cpp ]
+    ;
+
 run wrapper.cpp ;
 run hashed.cpp ;
 explicit hashed ;

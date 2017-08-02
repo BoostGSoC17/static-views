@@ -1,0 +1,61 @@
+{#
+    boost/layout.html
+    ~~~~~~~~~~~~~~~~~
+
+    Master layout template for Sphinx-based boost themes.
+
+    :copyright: Copyright 2016 by Paul Fultz II
+    :copyright: Copyright 2017 by Tom Westerhout
+    :license: Boost
+#}
+
+{%- extends "basic/layout.html" %}
+
+{% block header %}
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" {%- if logo %}src="{{ pathto('_static/' + logo, 1) }}"{% else %}src="{{ pathto('_static/boost-proposed.png', 1) }}"{% endif %}></td>
+</tr></table>
+{% endblock %}
+
+{% block relbar1 %}
+<div class="spirit-nav">
+<a accesskey="p"  {% if prev %}href="{{ prev.link|e }}"{% endif %}><img src="{{ pathto('_static/prev.png', 1) }}" alt="Prev"></a>
+<a accesskey="u" {% if parents and parents|length > 0 %}href="{{ parents[0].link|e }}"{% else %}href="{{ pathto(master_doc) }}"{% endif %}><img src="{{ pathto('_static/up.png', 1) }}" alt="Up"></a>
+<a accesskey="h" href="{{ pathto(master_doc) }}"><img src="{{ pathto('_static/home.png', 1) }}" alt="Home"></a>
+<a accesskey="n"  {% if next %}href="{{ next.link|e }}"{% endif %}><img src="{{ pathto('_static/next.png', 1) }}" alt="Next"></a>
+</div>
+{% endblock %}
+
+{% block relbar2 %}{% endblock %}
+{% block sidebar2 %}{% endblock %}
+
+{%- block document %}
+  <div class="chapter">
+      <div class="body" role="main">
+        {% block body %} {% endblock %}
+      </div>
+  </div>
+{%- endblock %}
+
+{%- block footer %}
+    <div class="footer" role="contentinfo">
+    <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+    <td align="left"></td>
+    <td align="right"><div class="copyright-footer">
+        {%- if show_copyright %}
+            {% trans copyright=copyright|e %}&#169; Copyright {{ copyright }}.{% endtrans %}
+        {% endif %}
+        {%- if last_updated %}
+          {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+        {%- endif %}
+        {%- if show_sphinx %}
+          {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx-doc.org/">Sphinx</a> {{ sphinx_version }}.{% endtrans %}
+        {%- endif %}
+          <p>Distributed under the Boost Software License, Version 1.0.
+          (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
+          <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+          </p>
+    </div></td>
+    </tr></table>
+    </div>
+{%- endblock %}

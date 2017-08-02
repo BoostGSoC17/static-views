@@ -21,9 +21,6 @@
 #define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #endif
 
-
-
-
 /*
 template <class T, std::size_t N, std::size_t... Is, std::size_t...
 Js> auto create_impl(std::index_sequence<Is...>,

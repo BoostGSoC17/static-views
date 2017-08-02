@@ -88,7 +88,7 @@ measures memory usage as a function of time. Although we can only get the
 measurable bump in memory usage. Here's an example of compiling some code
 with GCC:
 
-.. image:: pictures/memory-time.png
+.. image:: _static/pictures/memory-time.png
 
 It makes little sense to compile a single file. What we're really
 interested in is how memory usage scales with input size. To accomplish

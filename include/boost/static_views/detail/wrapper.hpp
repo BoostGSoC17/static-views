@@ -8,9 +8,9 @@
 #ifndef BOOST_STATIC_VIEWS_DETAIL_WRAPPER_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_WRAPPER_HPP
 
+#include "config.hpp"
+#include "invoke.hpp"
 #include <type_traits>
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/detail/invoke.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -18,26 +18,35 @@ namespace detail {
 
 /// \brief Wraps an lvalue or an rvalue reference.
 
-/// This is basically a `constexpr` version of
-/// `std::reference_wrapper`. The difference is that #detail::wrapper
-/// can wrap both lvalue and rvalue references. This is just syntactic
-/// sugar.
+// clang-format off
+/// \verbatim embed:rst:leading-slashes
+/// This is basically a ``constexpr`` version of
+/// |reference_wrapper|_. The difference is that
+/// :cpp:class:`detail::wrapper` can wrap both lvalue and rvalue
+/// references. This is just syntactic sugar.
 ///
-/// \code{.cpp}
-/// template <class T>
-/// struct wrapper {
-///     constexpr auto get() const& noexcept(whenever possible);
-///     constexpr auto get() &      noexcept(whenever possible);
-///     constexpr auto get() &&     noexcept(whenever possible);
+/// .. |reference_wrapper| replace:: ``std::reference_wrapper``
+/// .. _reference_wrapper: http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
 ///
-///     template <class... Args>
-///     constexpr auto operator() (Args&&...) const
-///         noexcept(whenever possible);
-/// };
-/// \endcode
+/// .. code-block:: cpp
 ///
-/// Constructors are intentionally not listed. Use make_wrapper(T&&)
-/// to create wrappers.
+///   template <class T>
+///   struct wrapper {
+///       ... // copy and move constructors/assignment operators
+///
+///       constexpr auto get() const& noexcept(whenever possible);
+///       constexpr auto get() &      noexcept(whenever possible);
+///       constexpr auto get() &&     noexcept(whenever possible);
+///
+///       template <class... Args>
+///       constexpr auto operator() (Args&&...) const
+///           noexcept(whenever possible);
+///   };
+///
+/// Constructors are intentionally not listed. Use
+/// :cpp:var:`make_wrapper(T&&) <make_wrapper>` to create wrappers.
+/// \endverbatim
+// clang-format on
 template <class T>
 struct wrapper;
 
@@ -133,8 +142,7 @@ struct wrapper<T&&> {
     BOOST_STATIC_VIEWS_CONSTEXPR wrapper& operator=(wrapper &&)     = default;
     // clang-format on
 
-
-#if 0 // defined(BOOST_STATIC_VIEWS_GCC)
+#if 0 // defined(BOOST_STATIC_VIEWS_GCC) // Doesn't help anymore...
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto get() const & BOOST_STATIC_VIEWS_NOEXCEPT_IF(
@@ -223,12 +231,10 @@ struct wrapper<T&&> {
     */
     // clang-format on
 
-
   private:
     T _payload;
 };
 /// \endcond
-
 
 struct make_wrapper_impl {
 
@@ -288,17 +294,22 @@ struct make_wrapper_impl {
     // clang-format on
 };
 
-
-
 } // end namespace detail
 
-/// \brief Makes a wrapper around an rvalue or lvalue reference.
-
-/// Creates a #detail::wrapper of `T&` or `T&&` depending on the type
-/// of `x`.
 // clang-format off
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_wrapper_impl, make_wrapper)
-
+/// \verbatim embed:rst:leading-slashes
+/// .. math::
+///
+///   \textit{make_wrapper}: \text{U} \to \text{Wrapper}
+///
+/// Creates a :cpp:class:`detail::wrapper` of an lvalue reference when
+/// ``U = T&`` for some type ``T`` or an rvalue reference when ``U ==
+/// T&&``. If ``U = T&&``, ``T`` is required to be
+/// `MoveConstructible <http://en.cppreference.com/w/cpp/concept/MoveConstructible>`_.
+/// \endverbatim
+// clang-format on
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(
+    detail::make_wrapper_impl, make_wrapper)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

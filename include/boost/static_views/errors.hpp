@@ -6,8 +6,8 @@
 #ifndef BOOST_STATIC_VIEWS_ERRORS_HPP
 #define BOOST_STATIC_VIEWS_ERRORS_HPP
 
+#include "detail/config.hpp"
 #include <exception>
-#include <boost/static_views/detail/config.hpp>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 

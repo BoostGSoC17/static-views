@@ -1,0 +1,431 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="namespaceconcepts_1_1sequence" kind="namespace" language="C++">
+    <compoundname>concepts::sequence</compoundname>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespaceconcepts_1_1sequence_1a8b846f63eb7c60f4a0f09cbe5c538dbd" prot="public" static="no">
+        <type>decltype(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;{})</type>
+        <definition>using concepts::sequence::has_sequence_traits_spec_t = typedef decltype(sequence_traits&lt;T&gt;{})</definition>
+        <argsstring></argsstring>
+        <name>has_sequence_traits_spec_t</name>
+        <briefdescription>
+<para>Helper trait to determine whether a specialisation of <ref refid="structsequence__traits" kindref="compound">sequence_traits</ref> for <computeroutput>T</computeroutput> exists. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="164" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceconcepts_1_1sequence_1a662e9138b35be2e6fba09846af308fcf" prot="public" static="no">
+        <type>decltype(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;::extent())</type>
+        <definition>using concepts::sequence::has_extent_t = typedef decltype(sequence_traits&lt;T&gt;::extent())</definition>
+        <argsstring></argsstring>
+        <name>has_extent_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="189" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceconcepts_1_1sequence_1a6c8b6054c80c4f4a234401f88b1fa0aa" prot="public" static="no">
+        <type>decltype(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;::size(std::declval&lt; T const  &amp; &gt;()))</type>
+        <definition>using concepts::sequence::has_size_t = typedef decltype(sequence_traits&lt;T&gt;::size(std::declval&lt;T const&amp;&gt;()))</definition>
+        <argsstring></argsstring>
+        <name>has_size_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="213" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceconcepts_1_1sequence_1ac47dc96338027415201772286b626cc7" prot="public" static="no">
+        <type>decltype(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;::at(std::declval&lt; T &gt;(), std::declval&lt; std::size_t &gt;()))</type>
+        <definition>using concepts::sequence::has_at_t = typedef decltype(sequence_traits&lt;T&gt;::at( std::declval&lt;T&gt;(), std::declval&lt;std::size_t&gt;()))</definition>
+        <argsstring></argsstring>
+        <name>has_at_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="239" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" prot="public" static="no">
+        <type><ref refid="structconcepts_1_1and__" kindref="compound">and_</ref>&lt; Has_sequence_traits_specialisation, <ref refid="structconcepts_1_1all__" kindref="compound">all_</ref>&lt; <ref refid="structconcepts_1_1and__" kindref="compound">and_</ref>&lt; Has_extent, Has_correct_return_type_extent, Is_noexcept_extent &gt;, <ref refid="structconcepts_1_1and__" kindref="compound">and_</ref>&lt; Has_at, Is_noexcept_at &gt;, <ref refid="structconcepts_1_1and__" kindref="compound">and_</ref>&lt; Has_size, Has_correct_return_type_size, Is_noexcept_size &gt; &gt; &gt;</type>
+        <definition>using concepts::sequence::Sequence = typedef and_&lt; Has_sequence_traits_specialisation, all_&lt; and_&lt; Has_extent, Has_correct_return_type_extent, Is_noexcept_extent &gt;, and_&lt; Has_at, Is_noexcept_at &gt;, and_&lt; Has_size, Has_correct_return_type_size, Is_noexcept_size &gt; &gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>Sequence</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="263" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceconcepts_1_1sequence_1ac885e153694bd757488fb73092f8fe77" prot="public" static="no">
+        <type><ref refid="structconcepts_1_1and__" kindref="compound">and_</ref>&lt; <ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref>, Has_fixed_size &gt;</type>
+        <definition>using concepts::sequence::StaticSequence = typedef and_&lt; Sequence, Has_fixed_size &gt;</definition>
+        <argsstring></argsstring>
+        <name>StaticSequence</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="284" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1aa7264e54ba43d065ec5813b582f88d6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_sequence_traits_specialisation, T,(is_detected&lt; has_sequence_traits_spec_t, T &gt;::value), &quot;There exists no specialisation of &quot; &quot;`boost::static_views::sequence_traits` for type `T`. &quot; &quot;Availability of it is, unfortunately, required &quot; &quot;by the Sequence concept. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_sequence_traits_specialisation</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceconcepts_1_1sequence_1a8b846f63eb7c60f4a0f09cbe5c538dbd" kindref="member">has_sequence_traits_spec_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;There exists no specialisation of &quot; &quot;`boost::static_views::sequence_traits` for type `T`. &quot; &quot;Availability of it</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required &quot; &quot;by the <ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="166" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1a4ae1b168f87cb4a1296a8530b6b5de6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_extent, T,(is_detected&lt; has_extent_t, T &gt;::value), &quot;`boost::static_views::sequence_traits&lt;T&gt;` has no &quot; &quot;static member function `extent()`. Availability of &quot; &quot;it is, unfortunately, required by the Sequence concept. &quot; &quot;Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_extent</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceconcepts_1_1sequence_1a662e9138b35be2e6fba09846af308fcf" kindref="member">has_extent_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`boost::static_views::sequence_traits&lt;T&gt;` has no &quot; &quot;static member function `extent()`. Availability of &quot; &quot;it</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required by the <ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref> concept. &quot; &quot;</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="191" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1a9c4db7c272a58c781e5f2437425eee3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_correct_return_type_extent, T,(std::is_convertible&lt; detected_t&lt; has_extent_t, T &gt;, std::ptrdiff_t &gt;::value), &quot;Return type of &quot; &quot;`boost::static_views::sequence_traits&lt;T&gt;::extent()` is &quot; &quot;not convertible to ptrdiff_t. According to the &quot; &quot;Sequence concept, it should be. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_correct_return_type_extent</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(std::is_convertible&lt; detected_t&lt; <ref refid="namespaceconcepts_1_1sequence_1a662e9138b35be2e6fba09846af308fcf" kindref="member">has_extent_t</ref>, T &gt;, std::ptrdiff_t &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;Return type of &quot; &quot;`boost::static_views::sequence_traits&lt;T&gt;::extent()` is &quot; &quot;not convertible to ptrdiff_t. According to the &quot; &quot;<ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref></type>
+          <declname>concept</declname>
+        </param>
+        <param>
+          <type>it should be.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="198" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1a335988e9d2ca6eb53bfc584e5dd4531c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_noexcept_extent, T,(noexcept(sequence_traits&lt; T &gt;::extent())), &quot;`boost::static_views::sequence_traits&lt;T&gt;::size()` is &quot; &quot;not noexcept. It should be though, according to the &quot; &quot;Sequence concept. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_noexcept_extent</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(noexcept(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;::extent()))</type>
+        </param>
+        <param>
+          <type>&quot;`boost::static_views::sequence_traits&lt;T&gt;::size()` is &quot; &quot;not noexcept. It should be</type>
+          <declname>though</declname>
+        </param>
+        <param>
+          <type>according to the &quot; &quot;<ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="206" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1a246414d648496b71506c307df2628858" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_size, T,(is_detected&lt; has_size_t, T &gt;::value), &quot;`boost::static_views::sequence_traits&lt;T&gt;` has no &quot; &quot;static member function `size(T const&amp;)`. Availability of &quot; &quot;it is, unfortunately, required by the Sequence concept. &quot; &quot;Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_size</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceconcepts_1_1sequence_1a6c8b6054c80c4f4a234401f88b1fa0aa" kindref="member">has_size_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`boost::static_views::sequence_traits&lt;T&gt;` has no &quot; &quot;static member function `size(T const&amp;)`. Availability of &quot; &quot;it</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required by the <ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref> concept. &quot; &quot;</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="216" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1a598ca9e0028a568d909060c804db613d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_correct_return_type_size, T,(std::is_convertible&lt; detected_t&lt; has_size_t, T &gt;, std::size_t &gt;::value), &quot;Return type of &quot; &quot;`boost::static_views::sequence_traits&lt;T&gt;::size(T const&amp;)` &quot; &quot;is not convertible to size_t. According to the &quot; &quot;Sequence concept, it should be. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_correct_return_type_size</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(std::is_convertible&lt; detected_t&lt; <ref refid="namespaceconcepts_1_1sequence_1a6c8b6054c80c4f4a234401f88b1fa0aa" kindref="member">has_size_t</ref>, T &gt;, std::size_t &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;Return type of &quot; &quot;`boost::static_views::sequence_traits&lt;T&gt;::size(T const&amp;)` &quot; &quot;is not convertible to size_t. According to the &quot; &quot;<ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref></type>
+          <declname>concept</declname>
+        </param>
+        <param>
+          <type>it should be.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="223" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1ade249387dd0ca74e2af492c2ee806e05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_noexcept_size, T,(noexcept(sequence_traits&lt; T &gt;::size(std::declval&lt; T const &amp;&gt;()))), &quot;`boost::static_views::sequence_traits&lt;T&gt;::size(T const&amp;)` &quot; &quot;is not noexcept. It should be though, according to the &quot; &quot;Sequence concept. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_noexcept_size</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(noexcept(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;::size(std::declval&lt; T const &amp; &gt;())))</type>
+        </param>
+        <param>
+          <type>&quot;`boost::static_views::sequence_traits&lt;T&gt;::size(T const&amp;)` &quot; &quot;is not noexcept. It should be</type>
+          <declname>though</declname>
+        </param>
+        <param>
+          <type>according to the &quot; &quot;<ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="231" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1ae77eb4b491208aae3636ad89bc4761cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_at, T,(is_detected&lt; has_at_t, T &gt;::value), &quot;`boost::static_views::sequence_traits&lt;T&gt;` has no &quot; &quot;static member function `at(T, size_t)`. &quot; &quot;Availability of it is, unfortunately, required by &quot; &quot;the Sequence concept. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_at</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceconcepts_1_1sequence_1ac47dc96338027415201772286b626cc7" kindref="member">has_at_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`boost::static_views::sequence_traits&lt;T&gt;` has no &quot; &quot;static member function `at(T, size_t)`. &quot; &quot;Availability of it</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required by &quot; &quot;the <ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="242" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1a7ed5b16dd7b19df469bc4ca76e767410" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_noexcept_at, T,(noexcept(sequence_traits&lt; T &gt;::at(std::declval&lt; T &gt;(), std::declval&lt; std::size_t &gt;()))), &quot;`boost::static_views::sequence_traits&lt;T&gt;::at(T, size_t)` &quot; &quot;is not noexcept. It should be though, according to the &quot; &quot;Sequence concept. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_noexcept_at</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(noexcept(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;::at(std::declval&lt; T &gt;(), std::declval&lt; std::size_t &gt;())))</type>
+        </param>
+        <param>
+          <type>&quot;`boost::static_views::sequence_traits&lt;T&gt;::at(T, size_t)` &quot; &quot;is not noexcept. It should be</type>
+          <declname>though</declname>
+        </param>
+        <param>
+          <type>according to the &quot; &quot;<ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="249" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconcepts_1_1sequence_1ac1796bb6d910c851fb271610298ced97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>concepts::sequence::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_fixed_size, T,(sequence_traits&lt; T &gt;::extent() &gt;=0), &quot;`boost::static_views::sequence_traits&lt;T&gt;::extent() should &quot; &quot;return a non-negative number. It does not. Hence, the &quot; &quot;error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_fixed_size</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(<ref refid="structsequence__traits" kindref="compound">sequence_traits</ref>&lt; T &gt;::extent() &gt;=0)</type>
+        </param>
+        <param>
+          <type>&quot;`boost::static_views::sequence_traits&lt;T&gt;::extent() should &quot; &quot;return a non-negative number. It does not.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the &quot; &quot;error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="256" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="159" column="1"/>
+  </compounddef>
+</doxygen>

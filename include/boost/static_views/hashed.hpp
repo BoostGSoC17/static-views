@@ -6,16 +6,16 @@
 #ifndef BOOST_STATIC_VIEWS_HASHED_HPP
 #define BOOST_STATIC_VIEWS_HASHED_HPP
 
-#include <type_traits>
+#include "algorithm_base.hpp"
+#include "detail/config.hpp"
+#include "detail/find_first.hpp"
+#include "detail/invoke.hpp"
+#include "raw_view.hpp"
+#include "slice.hpp"
+#include "through.hpp"
+#include "view_base.hpp"
 #include <limits>
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/detail/find_first.hpp>
-#include <boost/static_views/detail/invoke.hpp>
-#include <boost/static_views/algorithm_base.hpp>
-#include <boost/static_views/raw_view.hpp>
-#include <boost/static_views/slice.hpp>
-#include <boost/static_views/through.hpp>
-#include <boost/static_views/view_base.hpp>
+#include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -168,7 +168,6 @@ struct hashed_impl
           hashed_impl<BucketCount, BucketSize, View, Hasher>, View> {
 
   private:
-
     using view_type = typename View::type;
 
     static_assert(is_wrapper<Hasher>(),
@@ -246,9 +245,9 @@ struct hashed_impl
     /// :cpp:func:`bucket_count()
     /// <detail::hashed_impl::bucket_count()>`.
     /// \endverbatim
-    static constexpr auto capacity() noexcept
+    static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
-        return bucket_count();
+        return static_cast<std::ptrdiff_t>(bucket_count());
     }
 
     /// \brief Returns a reference to the hash function.
@@ -296,6 +295,15 @@ struct hashed_impl
             this->parent());
     }
 
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto unsafe_at(std::size_t const hash) const noexcept
+    {
+        auto const i = bucket_size() * (hash % bucket_count());
+        return through(slice(i, i + bucket_size())(
+            raw_view(_storage)))(this->parent());
+    }
+
   private:
     Hasher      _hf;
     std::size_t _storage[bucket_count() * bucket_size()];
@@ -319,21 +327,43 @@ struct make_hashed_impl {
     {
         static_assert(is_wrapper<std::decay_t<View>>::value,
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        static_assert(is_wrapper<std::decay_t<Hasher>>::value,
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
         using view_type = typename std::decay_t<View>::type;
+        using hasher_type = typename std::decay_t<Hasher>::type;
         concepts::View::check<view_type>();
-        Constrains<view_type, std::decay_t<Hasher>>::check();
+        Constrains<view_type, hasher_type>::check();
 
+        auto const& xs_ref = xs.get();
+        auto const& hf_ref = hf.get();
         auto init = detail::make_hashed_init_impl<
-            BucketCount, BucketSize>(xs.get(), hf);
-        auto hasher = make_wrapper(std::forward<Hasher>(hf));
+            BucketCount, BucketSize>(xs_ref, hf_ref);
         return detail::hashed_impl<BucketCount, BucketSize,
-            std::decay_t<View>, decltype(hasher)>{
-            std::forward<View>(xs), std::move(hasher),
+            std::decay_t<View>,
+            decltype(make_wrapper(std::forward<Hasher>(hf).get()))>{
+            std::forward<View>(xs),
+            make_wrapper(std::forward<Hasher>(hf).get()),
             init.storage,
             std::make_index_sequence<BucketCount * BucketSize>{}};
     }
     // clang-format on
 };
+
+template <std::size_t BucketCount, std::size_t BucketSize>
+struct make_hashed_algo_impl {
+    template <class Hasher>
+    BOOST_STATIC_VIEWS_FORCEINLINE BOOST_STATIC_VIEWS_CONSTEXPR auto
+                                   operator()(Hasher&& hf) const
+    {
+        return algorithm(make_hashed_impl<BucketCount, BucketSize>{},
+            make_wrapper(std::forward<Hasher>(hf)));
+        /*
+            decltype(make_wrapper(std::forward<Proxy>(proxy)))>{
+            make_through_impl{},
+           make_wrapper(std::forward<Proxy>(proxy))}*/
+    }
+};
+
 } // end namespace detail
 
 /// \brief A functor for creating "hashed views"
@@ -369,8 +399,7 @@ inline namespace {
 template <std::size_t BucketCount, std::size_t BucketSize>
 BOOST_STATIC_VIEWS_CONSTEXPR auto const& hashed =
     ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const<
-        ::BOOST_STATIC_VIEWS_NAMESPACE::detail::make_algorithm_impl<
-            detail::make_hashed_impl<BucketCount, BucketSize>>>;
+        detail::make_hashed_algo_impl<BucketCount, BucketSize>>;
 } // anonymous namespace
 #endif
 
