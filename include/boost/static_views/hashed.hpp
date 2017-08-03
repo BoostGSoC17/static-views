@@ -175,6 +175,10 @@ struct hashed_impl
 
     using hasher_type = typename Hasher::type;
 
+    using value_type = std::remove_reference_t<decltype(
+        std::declval<view_type const&>().unsafe_at(
+            std::declval<std::size_t>()))>;
+
   public:
     /// \brief Returns the number buckets.
     static constexpr auto bucket_count() noexcept
@@ -192,6 +196,15 @@ struct hashed_impl
         return BucketSize;
     }
 
+  private:
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    static auto empty(std::size_t const x) noexcept -> bool
+    {
+        return x == bucket_count() * bucket_size();
+    }
+
+  public:
     /// \brief Constructs a hashed view of \p xs using \p hf as a hash
     /// function.
 
@@ -302,6 +315,29 @@ struct hashed_impl
         auto const i = bucket_size() * (hash % bucket_count());
         return through(slice(i, i + bucket_size())(
             raw_view(_storage)))(this->parent());
+    }
+
+    template <class Predicate>
+    BOOST_STATIC_VIEWS_FORCEINLINE   //
+        BOOST_STATIC_VIEWS_CONSTEXPR //
+        auto
+        lookup(std::size_t h, Predicate&& p) const noexcept
+        -> value_type*
+    {
+        auto const bucket =
+            slice(h, h + bucket_size())(raw_view(_storage));
+
+        for (std::size_t i = 0;
+             (i < bucket_size()) && !empty(bucket.unsafe_at(i));
+             ++i) {
+
+            auto const* const x =
+                &this->parent().unsafe_at(bucket.unsafe_at(i));
+            if (invoke(p, *x)) {
+                return x;
+            }
+        }
+        return nullptr;
     }
 
   private:

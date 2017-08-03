@@ -399,16 +399,21 @@ namespace detail {
             struct pred_equal {
                 key_getter const& get_key;
                 key_equal const&  equal;
-                key_type const&   x;
+                key_type const&   key;
 
-                BOOST_STATIC_VIEWS_CONSTEXPR
-                auto operator()(value_type const& y) -> bool
+                BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
+                    value_type const& y) -> bool
                 {
-                    return boost::static_views::invoke(equal, x,
-                        boost::static_views::invoke(get_key, y));
+                    return invoke(equal, key, invoke(get_key, y));
                 }
             };
 
+            auto const hash = view_type::bucket_size()
+                              * (invoke(_hash_function(), k)
+                                    % view_type::bucket_count());
+            return this->lookup(
+                hash, pred_equal{this->key(), this->equal(), k});
+            /*
             // get all elements matching key k
             auto const                               ys =
                 static_cast<view_type const*>(this)->operator[](
@@ -417,7 +422,8 @@ namespace detail {
             auto const i = boost::static_views::find_first_i(
                 ys, pred_equal{this->key(), this->equal(), k});
 
-            return (i < ys.size()) ? &(ys[i]) : nullptr;
+            return (i < ys.size()) ? &(ys.unsafe_at(i)) : nullptr;
+            */
         }
 
       public:

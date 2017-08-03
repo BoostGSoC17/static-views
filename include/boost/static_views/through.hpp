@@ -103,12 +103,17 @@ struct through_impl
     ///     \f$\forall i \in \{0, 1, \dots,
     ///     \text{proxy.size}()-1\}.\f$
     BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
+        noexcept
+    /*
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             noexcept(concepts::View::unsafe_at(
                 std::declval<Proxy const&>().get(),
                 std::declval<std::size_t>()))) -> std::size_t
+    */
     {
-        return concepts::View::unsafe_at(_proxy.get(), i);
+        static_assert(noexcept(_proxy.get().unsafe_at(i)), "");
+        return _proxy.get().unsafe_at(
+            i); // concepts::View::unsafe_at(_proxy.get(), i);
     }
 
   private:

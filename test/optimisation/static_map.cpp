@@ -156,7 +156,7 @@ void test1()
     }
 }
 
-void test2()
+void test2(int argc)
 {
     // from Niall's ntkernel-error-category
     struct field {
@@ -166,28 +166,18 @@ void test2()
         char const* message;
     };
 
-    static constexpr field error_codes[] = {
-        {static_cast<int>(0x80000001), static_cast<int>(0x0), 0,
-            "{EXCEPTION}\nGuard Page Exception\nA page of memory "
-            "that marks the end of a data structure, such as a stack "
-            "or an array, has been accessed."},
-        {static_cast<int>(0x80000002), static_cast<int>(0x3e6),
-            EACCES,
-            "{EXCEPTION}\nAlignment Fault\nA datatype misalignment "
-            "was detected in a load or store instruction."},
-        {static_cast<int>(0x80000003), static_cast<int>(0x0), 0,
-            "{EXCEPTION}\nBreakpoint\nA breakpoint has been "
-            "reached."}};
+    static constexpr field data[] = {
+#include "../../example/ntkernel-table.ipp"
+    };
+    static constexpr auto table = boost::static_views::raw_view(data);
 
-    // Notice the use of pointers to member data!
-    constexpr auto cmap =
-        boost::static_views::static_map::make_static_map<5, 3>(
-            /* error_codes,*/ // produces a static_assert-failure
-            boost::static_views::raw_view(error_codes), &field::posix,
-            &field::ntstatus);
+    constexpr auto ntstatus_to_message_map =
+        boost::static_views::static_map::make_static_map<
+            2 * table.size(), 2>(
+            table, &field::ntstatus, &field::message);
 
-    if (cmap[0] != static_cast<int>(0x80000001)) std::terminate();
-    static_assert(cmap[EACCES] == static_cast<int>(0x80000002), "");
+    auto const* x = ntstatus_to_message_map.find(argc);
+    if (x == nullptr) std::terminate();
 }
 
 void test3()
@@ -198,9 +188,6 @@ void test3()
         double      latitude;
         double      longitude;
     };
-
-#if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
-    // Use C++17 lambdas
 
     static constexpr field table[] = {
 #include "../../example/phone_codes.txt"
@@ -218,16 +205,12 @@ void test3()
     if (!equal_c{}(phone_codes["01706"], "Rochdale"))
         std::terminate();
     if (!equal_c{}(phone_codes["028 82"], "Omagh")) std::terminate();
-
-#else
-#warning "C++17 only"
-#endif
 }
 
-int main(void)
+int main(int argc, char** /*unused*/)
 {
     test1();
-    test2();
+    test2(argc);
     test3();
     return 0;
 }
