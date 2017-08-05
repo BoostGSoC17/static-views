@@ -25,13 +25,13 @@ local boost-root ;
 local .gcc-warnings = -W -Wall -Wextra -pedantic -Wcast-align 
                       -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization 
                       -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs 
-                      -Wno-noexcept
-                      -Wno-noexcept-type
                       -Woverloaded-virtual -Wredundant-decls
                       -Wshadow -Wsign-promo -Wstrict-null-sentinel
                       -Wstrict-overflow=5
                       -Wvariadic-macros 
                       -Wparentheses 
+                      -Wno-noexcept
+                      -Wno-noexcept-type
                     ;
 
 local .clang-warnings = -W -Weverything
@@ -42,8 +42,8 @@ local .clang-warnings = -W -Weverything
                         -Wno-documentation
                         -Wno-missing-prototypes
                         -Wno-missing-variable-declarations
-                        -Wno-undef
-                        -Wno-old-style-cast
+                        # -Wno-undef
+                        # -Wno-old-style-cast
                         -Wno-padded 
                         -Wno-weak-vtables ;
 
@@ -62,7 +62,7 @@ project
     ;
 
 
-alias static_views_tests : correctness optimisation ;
+alias static_views_tests : headers correctness optimisation ;
 
 alias minimal : static_views_tests ;
 alias ful     : static_views_tests ;

@@ -8,7 +8,7 @@
     
     <title>Welcome to Boost.StaticViews’s documentation! &#8212; Boost.StaticViews  documentation</title>
     
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/boostbook.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -24,25 +24,28 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorial" href="getting_started.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="next" title="Tutorial" href="getting_started.html" /> 
   </head>
   <body>
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86"src="_static/boost-proposed.png"></td>
+</tr></table>
+
+<div class="spirit-nav">
+<a accesskey="p"  ><img src="_static/prev.png" alt="Prev"></a>
+<a accesskey="u" href="#"><img src="_static/up.png" alt="Up"></a>
+<a accesskey="h" href="#"><img src="_static/home.png" alt="Home"></a>
+<a accesskey="n"  href="getting_started.html"><img src="_static/next.png" alt="Next"></a>
+</div>
   
 
     <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
+  <div class="chapter">
+      <div class="body" role="main">
+        
   <div class="section" id="welcome-to-boost-staticviews-s-documentation">
 <h1>Welcome to Boost.StaticViews’s documentation!<a class="headerlink" href="#welcome-to-boost-staticviews-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
@@ -55,9 +58,13 @@
 <li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="reference.html#concepts">Concepts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference.html#views-and-adaptors">Views and Adaptors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#errors">Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference.html#utility-functions">Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference.html#utilities">Utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference.html#details">Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/using_raw_view.html">Raw view example.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/using_drop_view.html">Drop view example.</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a><ul>
@@ -79,63 +86,23 @@
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">Boost.StaticViews</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="getting_started.html" title="next chapter">Tutorial</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
+  </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2017, Tom Westerhout.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="footer" role="contentinfo">
+    <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+    <td align="left"></td>
+    <td align="right"><div class="copyright-footer">
+            &#169; Copyright 2017, Tom Westerhout.
+        
+          Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+          <p>Distributed under the Boost Software License, Version 1.0.
+          (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
+          <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+          </p>
+    </div></td>
+    </tr></table>
     </div>
-
-    
-
-    
   </body>
 </html>

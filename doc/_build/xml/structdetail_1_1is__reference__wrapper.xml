@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
-  <compounddef id="structdetail_1_1is__reference__wrapper" kind="struct" prot="public">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structdetail_1_1is__reference__wrapper" kind="struct" language="C++" prot="public">
     <compoundname>detail::is_reference_wrapper</compoundname>
     <basecompoundref prot="public" virt="non-virtual">false_type</basecompoundref>
     <includes refid="invoke_8hpp" local="no">invoke.hpp</includes>
@@ -10,32 +10,32 @@
       </param>
     </templateparamlist>
     <briefdescription>
-    </briefdescription>
+<para>Trait that determines whether <computeroutput>T</computeroutput> is a reference_wrapper. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="139">
+      <node id="29">
+        <label>false_type</label>
+      </node>
+      <node id="28">
         <label>detail::is_reference_wrapper&lt; T &gt;</label>
         <link refid="structdetail_1_1is__reference__wrapper"/>
-        <childnode refid="140" relation="public-inheritance">
+        <childnode refid="29" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="140">
-        <label>std::false_type</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="141">
+      <node id="31">
+        <label>false_type</label>
+      </node>
+      <node id="30">
         <label>detail::is_reference_wrapper&lt; T &gt;</label>
         <link refid="structdetail_1_1is__reference__wrapper"/>
-        <childnode refid="142" relation="public-inheritance">
+        <childnode refid="31" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="142">
-        <label>std::false_type</label>
-      </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="26" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="26" bodyend="26"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="24" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="24" bodyend="25"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

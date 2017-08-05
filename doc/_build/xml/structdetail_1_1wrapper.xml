@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
-  <compounddef id="structdetail_1_1wrapper" kind="struct" prot="public">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structdetail_1_1wrapper" kind="struct" language="C++" prot="public">
     <compoundname>detail::wrapper</compoundname>
     <includes refid="wrapper_8hpp" local="no">wrapper.hpp</includes>
     <templateparamlist>
@@ -11,18 +11,34 @@
     <briefdescription>
 <para>Wraps an lvalue or an rvalue reference. </para>    </briefdescription>
     <detaileddescription>
-<para>This is basically a <computeroutput>constexpr</computeroutput> version of <computeroutput>std::reference_wrapper</computeroutput>. The difference is that <ref refid="structdetail_1_1wrapper" kindref="compound">detail::wrapper</ref> can wrap both lvalue and rvalue references. This is just syntactic sugar.</para><para><programlisting><codeline><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">wrapper<sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>noexcept(whenever<sp/>possible);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">()<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/>noexcept(whenever<sp/>possible);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">()<sp/>&amp;&amp;<sp/><sp/><sp/><sp/><sp/>noexcept(whenever<sp/>possible);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>operator()<sp/>(Args&amp;&amp;...)<sp/>const</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(whenever<sp/>possible);</highlight></codeline>
-<codeline><highlight class="normal">};</highlight></codeline>
-</programlisting></para><para>Constructors are intentionally not listed. Use <ref refid="wrapper_8hpp_1a869773653c4df37d23e4e3a96d2841b7" kindref="member">make_wrapper(T&amp;&amp;)</ref> to create wrappers. </para>    </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="44" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="44" bodyend="-1"/>
+<para><verbatim>embed:rst:leading-slashes
+/// This is basically a ``constexpr`` version of
+/// |reference_wrapper|_. The difference is that
+/// :cpp:class:`detail::wrapper` can wrap both lvalue and rvalue
+/// references. This is just syntactic sugar.
+///
+/// .. |reference_wrapper| replace:: ``std::reference_wrapper``
+/// .. _reference_wrapper: http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
+///
+/// .. code-block:: cpp
+///
+///   template &lt;class T&gt;
+///   struct wrapper {
+///       ... // copy and move constructors/assignment operators
+///
+///       constexpr auto get() const&amp; noexcept(whenever possible);
+///       constexpr auto get() &amp;      noexcept(whenever possible);
+///       constexpr auto get() &amp;&amp;     noexcept(whenever possible);
+///
+///       template &lt;class... Args&gt;
+///       constexpr auto operator() (Args&amp;&amp;...) const
+///           noexcept(whenever possible);
+///   };
+///
+/// Constructors are intentionally not listed. Use
+/// :cpp:var:`make_wrapper(T&amp;&amp;) &lt;make_wrapper&gt;` to create wrappers.
+/// </verbatim> </para>    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="51" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="51" bodyend="-1"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

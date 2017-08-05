@@ -10,7 +10,6 @@
 
 #include "config.hpp"
 #include "invoke.hpp"
-
 #include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
@@ -19,108 +18,131 @@ namespace detail {
 
 /// \brief Wraps an lvalue or an rvalue reference.
 
-/// This is basically a `constexpr` version of
-/// `std::reference_wrapper`. The difference is that #detail::wrapper
-/// can wrap both lvalue and rvalue references. This is just syntactic
-/// sugar.
+// clang-format off
+/// \verbatim embed:rst:leading-slashes
+/// This is basically a ``constexpr`` version of
+/// |reference_wrapper|_. The difference is that
+/// :cpp:class:`detail::wrapper` can wrap both lvalue and rvalue
+/// references. This is just syntactic sugar.
 ///
-/// \code{.cpp}
-/// template <class T>
-/// struct wrapper {
-///     constexpr auto get() const& noexcept(whenever possible);
-///     constexpr auto get() &      noexcept(whenever possible);
-///     constexpr auto get() &&     noexcept(whenever possible);
+/// .. |reference_wrapper| replace:: ``std::reference_wrapper``
+/// .. _reference_wrapper: http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
 ///
-///     template <class... Args>
-///     constexpr auto operator() (Args&&...) const
-///         noexcept(whenever possible);
-/// };
-/// \endcode
+/// .. code-block:: cpp
 ///
-/// Constructors are intentionally not listed. Use make_wrapper(T&&)
-/// to create wrappers.
-template <class T> struct wrapper;
+///   template <class T>
+///   struct wrapper {
+///       ... // copy and move constructors/assignment operators
+///
+///       constexpr auto get() const& noexcept(whenever possible);
+///       constexpr auto get() &      noexcept(whenever possible);
+///       constexpr auto get() &&     noexcept(whenever possible);
+///
+///       template <class... Args>
+///       constexpr auto operator() (Args&&...) const
+///           noexcept(whenever possible);
+///   };
+///
+/// Constructors are intentionally not listed. Use
+/// :cpp:var:`make_wrapper(T&&) <make_wrapper>` to create wrappers.
+/// \endverbatim
+// clang-format on
+template <class T>
+struct wrapper;
 
-template <class T> struct is_wrapper : std::false_type {};
+template <class T>
+struct is_wrapper : std::false_type {
+};
 
-template <class T> struct is_wrapper<wrapper<T>> : std::true_type {};
+template <class T>
+struct is_wrapper<wrapper<T>> : std::true_type {
+};
 
 /// \cond
-template <class T> struct wrapper<T &> {
-  using type = T;
+template <class T>
+struct wrapper<T&> {
+    using type = T;
 
-  explicit BOOST_STATIC_VIEWS_CONSTEXPR wrapper(type &x) noexcept
-      : _payload{&x} {}
+    explicit BOOST_STATIC_VIEWS_CONSTEXPR wrapper(type& x) noexcept
+        : _payload{&x}
+    {
+    }
 
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  wrapper(wrapper const &other) noexcept = default;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    wrapper(wrapper const& other) noexcept = default;
 
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  wrapper(wrapper &&) noexcept = default;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    wrapper(wrapper&&) noexcept = default;
 
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  wrapper &operator=(wrapper const &other) noexcept = default;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    wrapper& operator=(wrapper const& other) noexcept = default;
 
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  wrapper &operator=(wrapper &&) noexcept = default;
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    wrapper& operator=(wrapper&&) noexcept = default;
 
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR auto get() const noexcept -> type const & {
-    return *_payload;
-  }
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto get() const noexcept
+        -> type const&
+    {
+        return *_payload;
+    }
 
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR auto get() noexcept -> type & {
-    return *_payload;
-  }
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto get() noexcept -> type&
+    {
+        return *_payload;
+    }
 
-  /*
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR operator type&() const noexcept
-  {
-      return get();
-  }
-  */
+    /*
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR operator type&() const noexcept
+    {
+        return get();
+    }
+    */
 
-  /*
-  template <class... Args>
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  decltype(auto) operator()(Args&&... args) const
-      BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke(
-          std::declval<T const&>(), std::declval<Args&&>()...)))
-  {
-      return invoke(*_payload, std::forward<Args>(args)...);
-  }
-  */
+    /*
+    template <class... Args>
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    decltype(auto) operator()(Args&&... args) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(invoke(
+            std::declval<T const&>(), std::declval<Args&&>()...)))
+    {
+        return invoke(*_payload, std::forward<Args>(args)...);
+    }
+    */
 
-private:
-  T *_payload;
+  private:
+    T* _payload;
 };
 /// \endcond
 
 /// \cond
-template <class T> struct wrapper<T &&> {
-  using type = T;
+template <class T>
+struct wrapper<T&&> {
+    using type = T;
 
-  static_assert(std::is_move_constructible<T>::value,
-                "wrapper<T&&>: I'm refusing to work with non-movable types. "
-                "If you have problems with that, submit an issue here "
-                "https://github.com/BoostGSoC17/static-views/issues.");
+    static_assert(std::is_move_constructible<T>::value,
+        "wrapper<T&&>: I'm refusing to work with non-movable types. "
+        "If you have problems with that, submit an issue here "
+        "https://github.com/BoostGSoC17/static-views/issues.");
 
-  explicit BOOST_STATIC_VIEWS_CONSTEXPR wrapper(type &&x)
-      BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-          std::is_nothrow_move_constructible<type>::value)
-      : _payload{std::move(x)} {}
+    explicit BOOST_STATIC_VIEWS_CONSTEXPR wrapper(type&& x)
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            std::is_nothrow_move_constructible<type>::value)
+        : _payload{std::move(x)}
+    {
+    }
 
-  // clang-format off
+    // clang-format off
     BOOST_STATIC_VIEWS_CONSTEXPR wrapper(wrapper const&)            = default;
     BOOST_STATIC_VIEWS_CONSTEXPR wrapper(wrapper &&)                = default;
     BOOST_STATIC_VIEWS_CONSTEXPR wrapper& operator=(wrapper const&) = default;
     BOOST_STATIC_VIEWS_CONSTEXPR wrapper& operator=(wrapper &&)     = default;
-// clang-format on
+    // clang-format on
 
-#if 0 // defined(BOOST_STATIC_VIEWS_GCC)
+#if 0 // defined(BOOST_STATIC_VIEWS_GCC) // Doesn't help anymore...
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto get() const & BOOST_STATIC_VIEWS_NOEXCEPT_IF(
@@ -129,16 +151,16 @@ template <class T> struct wrapper<T &&> {
         return _payload;
     }
 #else
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  auto get() & noexcept -> type & { return _payload; }
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto get() & noexcept -> type& { return _payload; }
 
-  BOOST_STATIC_VIEWS_FORCEINLINE
-  BOOST_STATIC_VIEWS_CONSTEXPR
-  auto get() const & noexcept -> type const & { return _payload; }
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto get() const & noexcept -> type const& { return _payload; }
 #endif
 
-  // clang-format off
+    // clang-format off
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto get() &&
@@ -147,21 +169,21 @@ template <class T> struct wrapper<T &&> {
     {
         return std::move(_payload);
     }
-  // clang-format on
+    // clang-format on
 
-  /*
-  BOOST_STATIC_VIEWS_CONSTEXPR operator type() const noexcept
-  {
-      return get();
-  }
+    /*
+    BOOST_STATIC_VIEWS_CONSTEXPR operator type() const noexcept
+    {
+        return get();
+    }
 
-  BOOST_STATIC_VIEWS_CONSTEXPR operator type() noexcept
-  {
-      return get();
-  }
-  */
+    BOOST_STATIC_VIEWS_CONSTEXPR operator type() noexcept
+    {
+        return get();
+    }
+    */
 
-  // clang-format off
+    // clang-format off
     /*
     template <class... Args>
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -175,9 +197,9 @@ template <class T> struct wrapper<T &&> {
             std::forward<Args>(args)...);
     }
     */
-  // clang-format on
+    // clang-format on
 
-  // clang-format off
+    // clang-format off
     /*
     template <class... Args>
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -191,9 +213,9 @@ template <class T> struct wrapper<T &&> {
             std::forward<Args>(args)...);
     }
     */
-  // clang-format on
+    // clang-format on
 
-  // clang-format off
+    // clang-format off
     /*
     template <class... Args>
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -207,24 +229,25 @@ template <class T> struct wrapper<T &&> {
             std::forward<Args>(args)...);
     }
     */
-  // clang-format on
+    // clang-format on
 
-private:
-  T _payload;
+  private:
+    T _payload;
 };
 /// \endcond
 
 struct make_wrapper_impl {
 
-private:
-  // If an rvalue of type T is passed to make_wrapper, require T to
-  // be move-constructible.
-  template <class T>
-  using reference_or_move_constructible = std::integral_constant<
-      bool, std::is_lvalue_reference<T>::value ||
-                std::is_move_constructible<std::decay_t<T>>::value>;
+  private:
+    // If an rvalue of type T is passed to make_wrapper, require T to
+    // be move-constructible.
+    template <class T>
+    using reference_or_move_constructible = std::integral_constant<
+        bool,
+        std::is_lvalue_reference<T>::value
+            || std::is_move_constructible<std::decay_t<T>>::value>;
 
-  // clang-format off
+    // clang-format off
     template <class T>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(T&& /*unused*/,
@@ -239,9 +262,9 @@ private:
             "`boost::static_views::make_wrapper(T&&)` requires `T` "
             "to be move constructible.");
     }
-  // clang-format on
+    // clang-format on
 
-  // clang-format off
+    // clang-format off
     template <class T>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(T&& x,
@@ -251,10 +274,10 @@ private:
     {
         return detail::wrapper<decltype(x)>{std::forward<T>(x)};
     }
-  // clang-format on
+    // clang-format on
 
-public:
-  // clang-format off
+  public:
+    // clang-format off
     template <class T>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -268,18 +291,25 @@ public:
         return call_impl(std::forward<T>(x),
             reference_or_move_constructible<decltype(x)>{});
     }
-  // clang-format on
+    // clang-format on
 };
 
 } // end namespace detail
 
-/// \brief Makes a wrapper around an rvalue or lvalue reference.
-
-/// Creates a #detail::wrapper of `T&` or `T&&` depending on the type
-/// of `x`.
 // clang-format off
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_wrapper_impl, make_wrapper)
-
+/// \verbatim embed:rst:leading-slashes
+/// .. math::
+///
+///   \textit{make_wrapper}: \text{U} \to \text{Wrapper}
+///
+/// Creates a :cpp:class:`detail::wrapper` of an lvalue reference when
+/// ``U = T&`` for some type ``T`` or an rvalue reference when ``U ==
+/// T&&``. If ``U = T&&``, ``T`` is required to be
+/// `MoveConstructible <http://en.cppreference.com/w/cpp/concept/MoveConstructible>`_.
+/// \endverbatim
+// clang-format on
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(
+    detail::make_wrapper_impl, make_wrapper)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

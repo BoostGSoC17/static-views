@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>concepts::and_&lt; C1, C2... &gt;</compoundname>
+    <includes refid="utils_8hpp" local="no">utils.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class C1</type>
+      </param>
+      <param>
+        <type>class...</type>
+        <declname>C2</declname>
+        <defname>C2</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a8f8411b073afd19130114138e7efbc1e" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;C1::template <ref refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1aff27af7cec5404109163e9d052a28fa4" kindref="member">test</ref>&lt;T&gt;()&gt;</defval>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>void</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto concepts::and_&lt; C1, C2... &gt;::test_impl</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>test_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="108" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="108" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a457ea4f4b133308f162e5611fd553587" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;!C1::template <ref refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1aff27af7cec5404109163e9d052a28fa4" kindref="member">test</ref>&lt;T&gt;()&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto concepts::and_&lt; C1, C2... &gt;::test_impl</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>test_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="115" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="115" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a9d65e9c0a5b8333850c0f1bad9ebc41b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;C1::template <ref refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1aff27af7cec5404109163e9d052a28fa4" kindref="member">test</ref>&lt;T&gt;()&gt;</defval>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>void</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto concepts::and_&lt; C1, C2... &gt;::check_impl</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>check_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="123" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="123" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a2e8f898568d4e3de93d5731bb5bbaa63" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;!C1::template <ref refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1aff27af7cec5404109163e9d052a28fa4" kindref="member">test</ref>&lt;T&gt;()&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto concepts::and_&lt; C1, C2... &gt;::check_impl</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>check_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="130" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="130" bodyend="134"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1aff27af7cec5404109163e9d052a28fa4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto concepts::and_&lt; C1, C2... &gt;::test</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="138" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="138" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a991507b80fa32a1444445fe12c2ec47b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto concepts::and_&lt; C1, C2... &gt;::check</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>check</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="144" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="144" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="102" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="102" bodyend="148"/>
+    <listofallmembers>
+      <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a991507b80fa32a1444445fe12c2ec47b" prot="public" virt="non-virtual"><scope>concepts::and_&lt; C1, C2... &gt;</scope><name>check</name></member>
+      <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a9d65e9c0a5b8333850c0f1bad9ebc41b" prot="private" virt="non-virtual"><scope>concepts::and_&lt; C1, C2... &gt;</scope><name>check_impl</name></member>
+      <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a2e8f898568d4e3de93d5731bb5bbaa63" prot="private" virt="non-virtual"><scope>concepts::and_&lt; C1, C2... &gt;</scope><name>check_impl</name></member>
+      <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1aff27af7cec5404109163e9d052a28fa4" prot="public" virt="non-virtual"><scope>concepts::and_&lt; C1, C2... &gt;</scope><name>test</name></member>
+      <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a8f8411b073afd19130114138e7efbc1e" prot="private" virt="non-virtual"><scope>concepts::and_&lt; C1, C2... &gt;</scope><name>test_impl</name></member>
+      <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a457ea4f4b133308f162e5611fd553587" prot="private" virt="non-virtual"><scope>concepts::and_&lt; C1, C2... &gt;</scope><name>test_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

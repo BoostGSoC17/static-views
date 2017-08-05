@@ -11,6 +11,7 @@ Welcome to Boost.StaticViews's documentation!
 
    getting_started
    reference
+   examples
    tests
 
 

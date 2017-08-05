@@ -753,7 +753,10 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../include/boost/static_views
+INPUT                  = ../include/boost/static_views/detail \
+                         ../include/boost/static_views/sequence_traits.hpp \
+                         ../include/boost/static_views/raw_view.hpp \
+                         ../include/boost/static_views/drop.hpp
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -994,8 +997,11 @@ CLANG_ASSISTED_PARSING = YES
 # specified with INPUT and INCLUDE_PATH.
 # This tag requires that the tag CLANG_ASSISTED_PARSING is set to YES.
 
-CLANG_OPTIONS          = -std=c++14 -stdlib=libc++ \
-                         -I$BOOST_ROOT -I../include
+CLANG_OPTIONS          = -std=c++1z -stdlib=libstdc++ \
+                         -I../include \
+			 -isystem/usr/local/include/c++/7.1.0 \
+			 -isystem/usr/local/include/c++/7.1.0/x86_64-pc-linux-gnu \
+			 -isystem/usr/local/lib/gcc/x86_64-pc-linux-gnu/7.1.0/include
 
 #---------------------------------------------------------------------------
 # Configuration options related to the alphabetical class index
@@ -1942,7 +1948,7 @@ MACRO_EXPANSION        = YES
 # The default value is: NO.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-EXPAND_ONLY_PREDEF     = NO
+EXPAND_ONLY_PREDEF     = YES
 
 # If the SEARCH_INCLUDES tag is set to YES the includes files in the
 # INCLUDE_PATH will be searched if a #include is found.
@@ -1975,10 +1981,12 @@ INCLUDE_FILE_PATTERNS  =
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
 PREDEFINED             = DOXYGEN_IN_HOUSE \
-                         BOOST_FORCEINLINE= \
+                         BOOST_STATIC_VIEWS_FORCEINLINE= \
                          BOOST_STATIC_VIEWS_CONSTEXPR=constexpr \
                          BOOST_STATIC_VIEWS_DECLTYPE_AUTO=auto \
-                         "BOOST_STATIC_VIEWS_INLINE_ALGO_VARIABLE(type, name)=constexpr auto name = implementation detail;"
+                         "BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)=noexcept(whenever possible)" \
+                         "BOOST_STATIC_VIEWS_INLINE_VARIABLE(type, name)=constexpr auto name = implementation detail;" \
+                         "BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN(...)=noexcept(whenever possible) { return __VA_ARGS__; } static_assert(true, \"\")"
 
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
