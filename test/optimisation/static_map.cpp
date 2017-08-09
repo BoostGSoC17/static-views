@@ -248,7 +248,7 @@ auto test5(int argc)
 int main(int argc, char** argv)
 {
     if (argc != 2) {
-        std::cout << "2 arguments, please!\n"; 
+        std::cout << "2 arguments, please!\n";
         return 0;
     }
     int x = static_cast<int>(std::stol(argv[1]));

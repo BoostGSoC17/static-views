@@ -132,13 +132,12 @@ struct make_slice_algo_impl {
 } // end namespace detail
 
 /// \verbatim embed:rst:leading-slashes
-/// :math:`\mathtt{slice} : \mathbb{N} \times \mathbb{N} \to \text{View} \to
-/// \text{View}` is a functor that let's you create slices of views.
-/// Given a index :math:`b \in \mathbb{N}`, an index :math:`e \in
-/// \mathbb{N}` and a :ref:`view
-/// <view-concept>` :math:`xs`, creates a view of elements of :math:`xs` with
-/// indices :math:`i \in \mathbb{N} \cap [b, e)`.
-/// \endverbatim
+/// :math:`\mathtt{slice} : \mathbb{N} \times \mathbb{N} \to
+/// \text{View} \to \text{View}` is a functor that let's you create
+/// slices of views. Given a index :math:`b \in \mathbb{N}`, an index
+/// :math:`e \in \mathbb{N}` and a :ref:`view <view-concept>`
+/// :math:`xs`, creates a view of elements of :math:`xs` with indices
+/// :math:`i \in \mathbb{N} \cap [b, e)`. \endverbatim
 BOOST_STATIC_VIEWS_INLINE_VARIABLE(
     detail::make_slice_algo_impl, slice)
 

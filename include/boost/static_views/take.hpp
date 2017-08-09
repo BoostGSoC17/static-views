@@ -42,8 +42,7 @@ struct take_impl : view_adaptor_base<take_impl<View, Extent>, View> {
             // std::min(size_t, size_t) _should_ be noexcept.
             )
 #endif
-        : take_impl::view_adaptor_base_type{std::move(xs)}
-        , _n{n}
+        : take_impl::view_adaptor_base_type{std::move(xs)}, _n{n}
     {
         BOOST_STATIC_VIEWS_EXPECT(n <= this->parent().size(),
             BOOST_STATIC_VIEWS_BUG_MESSAGE);

@@ -12,7 +12,8 @@ namespace boost {
 namespace static_views {
     template <>
     struct sequence_traits<MySequence> {
-        static auto at(MySequcene const&, std::size_t) noexcept -> int;
+        static auto at(MySequcene const&, std::size_t) noexcept
+            -> int;
         static constexpr auto extent() noexcept -> std::ptrdiff_t;
     };
 } // namespace static_views

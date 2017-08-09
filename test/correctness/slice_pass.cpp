@@ -55,9 +55,9 @@ template <class T>
 using compile_make_slice_t = decltype(MAKE_SLICE(T));
 
 #if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
-# define NOEXCEPT(...) true
+#define NOEXCEPT(...) true
 #else
-# define NOEXCEPT(...) noexcept(__VA_ARGS__)
+#define NOEXCEPT(...) noexcept(__VA_ARGS__)
 #endif
 
 #define TEST_MAKE_IMPL(view_type, q)                                 \
