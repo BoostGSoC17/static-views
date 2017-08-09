@@ -1,4 +1,4 @@
-<testcase name=nested>
+<testcase name=binary_search>
   <os>posix</os>
   <toolset>gcc-7</toolset>
   <status>
@@ -7,9 +7,9 @@
   </status>
   <opcodes count=0>
 <![CDATA[
-  400860:	f3 c3                	repz retq
-  400862:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
-  40086c:	0f 1f 40 00          	nopl   0x0(%rax)
+  400f40:	f3 c3                	repz retq
+  400f42:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  400f4c:	0f 1f 40 00          	nopl   0x0(%rax)
 ]]>
   </opcodes>
 </testcase>

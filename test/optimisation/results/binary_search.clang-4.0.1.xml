@@ -1,4 +1,4 @@
-<testcase name=nested>
+<testcase name=binary_search>
   <os>posix</os>
   <toolset>clang-4.0.1</toolset>
   <status>
@@ -7,8 +7,8 @@
   </status>
   <opcodes count=0>
 <![CDATA[
-  400850:	c3                   	retq
-  400851:	66 66 66 66 66 66 2e 	data32 data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  400970:	c3                   	retq
+  400971:	66 66 66 66 66 66 2e 	data32 data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
 ]]>
   </opcodes>
 </testcase>
