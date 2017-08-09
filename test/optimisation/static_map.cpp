@@ -207,10 +207,57 @@ void test3()
     if (!equal_c{}(phone_codes["028 82"], "Omagh")) std::terminate();
 }
 
-int main(int argc, char** /*unused*/)
+void test4()
 {
-    test1();
-    test2(argc);
-    test3();
+    using value_type      = std::pair<int const, char const*>;
+    value_type map_data[] = {
+        {5, "apple"}, {8, "pear"}, {0, "banana"}};
+
+    auto cmap =
+        boost::static_views::static_map::make_static_map<10, 1>(
+            boost::static_views::raw_view(map_data),
+            &value_type::first, &value_type::second);
+
+    cmap[5] = "orange";
+    if (!equal_c{}(cmap[5], "orange")) std::terminate();
+}
+
+// from Niall's ntkernel-error-category
+struct field {
+    int         ntstatus;
+    int         win32;
+    int         posix;
+    char const* message;
+};
+
+field global_data[] = {
+#include "../../example/ntkernel-table.ipp"
+};
+
+auto const table = boost::static_views::raw_view(global_data);
+auto const ntstatus_to_message_map =
+    boost::static_views::static_map::make_static_map(
+        table, &field::ntstatus, &field::message);
+
+auto test5(int argc)
+{
+    auto const* x = ntstatus_to_message_map.find(argc);
+    if (x == nullptr) std::terminate();
+}
+
+int main(int argc, char** argv)
+{
+    if (argc != 2) {
+        std::cout << "2 arguments, please!\n"; 
+        return 0;
+    }
+    int x = static_cast<int>(std::stol(argv[1]));
+    std::cout << std::hex << x << '\n';
+
+    // test1();
+    // test2(argc);
+    // test3();
+    test4();
+    test5(x);
     return 0;
 }

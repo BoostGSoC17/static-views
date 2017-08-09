@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structdetail_1_1make__take__exactly__impl" kind="struct" language="C++" prot="public">
+    <compoundname>detail::make_take_exactly_impl</compoundname>
+    <includes refid="take_8hpp" local="no">take.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1make__take__exactly__impl_1adf462ab1da17585f94be8c3d6dc0f125" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>std::size_t</type>
+            <declname>N</declname>
+            <defname>N</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::make_take_exactly_impl::operator()</definition>
+        <argsstring>(View &amp;&amp;xs, std::integral_constant&lt; std::size_t, N &gt;) const</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::integral_constant&lt; std::size_t, N &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="91" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="91" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="structdetail_1_1make__take__exactly__impl_1ab1d21f47a0125f5f9e645344a69f297b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::make_take_exactly_impl::operator()</definition>
+        <argsstring>(View &amp;&amp;xs, std::size_t const n) const</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="116" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="116" bodyend="131"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="87" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="87" bodyend="133"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1make__take__exactly__impl_1adf462ab1da17585f94be8c3d6dc0f125" prot="public" virt="non-virtual"><scope>detail::make_take_exactly_impl</scope><name>operator()</name></member>
+      <member refid="structdetail_1_1make__take__exactly__impl_1ab1d21f47a0125f5f9e645344a69f297b" prot="public" virt="non-virtual"><scope>detail::make_take_exactly_impl</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

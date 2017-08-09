@@ -331,7 +331,7 @@ struct hashed_impl
              (i < bucket_size()) && !empty(bucket.unsafe_at(i));
              ++i) {
 
-            auto const* const x =
+            auto* const x =
                 &this->parent().unsafe_at(bucket.unsafe_at(i));
             if (invoke(p, *x)) {
                 return x;

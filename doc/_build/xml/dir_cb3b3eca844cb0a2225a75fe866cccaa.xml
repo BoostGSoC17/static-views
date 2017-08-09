@@ -6,6 +6,8 @@
     <innerfile refid="drop_8hpp">drop.hpp</innerfile>
     <innerfile refid="raw__view_8hpp">raw_view.hpp</innerfile>
     <innerfile refid="sequence__traits_8hpp">sequence_traits.hpp</innerfile>
+    <innerfile refid="slice_8hpp">slice.hpp</innerfile>
+    <innerfile refid="take_8hpp">take.hpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

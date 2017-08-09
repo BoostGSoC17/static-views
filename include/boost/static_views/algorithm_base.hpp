@@ -47,8 +47,7 @@ template <class Function, class... Args>
 struct algorithm_impl : algorithm_base {
 
   private:
-    Function            _func;
-    std::tuple<Args...> _args;
+    std::tuple<Function, Args...> _storage;
 
     template <class T>
     using compile_call_cref_t =
@@ -85,14 +84,15 @@ struct algorithm_impl : algorithm_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO call_impl(View&& xs,
         std::index_sequence<Is...> /*unused*/) const&
+        // clang-format on
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            concepts::and_<Is_cref_callable, Is_noexcept_cref_call>
-                ::template test<View&&>())
+            concepts::and_<Is_cref_callable,
+                Is_noexcept_cref_call>::template test<View&&>())
     {
-        return invoke(_func, make_wrapper(std::forward<View>(xs)),
-            std::get<Is>(_args)...);
+        return invoke(std::get<0>(_storage),
+            make_wrapper(std::forward<View>(xs)),
+            std::get<Is + 1>(_storage)...);
     }
-    // clang-format on
 
     // clang-format off
     template <class View, std::size_t... Is>
@@ -103,12 +103,12 @@ struct algorithm_impl : algorithm_base {
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             concepts::and_<Is_move_callable, Is_noexcept_move_call>
                 ::template test<View&&>())
-    {
-        return invoke(std::move(_func),
-            make_wrapper(std::forward<View>(xs)),
-            std::get<Is>(std::move(_args))...);
-    }
     // clang-format on
+    {
+        return invoke(std::get<0>(std::move(_storage)),
+            make_wrapper(std::forward<View>(xs)),
+            std::get<Is + 1>(std::move(_storage))...);
+    }
 
   public:
     explicit BOOST_STATIC_VIEWS_CONSTEXPR algorithm_impl(
@@ -126,11 +126,10 @@ struct algorithm_impl : algorithm_base {
                 std::is_nothrow_move_constructible<Function>::value))
 #else
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            utils::all(std::is_nothrow_move_constructible<
-                           std::tuple<Args...>>::value,
-                std::is_nothrow_move_constructible<Function>::value))
+            std::is_nothrow_move_constructible<
+                std::tuple<Function, Args...>>::value)
 #endif
-        : _func{std::move(f)}, _args{std::forward<Args>(args)...}
+        : _storage{std::move(f), std::forward<Args>(args)...}
     {
     }
 
@@ -188,12 +187,11 @@ struct algorithm_impl : algorithm_base {
             std::is_nothrow_copy_constructible<
                 std::decay_t<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_copy_constructible<Function>::value,
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             std::is_nothrow_copy_constructible<
-                std::tuple<wrapper<Args>...>>::value))
+                std::tuple<Function, Args...>>::value)
 #endif
-        : _func{other._func}, _args{other._args}
+        : _storage{other._storage}
     {
     }
 
@@ -205,12 +203,11 @@ struct algorithm_impl : algorithm_base {
             std::is_nothrow_move_constructible<
                 std::decay_t<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_move_constructible<Function>::value,
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             std::is_nothrow_move_constructible<
-                std::tuple<wrapper<Args>...>>::value))
+                std::tuple<Function, Args...>>::value)
 #endif
-        : _func{std::move(other._func)}, _args{std::move(other._args)}
+        : _storage{std::move(other._storage)}
     {
     }
 
@@ -222,14 +219,12 @@ struct algorithm_impl : algorithm_base {
             std::is_nothrow_copy_assignable<
                 std::decay_t<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_copy_assignable<Function>::value,
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             std::is_nothrow_copy_assignable<
-                std::tuple<wrapper<Args>...>>::value))
+                std::tuple<Function, Args...>>::value)
 #endif
     {
-        _func = other._func;
-        _args = other._args;
+        _storage = other._storage;
         return *this;
     }
 
@@ -241,14 +236,12 @@ struct algorithm_impl : algorithm_base {
             std::is_nothrow_move_assignable<
                 std::decay_t<Args>>::value...))
 #else
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_move_assignable<Function>::value,
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             std::is_nothrow_move_assignable<
-                std::tuple<wrapper<Args>...>>::value))
+                std::tuple<Function, Args...>>::value)
 #endif
     {
-        _func = std::move(other._func);
-        _args = std::move(other._args);
+        _storage = std::move(other._storage);
         return *this;
     }
 };

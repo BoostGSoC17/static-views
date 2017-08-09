@@ -300,7 +300,7 @@ struct make_wrapper_impl {
 /// \verbatim embed:rst:leading-slashes
 /// .. math::
 ///
-///   \textit{make_wrapper}: \text{U} \to \text{Wrapper}
+///   \mathtt{make\_wrapper}: \mathtt{U} \to \mathtt{Wrapper}
 ///
 /// Creates a :cpp:class:`detail::wrapper` of an lvalue reference when
 /// ``U = T&`` for some type ``T`` or an rvalue reference when ``U ==

@@ -6,34 +6,39 @@
     <includes refid="invoke_8hpp" local="yes">invoke.hpp</includes>
     <includes local="no">type_traits</includes>
     <incdepgraph>
-      <node id="37">
+      <node id="45">
         <label>functional</label>
       </node>
-      <node id="36">
+      <node id="43">
+        <label>cassert</label>
+      </node>
+      <node id="44">
         <label>invoke.hpp</label>
         <link refid="invoke_8hpp"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="45" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="46" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="42">
         <label>config.hpp</label>
         <link refid="config_8hpp"/>
+        <childnode refid="43" relation="include">
+        </childnode>
       </node>
-      <node id="34">
+      <node id="41">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
         <link refid="wrapper_8hpp"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="44" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="46" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="46">
         <label>type_traits</label>
       </node>
     </incdepgraph>
@@ -55,7 +60,7 @@
 <para><verbatim>embed:rst:leading-slashes
 /// .. math::
 ///
-///   \textit{make_wrapper}: \text{U} \to \text{Wrapper}
+///   \mathtt{make\_wrapper}: \mathtt{U} \to \mathtt{Wrapper}
 ///
 /// Creates a :cpp:class:`detail::wrapper` of an lvalue reference when
 /// ``U = T&amp;`` for some type ``T`` or an rvalue reference when ``U ==

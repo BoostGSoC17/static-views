@@ -25,7 +25,8 @@ namespace static_views {
 
     template <>
     struct sequence_traits<ObscureSequence>
-        : sequence_traits_default<ObscureSequence> {
+        : sequence_traits_default<sequence_traits<ObscureSequence>,
+              ObscureSequence> {
 
         static constexpr auto at(ObscureSequence const& /*unused*/,
             std::size_t /*unused*/) noexcept -> int
@@ -57,6 +58,10 @@ int main(void)
     static constexpr int             cs[]  = {1, 2, 3, 4};
     constexpr int                    cs2[] = {1, 2, 3, 4};
     static constexpr ObscureSequence ds    = {};
+
+    static_assert(
+        boost::static_views::sequence_traits<int[5]>::size(as) == 5,
+        "");
 
     auto const     as_view = boost::static_views::raw_view(as);
     auto const     bs_view = boost::static_views::raw_view(bs);

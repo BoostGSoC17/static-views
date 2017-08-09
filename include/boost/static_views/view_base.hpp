@@ -393,6 +393,8 @@ struct view_adaptor_base : view_base {
         static_assert(noexcept(parent()),
             "[INTERNAL] view_adaptor_base<> assumes that its "
             "own `parent() const&` member function does not throw.");
+        BOOST_STATIC_VIEWS_EXPECT(i < derived().size(),
+            "You're trying to cause undefined behavior, aren't you?");
         auto const x = view_adaptor_core_access::map(derived(), i);
         return concepts::View::unsafe_at(parent(), x);
     }
@@ -412,6 +414,8 @@ struct view_adaptor_base : view_base {
         static_assert(noexcept(parent()),
             "[INTERNAL] view_adaptor_base<> assumes that its "
             "own `parent() const&` member function does not throw.");
+        BOOST_STATIC_VIEWS_EXPECT(i < derived().size(),
+            "You're trying to cause undefined behavior, aren't you?");
         auto const x = view_adaptor_core_access::map(derived(), i);
         return concepts::View::unsafe_at(parent(), x);
     }
@@ -431,6 +435,8 @@ struct view_adaptor_base : view_base {
         static_assert(noexcept(parent()),
             "[INTERNAL] view_adaptor_base<> assumes that its "
             "own `parent() const&` member function does not throw.");
+        BOOST_STATIC_VIEWS_EXPECT(i < derived().size(),
+            "You're trying to cause undefined behavior, aren't you?");
         auto const x = view_adaptor_core_access::map(derived(), i);
         return concepts::View::unsafe_at(
             std::forward<view_adaptor_base>(*this).parent(), x);
@@ -444,11 +450,12 @@ struct view_adaptor_base : view_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) const&
     {
+        if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
+            make_out_of_bound_error("`i < size()` not satisfied.");
+            BOOST_STATIC_VIEWS_UNREACHABLE;
+        }
         auto const x = view_adaptor_core_access::map(derived(), i);
-        return (i < derived().size())
-            ? parent()[x]
-            : (make_out_of_bound_error("`i < size()` not satisfied."),
-                   parent()[x]);
+        return parent()[x];
     }
     // clang-format on
 
@@ -459,11 +466,12 @@ struct view_adaptor_base : view_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) &
     {
+        if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
+            make_out_of_bound_error("`i < size()` not satisfied.");
+            BOOST_STATIC_VIEWS_UNREACHABLE;
+        }
         auto const x = view_adaptor_core_access::map(derived(), i);
-        return (i < derived().size())
-            ? parent()[x]
-            : (make_out_of_bound_error("`i < size()` not satisfied."),
-                   parent()[x]);
+        return parent()[x];
     }
     // clang-format on
 
@@ -474,11 +482,12 @@ struct view_adaptor_base : view_base {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) &&
     {
+        if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
+            make_out_of_bound_error("`i < size()` not satisfied.");
+            BOOST_STATIC_VIEWS_UNREACHABLE;
+        }
         auto const x = view_adaptor_core_access::map(derived(), i);
-        return (i < derived().size())
-            ? std::forward<view_adaptor_base>(*this).parent()[x]
-            : (make_out_of_bound_error("`i < size()` not satisfied."),
-                std::forward<view_adaptor_base>(*this).parent()[x]);
+        return std::forward<view_adaptor_base>(*this).parent()[x];
     }
     // clang-format on
     /// \}

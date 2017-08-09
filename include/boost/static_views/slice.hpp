@@ -109,8 +109,8 @@ struct make_slice_impl {
     BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
     (
         slice_impl<std::decay_t<decltype(
-            drop(b)(take(e)(std::forward<View>(xs).get())))>>{
-            drop(b)(take(e)(std::forward<View>(xs).get()))}
+            drop_exactly(b)(take_exactly(e)(std::forward<View>(xs).get())))>>{
+            drop_exactly(b)(take_exactly(e)(std::forward<View>(xs).get()))}
     );
     // clang-format on
 };
@@ -131,32 +131,13 @@ struct make_slice_algo_impl {
 
 } // end namespace detail
 
-/// \brief A functor for creating "slice views"
-
-/// \f[
-/// \text{slice} : \mathbb{N} \to \mathbb{N}
-///     \to \text{View} \to \text{View}
-/// \f]
-///
 /// \verbatim embed:rst:leading-slashes
-/// Given a lower bound :math:`b`, an upper bound :math:`e` and a
-/// :ref:`view <view-concept>` :math:`xs`, creates a view of the
-/// :math:`[b, e)` part of :math:`xs`. The exact type of the returned
-/// view is an implementation detail. What's important is that it also
-/// models the :ref:`view <view-concept>` concept.
-///
-/// Calling ``slice(b, e)(xs)`` is almost equivalent to calling
-/// ``drop(b)(take(e)(xs))``. The difference is that slice is a single
-/// view, and, for example, calling :cpp:func:`parent()
-/// <detail::slice_impl::parent()>` on it will return xs. Calling
-/// ``parent()`` on the drop view of take view of view will return the
-/// take view.
-///
-/// .. note::
-///   The function is curried, i.e.
-///   :math:`\text{slice}(b, e) : \text{View} \to \text{View}` models
-///   the :ref:`algorithm <algorithm-concept>` concept.
-///
+/// :math:`\mathtt{slice} : \mathbb{N} \times \mathbb{N} \to \text{View} \to
+/// \text{View}` is a functor that let's you create slices of views.
+/// Given a index :math:`b \in \mathbb{N}`, an index :math:`e \in
+/// \mathbb{N}` and a :ref:`view
+/// <view-concept>` :math:`xs`, creates a view of elements of :math:`xs` with
+/// indices :math:`i \in \mathbb{N} \cap [b, e)`.
 /// \endverbatim
 BOOST_STATIC_VIEWS_INLINE_VARIABLE(
     detail::make_slice_algo_impl, slice)

@@ -194,24 +194,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="49">
+      <node id="71">
         <label>view_base</label>
       </node>
-      <node id="48">
+      <node id="70">
         <label>detail::raw_view_impl&lt; Sequence, Extent &gt;</label>
         <link refid="structdetail_1_1raw__view__impl"/>
-        <childnode refid="49" relation="public-inheritance">
+        <childnode refid="71" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="51">
+      <node id="73">
         <label>view_base</label>
       </node>
-      <node id="50">
+      <node id="72">
         <label>detail::raw_view_impl&lt; Sequence, Extent &gt;</label>
         <link refid="structdetail_1_1raw__view__impl"/>
-        <childnode refid="51" relation="public-inheritance">
+        <childnode refid="73" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

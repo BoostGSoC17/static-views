@@ -9,64 +9,71 @@
     <includes local="yes">view_base.hpp</includes>
     <includes local="no">type_traits</includes>
     <incdepgraph>
-      <node id="54">
+      <node id="67">
         <label>detail/utils.hpp</label>
         <link refid="utils_8hpp"/>
-        <childnode refid="53" relation="include">
+        <childnode refid="65" relation="include">
         </childnode>
-        <childnode refid="55" relation="include">
+        <childnode refid="68" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
+        <childnode refid="69" relation="include">
         </childnode>
       </node>
-      <node id="60">
+      <node id="73">
         <label>limits</label>
       </node>
-      <node id="61">
+      <node id="74">
         <label>view_base.hpp</label>
       </node>
-      <node id="58">
+      <node id="66">
+        <label>cassert</label>
+      </node>
+      <node id="71">
         <label>sequence_traits.hpp</label>
         <link refid="sequence__traits_8hpp"/>
-        <childnode refid="53" relation="include">
+        <childnode refid="65" relation="include">
         </childnode>
-        <childnode refid="54" relation="include">
+        <childnode refid="67" relation="include">
         </childnode>
-        <childnode refid="59" relation="include">
+        <childnode refid="72" relation="include">
         </childnode>
-        <childnode refid="60" relation="include">
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
         </childnode>
       </node>
-      <node id="53">
+      <node id="65">
         <label>detail/config.hpp</label>
         <link refid="config_8hpp"/>
+        <childnode refid="66" relation="include">
+        </childnode>
       </node>
-      <node id="57">
+      <node id="70">
         <label>errors.hpp</label>
       </node>
-      <node id="55">
+      <node id="68">
         <label>tuple</label>
       </node>
-      <node id="59">
+      <node id="72">
         <label>array</label>
       </node>
-      <node id="56">
+      <node id="69">
         <label>type_traits</label>
       </node>
-      <node id="52">
+      <node id="64">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</label>
         <link refid="raw__view_8hpp"/>
-        <childnode refid="53" relation="include">
+        <childnode refid="65" relation="include">
         </childnode>
-        <childnode refid="54" relation="include">
+        <childnode refid="67" relation="include">
         </childnode>
-        <childnode refid="57" relation="include">
+        <childnode refid="70" relation="include">
         </childnode>
-        <childnode refid="58" relation="include">
+        <childnode refid="71" relation="include">
         </childnode>
-        <childnode refid="61" relation="include">
+        <childnode refid="74" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
+        <childnode refid="69" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -104,11 +111,11 @@
         </briefdescription>
         <detaileddescription>
 <para><verbatim>embed:rst:leading-slashes
-/// :math:`\textit{raw_view} : \text{Sequence} \to \text{View}` (i.e.
-/// takes a :ref:`sequence &lt;sequence-concept&gt;` and returns a
+/// :math:`\mathtt{raw\_view} : \mathtt{Sequence} \to \mathtt{View}`
+/// (i.e.  takes a :ref:`sequence &lt;sequence-concept&gt;` and returns a
 /// :ref:`view &lt;view-concept&gt;`). It will trigger ``static_assert``
-/// failures if passed a type not modeling the
-/// :ref:`sequence &lt;sequence-concept&gt;` concept.
+/// failures if passed a type not modeling the :ref:`sequence
+/// &lt;sequence-concept&gt;` concept.
 /// </verbatim> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -116,7 +123,7 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Implementation of #boost::static_views::raw_view. </para>    </briefdescription>
+<para>Implementation of <ref refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kindref="member">raw_view</ref>. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <programlisting>
@@ -150,11 +157,11 @@
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>sequence_type<sp/>=<sp/>std::remove_cv_t&lt;Sequence&gt;;</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref>*<sp/>_xs;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespaceconcepts_1_1sequence_1ae91aca2e70c6f738157e887f121a7b37" kindref="member">Sequence</ref>*<sp/>_xs;</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
-<codeline lineno="38" refid="structdetail_1_1raw__view__impl_1a4bf3c80383c2469ba29d900a05e600d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl_1a4bf3c80383c2469ba29d900a05e600d6" kindref="member">raw_view_impl</ref>(<ref refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kindref="member">Sequence</ref>&amp;<sp/>xs)<sp/>noexcept<sp/>:<sp/>_xs{&amp;xs}<sp/>{}</highlight></codeline>
+<codeline lineno="38" refid="structdetail_1_1raw__view__impl_1a4bf3c80383c2469ba29d900a05e600d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1raw__view__impl_1a4bf3c80383c2469ba29d900a05e600d6" kindref="member">raw_view_impl</ref>(<ref refid="namespaceconcepts_1_1sequence_1ae91aca2e70c6f738157e887f121a7b37" kindref="member">Sequence</ref>&amp;<sp/>xs)<sp/>noexcept<sp/>:<sp/>_xs{&amp;xs}<sp/>{}</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1raw__view__impl_1a4bf3c80383c2469ba29d900a05e600d6" kindref="member">raw_view_impl</ref>(<ref refid="structdetail_1_1raw__view__impl_1a4bf3c80383c2469ba29d900a05e600d6" kindref="member">raw_view_impl</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>noexcept<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>

@@ -14,24 +14,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="32">
+      <node id="38">
         <label>detail::is_wrapper&lt; T &gt;</label>
         <link refid="structdetail_1_1is__wrapper"/>
-        <childnode refid="33" relation="public-inheritance">
+        <childnode refid="39" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="33">
+      <node id="39">
         <label>std::false_type</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="34">
+      <node id="40">
         <label>detail::is_wrapper&lt; T &gt;</label>
         <link refid="structdetail_1_1is__wrapper"/>
-        <childnode refid="35" relation="public-inheritance">
+        <childnode refid="41" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="35">
+      <node id="41">
         <label>std::false_type</label>
       </node>
     </collaborationgraph>

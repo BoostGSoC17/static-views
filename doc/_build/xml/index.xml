@@ -38,13 +38,31 @@
   </compound>
   <compound refid="structdetail_1_1drop__impl" kind="struct"><name>detail::drop_impl</name>
     <member refid="structdetail_1_1drop__impl_1abb795ff8cb4208cc369fa19b10a50c7f" kind="variable"><name>_b</name></member>
-    <member refid="structdetail_1_1drop__impl_1a4f186c53066f7dba74375905cb7f3672" kind="function"><name>drop_impl</name></member>
-    <member refid="structdetail_1_1drop__impl_1a3496e29f4c2a7181c8cb7a211aba1384" kind="function"><name>size</name></member>
+    <member refid="structdetail_1_1drop__impl_1aef1552ca1504395673086e9564490719" kind="function"><name>drop_impl</name></member>
+    <member refid="structdetail_1_1drop__impl_1a1e809b2868a5d01598f20bdff08d0f0a" kind="function"><name>size</name></member>
     <member refid="structdetail_1_1drop__impl_1a71d8a970243dfa3f4ebdf85a983e1123" kind="function"><name>map</name></member>
     <member refid="structdetail_1_1drop__impl_1af9ac9f27d58876ced2a27519d78e1358" kind="function"><name>extent</name></member>
   </compound>
+  <compound refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr" kind="struct"><name>concepts::sequence::ExtentIsConstexpr</name>
+    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1a4e64a21cafb55bde73ffb52bea66c37b" kind="function"><name>test_impl</name></member>
+    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1adff1b9491704fc83f4cf09fcf83cbe7b" kind="function"><name>test_impl</name></member>
+    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1ab11b33cf9b8adaa7ab48be3cfb38f604" kind="function"><name>test</name></member>
+    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1a3e36f19c86673c19623e337ba22c34b4" kind="function"><name>check</name></member>
+  </compound>
   <compound refid="structdetail_1_1find__first__i__impl" kind="struct"><name>detail::find_first_i_impl</name>
     <member refid="structdetail_1_1find__first__i__impl_1ae72e61f895bc87f0aeb9f5b124bbcd4b" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structsequence__traits__default_1_1Impl_1_1HasExtent" kind="struct"><name>sequence_traits_default::Impl::HasExtent</name>
+    <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1ac3f177fee1c8fd6cecd4695b13859c95" kind="function"><name>has_extent</name></member>
+    <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1a1c80c5577e794e83df257dc71eddb649" kind="function"><name>has_extent</name></member>
+    <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1a5512e77b5cfe16290548424cdf21ede9" kind="function"><name>test</name></member>
+  </compound>
+  <compound refid="structsequence__traits__default_1_1Impl" kind="struct"><name>sequence_traits_default::Impl</name>
+    <member refid="structsequence__traits__default_1_1Impl_1aa802cc3f968546f1df463c7fa363cf60" kind="typedef"><name>call_size_t</name></member>
+    <member refid="structsequence__traits__default_1_1Impl_1a4315ceffb7991441a1ab9f0adfaa7b46" kind="typedef"><name>call_size_impl_t</name></member>
+    <member refid="structsequence__traits__default_1_1Impl_1ad4367943cb6cd5df62456663f2526834" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="structsequence__traits__default_1_1Impl_1a8e28db4bd3461250595c42211b3b6d52" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="structsequence__traits__default_1_1Impl_1a6757d48715d15cf4c9717aa3f0af33bf" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
   </compound>
   <compound refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl" kind="struct"><name>detail::find_first_i_impl::Constrains::Impl</name>
     <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a2ea76190a6221acb578abb134372d249" kind="typedef"><name>element_type_t</name></member>
@@ -73,11 +91,42 @@
     <member refid="structdetail_1_1make__drop__algo__impl_1ad60a40142528ed62dd6bea4aaa8fee56" kind="function"><name>operator()</name></member>
     <member refid="structdetail_1_1make__drop__algo__impl_1ae7a225c68c1f6a513d9258b8ef0f60f8" kind="function"><name>operator()</name></member>
   </compound>
+  <compound refid="structdetail_1_1make__drop__exactly__algo__impl" kind="struct"><name>detail::make_drop_exactly_algo_impl</name>
+    <member refid="structdetail_1_1make__drop__exactly__algo__impl_1a7eb28ccc80cd6b1e4c75fb66d564f5c5" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__drop__exactly__algo__impl_1a51eeb9a4da99a999d95ab9d6f3003c85" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structdetail_1_1make__drop__exactly__impl" kind="struct"><name>detail::make_drop_exactly_impl</name>
+    <member refid="structdetail_1_1make__drop__exactly__impl_1a715e4fbe1898b30c414c9cc7e34f3811" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__drop__exactly__impl_1a5682884ff18fc0942392f890134e17e0" kind="function"><name>operator()</name></member>
+  </compound>
   <compound refid="structdetail_1_1make__drop__impl" kind="struct"><name>detail::make_drop_impl</name>
-    <member refid="structdetail_1_1make__drop__impl_1ad5e573d8ab8b3e7baa60023add9e0121" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__drop__impl_1a05cc1ac0c93278f8b2d5ec1e0695aa66" kind="function"><name>Wrapper::type::extent</name></member>
-    <member refid="structdetail_1_1make__drop__impl_1a93e71349742061d0f9aea8d5f7abee44" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__drop__impl_1af44baa5df46d97188e6ec705dcb4c198" kind="function"><name>Wrapper::type::extent</name></member>
+    <member refid="structdetail_1_1make__drop__impl_1a46945a9f6e8e5a6a050160d54e61d19b" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__drop__impl_1a5acaf2b087124b24ab2514245f0c405a" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structdetail_1_1make__slice__algo__impl" kind="struct"><name>detail::make_slice_algo_impl</name>
+    <member refid="structdetail_1_1make__slice__algo__impl_1a8512f6611f07219f25bd50f10e0e60c6" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structdetail_1_1make__slice__impl" kind="struct"><name>detail::make_slice_impl</name>
+    <member refid="structdetail_1_1make__slice__impl_1a7b50b17e5ce67296b4b30d6b734766e5" kind="variable"><name>possible</name></member>
+    <member refid="structdetail_1_1make__slice__impl_1a23a372fecf706765390eb6f5625fbb63" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structdetail_1_1make__take__algo__impl" kind="struct"><name>detail::make_take_algo_impl</name>
+    <member refid="structdetail_1_1make__take__algo__impl_1ad13867c0594d2b407b560ce7f1f485e7" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__take__algo__impl_1ad0b23012974857f96100095f7af33335" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structdetail_1_1make__take__exactly__algo__impl" kind="struct"><name>detail::make_take_exactly_algo_impl</name>
+    <member refid="structdetail_1_1make__take__exactly__algo__impl_1ab31a65232fe464fbf920ae39a92e49fe" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__take__exactly__algo__impl_1af0279b23ddb72d09e440e9ab8f0d660d" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structdetail_1_1make__take__exactly__impl" kind="struct"><name>detail::make_take_exactly_impl</name>
+    <member refid="structdetail_1_1make__take__exactly__impl_1adf462ab1da17585f94be8c3d6dc0f125" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__take__exactly__impl_1ab1d21f47a0125f5f9e645344a69f297b" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structdetail_1_1make__take__impl" kind="struct"><name>detail::make_take_impl</name>
+    <member refid="structdetail_1_1make__take__impl_1ad6aa3df0d1ffddfd8e56efc11dabbff4" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__take__impl_1a7e459118544cae09d6f63c23a0b0fd46" kind="function"><name>View::type::extent</name></member>
+    <member refid="structdetail_1_1make__take__impl_1ad5b973a775c8feed8cb472363005f8da" kind="function"><name>operator()</name></member>
+    <member refid="structdetail_1_1make__take__impl_1a6d4974c0d1418dce6ef00b6b660e031d" kind="function"><name>View::type::extent</name></member>
   </compound>
   <compound refid="structdetail_1_1make__wrapper__impl" kind="struct"><name>detail::make_wrapper_impl</name>
     <member refid="structdetail_1_1make__wrapper__impl_1a72b8589b0c616f385f5c973507a5cf47" kind="typedef"><name>reference_or_move_constructible</name></member>
@@ -110,15 +159,43 @@
   <compound refid="structsequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4" kind="struct"><name>sequence_traits&lt; std::array&lt; T, N &gt; &gt;</name>
     <member refid="structsequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4_1a689267075adbebde7b69e73721edadb0" kind="function"><name>extent</name></member>
   </compound>
+  <compound refid="structsequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4" kind="struct"><name>sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</name>
+    <member refid="structsequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4_1af24c534a7496f92fe556b3a06290bf37" kind="function"><name>extent</name></member>
+  </compound>
   <compound refid="structsequence__traits_3_01T[N]_4" kind="struct"><name>sequence_traits&lt; T[N]&gt;</name>
-    <member refid="structsequence__traits_3_01T[N]_4_1a9731898897efbb2a2a745366075a44a6" kind="typedef"><name>type</name></member>
-    <member refid="structsequence__traits_3_01T[N]_4_1ad0fe9816a31024fa04604eee57f04cc7" kind="function"><name>size</name></member>
     <member refid="structsequence__traits_3_01T[N]_4_1a57a29b53a95a98ae4d8053141c0fd15b" kind="function"><name>extent</name></member>
   </compound>
   <compound refid="structsequence__traits__default" kind="struct"><name>sequence_traits_default</name>
-    <member refid="structsequence__traits__default_1a86b747efb28f93c77eb1d09257898a1a" kind="function"><name>at</name></member>
-    <member refid="structsequence__traits__default_1a4ca1624dc8a4426cba45ebd29fc5691a" kind="function"><name>size</name></member>
-    <member refid="structsequence__traits__default_1a94f4c409b0f3d029510e189e3b855d28" kind="function"><name>extent</name></member>
+    <member refid="structsequence__traits__default_1a439a2d6a6544a3bf54fd1af6680c28c0" kind="function"><name>size_impl</name></member>
+    <member refid="structsequence__traits__default_1a495e8251cc3dcaab8b9eddee2ccf4f69" kind="function"><name>size_impl</name></member>
+    <member refid="structsequence__traits__default_1a84de9e14b5af8217afe41622fc68891c" kind="function"><name>at</name></member>
+    <member refid="structsequence__traits__default_1a2ce44df9100b9762b2631b489211687d" kind="function"><name>size</name></member>
+    <member refid="structsequence__traits__default_1aadcfb3a2ebea187f57b63d722f5a34d6" kind="function"><name>extent</name></member>
+  </compound>
+  <compound refid="structdetail_1_1sequence__traits__tuple" kind="struct"><name>detail::sequence_traits_tuple</name>
+  </compound>
+  <compound refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a" kind="struct"><name>detail::sequence_traits_tuple&lt; std::tuple&lt; T, Ts... &gt;, std::enable_if_t&lt; utils::all(std::is_same&lt; T, Ts &gt;::value...)&gt; &gt;</name>
+    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a30cdb7b94db9647badff3bef876bbfe6" kind="typedef"><name>tuple_type</name></member>
+    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1ac7af0c1f8b3f898cffa7ed8fb4f31ff6" kind="typedef"><name>value_type</name></member>
+    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a9517be75d9ddf16e4694747f2ed2db11" kind="typedef"><name>get_type</name></member>
+    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1aa1c21b2ffb30f041ca37998706529837" kind="function"><name>dummy_get</name></member>
+    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a0e600d4bf5db5ff3eb3f8e9cf85ec4af" kind="function"><name>at_impl</name></member>
+    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a6b543230ba88e092671b9a26e926f25b" kind="function"><name>at</name></member>
+  </compound>
+  <compound refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4" kind="struct"><name>detail::sequence_traits_tuple&lt; std::tuple&lt;&gt; &gt;</name>
+    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4_1a3f7e1b9970793bb4802ac923432406aa" kind="function"><name>at</name></member>
+  </compound>
+  <compound refid="structdetail_1_1slice__impl" kind="struct"><name>detail::slice_impl</name>
+    <member refid="structdetail_1_1slice__impl_1a8beab2a5e9f5193211267075e6d84a85" kind="function"><name>slice_impl</name></member>
+    <member refid="structdetail_1_1slice__impl_1a18cde5cb05290751a3f2852152bd81a2" kind="function"><name>map</name></member>
+    <member refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kind="function"><name>parent</name></member>
+  </compound>
+  <compound refid="structdetail_1_1take__impl" kind="struct"><name>detail::take_impl</name>
+    <member refid="structdetail_1_1take__impl_1aae184ca836aa3eabe48baddc24e39926" kind="variable"><name>_n</name></member>
+    <member refid="structdetail_1_1take__impl_1ab4213b8a22a4663ec4e3d9dd7f0dc7ff" kind="function"><name>take_impl</name></member>
+    <member refid="structdetail_1_1take__impl_1a08c19c60f260d636389bda2f176f8e33" kind="function"><name>size</name></member>
+    <member refid="structdetail_1_1take__impl_1af60e647670cef61fdaf7da4fb64552a5" kind="function"><name>map</name></member>
+    <member refid="structdetail_1_1take__impl_1a182134d9b698ef7dd4904283e810d724" kind="function"><name>extent</name></member>
   </compound>
   <compound refid="structdetail_1_1wrapper" kind="struct"><name>detail::wrapper</name>
   </compound>
@@ -129,18 +206,19 @@
     <member refid="namespaceconcepts_1_1sequence_1a662e9138b35be2e6fba09846af308fcf" kind="typedef"><name>has_extent_t</name></member>
     <member refid="namespaceconcepts_1_1sequence_1a6c8b6054c80c4f4a234401f88b1fa0aa" kind="typedef"><name>has_size_t</name></member>
     <member refid="namespaceconcepts_1_1sequence_1ac47dc96338027415201772286b626cc7" kind="typedef"><name>has_at_t</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a049849734e9ed25c3296bd66be87300f" kind="typedef"><name>Sequence</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ac885e153694bd757488fb73092f8fe77" kind="typedef"><name>StaticSequence</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1aa7264e54ba43d065ec5813b582f88d6d" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a4ae1b168f87cb4a1296a8530b6b5de6d" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a9c4db7c272a58c781e5f2437425eee3b" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a335988e9d2ca6eb53bfc584e5dd4531c" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a246414d648496b71506c307df2628858" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a598ca9e0028a568d909060c804db613d" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ade249387dd0ca74e2af492c2ee806e05" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ae77eb4b491208aae3636ad89bc4761cd" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a7ed5b16dd7b19df469bc4ca76e767410" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ac1796bb6d910c851fb271610298ced97" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1ae91aca2e70c6f738157e887f121a7b37" kind="typedef"><name>Sequence</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a61a9d0cce486a5d7d73c6c483d61e627" kind="typedef"><name>StaticSequence</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1ac4162ff63a92b1457bba8196f1a4d331" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a95cf00927bd31842d32e7b480b8b190d" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1adc5b8a50554a2456dae6bc03f0501c02" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a63a1ce1de5b2498e57e65ab06e529536" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a22e14733b5e9090fc73360c2eb8d3a63" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a2a63e4281510c58e8a3f8864bc579fe8" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a01e95b7cba0ae358ec7127a9b110df5e" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1ab6816391dd33f7b6e9ca9de6544ab7c6" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1af0bfae0a2ac73a797c8260eb50e11ff3" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a8af2a785ed0b6ebe196f8f83cb4cee98" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceconcepts_1_1sequence_1a2803ca47e69bf552d1c6bb6f847c0fee" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
   </compound>
   <compound refid="namespacedetail" kind="namespace"><name>detail</name>
     <member refid="namespacedetail_1a19f0ca9e6a180a3b84c6dcd02a6bbf41" kind="typedef"><name>void_t</name></member>
@@ -162,18 +240,24 @@
     <member refid="namespacedetail_1_1utils_1a78fe290406dd31a7fd3132f0e8596dfe" kind="function"><name>all</name></member>
   </compound>
   <compound refid="config_8hpp" kind="file"><name>config.hpp</name>
-    <member refid="config_8hpp_1a26bcefe91dfa766e9690dad1b4575551" kind="define"><name>BOOST_STATIC_VIEWS_JOIN</name></member>
-    <member refid="config_8hpp_1ac3602b5ac2d57e33f21a37a953210fd2" kind="define"><name>BOOST_STATIC_VIEWS_DO_JOIN1</name></member>
-    <member refid="config_8hpp_1a5638140f778524de2ac16ebfd4e1933b" kind="define"><name>BOOST_STATIC_VIEWS_DO_JOIN2</name></member>
-    <member refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kind="define"><name>BOOST_STATIC_VIEWS_CONSTEXPR</name></member>
     <member refid="config_8hpp_1a7eab1818380a6251326089d864474644" kind="define"><name>BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE</name></member>
+    <member refid="config_8hpp_1a8bb64e09d950e9e66c75169cd23c1c64" kind="define"><name>BOOST_DISABLE_ASSERTS</name></member>
+    <member refid="config_8hpp_1af2d0093c5d76377b84966b95066a6a39" kind="define"><name>BOOST_STATIC_VIEWS_THROW_ON_FAILURES</name></member>
+    <member refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kind="define"><name>BOOST_STATIC_VIEWS_CONSTEXPR</name></member>
     <member refid="config_8hpp_1af686fc66dc40e9f54bc97e7139e212f5" kind="define"><name>BOOST_STATIC_VIEWS_NAMESPACE</name></member>
     <member refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kind="define"><name>BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</name></member>
     <member refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kind="define"><name>BOOST_STATIC_VIEWS_END_NAMESPACE</name></member>
     <member refid="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" kind="define"><name>BOOST_STATIC_VIEWS_BUG_MESSAGE</name></member>
+    <member refid="config_8hpp_1a5638140f778524de2ac16ebfd4e1933b" kind="define"><name>BOOST_STATIC_VIEWS_DO_JOIN2</name></member>
+    <member refid="config_8hpp_1ac3602b5ac2d57e33f21a37a953210fd2" kind="define"><name>BOOST_STATIC_VIEWS_DO_JOIN1</name></member>
+    <member refid="config_8hpp_1a26bcefe91dfa766e9690dad1b4575551" kind="define"><name>BOOST_STATIC_VIEWS_JOIN</name></member>
+    <member refid="config_8hpp_1a743dfae9197196a688b75fcc0ae0d158" kind="define"><name>BOOST_STATIC_VIEWS_STRINGIFY_DO_STRINGIFY</name></member>
+    <member refid="config_8hpp_1aaf7820163adfc9df3feb2eddc699d071" kind="define"><name>BOOST_STATIC_VIEWS_STRINGIFY</name></member>
     <member refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kind="define"><name>BOOST_STATIC_VIEWS_NOEXCEPT_IF</name></member>
     <member refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kind="define"><name>BOOST_STATIC_VIEWS_DECLTYPE_AUTO</name></member>
     <member refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" kind="define"><name>BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN</name></member>
+    <member refid="config_8hpp_1a6c1ff7423b598de62d8e1b7602eeb8f7" kind="define"><name>BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN</name></member>
+    <member refid="config_8hpp_1a84409c4edf7d9fb671eeea87a5eb5ec1" kind="define"><name>BOOST_STATIC_VIEWS_EXPECT</name></member>
     <member refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kind="define"><name>BOOST_STATIC_VIEWS_INLINE_VARIABLE</name></member>
   </compound>
   <compound refid="find__first_8hpp" kind="file"><name>find_first.hpp</name>
@@ -190,6 +274,7 @@
   </compound>
   <compound refid="drop_8hpp" kind="file"><name>drop.hpp</name>
     <member refid="drop_8hpp_1a322ee5c860b93d6bfb5571a028f5e5b2" kind="variable"><name>drop</name></member>
+    <member refid="drop_8hpp_1a279d671006ab8e9b6be8b10c07890d6d" kind="variable"><name>drop_exactly</name></member>
   </compound>
   <compound refid="raw__view_8hpp" kind="file"><name>raw_view.hpp</name>
     <member refid="raw__view_8hpp_1afbca0a8494466fb12b26bdf7165bbc6d" kind="variable"><name>capacity</name></member>
@@ -197,6 +282,13 @@
   </compound>
   <compound refid="sequence__traits_8hpp" kind="file"><name>sequence_traits.hpp</name>
     <member refid="sequence__traits_8hpp_1a54817d47286dbd19d159e109edf72052" kind="variable"><name>dynamic_extent</name></member>
+  </compound>
+  <compound refid="slice_8hpp" kind="file"><name>slice.hpp</name>
+    <member refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kind="variable"><name>slice</name></member>
+  </compound>
+  <compound refid="take_8hpp" kind="file"><name>take.hpp</name>
+    <member refid="take_8hpp_1a2c20028c5115dcf38063d322f27b4ee1" kind="variable"><name>take</name></member>
+    <member refid="take_8hpp_1ae1d440b34c38c79b8651e6b50aa41f90" kind="variable"><name>take_exactly</name></member>
   </compound>
   <compound refid="dir_1878a3f4746a95c6aad317458cc7ef80" kind="dir"><name>/home/tom/GSoC2017/static-views/include/boost</name>
   </compound>

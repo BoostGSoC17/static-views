@@ -28,7 +28,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Examples" href="examples.html" />
-    <link rel="prev" title="Tutorial" href="getting_started.html" /> 
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
   </head>
   <body>
 <table cellpadding="2" width="100%"><tr>
@@ -36,7 +36,7 @@
 </tr></table>
 
 <div class="spirit-nav">
-<a accesskey="p"  href="getting_started.html"><img src="_static/prev.png" alt="Prev"></a>
+<a accesskey="p"  href="tutorial.html"><img src="_static/prev.png" alt="Prev"></a>
 <a accesskey="u" href="index.html"><img src="_static/up.png" alt="Up"></a>
 <a accesskey="h" href="index.html"><img src="_static/home.png" alt="Home"></a>
 <a accesskey="n"  href="examples.html"><img src="_static/next.png" alt="Next"></a>
@@ -51,28 +51,35 @@
 <span id="id1"></span><h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#concepts" id="id6">Concepts</a></li>
-<li><a class="reference internal" href="#views-and-adaptors" id="id7">Views and Adaptors</a><ul>
-<li><a class="reference internal" href="#raw-view" id="id8">Raw view</a></li>
-<li><a class="reference internal" href="#drop-view" id="id9">Drop view</a></li>
+<li><a class="reference internal" href="#concepts" id="id8">Concepts</a></li>
+<li><a class="reference internal" href="#views-and-adaptors" id="id9">Views and Adaptors</a><ul>
+<li><a class="reference internal" href="#raw-view" id="id10">Raw view</a></li>
+<li><a class="reference internal" href="#drop-view" id="id11">Drop view</a></li>
+<li><a class="reference internal" href="#take-view" id="id12">Take view</a></li>
+<li><a class="reference internal" href="#slice-view" id="id13">Slice view</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#utilities" id="id10">Utilities</a></li>
-<li><a class="reference internal" href="#details" id="id11">Details</a></li>
+<li><a class="reference internal" href="#utilities" id="id14">Utilities</a></li>
+<li><a class="reference internal" href="#details" id="id15">Details</a></li>
 </ul>
 </div>
 <div class="section" id="concepts">
-<span id="id2"></span><h2><a class="toc-backref" href="#id6">Concepts</a><a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id8">Concepts</a><a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils" id="sequence-concept">
 <dt>Sequence</dt>
-<dd><p class="first">Is a homogeneous collection of which provides random access to elements.
-If the number of elements in the collection is known at compile-time
-(i.e. is part of the type), the sequence is called <em>static</em>.</p>
-<p>To make a type <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> model the Sequence concept one needs to specialise
-<a class="reference internal" href="#_CPPv215sequence_traits" title="sequence_traits"><tt class="xref cpp cpp-class docutils literal">sequence_traits</tt></a> for this type. To check
-whether a type <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> models the Sequence or StaticSequence concepts the
-following constructs are provided:</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">concepts</span> <span class="p">{</span>
+<dd><p class="first">Is a homogeneous collection which provides random (indexed) access to
+elements.  If the number of elements in the collection is known at
+compile-time (i.e. is part of the type), the sequence is called
+<em>static</em>, otherwise – <em>dynamic</em>.</p>
+<p>C-style arrays, <code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">array</span></code>, and <code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span></code> (of the same type,
+obviously) model the StaticSequence out of the box. To make another type
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> model the Sequence concept one needs to specialise
+<a class="reference internal" href="#_CPPv215sequence_traits" title="sequence_traits"><tt class="xref cpp cpp-class docutils literal">sequence_traits</tt></a> for this type.  To check
+whether a type <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> models the <em>Sequence</em> or <em>StaticSequence</em> concepts
+the following constructs are provided:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">static_views</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">concepts</span> <span class="p">{</span>
 
   <span class="k">struct</span> <span class="n">Sequence</span> <span class="p">{</span>
     <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
@@ -91,14 +98,19 @@ following constructs are provided:</p>
   <span class="p">};</span>
 
 <span class="p">}</span> <span class="c1">// namespace concepts</span>
+<span class="p">}</span> <span class="c1">// namespace static_views</span>
+<span class="p">}</span> <span class="c1">// namespace boost</span>
 </pre></div>
 </div>
 <p class="last"><code class="docutils literal highlight highlight-c++"><span></span><span class="n">test</span><span class="p">()</span></code> member functions allow one to test whether a type <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code>
-models a certain concept. They never fail, no matter. <code class="docutils literal highlight highlight-c++"><span></span><span class="n">check</span><span class="p">()</span></code> member
-functions, however, do fail if <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> doesn’t model the concept. They
-use <code class="docutils literal highlight highlight-c++"><span></span><span class="k">static_assert</span></code> to produce nice messages explaining the problem.
-<code class="docutils literal highlight highlight-c++"><span></span><span class="n">check</span><span class="p">()</span></code> member functions are meant to be used to enforce a
-particular concept.</p>
+models a certain concept. So <code class="docutils literal highlight highlight-c++"><span></span><span class="n">Sequence</span><span class="o">::</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span></code> tells you whether
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> models the Sequence concept. <code class="docutils literal highlight highlight-c++"><span></span><span class="n">test</span><span class="p">()</span></code>’s will compile with any
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code>.  <code class="docutils literal highlight highlight-c++"><span></span><span class="n">check</span><span class="p">()</span></code>’s member functions, however, will fail to compile if
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> doesn’t model the concept. They will trigger <code class="docutils literal highlight highlight-c++"><span></span><span class="k">static_assert</span></code>
+failures to produce nice messages explaining the problem. So use
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">test</span><span class="p">()</span></code> with <a class="reference external" href="http://en.cppreference.com/w/cpp/types/enable_if"><code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">enable_if</span></code></a> or other SFINAE constructs and
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">check</span><span class="p">()</span></code> inside a function body when you need to enforce a particular
+concept.</p>
 </dd>
 </dl>
 <dl class="docutils" id="view-concept">
@@ -108,9 +120,9 @@ particular concept.</p>
 </dl>
 </div>
 <div class="section" id="views-and-adaptors">
-<span id="id3"></span><h2><a class="toc-backref" href="#id7">Views and Adaptors</a><a class="headerlink" href="#views-and-adaptors" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id9">Views and Adaptors</a><a class="headerlink" href="#views-and-adaptors" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="raw-view">
-<span id="id4"></span><h3><a class="toc-backref" href="#id8">Raw view</a><a class="headerlink" href="#raw-view" title="Permalink to this headline">¶</a></h3>
+<span id="id4"></span><h3><a class="toc-backref" href="#id10">Raw view</a><a class="headerlink" href="#raw-view" title="Permalink to this headline">¶</a></h3>
 <p>The simplest view there is is the <em>raw view</em>. It is a non-owning wrapper
 around a sequence which models the <a class="reference internal" href="#view-concept"><span class="std std-ref">view</span></a> concept.
 Here’s a synopsis:</p>
@@ -135,11 +147,10 @@ For creation of raw views the following functor should be used.</p>
 <dl class="member">
 <dt id="_CPPv28raw_view">
 <span id="raw_view__auto"></span><span class="target" id="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">raw_view</code> = implementation detail<a class="headerlink" href="#_CPPv28raw_view" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><p><span class="math">\(\textit{raw_view} : \text{Sequence} \to \text{View}\)</span> (i.e.
-takes a <a class="reference internal" href="#sequence-concept"><span class="std std-ref">sequence</span></a> and returns a
+<dd><p><p><span class="math">\(\mathtt{raw\_view} : \mathtt{Sequence} \to \mathtt{View}\)</span>
+(i.e.  takes a <a class="reference internal" href="#sequence-concept"><span class="std std-ref">sequence</span></a> and returns a
 <a class="reference internal" href="#view-concept"><span class="std std-ref">view</span></a>). It will trigger <code class="docutils literal highlight highlight-c++"><span></span><span class="k">static_assert</span></code>
-failures if passed a type not modeling the
-<a class="reference internal" href="#sequence-concept"><span class="std std-ref">sequence</span></a> concept.</p>
+failures if passed a type not modeling the <a class="reference internal" href="#sequence-concept"><span class="std std-ref">sequence</span></a> concept.</p>
  </p>
 </dd></dl>
 
@@ -161,31 +172,50 @@ failures if passed a type not modeling the
     <span class="c1">// Solution? declare &#39;xs&#39; as static</span>
     <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">ys</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 
-    <span class="k">auto</span> <span class="k">const</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">ys</span><span class="p">);</span> <span class="c1">// OK</span>
+    <span class="k">auto</span> <span class="k">const</span>           <span class="n">v3</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">ys</span><span class="p">);</span> <span class="c1">// OK</span>
     <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">const</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">ys</span><span class="p">);</span> <span class="c1">// OK</span>
-    
+
     <span class="c1">// Check that the returned type models the View concept</span>
     <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">View</span><span class="o">::</span><span class="n">check</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="o">&gt;</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="drop-view">
-<span id="id5"></span><h3><a class="toc-backref" href="#id9">Drop view</a><a class="headerlink" href="#drop-view" title="Permalink to this headline">¶</a></h3>
+<span id="id5"></span><h3><a class="toc-backref" href="#id11">Drop view</a><a class="headerlink" href="#drop-view" title="Permalink to this headline">¶</a></h3>
 <dl class="member">
 <dt id="_CPPv24drop">
 <span id="drop__auto"></span><span class="target" id="drop_8hpp_1a322ee5c860b93d6bfb5571a028f5e5b2"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">drop</code> = implementation detail<a class="headerlink" href="#_CPPv24drop" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><p><span class="math">\(\textit{drop} : \mathbb{N} \to (\text{View} \to
-\text{View})\)</span> is a functor that let’s you create dropped views.
+<dd><p><p><span class="math">\(\mathtt{drop} : \mathbb{N} \to \text{View} \to
+\text{View}\)</span> is a functor that let’s you create dropped views.
 Given a count <span class="math">\(n \in \mathbb{N}\)</span> and a <a class="reference internal" href="#view-concept"><span class="std std-ref">view</span></a> <span class="math">\(xs\)</span>, creates a view of <span class="math">\(xs\)</span> with the
 first <span class="math">\(n\)</span> elements dropped. If the size of <span class="math">\(xs\)</span> is
 less than <span class="math">\(n\)</span>, an empty view is returned.</p>
  </p>
 </dd></dl>
 
+<dl class="member">
+<dt id="_CPPv212drop_exactly">
+<span id="drop_exactly__auto"></span><span class="target" id="drop_8hpp_1a279d671006ab8e9b6be8b10c07890d6d"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">drop_exactly</code> = implementation detail<a class="headerlink" href="#_CPPv212drop_exactly" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p><span class="math">\(\mathtt{drop} : \mathbb{N} \to \text{View} \to \text{View}\)</span>
+is a functor that let’s you create dropped views. Very similar to
+<a class="reference internal" href="#_CPPv24drop" title="drop"><tt class="xref cpp cpp-var docutils literal">drop</tt></a>, but has an extra precondition. When given a count
+<span class="math">\(n\)</span> and a <a class="reference internal" href="#view-concept"><span class="std std-ref">view</span></a> <span class="math">\(xs\)</span>, it assumes
+that the size of <span class="math">\(xs\)</span> is at least <span class="math">\(n\)</span>. If that’s not
+the case, an assertion failure is triggered.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you disable the checks (i.e. define
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">BOOST_STATIC_VIEWS_DISABLE_CHECKS</span></code>) and pass an <span class="math">\(n &gt;
+xs\mathtt{.size()}\)</span>, <strong>the behavior is undefined</strong>.</p>
+</div>
+ </p>
+</dd></dl>
+
 <p>So if you created a variable <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">auto</span> <span class="n">v</span> <span class="o">=</span> <span class="n">drop</span><span class="p">(</span><span class="n">n</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code>, the
 following relation holds:</p>
 <div class="math">
-\[\text{v}[i] = \text{xs}[i + n] \;, \forall i \in \mathbb{N} \,.\]</div>
+\[\mathtt{v[}i\mathtt{]} = \mathtt{xs[}i + n\mathtt{]} \;,
+    \forall i \in \mathbb{N} \,.\]</div>
 <p>Here’s a synopsis of <code class="docutils literal highlight highlight-c++"><span></span><span class="n">v</span></code>’s type:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="p">...</span> <span class="p">{</span>
     <span class="p">...</span> <span class="c1">// copy and move constructors and assignment operators</span>
@@ -211,20 +241,21 @@ following relation holds:</p>
 <p>There are two non-standard functions:</p>
 <ul>
 <li><dl class="function">
-<dt id="_CPPv23mapNSt6size_tE">
-<span id="map__std::sCCE"></span><em class="property">constexpr</em> std::size_t <code class="descclassname"></code><code class="descname">map</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv23mapNSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv2N9drop_view3mapENSt6size_tE">
+<span id="drop_view::map__std::sCCE"></span><em class="property">constexpr</em> std::size_t <code class="descclassname"></code><code class="descname">map</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv2N9drop_view3mapENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Given an index <code class="docutils literal highlight highlight-c++"><span></span><span class="n">i</span></code> returns the corresponding index in the parent
-view. Let <span class="math">\(v\)</span> be a drop view, then <span class="math">\(\forall i\in
-\mathbb{N}:\)</span> <span class="math">\(v[i] = v.\)</span><a class="reference internal" href="#_CPPv26parentv" title="parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a><span class="math">\([
-v.\)</span><a class="reference internal" href="#_CPPv23mapNSt6size_tE" title="map"><tt class="xref cpp cpp-func docutils literal">map(</tt></a><span class="math">\(i\)</span><a class="reference internal" href="#_CPPv23mapNSt6size_tE" title="map"><tt class="xref cpp cpp-func docutils literal">)</tt></a><span class="math">\(]\)</span>.</p>
+view. Let <code class="docutils literal highlight highlight-c++"><span></span><span class="n">v</span></code> be a drop view, then <span class="math">\(\forall i\in
+\{0,\dots,\mathtt{v.size()}-1\}: \mathtt{v[}i\mathtt{]} =
+\mathtt{v.parent()[} \mathtt{v.map(} i \mathtt{)]}\)</span> For <span class="math">\(i \geq
+\mathtt{v.size()}\)</span>, the behavior of this function is undefined.</p>
 </dd></dl>
 
 </li>
 <li><dl class="function">
-<dt id="_CPPv26parentv">
-<span id="parentCE"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv26parentv" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="_CPPv2N9drop_view6parentEv">
+<span id="drop_view::parentCE"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv2N9drop_view6parentEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns a reference to the parent view. In the <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">auto</span> <span class="n">v</span> <span class="o">=</span>
-<span class="n">drop</span><span class="p">(</span><span class="n">n</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code> example, <a class="reference internal" href="#_CPPv26parentv" title="parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a> returns <code class="docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code>.</p>
+<span class="n">drop</span><span class="p">(</span><span class="n">n</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code> example, <a class="reference internal" href="#_CPPv2N9drop_view6parentEv" title="drop_view::parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a> returns <code class="docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code>.</p>
 </dd></dl>
 
 </li>
@@ -268,14 +299,184 @@ v.\)</span><a class="reference internal" href="#_CPPv23mapNSt6size_tE" title="ma
 </pre></div>
 </div>
 </div>
+<div class="section" id="take-view">
+<span id="id6"></span><h3><a class="toc-backref" href="#id12">Take view</a><a class="headerlink" href="#take-view" title="Permalink to this headline">¶</a></h3>
+<dl class="member">
+<dt id="_CPPv24take">
+<span id="take__auto"></span><span class="target" id="take_8hpp_1a2c20028c5115dcf38063d322f27b4ee1"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">take</code> = implementation detail<a class="headerlink" href="#_CPPv24take" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p><span class="math">\(\mathtt{take} : \mathbb{N} \to \text{View} \to
+\text{View}\)</span> is a functor that let’s you create take views. Given
+a count <span class="math">\(n \in \mathbb{N}\)</span> and a <a class="reference internal" href="#view-concept"><span class="std std-ref">view</span></a>
+<span class="math">\(xs\)</span>, creates a view of <span class="math">\(xs\)</span> consisting only of the
+first <span class="math">\(n\)</span> elements of <span class="math">\(xs\)</span>. If the size of <span class="math">\(xs\)</span>
+is less than <span class="math">\(n\)</span>, view of the whole <span class="math">\(xs\)</span> is returned.</p>
+ </p>
+</dd></dl>
+
+<p>So if you created a variable <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">auto</span> <span class="n">v</span> <span class="o">=</span> <span class="n">take</span><span class="p">(</span><span class="n">n</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code>, the
+following relation holds:</p>
+<div class="math">
+\[\mathtt{v[}i\mathtt{]} = \mathtt{xs[}i\mathtt{]} \;,
+    \forall i \in \{0,\dots,\mathtt{n}-1\} \,,\]</div>
+<p>I.e. for <span class="math">\(i \leq \mathtt{n}\)</span> take view behaves just like <code class="docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code>
+itself.</p>
+<p>Here’s a synopsis of <code class="docutils literal highlight highlight-c++"><span></span><span class="n">v</span></code>’s type:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="p">...</span> <span class="p">{</span>
+    <span class="p">...</span> <span class="c1">// copy and move constructors and assignment operators</span>
+
+    <span class="k">static</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">extent</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="k">const</span><span class="o">&amp;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">);</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="o">&amp;&amp;</span>     <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">);</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">map</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">parent</span><span class="p">()</span> <span class="k">const</span><span class="o">&amp;</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">parent</span><span class="p">()</span> <span class="o">&amp;&amp;</span>     <span class="k">noexcept</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Like most of the views provided by the library, take view has
+<a class="reference internal" href="#_CPPv2N9take_view3mapENSt6size_tE" title="take_view::map"><tt class="xref cpp cpp-func docutils literal">map()</tt></a> and <a class="reference internal" href="#_CPPv2N9take_view6parentEv" title="take_view::parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a> member functions which are not, strictly speaking,
+required by the <a class="reference internal" href="#view-concept"><span class="std std-ref">view</span></a> concept.</p>
+<ul>
+<li><dl class="function">
+<dt id="_CPPv2N9take_view3mapENSt6size_tE">
+<span id="take_view::map__std::sCCE"></span><em class="property">constexpr</em> std::size_t <code class="descclassname"></code><code class="descname">map</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv2N9take_view3mapENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given an index <code class="docutils literal highlight highlight-c++"><span></span><span class="n">i</span></code> returns the corresponding index in the parent
+view. Let <code class="docutils literal highlight highlight-c++"><span></span><span class="n">v</span></code> be a take view, then <span class="math">\(\forall i\in
+\{0,\dots,\mathtt{v.size()} - 1\}: \mathtt{v[}i\mathtt{]} =
+\mathtt{v.parent()[v.map(}i\mathtt{)]}\)</span>. For <span class="math">\(i \geq
+\mathtt{v.size()}\)</span> the behavior of this function is undefined.</p>
+</dd></dl>
+
+</li>
+<li><dl class="function">
+<dt id="_CPPv2N9take_view6parentEv">
+<span id="take_view::parentCE"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv2N9take_view6parentEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a eference to the parent view. In the <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">auto</span> <span class="n">v</span> <span class="o">=</span>
+<span class="n">take</span><span class="p">(</span><span class="n">n</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code> example, <a class="reference internal" href="#_CPPv2N9take_view6parentEv" title="take_view::parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a> returns <code class="docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code>.</p>
+</dd></dl>
+
+</li>
+</ul>
+<p><a class="reference internal" href="examples/using_take_view.html"><span class="doc">Here’s</span></a> an example of usage:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span>    <span class="c1">// First of all, we need a view of the data</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span>  <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+    <span class="c1">// Now, let&#39;s create a view of the first four elements of raw.</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="n">raw</span><span class="p">);</span>
+
+    <span class="c1">// If you forget the step of creating the raw_view and write</span>
+    <span class="c1">// constexpr auto v2 = boost::static_views::take(4)(data);</span>
+    <span class="c1">// ===&gt; Error!</span>
+    <span class="c1">// &quot;static assertion failed: I&#39;m sorry, but `View` must model the</span>
+    <span class="c1">// View concept!&quot;</span>
+
+    <span class="c1">// Size is changed</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Though not the extent</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">raw</span><span class="p">.</span><span class="n">extent</span><span class="p">()</span> <span class="o">==</span> <span class="n">v1</span><span class="p">.</span><span class="n">extent</span><span class="p">(),</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+    <span class="c1">// But if you _do_ want the extent to change as well, just pass</span>
+    <span class="c1">// integral_constant rather than size_t to take:</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">{})(</span><span class="n">raw</span><span class="p">);</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">v3</span><span class="p">.</span><span class="n">extent</span><span class="p">()</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+    <span class="c1">// You can do all the common stuff like</span>
+    <span class="c1">//</span>
+    <span class="c1">// accessing elements</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="c1">// copying the view</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span>
+    <span class="c1">// accessing the parent view</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="o">&amp;</span><span class="n">raw</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">v4</span><span class="p">.</span><span class="n">parent</span><span class="p">(),</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="c1">// etc.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slice-view">
+<span id="id7"></span><h3><a class="toc-backref" href="#id13">Slice view</a><a class="headerlink" href="#slice-view" title="Permalink to this headline">¶</a></h3>
+<dl class="member">
+<dt id="_CPPv25slice">
+<span id="slice__auto"></span><span class="target" id="slice_8hpp_1a18968c488a8b0cdc2697296024da9293"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">slice</code> = implementation detail<a class="headerlink" href="#_CPPv25slice" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><p><span class="math">\(\mathtt{slice} : \mathbb{N} \times \mathbb{N} \to \text{View} \to
+\text{View}\)</span> is a functor that let’s you create slices of views.
+Given a index <span class="math">\(b \in \mathbb{N}\)</span>, an index <span class="math">\(e \in
+\mathbb{N}\)</span> and a <a class="reference internal" href="#view-concept"><span class="std std-ref">view</span></a> <span class="math">\(xs\)</span>, creates a view of elements of <span class="math">\(xs\)</span> with
+indices <span class="math">\(i \in \mathbb{N} \cap [b, e)\)</span>.</p>
+ </p>
+</dd></dl>
+
+<p>Slice view is almost equivalent to a “<a class="reference internal" href="#take-view"><span class="std std-ref">take</span></a> view of a
+<a class="reference internal" href="#drop-view"><span class="std std-ref">drop</span></a> view”, i.e. <code class="docutils literal highlight highlight-c++"><span></span><span class="n">slice</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">e</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code> is the same as
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">take_exactly</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span><span class="n">drop_exactly</span><span class="p">(</span><span class="n">b</span><span class="p">)(</span><span class="n">xs</span><span class="p">))</span></code>. The <em>almost</em> comes from the
+<a class="reference internal" href="#_CPPv2N10slice_view3mapENSt6size_tE" title="slice_view::map"><tt class="xref cpp cpp-func docutils literal">map()</tt></a> and <a class="reference internal" href="#_CPPv2N10slice_view6parentEv" title="slice_view::parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a> member
+functions. Slice view is a <em>single view</em> and calling <a class="reference internal" href="#_CPPv2N10slice_view6parentEv" title="slice_view::parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a>
+will thus return <code class="docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code>. The “take view of view view” is a <em>stack of two
+views</em> – calling <tt class="xref cpp cpp-func docutils literal">parent</tt> will return
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">drop_exactly</span><span class="p">(</span><span class="n">b</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code>.</p>
+<p>Here’s a synopsis of slice view:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="p">...</span> <span class="p">{</span>
+    <span class="p">...</span> <span class="c1">// copy and move constructors and assignment operators</span>
+
+    <span class="k">static</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">extent</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="k">const</span><span class="o">&amp;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">);</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="o">&amp;&amp;</span>     <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">);</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="o">&amp;&amp;</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">map</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">parent</span><span class="p">()</span> <span class="k">const</span><span class="o">&amp;</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">parent</span><span class="p">()</span> <span class="o">&amp;&amp;</span>     <span class="k">noexcept</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul>
+<li><dl class="function">
+<dt id="_CPPv2N10slice_view3mapENSt6size_tE">
+<span id="slice_view::map__std::sCCE"></span><em class="property">constexpr</em> std::size_t <code class="descclassname"></code><code class="descname">map</code><span class="sig-paren">(</span>std::size_t <em class="property">const</em> <em>i</em><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv2N10slice_view3mapENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Given an index <code class="docutils literal highlight highlight-c++"><span></span><span class="n">i</span></code> returns the corresponding index in the parent
+view. Let <code class="docutils literal highlight highlight-c++"><span></span><span class="n">v</span></code> be a slice view, then <span class="math">\(\forall i\in
+\{0,\dots,\mathtt{v.size()} - 1\}: \mathtt{v[}i\mathtt{]} =
+\mathtt{v.parent()[v.map(}i\mathtt{)]}\)</span>. For <span class="math">\(i \geq
+\mathtt{v.size()}\)</span> the behavior of this function is undefined.</p>
+</dd></dl>
+
+</li>
+<li><dl class="function">
+<dt id="_CPPv2N10slice_view6parentEv">
+<span id="slice_view::parentCE"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv2N10slice_view6parentEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a reference to the parent view. In the <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">auto</span> <span class="n">v</span> <span class="o">=</span>
+<span class="n">slice</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">e</span><span class="p">)(</span><span class="n">xs</span><span class="p">)</span></code> example, <a class="reference internal" href="#_CPPv2N10slice_view6parentEv" title="slice_view::parent"><tt class="xref cpp cpp-func docutils literal">parent()</tt></a> returns <code class="docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code>.</p>
+</dd></dl>
+
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="utilities">
-<h2><a class="toc-backref" href="#id10">Utilities</a><a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">Utilities</a><a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
 <dl class="member">
 <dt id="_CPPv212make_wrapper">
 <span id="make_wrapper__auto"></span><span class="target" id="wrapper_8hpp_1ae33820437331f5915a766f6fa3ba75dc"></span><em class="property">constexpr</em> auto <code class="descclassname"></code><code class="descname">make_wrapper</code> = implementation detail<a class="headerlink" href="#_CPPv212make_wrapper" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><div class="math">
-\[\textit{make_wrapper}: \text{U} \to \text{Wrapper}\]</div>
+\[\mathtt{make\_wrapper}: \mathtt{U} \to \mathtt{Wrapper}\]</div>
 <p>Creates a <a class="reference internal" href="#_CPPv2N6detail7wrapperE" title="detail::wrapper"><tt class="xref cpp cpp-class docutils literal">detail::wrapper</tt></a> of an lvalue reference when
 <code class="docutils literal highlight highlight-c++"><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">T</span><span class="o">&amp;</span></code> for some type <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> or an rvalue reference when <code class="docutils literal highlight highlight-c++"><span></span><span class="n">U</span> <span class="o">==</span>
 <span class="n">T</span><span class="o">&amp;&amp;</span></code>. If <code class="docutils literal highlight highlight-c++"><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">T</span><span class="o">&amp;&amp;</span></code>, <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> is required to be
@@ -289,13 +490,13 @@ v.\)</span><a class="reference internal" href="#_CPPv23mapNSt6size_tE" title="ma
 <dt id="_CPPv215sequence_traits">
 <span id="sequence_traits"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">sequence_traits</code><a class="headerlink" href="#_CPPv215sequence_traits" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A proxy through which functions access sequences. </p>
-<p><p><a class="reference internal" href="#reference"><span class="std std-ref">As mentioned</span></a> earlier, sequences are homogeneous
-collections with random random access to elements. Sequences of
-length known at compile-time are called <em>static sequences</em>.
-Sequences of unknown (at compile-time) length are, obviously,
-called <em>dynamic sequences</em>. The distinction is made using the
-property called <em>extent</em> which is similar to the <code class="docutils literal highlight highlight-c++"><span></span><span class="n">Extent</span></code>
-template parameter in the <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0122r4.pdf"><code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">span</span></code> proposal</a>.</p>
+<p><p><a class="reference internal" href="#sequence-concept"><span class="std std-ref">As mentioned</span></a> earlier, sequences are
+homogeneous collections with random random access to elements.
+Sequences of length known at compile-time are called <em>static
+sequences</em>. Sequences of unknown (at compile-time) length are,
+obviously, called <em>dynamic sequences</em>. The distinction is made
+using the property called <em>extent</em> which is similar to the
+<code class="docutils literal highlight highlight-c++"><span></span><span class="n">Extent</span></code> template parameter in the <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0122r4.pdf"><code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">span</span></code> proposal</a>.</p>
 <p><a class="reference internal" href="#_CPPv215sequence_traits" title="sequence_traits"><tt class="xref cpp cpp-class docutils literal">sequence_traits</tt></a> provides a uniform interface for
 working with sequences. A general <a class="reference internal" href="#_CPPv215sequence_traits" title="sequence_traits"><tt class="xref cpp cpp-class docutils literal">sequence_traits</tt></a>
 declaration may look like this:</p>
@@ -304,31 +505,25 @@ declaration may look like this:</p>
 
 <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">sequence_traits</span> <span class="p">{</span>
-    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">size</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span>
-        <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">size</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
 
-    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">extent</span><span class="p">()</span>
-        <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">extent</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span><span class="p">;</span>
 
-    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">at</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span>
-        <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">reference</span><span class="p">;</span>
-
-    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">at</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span>
-        <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">const_reference</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">at</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">const_reference</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">at</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">reference</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">at</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">-&gt;</span><span class="n">rvalue_reference</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="p">}</span> <span class="c1">// namespace static_views</span>
 <span class="p">}</span> <span class="c1">// namespace boost</span>
 </pre></div>
 </div>
-<p>To make a type <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> model
-the <a class="reference internal" href="#sequence-concept"><span class="std std-ref">sequence</span></a> concept one only needs to
-specialise <a class="reference internal" href="#_CPPv215sequence_traits" title="sequence_traits"><tt class="xref cpp cpp-class docutils literal">sequence_traits</tt></a> for <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code>.</p>
 <ul class="simple">
 <li>Elements are accessed by calling
 <code class="docutils literal highlight highlight-c++"><span></span><span class="n">sequence_traits</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">at</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></code> with a (const) reference to
 <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> <code class="docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code> and index <code class="docutils literal highlight highlight-c++"><span></span><span class="n">i</span></code>. <code class="docutils literal highlight highlight-c++"><span></span><span class="n">at</span><span class="p">()</span></code> must furthermore be
-<code class="docutils literal highlight highlight-c++"><span></span><span class="k">static</span></code> and <code class="docutils literal highlight highlight-c++"><span></span><span class="k">noexcept</span></code>.</li>
+<code class="docutils literal highlight highlight-c++"><span></span><span class="k">static</span></code> and <code class="docutils literal highlight highlight-c++"><span></span><span class="k">noexcept</span></code>. You’re by no means required to
+create all three overloads of <code class="docutils literal highlight highlight-c++"><span></span><span class="n">at</span><span class="p">()</span></code>, one is sufficient.</li>
 <li>Extent is detemined by calling <code class="docutils literal highlight highlight-c++"><span></span><span class="n">sequence_traits</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">extent</span><span class="p">()</span></code>.
 It should be <code class="docutils literal highlight highlight-c++"><span></span><span class="k">static</span></code>, <code class="docutils literal highlight highlight-c++"><span></span><span class="k">noexcept</span></code>, and have return type
 convertible to <code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span></code>. If the size of <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> is known
@@ -342,12 +537,49 @@ special value <tt class="xref cpp cpp-var docutils literal">dynamic_extent</tt> 
 calling <code class="docutils literal highlight highlight-c++"><span></span><span class="n">size</span></code> with any sequence of type <code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> will return the
 same result.</li>
 </ul>
+<p>Currently, only arrays (<code class="docutils literal highlight highlight-c++"><span></span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span></code> and <code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span></code>) and
+homogeneous tuples (<code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span></code> where <span class="math">\(\exists
+\text{U}: \forall \text{T} \in \{\text{Ts}\dots\}: \text{T} =
+\text{U}\)</span>) have specialisations of <tt class="xref cpp cpp-class docutils literal">sequencce_traits</tt>.
+Specialising it for other types is really simple though.
+<a class="reference internal" href="examples/support_span.html"><span class="doc">Here’s</span></a> how one can add
+support for <code class="docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">span</span></code>:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">static_views</span> <span class="p">{</span>
+    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span> <span class="n">Extent</span><span class="o">&gt;</span>
+    <span class="k">struct</span> <span class="n">sequence_traits</span><span class="o">&lt;</span><span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;&gt;</span>
+        <span class="c1">// Default implementation for functions. Now we only need to</span>
+        <span class="c1">// override stuff we aren&#39;t happy with</span>
+        <span class="o">:</span> <span class="n">sequence_traits_default</span><span class="o">&lt;</span>
+              <span class="n">sequence_traits</span><span class="o">&lt;</span><span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+              <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+
+        <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">extent</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;::</span><span class="n">extent</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Although sequence_traits_default can provides at()</span>
+        <span class="c1">// when operator[] is available, span&#39;s operator[] is not</span>
+        <span class="c1">// noexcept so it makes little sense.</span>
+        <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">at</span><span class="p">(</span>
+            <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">i</span><span class="p">)</span> <span class="k">noexcept</span>
+        <span class="p">{</span>
+            <span class="c1">// Notice the absence of bound checks here! raw_view</span>
+            <span class="c1">// takes care of that.</span>
+            <span class="k">return</span> <span class="n">xs</span><span class="p">.</span><span class="n">data</span><span class="p">()[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">}</span> <span class="c1">// namespace static_views</span>
+<span class="p">}</span> <span class="c1">// namespace boost</span>
+</pre></div>
+</div>
  </p>
 </dd></dl>
 
 </div>
 <div class="section" id="details">
-<h2><a class="toc-backref" href="#id11">Details</a><a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">Details</a><a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
 <span class="target" id="structdetail_1_1wrapper"></span><em class="property">template </em>&lt;<em class="property">class</em> T&gt;</dt>
@@ -446,7 +678,7 @@ references. This is just syntactic sugar.</p>
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="function">
 <dt id="_CPPv2N6detail9drop_impl9drop_implERR7WrapperNSt6size_tE">
-<span id="detail::drop_impl::drop_impl__WrapperRR.std::sCCE"></span><span class="target" id="structdetail_1_1drop__impl_1a4f186c53066f7dba74375905cb7f3672"></span><em class="property">constexpr</em> <code class="descname">drop_impl</code><span class="sig-paren">(</span>Wrapper &amp;&amp;<em>xs</em>, std::size_t <em class="property">const</em> <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6detail9drop_impl9drop_implERR7WrapperNSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="detail::drop_impl::drop_impl__WrapperRR.std::sCCE"></span><span class="target" id="structdetail_1_1drop__impl_1aef1552ca1504395673086e9564490719"></span><em class="property">constexpr</em> <code class="descname">drop_impl</code><span class="sig-paren">(</span>Wrapper &amp;&amp;<em>xs</em>, std::size_t <em class="property">const</em> <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6detail9drop_impl9drop_implERR7WrapperNSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs a view of <tt class="docutils literal">xs</tt> with the first <tt class="docutils literal">b</tt> elements dropped. </p>
 <p><dl class="docutils">
 <dt><strong>Parameters</strong></dt>
@@ -466,7 +698,7 @@ references. This is just syntactic sugar.</p>
 
 <dl class="function">
 <dt id="_CPPv2NK6detail9drop_impl4sizeEv">
-<span id="detail::drop_impl::sizeCCE"></span><span class="target" id="structdetail_1_1drop__impl_1a3496e29f4c2a7181c8cb7a211aba1384"></span><em class="property">constexpr</em> auto <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK6detail9drop_impl4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="detail::drop_impl::sizeCCE"></span><span class="target" id="structdetail_1_1drop__impl_1a1e809b2868a5d01598f20bdff08d0f0a"></span><em class="property">constexpr</em> auto <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK6detail9drop_impl4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Returns the number of elements viewed. </p>
 </dd></dl>
 

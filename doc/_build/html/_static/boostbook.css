@@ -5,7 +5,7 @@ http://spirit.sourceforge.net/
 
 Copyright 2013 Niall Douglas additions for colors and alignment.
 Copyright 2013 Paul A. Bristow additions for more colors and alignments.
-Copyright 2017 Tom Westerhout fixes of font issues.
+Copyright 2017 Tom Westerhout font fixes to support Sphinx
 
 Distributed under the Boost Software License, Version 1.0. (See accompany-
 ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -50,11 +50,9 @@ Program listings
         padding: 0.5pc 0.5pc 0.5pc 0.5pc;
     }
 
-    .programlisting,
-    .screen,
-    pre > code,
     div.highlight,
-    div.codehi,
+    .programlisting,
+    .screen
     {
         font-size: 9pt;
         display: block;
@@ -81,11 +79,11 @@ Headings
         font-weight: bold;
     }
 
-    h1 { font-size: 150%; padding-top: 0.5em; }
-    h2 { font-weight: bold; font-size: 130%; }
-    h3 { font-weight: bold; font-size: 120%; }
-    h4 { font-weight: bold; font-size: 110%; }
-    h5 { font-weight: normal; font-style: italic; font-size: 100%; }
+    h1 { font-size: 140%; }
+    h2 { font-weight: bold; font-size: 140%; }
+    h3 { font-weight: bold; font-size: 130%; }
+    h4 { font-weight: bold; font-size: 120%; }
+    h5 { font-weight: normal; font-style: italic; font-size: 110%; }
     h6 { font-weight: normal; font-style: italic; font-size: 100%; }
 
     /* Top page titles */
@@ -102,23 +100,23 @@ Headings
         margin-bottom: 1pc;
     }
 
-    h1.title { font-size: 150% }
-    h2.title { font-size: 130% }
-    h3.title { font-size: 120% }
-    h4.title { font-size: 110% }
-    h5.title { font-size: 100% }
+    h1.title { font-size: 140% }
+    h2.title { font-size: 140% }
+    h3.title { font-size: 130% }
+    h4.title { font-size: 120% }
+    h5.title { font-size: 110% }
     h6.title { font-size: 100% }
 
     .section h1
     {
         margin: 0em 0em 0.5em 0em;
-        font-size: 150%;
+        font-size: 140%;
     }
 
-    .section h2 { font-size: 130% }
-    .section h3 { font-size: 120% }
-    .section h4 { font-size: 110% }
-    .section h5 { font-size: 100% }
+    .section h2 { font-size: 140% }
+    .section h3 { font-size: 130% }
+    .section h4 { font-size: 120% }
+    .section h5 { font-size: 110% }
     .section h6 { font-size: 100% }
 
     /* Code on titles */
@@ -415,115 +413,82 @@ Colors
             color: #000000;
         }
 
+        
     /* Syntax Highlighting */
-        .keyword,
         .property,
-        .highlight .k, 
-        .codehilite .k, 
-        .highlight .kc,
-        .codehilite .kc,
-        .highlight .kd,
-        .codehilite .kd,
-        .highlight .kn,
-        .codehilite .kn,
-        .highlight .kp,
-        .codehilite .kp,
-        .highlight .kr,
-        .codehilite .kr,
+        .highlight .k
+        .highlight .kc
+        .highlight .kd
+        .highlight .kn
+        .highlight .kp
+        .highlight .kr
         .highlight .kt
-        .codehilite .kt
-        { color: #0000AA; }
-        .identifier,
+        .keyword { color: #0000AA; }
+
         .highlight .n,
-        .codehilite .n,
         .highlight .na,
-        .codehilite .na,
         .highlight .nb,
-        .codehilite .nb,
         .highlight .bp,
-        .codehilite .bp,
         .highlight .nc,
-        .codehilite .nc,
         .highlight .no,
-        .codehilite .no,
         .highlight .nd,
-        .codehilite .nd,
         .highlight .ni,
-        .codehilite .ni,
         .highlight .ne,
-        .codehilite .ne,
         .highlight .nf,
-        .codehilite .nf,
         .highlight .py,
-        .codehilite .py,
         .highlight .nl,
-        .codehilite .nl,
         .highlight .nn,
-        .codehilite .nn,
         .highlight .nx,
-        .codehilite .nx,
         .highlight .nt,
-        .codehilite .nt,
         .highlight .nv,
-        .codehilite .nv,
         .highlight .vc,
-        .codehilite .vc,
         .highlight .vg,
-        .codehilite .vg,
         .highlight .vi,
-        .codehilite .vi
-        { color: #000000; }
-        .special 
-        { color: #707070; }
-        .preprocessor,
+        .identifier { color: #000000; }
+
+        .special { color: #707070; }
+
         .highlight .cp,
-        .codehilite .cp
-        { color: #402080; }
-        .char,
-        .highlight .sc,
-        .codehilite .sc 
-        { color: teal; }
-        .comment,
-        .highlight .cm,
-        .codehilite .cm,
-        .highlight .c1,
-        .codehilite .c1,
-        .highlight .cs,
-        .codehilite .cs
-        { color: #800000; }
-        .string,
-        .highlight .s,
-        .codehilite .s,
-        .highlight .s2,
-        .codehilite .s2,
-        .highlight .se,
-        .codehilite .se,
-        .highlight .sh,
-        .codehilite .sh,
-        .highlight .si,
-        .codehilite .si,
-        .highlight .sx,
-        .codehilite .sx,
-        .highlight .sr,
-        .codehilite .sr,
-        .highlight .s1,
-        .codehilite .s1,
-        .highlight .ss,
-        .codehilite .ss
-        { color: teal; }
-        .number,
+        .preprocessor { color: #402080; }
+
+        .highlight .sc
+        .char { color: teal; }
+
+        .highlight .c
+        .highlight .ch
+        .highlight .cm
+        .highlight .cp
+        .highlight .cpf
+        .highlight .c1
+        .highlight .cs
+        .highlight .sd
+        .highlight .sh
+        .comment { color: #800000; }
+
+        .highlight .s
+        .highlight .sa
+        .highlight .sb
+        .highlight .dl
+        .highlight .s2
+        .highlight .se
+        .highlight .si
+        .highlight .sx
+        .highlight .sr
+        .highlight .s1
+        .highlight .ss
+        .string { color: teal; }
+
         .highlight .m,
-        .codehilite .m,
         .highlight .mf,
-        .codehilite .mf,
         .highlight .mh,
-        .codehilite .mh,
         .highlight .mi,
-        .codehilite .mi,
         .highlight .mo,
-        .codehilite .mo
-        { color: teal; }
+        .number { color: teal; }
+
+        .highlight,
         .white_bkd { background-color: #FFFFFF; }
+
+        .highlight .hll,
         .dk_grey_bkd { background-color: #999999; }
 
     /* Links */
@@ -566,10 +531,9 @@ Colors
             border: 1px solid #DCDCDC;
         }
 
+        div.highlight,
         .programlisting,
-        .screen,
-        pre > code,
-        div.codehilite
+        .screen
         {
             border: 1px solid #DCDCDC;
         }
@@ -647,6 +611,7 @@ Colors
             border: 1px solid gray;
         }
 
+        div.highlight,
         .programlisting,
         .screen
         {
@@ -820,119 +785,3 @@ span.purple { color: purple; }
 span.gold { color: gold; }
 span.silver { color: silver; } /* lighter gray */
 span.gray { color: #808080; } /* light gray */
-
-span.warning {
-  display: inline-block;
-  border:1px solid #C0C0C0;
-  border-collapse:collapse;
-  margin-bottom: 20px;
-  padding:5px;
-}
-
-/*=============================================================================
-Sphinx Styles Adjustments
-=============================================================================*/
-
-    div.toctree-wrapper
-    {
-       margin: 1pc 4% 0pc 4%;
-       padding: 0.1pc 1pc 0.1pc 1pc;
-       font-size: 80%;
-       line-height: 1.15;
-       border: 1px solid #DCDCDC;
-       padding-top: 1em;
-    }
-
-    div.toctree-wrapper:before
-    {
-        content: "Table of Contents";
-        font-weight: bold;
-        font-size: 10pt;
-        line-height: 1.15;
-    }
-
-    .boost-toc
-    {
-       float: right;
-       padding: 0.5pc;
-    }
-
-    /* Code on toc */
-    .toctree-wrapper .computeroutput { font-size: 120% }
-
-    .toctree-wrapper ul ul { margin: 0; }
-    .toctree-wrapper ul, .toctree-wrapper li 
-    {
-        font-size: inherit;
-        line-height: inherit;
-        list-style-type:none; 
-    }
-
-    .toctree-wrapper ul
-    {
-        padding-left: 0;
-    }
-
-    li.toctree-l2
-    { 
-        padding-left: 3em; 
-    }
-
-    a.headerlink:visited,
-    a.headerlink 
-    {
-        color: white;
-        background: white;
-        padding: 0 4px;
-        text-decoration: none;
-    }
-
-    a.headerlink:hover 
-    {
-        color: lightgray;
-        background: white;
-    }
-
-    div.highlight
-    {
-        border: 1px solid #DCDCDC;
-        font-size: 9pt;
-        display: block;
-        margin: 1pc 4% 0pc 4%;
-        padding: 0.5pc 0.5pc 0.5pc 0.5pc;
-    }
-
-    /* Tables */
-    table.docutils
-    {
-        width: 92%;
-        margin-left: 4%;
-        margin-right: 4%;
-        border: none;
-        padding: 4px;
-    }
-
-    /* Table Cells */
-    table.docutils tr td
-    {
-        padding: 0.5em;
-        text-align: left;
-        font-size: 9pt;
-    }
-
-    table.docutils tr th
-    {
-        padding: 0.5em 0.5em 0.5em 0.5em;
-        border: 1pt solid white;
-        font-size: 80%;
-    }
-    table.docutils tr td
-    {
-        border: 1px solid #DCDCDC;
-    }
-
-    table.docutils tr th
-    {
-        background-color: #F0F0F0;
-        border: 1px solid #DCDCDC;
-    }

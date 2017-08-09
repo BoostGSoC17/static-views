@@ -11,10 +11,23 @@
     <innerclass refid="structdetail_1_1is__wrapper" prot="public">detail::is_wrapper</innerclass>
     <innerclass refid="structdetail_1_1is__wrapper_3_01wrapper_3_01T_01_4_01_4" prot="public">detail::is_wrapper&lt; wrapper&lt; T &gt; &gt;</innerclass>
     <innerclass refid="structdetail_1_1make__drop__algo__impl" prot="public">detail::make_drop_algo_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__drop__exactly__algo__impl" prot="public">detail::make_drop_exactly_algo_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__drop__exactly__impl" prot="public">detail::make_drop_exactly_impl</innerclass>
     <innerclass refid="structdetail_1_1make__drop__impl" prot="public">detail::make_drop_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__slice__algo__impl" prot="public">detail::make_slice_algo_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__slice__impl" prot="public">detail::make_slice_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__take__algo__impl" prot="public">detail::make_take_algo_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__take__exactly__algo__impl" prot="public">detail::make_take_exactly_algo_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__take__exactly__impl" prot="public">detail::make_take_exactly_impl</innerclass>
+    <innerclass refid="structdetail_1_1make__take__impl" prot="public">detail::make_take_impl</innerclass>
     <innerclass refid="structdetail_1_1make__wrapper__impl" prot="public">detail::make_wrapper_impl</innerclass>
     <innerclass refid="structdetail_1_1nonesuch" prot="public">detail::nonesuch</innerclass>
     <innerclass refid="structdetail_1_1raw__view__impl" prot="public">detail::raw_view_impl</innerclass>
+    <innerclass refid="structdetail_1_1sequence__traits__tuple" prot="public">detail::sequence_traits_tuple</innerclass>
+    <innerclass refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a" prot="public">detail::sequence_traits_tuple&lt; std::tuple&lt; T, Ts... &gt;, std::enable_if_t&lt; utils::all(std::is_same&lt; T, Ts &gt;::value...)&gt; &gt;</innerclass>
+    <innerclass refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4" prot="public">detail::sequence_traits_tuple&lt; std::tuple&lt;&gt; &gt;</innerclass>
+    <innerclass refid="structdetail_1_1slice__impl" prot="public">detail::slice_impl</innerclass>
+    <innerclass refid="structdetail_1_1take__impl" prot="public">detail::take_impl</innerclass>
     <innerclass refid="structdetail_1_1wrapper" prot="public">detail::wrapper</innerclass>
     <innernamespace refid="namespacedetail_1_1utils">detail::utils</innernamespace>
       <sectiondef kind="typedef">

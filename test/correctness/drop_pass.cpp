@@ -49,11 +49,19 @@ class non_copyable_int {
 template <class T>
 using compile_make_drop_t = decltype(MAKE_DROP(T));
 
+
+#if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
+# define NOEXCEPT(...) true
+#else
+# define NOEXCEPT(...) noexcept(__VA_ARGS__)
+#endif
+
+
 #define TEST_MAKE_IMPL(view_type, q)                                 \
     static_assert(boost::static_views::detail::is_detected<          \
                       compile_make_drop_t, view_type q>::value,      \
         "passing `" #view_type " " #q "` to `drop` doesn't work.");  \
-    static_assert(noexcept(MAKE_DROP(view_type q)),                  \
+    static_assert(NOEXCEPT(MAKE_DROP(view_type q)),                  \
         "passing `" #view_type " " #q                                \
         "` to `drop` is not noexcept.");                             \
     boost::static_views::concepts::View::check<boost::static_views:: \
@@ -164,10 +172,10 @@ auto test_copy_move()
 
     auto const v1 = boost::static_views::drop(1)(
         boost::static_views::raw_view(data_1));
-    decltype(v1) v2{v1};
+    BOOST_STATIC_VIEWS_UNUSED decltype(v1) v2{v1};
     auto         v3 = v1;
     auto         v4 = std::move(v3);
-    decltype(v1) v5{std::move(v4)};
+    BOOST_STATIC_VIEWS_UNUSED decltype(v1) v5{std::move(v4)};
 }
 
 int main()

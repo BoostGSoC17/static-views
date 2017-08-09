@@ -337,9 +337,9 @@ namespace detail {
         static_assert(concepts::is_detected<callable_with_value_t,
                           key_getter>::value,
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        static_assert(concepts::is_detected<callable_with_value_t,
-                          mapped_getter>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        // static_assert(concepts::is_detected<callable_with_value_t,
+        //                  mapped_getter>::value,
+        //    BOOST_STATIC_VIEWS_BUG_MESSAGE);
 
       public:
         using key_type    = std::remove_reference_t<decltype(
@@ -394,7 +394,7 @@ namespace detail {
 
         BOOST_STATIC_VIEWS_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR
-        auto _lookup(key_type const& k) const -> value_type const*
+        auto _lookup(key_type const& k) const -> value_type*
         {
             struct pred_equal {
                 key_getter const& get_key;
@@ -475,8 +475,8 @@ namespace detail {
 } // namespace detail
 
 // clang-format off
-template <std::size_t BucketCount, std::size_t BucketSize, class View,
-    class GetKey, class GetMapped,
+template <std::size_t BucketCount = 0, std::size_t BucketSize = 0,
+    class View = void, class GetKey = void, class GetMapped = void,
     class KeyEqual = std::equal_to<void>, class Hasher = hash_c>
 BOOST_STATIC_VIEWS_CONSTEXPR
 auto make_static_map(View&& xs, GetKey&& get_key, GetMapped&& get_mapped,
@@ -496,7 +496,15 @@ auto make_static_map(View&& xs, GetKey&& get_key, GetMapped&& get_mapped,
         }
     };
 
-    auto view = hashed<BucketCount, BucketSize>(
+    using view_type = std::remove_cv_t<std::remove_reference_t<View>>;
+    constexpr auto bucket_count = (BucketCount == 0)
+        ? 2 * view_type::extent()
+        : BucketCount;
+    constexpr auto bucket_size = (BucketSize == 0)
+        ? 2
+        : BucketSize;
+
+    auto view = hashed<bucket_count, bucket_size>(
         tricky_hasher{std::forward<Hasher>(hasher), get_key})(
         std::forward<View>(xs));
 

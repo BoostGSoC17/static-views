@@ -49,11 +49,17 @@ class non_copyable_int {
 template <class T>
 using compile_make_take_t = decltype(MAKE_TAKE(T));
 
+#if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
+# define NOEXCEPT(...) true
+#else
+# define NOEXCEPT(...) noexcept(__VA_ARGS__)
+#endif
+
 #define TEST_MAKE_IMPL(view_type, q)                                 \
     static_assert(boost::static_views::detail::is_detected<          \
                       compile_make_take_t, view_type q>::value,      \
         "passing `" #view_type " " #q "` to `take` doesn't work.");  \
-    static_assert(noexcept(MAKE_TAKE(view_type q)),                  \
+    static_assert(NOEXCEPT(MAKE_TAKE(view_type q)),                  \
         "passing `" #view_type " " #q                                \
         "` to `take` is not noexcept.");                             \
     boost::static_views::concepts::View::check<boost::static_views:: \
@@ -114,7 +120,7 @@ auto test_size()
     //                       size      to take      size
     test_size_impl<int,        10,            5,           5>();
     test_size_impl<int,        13,            0,           0>();
-    test_size_impl<int,         1,            5,           1>();
+    test_size_impl<int,         1,            1,           1>();
     test_size_impl<int,         7,            6,           6>();
     // clang-format on
 }
@@ -163,10 +169,10 @@ auto test_copy_move()
 
     auto const v1 = boost::static_views::take(1)(
         boost::static_views::raw_view(data_1));
-    decltype(v1) v2{v1};
+    BOOST_STATIC_VIEWS_UNUSED decltype(v1) v2{v1};
     auto         v3 = v1;
     auto         v4 = std::move(v3);
-    decltype(v1) v5{std::move(v4)};
+    BOOST_STATIC_VIEWS_UNUSED decltype(v1) v5{std::move(v4)};
 }
 
 int main()

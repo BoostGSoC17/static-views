@@ -26,14 +26,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="75" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="75" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="88" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="88" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structdetail_1_1drop__impl_1a4f186c53066f7dba74375905cb7f3672" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1drop__impl_1aef1552ca1504395673086e9564490719" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
         <type>constexpr</type>
         <definition>constexpr detail::drop_impl&lt; Wrapper, Extent &gt;::drop_impl</definition>
-        <argsstring>(Wrapper &amp;&amp;xs, std::size_t const b) std</argsstring>
+        <argsstring>(Wrapper &amp;&amp;xs, std::size_t const b)</argsstring>
         <name>drop_impl</name>
         <param>
           <type>Wrapper &amp;&amp;</type>
@@ -58,7 +58,7 @@
 <parametername>b</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Number of elements to drop. The resulting view will contain <computeroutput>max(xs.get().<ref refid="structdetail_1_1drop__impl_1a3496e29f4c2a7181c8cb7a211aba1384" kindref="member">size()</ref> - b, 0)</computeroutput> elements.</para></parameterdescription>
+<para>Number of elements to drop. The resulting view will contain <computeroutput>max(xs.get().<ref refid="structdetail_1_1drop__impl_1a1e809b2868a5d01598f20bdff08d0f0a" kindref="member">size()</ref> - b, 0)</computeroutput> elements.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <parameterlist kind="exception"><parameteritem>
@@ -72,12 +72,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="37" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="37" bodyend="47"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="38" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="38" bodyend="54"/>
       </memberdef>
-      <memberdef kind="function" id="structdetail_1_1drop__impl_1a3496e29f4c2a7181c8cb7a211aba1384" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1drop__impl_1a1e809b2868a5d01598f20bdff08d0f0a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto detail::drop_impl&lt; Wrapper, Extent &gt;::size</definition>
-        <argsstring>() const noexcept</argsstring>
+        <argsstring>() const noexcept -&gt; std::size_t</argsstring>
         <name>size</name>
         <briefdescription>
 <para>Returns the number of elements viewed. </para>        </briefdescription>
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="50" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="50" bodyend="56"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="57" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="57" bodyend="66"/>
       </memberdef>
       <memberdef kind="function" id="structdetail_1_1drop__impl_1a71d8a970243dfa3f4ebdf85a983e1123" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr auto</type>
@@ -102,7 +102,7 @@
 <para>For <formula id="0">$ i \geq \text{xs.size}()$</formula> behavior of this function is undefined </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="68" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="68" bodyend="72"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="78" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="78" bodyend="85"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="58" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="58" bodyend="61"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="68" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="68" bodyend="71"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -146,13 +146,13 @@
         <label>view_adaptor_base&lt; drop_impl&lt; Wrapper, Extent &gt;, Wrapper &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="26" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="25" bodyend="76"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="27" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="26" bodyend="89"/>
     <listofallmembers>
       <member refid="structdetail_1_1drop__impl_1abb795ff8cb4208cc369fa19b10a50c7f" prot="private" virt="non-virtual"><scope>detail::drop_impl</scope><name>_b</name></member>
-      <member refid="structdetail_1_1drop__impl_1a4f186c53066f7dba74375905cb7f3672" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>drop_impl</name></member>
+      <member refid="structdetail_1_1drop__impl_1aef1552ca1504395673086e9564490719" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>drop_impl</name></member>
       <member refid="structdetail_1_1drop__impl_1af9ac9f27d58876ced2a27519d78e1358" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>extent</name></member>
       <member refid="structdetail_1_1drop__impl_1a71d8a970243dfa3f4ebdf85a983e1123" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>map</name></member>
-      <member refid="structdetail_1_1drop__impl_1a3496e29f4c2a7181c8cb7a211aba1384" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>size</name></member>
+      <member refid="structdetail_1_1drop__impl_1a1e809b2868a5d01598f20bdff08d0f0a" prot="public" virt="non-virtual"><scope>detail::drop_impl</scope><name>size</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

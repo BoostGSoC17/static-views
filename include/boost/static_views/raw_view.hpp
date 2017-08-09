@@ -5,7 +5,7 @@
 
 /// \file boost/static_views/raw_view.hpp
 ///
-/// \brief Implementation of #boost::static_views::raw_view.
+/// \brief Implementation of #raw_view.
 
 #ifndef BOOST_STATIC_VIEWS_RAW_VIEW_HPP
 #define BOOST_STATIC_VIEWS_RAW_VIEW_HPP
@@ -100,11 +100,11 @@ struct make_raw_view {
 } // namespace detail
 
 /// \verbatim embed:rst:leading-slashes
-/// :math:`\textit{raw_view} : \text{Sequence} \to \text{View}` (i.e.
-/// takes a :ref:`sequence <sequence-concept>` and returns a
+/// :math:`\mathtt{raw\_view} : \mathtt{Sequence} \to \mathtt{View}`
+/// (i.e.  takes a :ref:`sequence <sequence-concept>` and returns a
 /// :ref:`view <view-concept>`). It will trigger ``static_assert``
-/// failures if passed a type not modeling the
-/// :ref:`sequence <sequence-concept>` concept.
+/// failures if passed a type not modeling the :ref:`sequence
+/// <sequence-concept>` concept.
 /// \endverbatim
 BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_raw_view, raw_view)
 

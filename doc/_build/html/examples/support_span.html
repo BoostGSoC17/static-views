@@ -1,0 +1,132 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Specialising sequence_traits example &#8212; Boost.StaticViews  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/boostbook.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing" href="../tests.html" />
+    <link rel="prev" title="Take view example." href="using_take_view.html" /> 
+  </head>
+  <body>
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86"src="../_static/boost-proposed.png"></td>
+</tr></table>
+
+<div class="spirit-nav">
+<a accesskey="p"  href="using_take_view.html"><img src="../_static/prev.png" alt="Prev"></a>
+<a accesskey="u" href="../examples.html"><img src="../_static/up.png" alt="Up"></a>
+<a accesskey="h" href="../index.html"><img src="../_static/home.png" alt="Home"></a>
+<a accesskey="n"  href="../tests.html"><img src="../_static/next.png" alt="Next"></a>
+</div>
+  
+
+    <div class="document">
+  <div class="chapter">
+      <div class="body" role="main">
+        
+  <div class="section" id="specialising-sequence-traits-example">
+<span id="support-span-example"></span><h1>Specialising sequence_traits example<a class="headerlink" href="#specialising-sequence-traits-example" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">//          Copyright Tom Westerhout 2017.</span>
+<span class="c1">// Distributed under the Boost Software License, Version 1.0.</span>
+<span class="c1">//    (See accompanying file LICENSE_1_0.txt or copy at</span>
+<span class="c1">//          http://www.boost.org/LICENSE_1_0.txt)</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;gsl/span&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/static_views/raw_view.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/static_views/sequence_traits.hpp&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">static_views</span> <span class="p">{</span>
+    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span> <span class="n">Extent</span><span class="o">&gt;</span>
+    <span class="k">struct</span> <span class="n">sequence_traits</span><span class="o">&lt;</span><span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;&gt;</span>
+        <span class="c1">// Default implementation for functions. Now we only need to</span>
+        <span class="c1">// override stuff we aren&#39;t happy with</span>
+        <span class="o">:</span> <span class="n">sequence_traits_default</span><span class="o">&lt;</span>
+              <span class="n">sequence_traits</span><span class="o">&lt;</span><span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+              <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+
+        <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">extent</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;::</span><span class="n">extent</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Although sequence_traits_default can provides at()</span>
+        <span class="c1">// when operator[] is available, span&#39;s operator[] is not</span>
+        <span class="c1">// noexcept so it makes little sense.</span>
+        <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">at</span><span class="p">(</span>
+            <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">i</span><span class="p">)</span> <span class="k">noexcept</span>
+        <span class="p">{</span>
+            <span class="c1">// Notice the absence of bound checks here! raw_view</span>
+            <span class="c1">// takes care of that.</span>
+            <span class="k">return</span> <span class="n">xs</span><span class="p">.</span><span class="n">data</span><span class="p">()[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">}</span> <span class="c1">// namespace static_views</span>
+<span class="p">}</span> <span class="c1">// namespace boost</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span>                     <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span>    <span class="n">span_1</span> <span class="o">=</span> <span class="p">{</span><span class="n">data</span><span class="p">};</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">const</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;</span> <span class="n">span_2</span> <span class="o">=</span> <span class="p">{</span><span class="n">data</span><span class="p">};</span>
+
+    <span class="c1">// gsl::span&lt;int const&gt; is indeed a Sequence</span>
+    <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">Sequence</span><span class="o">::</span><span class="n">check</span><span class="o">&lt;</span>
+        <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">const</span><span class="o">&gt;&gt;</span><span class="p">();</span>
+
+    <span class="c1">// gsl::span&lt;int const, 5&gt; is indeed a StaticSequence</span>
+    <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">StaticSequence</span><span class="o">::</span><span class="n">check</span><span class="o">&lt;</span>
+        <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">const</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;&gt;</span><span class="p">();</span>
+
+    <span class="c1">// We can now create raw views of them</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs_1</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">span_1</span><span class="p">);</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs_2</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">span_2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+      </div>
+  </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+    <td align="left"></td>
+    <td align="right"><div class="copyright-footer">
+            &#169; Copyright 2017, Tom Westerhout.
+        
+          Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+          <p>Distributed under the Boost Software License, Version 1.0.
+          (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
+          <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+          </p>
+    </div></td>
+    </tr></table>
+    </div>
+  </body>
+</html>

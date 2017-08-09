@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to Boost.StaticViews’s documentation! &#8212; Boost.StaticViews  documentation</title>
+    <title>Boost.StaticViews &#8212; Boost.StaticViews  documentation</title>
     
     <link rel="stylesheet" href="_static/boostbook.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorial" href="getting_started.html" /> 
+    <link rel="next" title="Tutorial" href="tutorial.html" /> 
   </head>
   <body>
 <table cellpadding="2" width="100%"><tr>
@@ -38,7 +38,7 @@
 <a accesskey="p"  ><img src="_static/prev.png" alt="Prev"></a>
 <a accesskey="u" href="#"><img src="_static/up.png" alt="Up"></a>
 <a accesskey="h" href="#"><img src="_static/home.png" alt="Home"></a>
-<a accesskey="n"  href="getting_started.html"><img src="_static/next.png" alt="Next"></a>
+<a accesskey="n"  href="tutorial.html"><img src="_static/next.png" alt="Next"></a>
 </div>
   
 
@@ -46,13 +46,15 @@
   <div class="chapter">
       <div class="body" role="main">
         
-  <div class="section" id="welcome-to-boost-staticviews-s-documentation">
-<h1>Welcome to Boost.StaticViews’s documentation!<a class="headerlink" href="#welcome-to-boost-staticviews-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="boost-staticviews">
+<h1>Boost.StaticViews<a class="headerlink" href="#boost-staticviews" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting_started.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#installing">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#sequences-and-views">Sequences and Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#static-map">Static Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#bitmaps-yet-to-be-updated">Bitmaps (YET TO BE UPDATED)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
@@ -65,6 +67,8 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/using_raw_view.html">Raw view example.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/using_drop_view.html">Drop view example.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/using_take_view.html">Take view example.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/support_span.html">Specialising sequence_traits example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tests.html">Testing</a><ul>
@@ -75,14 +79,42 @@
 </li>
 </ul>
 </div>
+<div class="section" id="overview">
+<span id="id1"></span><h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Static Views is a <em>compile-time</em> analogue of <a class="reference external" href="https://ericniebler.github.io/range-v3">Ranges TS</a>. By compile-time
+I mean that it’s best used on compile-time data. But no means is the usage
+limited to compile-time. Recall the classification of computations in
+<code class="docutils literal highlight highlight-none"><span></span>C++</code> Louis Dionne introduced in <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/hana/doc/html/index.html">Boost.Hana</a> docs. There are four
+types of computations in <code class="docutils literal highlight highlight-none"><span></span>C++</code>:</p>
+<ol class="arabic simple">
+<li>Runtime computations.</li>
+<li><code class="docutils literal highlight highlight-none"><span></span>constexpr</code> computations.</li>
+<li>Heterogeneous computations.</li>
+<li>Type-level computations.</li>
+</ol>
+<p>If we focus on manipulating containers, it seems that we currently have
+modern libraries to fill all but one of the quadrants.  <a class="reference external" href="http://en.cppreference.com/w/cpp/algorithm">STL</a>, <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/range/doc/html/index.html">Boost.Range</a> and <a class="reference external" href="https://ericniebler.github.io/range-v3">Ranges
+TS</a> focus on the first quadrant.  <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/fusion/doc/html/index.html">Boost.Fusion</a> and <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/hana/doc/html/index.html">Boost.Hana</a>
+occupy the third. <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/hana/doc/html/index.html">Boost.Hana</a> actually covers the fourth as well. We also
+have <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/mp11/doc/html/index.html">Boost.Mp11</a> for type-level computations. But what about the second
+quadrant? There is a number of proposals to make some standard algorithms
+and iterators <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">constexpr</span></code>. They won’t be available till <code class="docutils literal highlight highlight-none"><span></span>C++20</code> at
+least.</p>
+<p>Static views is aimed to provide the tools for manipulation of
+<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">constexpr</span></code> data, and provide it <em>now</em>, in <code class="docutils literal highlight highlight-none"><span></span>C++14</code>. Although the
+library might make use of <code class="docutils literal highlight highlight-none"><span></span>C++17</code> features when available, a <code class="docutils literal highlight highlight-none"><span></span>C++14</code>
+conforming compiler is all you need to get started. The library provides a
+small subset of views available in <a class="reference external" href="https://ericniebler.github.io/range-v3">Ranges TS</a>, and as en example of what
+one can achieve using these tools – <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">static_map</span></code>, a compile-time
+hash table.</p>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+</div>
 </div>
 
 

@@ -35,30 +35,23 @@
 ///
 ///   template &lt;class T&gt;
 ///   struct sequence_traits {
-///       static constexpr auto size(T const&amp;)
-///           noexcept -&gt;std::size_t;
+///       static constexpr auto size(T const&amp;) noexcept -&gt;std::size_t;
 ///
-///       static constexpr auto extent()
-///           noexcept -&gt;std::ptrdiff_t;
+///       static constexpr auto extent() noexcept -&gt;std::ptrdiff_t;
 ///
-///       static constexpr auto at(T&amp;, std::size_t)
-///           noexcept -&gt;reference;
-///
-///       static constexpr auto at(T const&amp;, std::size_t)
-///           noexcept -&gt;const_reference;
+///       static constexpr auto at(T const&amp;, std::size_t) noexcept -&gt;const_reference;
+///       static constexpr auto at(T&amp;, std::size_t) noexcept -&gt;reference;
+///       static constexpr auto at(T&amp;&amp;, std::size_t) noexcept -&gt;rvalue_reference;
 ///   };
 ///
 ///   } // namespace static_views
 ///   } // namespace boost
 ///
-/// To make a type ``T`` model
-/// the :ref:`sequence &lt;sequence-concept&gt;` concept one only needs to
-/// specialise :cpp:class:`sequence_traits` for ``T``.
-///
 /// * Elements are accessed by calling
 ///   ``sequence_traits&lt;T&gt;::at(xs, i)`` with a (const) reference to
 ///   ``T`` ``xs`` and index ``i``. ``at()`` must furthermore be
-///   ``static`` and ``noexcept``.
+///   ``static`` and ``noexcept``. You&apos;re by no means required to
+///   create all three overloads of ``at()``, one is sufficient.
 ///
 /// * Extent is detemined by calling ``sequence_traits&lt;T&gt;::extent()``.
 ///   It should be ``static``, ``noexcept``, and have return type
@@ -74,9 +67,20 @@
 ///   calling ``size`` with any sequence of type ``T`` will return the
 ///   same result.
 ///
+/// Currently, only arrays (``T[N]`` and ``std::array&lt;T, N&gt;``) and
+/// homogeneous tuples (``std::tuple&lt;Ts...&gt;`` where :math:`\exists
+/// \text{U}: \forall \text{T} \in \{\text{Ts}\dots\}: \text{T} =
+/// \text{U}`) have specialisations of :cpp:class:`sequencce_traits`.
+/// Specialising it for other types is really simple though.
+/// :doc:`Here&apos;s &lt;examples/support_span&gt;` how one can add
+/// support for ``std::span``:
+///
+/// .. literalinclude:: ../example/support_span.cpp
+///    :lines: 10-37
+///
 ///
 /// </verbatim> </para>    </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="89" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="89" bodyend="-1"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="94" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="94" bodyend="-1"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

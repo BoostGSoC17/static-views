@@ -75,9 +75,9 @@
     <span class="c1">// Solution? declare &#39;xs&#39; as static</span>
     <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">ys</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
 
-    <span class="k">auto</span> <span class="k">const</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">ys</span><span class="p">);</span> <span class="c1">// OK</span>
+    <span class="k">auto</span> <span class="k">const</span>           <span class="n">v3</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">ys</span><span class="p">);</span> <span class="c1">// OK</span>
     <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">const</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">ys</span><span class="p">);</span> <span class="c1">// OK</span>
-    
+
     <span class="c1">// Check that the returned type models the View concept</span>
     <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">View</span><span class="o">::</span><span class="n">check</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>

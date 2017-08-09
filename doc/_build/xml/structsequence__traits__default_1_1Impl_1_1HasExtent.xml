@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structsequence__traits__default_1_1Impl_1_1HasExtent" kind="struct" language="C++" prot="public">
+    <compoundname>sequence_traits_default::Impl::HasExtent</compoundname>
+    <includes refid="sequence__traits_8hpp" local="no">sequence_traits.hpp</includes>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="structsequence__traits__default_1_1Impl_1_1HasExtent_1ac3f177fee1c8fd6cecd4695b13859c95" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class U</type>
+          </param>
+          <param>
+            <type>int</type>
+            <defval>(U::extent(), 0)</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::HasExtent::has_extent</definition>
+        <argsstring>(int) noexcept -&gt; std::true_type</argsstring>
+        <name>has_extent</name>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="302" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="302" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="structsequence__traits__default_1_1Impl_1_1HasExtent_1a1c80c5577e794e83df257dc71eddb649" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class U</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::HasExtent::has_extent</definition>
+        <argsstring>(...) noexcept -&gt; std::false_type</argsstring>
+        <name>has_extent</name>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="309" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="309" bodyend="313"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structsequence__traits__default_1_1Impl_1_1HasExtent_1a5512e77b5cfe16290548424cdf21ede9" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class U</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::HasExtent::test</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="317" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="317" bodyend="320"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="299" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="299" bodyend="321"/>
+    <listofallmembers>
+      <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1ac3f177fee1c8fd6cecd4695b13859c95" prot="private" virt="non-virtual"><scope>sequence_traits_default::Impl::HasExtent</scope><name>has_extent</name></member>
+      <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1a1c80c5577e794e83df257dc71eddb649" prot="private" virt="non-virtual"><scope>sequence_traits_default::Impl::HasExtent</scope><name>has_extent</name></member>
+      <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1a5512e77b5cfe16290548424cdf21ede9" prot="public" virt="non-virtual"><scope>sequence_traits_default::Impl::HasExtent</scope><name>test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

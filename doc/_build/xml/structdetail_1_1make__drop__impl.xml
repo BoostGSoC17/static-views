@@ -4,7 +4,7 @@
     <compoundname>detail::make_drop_impl</compoundname>
     <includes refid="drop_8hpp" local="no">drop.hpp</includes>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structdetail_1_1make__drop__impl_1ad5e573d8ab8b3e7baa60023add9e0121" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1make__drop__impl_1a46945a9f6e8e5a6a050160d54e61d19b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>class Wrapper</type>
@@ -12,7 +12,7 @@
         </templateparamlist>
         <type>constexpr auto</type>
         <definition>constexpr auto detail::make_drop_impl::operator()</definition>
-        <argsstring>(Wrapper &amp;&amp;xs, std::size_t const b) const drop_impl&lt; std</argsstring>
+        <argsstring>(Wrapper &amp;&amp;xs, std::size_t const b) const BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(drop_impl&lt; std</argsstring>
         <name>operator()</name>
         <param>
           <type>Wrapper &amp;&amp;</type>
@@ -28,22 +28,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="82" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="82" bodyend="87"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="166" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="166" bodyend="171"/>
       </memberdef>
-      <memberdef kind="function" id="structdetail_1_1make__drop__impl_1a05cc1ac0c93278f8b2d5ec1e0695aa66" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type></type>
-        <definition>detail::make_drop_impl::Wrapper::type::extent</definition>
-        <argsstring>()&gt;</argsstring>
-        <name>Wrapper::type::extent</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="87" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="87" bodyend="87"/>
-      </memberdef>
-      <memberdef kind="function" id="structdetail_1_1make__drop__impl_1a93e71349742061d0f9aea8d5f7abee44" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structdetail_1_1make__drop__impl_1a5acaf2b087124b24ab2514245f0c405a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>class Wrapper</type>
@@ -56,7 +43,7 @@
         </templateparamlist>
         <type>constexpr auto</type>
         <definition>constexpr auto detail::make_drop_impl::operator()</definition>
-        <argsstring>(Wrapper &amp;&amp;xs, std::integral_constant&lt; std::size_t, N &gt;) const drop_impl&lt; std</argsstring>
+        <argsstring>(Wrapper &amp;&amp;xs, std::integral_constant&lt; std::size_t, N &gt;) const BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(drop_impl&lt; std</argsstring>
         <name>operator()</name>
         <param>
           <type>Wrapper &amp;&amp;</type>
@@ -71,32 +58,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="93" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="93" bodyend="101"/>
-      </memberdef>
-      <memberdef kind="function" id="structdetail_1_1make__drop__impl_1af44baa5df46d97188e6ec705dcb4c198" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type></type>
-        <definition>detail::make_drop_impl::Wrapper::type::extent</definition>
-        <argsstring>() &gt; N) ?(Wrapper</argsstring>
-        <name>Wrapper::type::extent</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="101" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="101" bodyend="101"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="178" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="178" bodyend="185"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="78" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="78" bodyend="103"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="162" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="162" bodyend="188"/>
     <listofallmembers>
-      <member refid="structdetail_1_1make__drop__impl_1ad5e573d8ab8b3e7baa60023add9e0121" prot="public" virt="non-virtual"><scope>detail::make_drop_impl</scope><name>operator()</name></member>
-      <member refid="structdetail_1_1make__drop__impl_1a93e71349742061d0f9aea8d5f7abee44" prot="public" virt="non-virtual"><scope>detail::make_drop_impl</scope><name>operator()</name></member>
-      <member refid="structdetail_1_1make__drop__impl_1a05cc1ac0c93278f8b2d5ec1e0695aa66" prot="public" virt="non-virtual"><scope>detail::make_drop_impl</scope><name>Wrapper::type::extent</name></member>
-      <member refid="structdetail_1_1make__drop__impl_1af44baa5df46d97188e6ec705dcb4c198" prot="public" virt="non-virtual"><scope>detail::make_drop_impl</scope><name>Wrapper::type::extent</name></member>
+      <member refid="structdetail_1_1make__drop__impl_1a46945a9f6e8e5a6a050160d54e61d19b" prot="public" virt="non-virtual"><scope>detail::make_drop_impl</scope><name>operator()</name></member>
+      <member refid="structdetail_1_1make__drop__impl_1a5acaf2b087124b24ab2514245f0c405a" prot="public" virt="non-virtual"><scope>detail::make_drop_impl</scope><name>operator()</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

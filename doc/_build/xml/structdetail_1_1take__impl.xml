@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structdetail_1_1take__impl" kind="struct" language="C++" prot="public">
+    <compoundname>detail::take_impl</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">view_adaptor_base&lt; take_impl&lt; View, Extent &gt;, View &gt;</basecompoundref>
+    <includes refid="take_8hpp" local="no">take.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class View</type>
+      </param>
+      <param>
+        <type>std::ptrdiff_t</type>
+        <declname>Extent</declname>
+        <defname>Extent</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structdetail_1_1take__impl_1aae184ca836aa3eabe48baddc24e39926" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t detail::take_impl&lt; View, Extent &gt;::_n</definition>
+        <argsstring></argsstring>
+        <name>_n</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="84" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1take__impl_1ab4213b8a22a4663ec4e3d9dd7f0dc7ff" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr detail::take_impl&lt; View, Extent &gt;::take_impl</definition>
+        <argsstring>(View &amp;&amp;xs, std::size_t const n)</argsstring>
+        <name>take_impl</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a view of <computeroutput>xs</computeroutput> consisting of at most <computeroutput>n</computeroutput> elements of <computeroutput>xs</computeroutput>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><bold>Rvalue</bold> reference to a wrapper around a view. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of elements to take. The resulting view will contain <computeroutput>min(xs.get().<ref refid="structdetail_1_1take__impl_1a08c19c60f260d636389bda2f176f8e33" kindref="member">size()</ref>, n)</computeroutput> elements.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>Never</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>throws, unless the initialisation of #view_adaptor_base with <computeroutput>Wrapper&amp;&amp;</computeroutput> throws. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="36" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="36" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="structdetail_1_1take__impl_1a08c19c60f260d636389bda2f176f8e33" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::take_impl&lt; View, Extent &gt;::size</definition>
+        <argsstring>() const noexcept -&gt; std::size_t</argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>Returns the number of elements viewed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="56" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="56" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="structdetail_1_1take__impl_1af60e647670cef61fdaf7da4fb64552a5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::take_impl&lt; View, Extent &gt;::map</definition>
+        <argsstring>(std::size_t const i) const noexcept</argsstring>
+        <name>map</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>&quot;Maps&quot; index <computeroutput>i</computeroutput> to the corresponding index in the parent view. </para>        </briefdescription>
+        <detaileddescription>
+<para>For <formula id="0">$ i \geq \text{xs.size}()$</formula> behavior of this function is undefined </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="74" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="74" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structdetail_1_1take__impl_1a182134d9b698ef7dd4904283e810d724" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto detail::take_impl&lt; View, Extent &gt;::extent</definition>
+        <argsstring>() noexcept -&gt; std::ptrdiff_t</argsstring>
+        <name>extent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="62" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="62" bodyend="66"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="103">
+        <label>view_adaptor_base&lt; take_impl&lt; View, Extent &gt;, View &gt;</label>
+      </node>
+      <node id="102">
+        <label>detail::take_impl&lt; View, Extent &gt;</label>
+        <link refid="structdetail_1_1take__impl"/>
+        <childnode refid="103" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="105">
+        <label>view_adaptor_base&lt; take_impl&lt; View, Extent &gt;, View &gt;</label>
+      </node>
+      <node id="104">
+        <label>detail::take_impl&lt; View, Extent &gt;</label>
+        <link refid="structdetail_1_1take__impl"/>
+        <childnode refid="105" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="25" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="25" bodyend="85"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1take__impl_1aae184ca836aa3eabe48baddc24e39926" prot="private" virt="non-virtual"><scope>detail::take_impl</scope><name>_n</name></member>
+      <member refid="structdetail_1_1take__impl_1a182134d9b698ef7dd4904283e810d724" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>extent</name></member>
+      <member refid="structdetail_1_1take__impl_1af60e647670cef61fdaf7da4fb64552a5" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>map</name></member>
+      <member refid="structdetail_1_1take__impl_1a08c19c60f260d636389bda2f176f8e33" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>size</name></member>
+      <member refid="structdetail_1_1take__impl_1ab4213b8a22a4663ec4e3d9dd7f0dc7ff" prot="public" virt="non-virtual"><scope>detail::take_impl</scope><name>take_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

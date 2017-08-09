@@ -35,16 +35,17 @@ local .gcc-warnings = -W -Wall -Wextra -pedantic -Wcast-align
                     ;
 
 local .clang-warnings = -W -Weverything
-                        -Wno-reserved-id-macro
                         -Wno-c++98-compat
                         -Wno-c++98-compat-pedantic
                         -Wno-documentation-unknown-command
                         -Wno-documentation
                         -Wno-missing-prototypes
                         -Wno-missing-variable-declarations
+                        -Wno-reserved-id-macro
+                        -Wno-padded
+                        -Wno-assume
                         # -Wno-undef
                         # -Wno-old-style-cast
-                        -Wno-padded 
                         -Wno-weak-vtables ;
 
 project

@@ -54,11 +54,17 @@ class non_copyable_int {
 template <class T>
 using compile_make_slice_t = decltype(MAKE_SLICE(T));
 
+#if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
+# define NOEXCEPT(...) true
+#else
+# define NOEXCEPT(...) noexcept(__VA_ARGS__)
+#endif
+
 #define TEST_MAKE_IMPL(view_type, q)                                 \
     static_assert(boost::static_views::detail::is_detected<          \
                       compile_make_slice_t, view_type q>::value,     \
         "passing `" #view_type " " #q "` to `slice` doesn't work."); \
-    static_assert(noexcept(MAKE_SLICE(view_type q)),                 \
+    static_assert(NOEXCEPT(MAKE_SLICE(view_type q)),                 \
         "passing `" #view_type " " #q                                \
         "` to `slice` is not noexcept.");                            \
     boost::static_views::concepts::View::check<                      \
@@ -119,10 +125,10 @@ auto test_size()
     // clang-format off
     //             type      data     begin      end      expected
     //                       size                             size
-    test_size_impl<int,        10,        5,       4,            0>();
+    test_size_impl<int,        10,        5,       5,            0>();
     test_size_impl<int,        13,        0,      13,           13>();
-    test_size_impl<int,         1,        5,       2,            0>();
-    test_size_impl<int,         7,        5,       8,            2>();
+    test_size_impl<int,         1,        1,       1,            0>();
+    test_size_impl<int,         7,        5,       7,            2>();
     // clang-format on
 }
 
@@ -141,7 +147,6 @@ auto test_access()
     STATIC_ASSERT(v1.unsafe_at(2) == v1[2], "unsafe_at() is broken.");
     STATIC_ASSERT(v1.unsafe_at(4) == v1[4], "unsafe_at() is broken.");
     BOOST_TEST_THROWS(v1[7], boost::static_views::out_of_bound);
-    BOOST_TEST_EQ(v1.unsafe_at(7), 657);
     BOOST_TEST_THROWS(v1[8], boost::static_views::out_of_bound);
     BOOST_TEST_TRAIT_TRUE(
         (std::is_same<decltype(v1[0]), int const&>));
@@ -170,7 +175,7 @@ auto test_copy_move()
 {
     static constexpr int data_1[] = {1, 2, 3, 4};
 
-    auto const v1 = boost::static_views::slice(1, 8)(
+    auto const v1 = boost::static_views::slice(1, 4)(
         boost::static_views::raw_view(data_1));
     decltype(v1) v2{v1};
     auto         v3 = v1;

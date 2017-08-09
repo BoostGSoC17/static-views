@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structdetail_1_1make__slice__impl" kind="struct" language="C++" prot="public">
+    <compoundname>detail::make_slice_impl</compoundname>
+    <includes refid="slice_8hpp" local="no">slice.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdetail_1_1make__slice__impl_1a7b50b17e5ce67296b4b30d6b734766e5" prot="public" static="no" mutable="no">
+        <type>whenever</type>
+        <definition>whenever detail::make_slice_impl::possible</definition>
+        <argsstring></argsstring>
+        <name>possible</name>
+        <initializer>{ return __VA_ARGS__</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="114" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structdetail_1_1make__slice__impl_1a23a372fecf706765390eb6f5625fbb63" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto detail::make_slice_impl::operator()</definition>
+        <argsstring>(View &amp;&amp;xs, std::size_t const b, std::size_t const e) const slice_impl&lt; std</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>View &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="108" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="108" bodyend="114"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="103" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="103" bodyend="116"/>
+    <listofallmembers>
+      <member refid="structdetail_1_1make__slice__impl_1a23a372fecf706765390eb6f5625fbb63" prot="public" virt="non-virtual"><scope>detail::make_slice_impl</scope><name>operator()</name></member>
+      <member refid="structdetail_1_1make__slice__impl_1a7b50b17e5ce67296b4b30d6b734766e5" prot="public" virt="non-virtual"><scope>detail::make_slice_impl</scope><name>possible</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
