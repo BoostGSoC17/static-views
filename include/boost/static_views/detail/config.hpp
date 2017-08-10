@@ -137,7 +137,7 @@
     __builtin_expect(!!(cond), 0)
 
 #define BOOST_STATIC_VIEWS_ASSUME(cond)                              \
-    ((!!(cond)) ? static_cast<void>(0) : __builin_unreachable())
+    ((!!(cond)) ? static_cast<void>(0) : __builtin_unreachable())
 
 #define BOOST_STATIC_VIEWS_CURRENT_FUNCTION __PRETTY_FUNCTION__
 

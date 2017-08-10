@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="namespaceboost_1_1static__views_1_1detail_1_1utils" kind="namespace" language="C++">
+    <compoundname>boost::static_views::detail::utils</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1_1utils_1ad4b7e98e8dbdb69147afb3ed94f5b5c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::utils::all</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="19" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1_1utils_1a5c520c6f03fd2e730f4386af091b99cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>Bools</declname>
+            <defname>Bools</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::utils::all</definition>
+        <argsstring>(bool const x, Bools... xs) noexcept -&gt; bool</argsstring>
+        <name>all</name>
+        <param>
+          <type>bool const</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>Bools...</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="22" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="22" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="17" column="1"/>
+  </compounddef>
+</doxygen>

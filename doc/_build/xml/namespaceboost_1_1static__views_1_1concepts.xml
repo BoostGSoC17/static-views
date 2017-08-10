@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="namespaceboost_1_1static__views_1_1concepts" kind="namespace" language="C++">
+    <compoundname>boost::static_views::concepts</compoundname>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1all__" prot="public">boost::static_views::concepts::all_</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1all___3_01C1_00_01C2_8_8_8_01_4" prot="public">boost::static_views::concepts::all_&lt; C1, C2... &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1all___3_4" prot="public">boost::static_views::concepts::all_&lt;&gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1and__" prot="public">boost::static_views::concepts::and_</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4" prot="public">boost::static_views::concepts::and_&lt; C1, C2... &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1and___3_4" prot="public">boost::static_views::concepts::and_&lt;&gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1View" prot="public">boost::static_views::concepts::View</innerclass>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence">boost::static_views::concepts::sequence</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1concepts_1_1view">boost::static_views::concepts::view</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="75" column="1"/>
+  </compounddef>
+</doxygen>

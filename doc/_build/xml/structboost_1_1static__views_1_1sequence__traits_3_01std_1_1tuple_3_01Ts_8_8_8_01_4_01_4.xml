@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</compoundname>
+    <basecompoundref refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple" prot="public" virt="non-virtual">boost::static_views::detail::sequence_traits_tuple&lt; std::tuple&lt; Ts... &gt; &gt;</basecompoundref>
+    <basecompoundref refid="structboost_1_1static__views_1_1sequence__traits__default" prot="public" virt="non-virtual">boost::static_views::sequence_traits_default&lt; sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;, std::tuple&lt; Ts... &gt; &gt;</basecompoundref>
+    <includes refid="sequence__traits_8hpp" local="no">sequence_traits.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class...</type>
+        <declname>Ts</declname>
+        <defname>Ts</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4_1ab821a8df5e8885f21dd959bb0f6db099" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;::extent</definition>
+        <argsstring>() noexcept -&gt; std::ptrdiff_t</argsstring>
+        <name>extent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="487" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="487" bodyend="495"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="85">
+        <label>boost::static_views::sequence_traits_default&lt; sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;, std::tuple&lt; Ts... &gt; &gt;</label>
+        <link refid="structboost_1_1static__views_1_1sequence__traits__default"/>
+      </node>
+      <node id="83">
+        <label>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</label>
+        <link refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4"/>
+        <childnode refid="84" relation="public-inheritance">
+        </childnode>
+        <childnode refid="85" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>boost::static_views::detail::sequence_traits_tuple&lt; std::tuple&lt; Ts... &gt; &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="88">
+        <label>boost::static_views::sequence_traits_default&lt; sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;, std::tuple&lt; Ts... &gt; &gt;</label>
+        <link refid="structboost_1_1static__views_1_1sequence__traits__default"/>
+      </node>
+      <node id="86">
+        <label>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</label>
+        <link refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4"/>
+        <childnode refid="87" relation="public-inheritance">
+        </childnode>
+        <childnode refid="88" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="87">
+        <label>boost::static_views::detail::sequence_traits_tuple&lt; std::tuple&lt; Ts... &gt; &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="483" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="480" bodyend="496"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1a55556df53abc28a334e7a8a35f49a5d8" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</scope><name>at</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4_1ab821a8df5e8885f21dd959bb0f6db099" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</scope><name>extent</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1af3cce0082677a90342d3e3f414a81b00" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</scope><name>size</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1ad510f32a84ce1c7372b5bb58f06ecbe7" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</scope><name>size_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1adcee89503b82b251ff88225b50ed7f9c" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</scope><name>size_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

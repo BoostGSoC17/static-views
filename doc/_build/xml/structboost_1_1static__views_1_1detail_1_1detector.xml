@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1detector" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::detail::detector</compoundname>
+    <includes refid="utils_8hpp" local="no">utils.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class Default</type>
+      </param>
+      <param>
+        <type>class</type>
+      </param>
+      <param>
+        <type>template&lt; class... &gt; class</type>
+        <declname>Op</declname>
+        <defname>Op</defname>
+      </param>
+      <param>
+        <type>class...</type>
+        <declname>Args</declname>
+        <defname>Args</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structboost_1_1static__views_1_1detail_1_1detector_1ac8f5ea7061741699e99109932b07e4af" prot="public" static="no">
+        <type>std::false_type</type>
+        <definition>using boost::static_views::detail::detector&lt; Default, class, Op, Args &gt;::value_t =  std::false_type</definition>
+        <argsstring></argsstring>
+        <name>value_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="51" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structboost_1_1static__views_1_1detail_1_1detector_1aa263e2982fa94e4b14264814d10e8cb2" prot="public" static="no">
+        <type>Default</type>
+        <definition>using boost::static_views::detail::detector&lt; Default, class, Op, Args &gt;::type =  Default</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="52" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="50" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="50" bodyend="53"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1detail_1_1detector_1aa263e2982fa94e4b14264814d10e8cb2" prot="public" virt="non-virtual"><scope>boost::static_views::detail::detector</scope><name>type</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1detector_1ac8f5ea7061741699e99109932b07e4af" prot="public" virt="non-virtual"><scope>boost::static_views::detail::detector</scope><name>value_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

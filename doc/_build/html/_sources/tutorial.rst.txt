@@ -11,12 +11,30 @@
 .. role:: cpp(code)
   :language: c++
 
+.. contents::
+  :local:
 
 .. _installing:
 
 Installing
 ==========================================================================
 
+The simplest way to get started with the library is to use its single
+header edition. Just one call to ``wget``:
+
+.. code-block:: bash
+
+  wget https://github.com/BoostGSoC17/static-views/single-header/static_views.hpp
+
+and you're done! Alternatively, clone the `repo
+<https://github.com/BoostGSoC17/static-views>`_ and point your compiler to
+the ``include/`` directory.
+
+The library has two modes of operation: "standalone" and "part of Boost".
+The first one is chosen by default. To use the second instead, define the
+``BOOST_STATIC_VIEWS_USE_BOOST`` macro before the inclusion of the
+headers. Static Views will then use `Boost.Config`_ macros instead of
+reinventing the wheel.
 
 
 .. _sequences-and-views:
@@ -384,6 +402,7 @@ Then the complete conversion function becomes::
                  });
   }
 
+.. _Boost.Config: http://www.boost.org/doc/libs/develop/libs/config/doc/html/index.html
 .. _Boost.Hana: http://www.boost.org/doc/libs/develop/libs/hana/doc/html/index.html
 .. _Boost.Fusion: http://www.boost.org/doc/libs/develop/libs/fusion/doc/html/index.html
 .. _Boost.Range: http://www.boost.org/doc/libs/develop/libs/range/doc/html/index.html

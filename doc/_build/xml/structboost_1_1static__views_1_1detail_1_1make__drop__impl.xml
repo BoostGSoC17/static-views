@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1make__drop__impl" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::detail::make_drop_impl</compoundname>
+    <includes refid="drop_8hpp" local="no">drop.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1make__drop__impl_1a90ebb69557492d99df4460b0c8f49a49" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Wrapper</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::make_drop_impl::operator()</definition>
+        <argsstring>(Wrapper &amp;&amp;xs, std::size_t const b) const BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(drop_impl&lt; std</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>Wrapper &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="166" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="166" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1make__drop__impl_1a46ce118445db9f57ecf319ef7e76d179" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Wrapper</type>
+          </param>
+          <param>
+            <type>std::size_t</type>
+            <declname>N</declname>
+            <defname>N</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::make_drop_impl::operator()</definition>
+        <argsstring>(Wrapper &amp;&amp;xs, std::integral_constant&lt; std::size_t, N &gt;) const BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(drop_impl&lt; std</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>Wrapper &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::integral_constant&lt; std::size_t, N &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="178" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="178" bodyend="185"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="162" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="162" bodyend="188"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__impl_1a90ebb69557492d99df4460b0c8f49a49" prot="public" virt="non-virtual"><scope>boost::static_views::detail::make_drop_impl</scope><name>operator()</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__impl_1a46ce118445db9f57ecf319ef7e76d179" prot="public" virt="non-virtual"><scope>boost::static_views::detail::make_drop_impl</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

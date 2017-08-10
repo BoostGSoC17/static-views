@@ -3,6 +3,7 @@
   <compounddef id="config_8hpp" kind="file" language="C++">
     <compoundname>config.hpp</compoundname>
     <includes local="no">cassert</includes>
+    <includedby refid="view__base_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</includedby>
     <includedby refid="utils_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp</includedby>
     <includedby refid="wrapper_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</includedby>
     <includedby refid="invoke_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp</includedby>
@@ -24,38 +25,40 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
+      <node id="9">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp</label>
         <link refid="utils_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="7">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp</label>
         <link refid="slice_8hpp"/>
       </node>
-      <node id="11">
+      <node id="12">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp</label>
         <link refid="invoke_8hpp"/>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
       </node>
-      <node id="5">
+      <node id="10">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp</label>
         <link refid="sequence__traits_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -63,30 +66,46 @@
         <link refid="config_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
+        <link refid="wrapper_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</label>
+        <link refid="take_8hpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
+        <link refid="view__base_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
-        <link refid="wrapper_8hpp"/>
-      </node>
-      <node id="9">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</label>
-        <link refid="take_8hpp"/>
         <childnode refid="8" relation="include">
         </childnode>
       </node>
@@ -94,17 +113,19 @@
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp</label>
         <link refid="find__first_8hpp"/>
       </node>
-      <node id="6">
+      <node id="5">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</label>
         <link refid="raw__view_8hpp"/>
       </node>
-      <node id="7">
+      <node id="6">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</label>
         <link refid="drop_8hpp"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
+    <innernamespace refid="namespaceboost">boost</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views">boost::static_views</innernamespace>
       <sectiondef kind="define">
       <memberdef kind="define" id="config_8hpp_1a7eab1818380a6251326089d864474644" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE</name>
@@ -114,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="22" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="22" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="21" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a8bb64e09d950e9e66c75169cd23c1c64" prot="public" static="no">
         <name>BOOST_DISABLE_ASSERTS</name>
@@ -124,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="25" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="25" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="23" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1af2d0093c5d76377b84966b95066a6a39" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_THROW_ON_FAILURES</name>
@@ -134,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="32" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="32" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="30" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a8e482408924d39139b1f23bf8a286544" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_CONSTEXPR</name>
@@ -145,7 +166,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="37" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="37" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="35" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1af686fc66dc40e9f54bc97e7139e212f5" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_NAMESPACE</name>
@@ -156,7 +177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="43" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="43" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="41" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</name>
@@ -168,7 +189,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="45" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="45" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="43" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a9104b5e36c2866e678338780d2885a02" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_END_NAMESPACE</name>
@@ -180,7 +201,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="49" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="49" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="47" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_BUG_MESSAGE</name>
@@ -193,7 +214,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="53" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="53" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="51" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a5638140f778524de2ac16ebfd4e1933b" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_DO_JOIN2</name>
@@ -206,7 +227,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="182" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="182" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="178" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="178" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1ac3602b5ac2d57e33f21a37a953210fd2" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_DO_JOIN1</name>
@@ -219,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="183" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="183" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="179" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a26bcefe91dfa766e9690dad1b4575551" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_JOIN</name>
@@ -232,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="185" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="185" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="181" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="181" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a743dfae9197196a688b75fcc0ae0d158" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_STRINGIFY_DO_STRINGIFY</name>
@@ -244,7 +265,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="188" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="188" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="184" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="184" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1aaf7820163adfc9df3feb2eddc699d071" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_STRINGIFY</name>
@@ -256,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="189" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="189" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="185" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="185" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_NOEXCEPT_IF</name>
@@ -268,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="194" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="194" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="190" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a516d82020cac114defa81888051e4c11" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_DECLTYPE_AUTO</name>
@@ -279,7 +300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="213" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="213" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="209" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="209" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN</name>
@@ -299,7 +320,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="219" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="219" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="215" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a6c1ff7423b598de62d8e1b7602eeb8f7" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN</name>
@@ -315,7 +336,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="231" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="231" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="227" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="227" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a84409c4edf7d9fb671eeea87a5eb5ec1" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_EXPECT</name>
@@ -328,7 +349,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="251" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="251" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="246" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="246" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" prot="public" static="no">
         <name>BOOST_STATIC_VIEWS_INLINE_VARIABLE</name>
@@ -344,7 +365,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="295" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="295" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="289" column="9" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" bodystart="289" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -369,284 +390,278 @@
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Define<sp/>the<sp/>following<sp/>macro<sp/>if<sp/>when<sp/>using<sp/>Doxygen.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>DOXYGEN_IN_HOUSE</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22" refid="config_8hpp_1a7eab1818380a6251326089d864474644" refkind="member"><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="config_8hpp_1a7eab1818380a6251326089d864474644" refkind="member"><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="config_8hpp_1a8bb64e09d950e9e66c75169cd23c1c64" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_DISABLE_ASSERTS</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25" refid="config_8hpp_1a8bb64e09d950e9e66c75169cd23c1c64" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_DISABLE_ASSERTS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>BOOST_STATIC_VIEWS_THROW_ON_FAILURES</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>!defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32" refid="config_8hpp_1af2d0093c5d76377b84966b95066a6a39" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_THROW_ON_FAILURES</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Easily<sp/>turn<sp/>off<sp/>constexpr-ness<sp/>to<sp/>add<sp/>some<sp/>debug<sp/>output,<sp/>for</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/>example.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37" refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CONSTEXPR<sp/>constexpr</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="comment">//<sp/>#define<sp/>BOOST_STATIC_VIEWS_DISABLE_CHECKS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Boost.StaticViews<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43" refid="config_8hpp_1af686fc66dc40e9f54bc97e7139e212f5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NAMESPACE<sp/>boost::static_views</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45" refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_BEGIN_NAMESPACE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="46"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>namespace<sp/>boost<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>namespace<sp/>static_views<sp/>{</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="49" refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_END_NAMESPACE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>static_views<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>boost<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53" refid="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_BUG_MESSAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="54"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&quot;Congratulations,<sp/>you&apos;ve<sp/>found<sp/>a<sp/>bug<sp/>in<sp/>the<sp/>StaticViews<sp/>&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="55"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&quot;library!<sp/>Please,<sp/>be<sp/>so<sp/>kind<sp/>to<sp/>submit<sp/>here<sp/>&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="56"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&quot;https://github.com/BoostGSoC17/static-views/issues.&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_STATIC_VIEWS_USE_BOOST)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We<sp/>have<sp/>Boost<sp/>at<sp/>our<sp/>disposal</highlight></codeline>
-<codeline lineno="65"><highlight class="comment"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/config.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Check<sp/>for<sp/>compilers</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_CLANG)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CLANG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(__clang_major__<sp/>*<sp/>10000<sp/>+<sp/>__clang_minor__<sp/>*<sp/>100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>__clang_patchlevel__)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_GCC)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_GCC<sp/>BOOST_GCC</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_MSVC)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_MSVC<sp/>BOOST_MSVC</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Force<sp/>inlining</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/>BOOST_FORCEINLINE</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Ask<sp/>compiler<sp/>not<sp/>to<sp/>inline</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE<sp/>BOOST_NOINLINE</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Unused<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED<sp/>BOOST_ATTRIBUTE_UNUSED</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Noreturn</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>BOOST_NORETURN</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">//<sp/>No<sp/>Boost<sp/>--&gt;<sp/>do<sp/>everything<sp/>manually</highlight></codeline>
-<codeline lineno="96"><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__clang__)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We&apos;re<sp/>being<sp/>compiled<sp/>with<sp/>Clang</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CLANG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="101"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(__clang_major__<sp/>*<sp/>10000<sp/>+<sp/>__clang_minor__<sp/>*<sp/>100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="102"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>__clang_patchlevel__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>BOOST_STATIC_VIEWS_THROW_ON_FAILURES</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>!defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="config_8hpp_1af2d0093c5d76377b84966b95066a6a39" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_THROW_ON_FAILURES</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Easily<sp/>turn<sp/>off<sp/>constexpr-ness<sp/>to<sp/>add<sp/>some<sp/>debug<sp/>output,<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>example.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CONSTEXPR<sp/>constexpr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="comment">//<sp/>#define<sp/>BOOST_STATIC_VIEWS_DISABLE_CHECKS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Boost.StaticViews<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="config_8hpp_1af686fc66dc40e9f54bc97e7139e212f5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NAMESPACE<sp/>boost::static_views</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_BEGIN_NAMESPACE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>namespace<sp/>boost<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>namespace<sp/>static_views<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_END_NAMESPACE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>static_views<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">/*<sp/>boost<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_BUG_MESSAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&quot;Congratulations,<sp/>you&apos;ve<sp/>found<sp/>a<sp/>bug<sp/>in<sp/>the<sp/>StaticViews<sp/>&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&quot;library!<sp/>Please,<sp/>be<sp/>so<sp/>kind<sp/>to<sp/>submit<sp/>here<sp/>&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>&quot;https://github.com/BoostGSoC17/static-views/issues.&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_STATIC_VIEWS_USE_BOOST)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We<sp/>have<sp/>Boost<sp/>at<sp/>our<sp/>disposal</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/config.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Check<sp/>for<sp/>compilers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_CLANG)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CLANG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(__clang_major__<sp/>*<sp/>10000<sp/>+<sp/>__clang_minor__<sp/>*<sp/>100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>__clang_patchlevel__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_GCC)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_GCC<sp/>BOOST_GCC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_MSVC)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_MSVC<sp/>BOOST_MSVC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Force<sp/>inlining</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/>BOOST_FORCEINLINE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Ask<sp/>compiler<sp/>not<sp/>to<sp/>inline</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE<sp/>BOOST_NOINLINE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Unused<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED<sp/>BOOST_ATTRIBUTE_UNUSED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Noreturn</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>BOOST_NORETURN</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">//<sp/>No<sp/>Boost<sp/>--&gt;<sp/>do<sp/>everything<sp/>manually</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__clang__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We&apos;re<sp/>being<sp/>compiled<sp/>with<sp/>Clang</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CLANG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(__clang_major__<sp/>*<sp/>10000<sp/>+<sp/>__clang_minor__<sp/>*<sp/>100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>__clang_patchlevel__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>__attribute__((__always_inline__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE<sp/>__attribute__((__noinline__))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="105"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>__attribute__((__always_inline__))</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE<sp/>__attribute__((__noinline__))</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED<sp/>__attribute__((__unused__))</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>__attribute__((__noreturn__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED<sp/>__attribute__((__unused__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>__attribute__((__noreturn__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_LIKELY(cond)<sp/>__builtin_expect(!!(cond),<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNLIKELY(cond)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>__builtin_expect(!!(cond),<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_LIKELY(cond)<sp/>__builtin_expect(!!(cond),<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)<sp/>__builtin_assume(!!(cond))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNLIKELY(cond)<sp/>__builtin_expect(!!(cond),<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CURRENT_FUNCTION<sp/>__PRETTY_FUNCTION__</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)<sp/>__builtin_assume(!!(cond))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNREACHABLE<sp/>__builtin_unreachable()</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CURRENT_FUNCTION<sp/>__PRETTY_FUNCTION__</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNREACHABLE<sp/>__builtin_unreachable()</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(__GNUC__)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We&apos;re<sp/>being<sp/>compiled<sp/>with<sp/>GCC</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_GCC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(__GNUC__<sp/>*<sp/>10000<sp/>+<sp/>__GNUC_MINOR__<sp/>*<sp/>100<sp/>+<sp/>__GNUC_PATCHLEVEL__)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>__attribute__((__always_inline__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(__GNUC__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We&apos;re<sp/>being<sp/>compiled<sp/>with<sp/>GCC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_GCC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(__GNUC__<sp/>*<sp/>10000<sp/>+<sp/>__GNUC_MINOR__<sp/>*<sp/>100<sp/>+<sp/>__GNUC_PATCHLEVEL__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>__attribute__((__always_inline__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE<sp/>__attribute__((__noinline__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED<sp/>__attribute__((__unused__))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE<sp/>__attribute__((__noinline__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>__attribute__((__noreturn__))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED<sp/>__attribute__((__unused__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_LIKELY(cond)<sp/>__builtin_expect(!!(cond),<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="135"><highlight class="normal"></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>__attribute__((__noreturn__))</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_LIKELY(cond)<sp/>__builtin_expect(!!(cond),<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNLIKELY(cond)<sp/>__builtin_expect(!!(cond),<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNLIKELY(cond)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>__builtin_expect(!!(cond),<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((!!(cond))<sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/>:<sp/>__builin_unreachable())</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="143"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((!!(cond))<sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/>:<sp/>__builin_unreachable())</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CURRENT_FUNCTION<sp/>__PRETTY_FUNCTION__</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNREACHABLE<sp/>__builtin_unreachable()</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(_MSC_VER)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We&apos;re<sp/>being<sp/>compiled<sp/>with<sp/>Microsoft<sp/>Visual<sp/>C++</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_MSVC<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight></codeline>
-<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/>inline<sp/>__forceinline</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>__declspec(noreturn)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_LIKELY(cond)<sp/>(cond)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNLIKELY(cond)<sp/>(cond)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"></highlight></codeline>
-<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)<sp/>__assume(!!(cond))</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CURRENT_FUNCTION<sp/>__FUNCTION__</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNREACHABLE<sp/>__assume(0)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal"></highlight></codeline>
-<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>error<sp/>&quot;Unsupported<sp/>compiler.<sp/>Please,<sp/>submit<sp/>a<sp/>request<sp/>to<sp/>https://github.com/boostgsoc17/static-views/issues.&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>use<sp/>Boost.Config</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="180"><highlight class="normal"></highlight></codeline>
-<codeline lineno="181"><highlight class="normal"></highlight></codeline>
-<codeline lineno="182" refid="config_8hpp_1a5638140f778524de2ac16ebfd4e1933b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DO_JOIN2(X,<sp/>Y)<sp/>X##Y</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="183" refid="config_8hpp_1ac3602b5ac2d57e33f21a37a953210fd2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DO_JOIN1(X,<sp/>Y)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_DO_JOIN2(X,<sp/>Y)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="185" refid="config_8hpp_1a26bcefe91dfa766e9690dad1b4575551" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_JOIN(X,<sp/>Y)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="186"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_DO_JOIN1(X,<sp/>Y)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CURRENT_FUNCTION<sp/>__PRETTY_FUNCTION__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNREACHABLE<sp/>__builtin_unreachable()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(_MSC_VER)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">//<sp/>We&apos;re<sp/>being<sp/>compiled<sp/>with<sp/>Microsoft<sp/>Visual<sp/>C++</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_MSVC<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_FORCEINLINE<sp/>inline<sp/>__forceinline</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOINLINE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNUSED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NORETURN<sp/>__declspec(noreturn)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_LIKELY(cond)<sp/>(cond)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNLIKELY(cond)<sp/>(cond)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)<sp/>__assume(!!(cond))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CURRENT_FUNCTION<sp/>__FUNCTION__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_UNREACHABLE<sp/>__assume(0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>error<sp/>&quot;Unsupported<sp/>compiler.<sp/>Please,<sp/>submit<sp/>a<sp/>request<sp/>to<sp/>https://github.com/boostgsoc17/static-views/issues.&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========================================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>use<sp/>Boost.Config</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="config_8hpp_1a5638140f778524de2ac16ebfd4e1933b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DO_JOIN2(X,<sp/>Y)<sp/>X##Y</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="config_8hpp_1ac3602b5ac2d57e33f21a37a953210fd2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DO_JOIN1(X,<sp/>Y)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_DO_JOIN2(X,<sp/>Y)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181" refid="config_8hpp_1a26bcefe91dfa766e9690dad1b4575551" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_JOIN(X,<sp/>Y)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_DO_JOIN1(X,<sp/>Y)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184" refid="config_8hpp_1a743dfae9197196a688b75fcc0ae0d158" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_STRINGIFY_DO_STRINGIFY(X)<sp/>#X</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185" refid="config_8hpp_1aaf7820163adfc9df3feb2eddc699d071" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_STRINGIFY(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_DO_STRINGIFY(X)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="188" refid="config_8hpp_1a743dfae9197196a688b75fcc0ae0d158" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_STRINGIFY_DO_STRINGIFY(X)<sp/>#X</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="189" refid="config_8hpp_1aaf7820163adfc9df3feb2eddc699d071" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_STRINGIFY(X)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="190"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_DO_STRINGIFY(X)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="191"><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">//<sp/>It&apos;s<sp/>a<sp/>bad<sp/>idea<sp/>to<sp/>let<sp/>Doxygen<sp/>try<sp/>deduce<sp/>noexcept-ness.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="194" refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>noexcept(whenever<sp/>possible)<sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="197"><highlight class="normal"></highlight></codeline>
-<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="199"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>||<sp/>!defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(...)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)<sp/>noexcept(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="208"><highlight class="normal"></highlight></codeline>
-<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Breathe<sp/>does<sp/>not<sp/>handle<sp/>decltype(auto)<sp/>correctly,<sp/>see</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">//<sp/>https://github.com/michaeljones/breathe/issues/330.<sp/>Hence,<sp/>trick<sp/>it</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">//<sp/>into<sp/>thinking<sp/>that<sp/>the<sp/>function<sp/>returns<sp/>a<sp/>plain<sp/>auto<sp/>insted.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="213" refid="config_8hpp_1a516d82020cac114defa81888051e4c11" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DECLTYPE_AUTO<sp/>auto</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DECLTYPE_AUTO<sp/>decltype(auto)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="217"><highlight class="normal"></highlight></codeline>
-<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Automatic<sp/>noexcept<sp/>deduction<sp/>+<sp/>trailing<sp/>return<sp/>type<sp/>+<sp/>body<sp/>creation</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="219" refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(__VA_ARGS__))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="221"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;decltype(__VA_ARGS__)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="222"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="223"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>(__VA_ARGS__);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="224"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>This<sp/>is<sp/>needed<sp/>to<sp/>make<sp/>clang-format<sp/>think<sp/>we&apos;ve<sp/>just<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="226"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>declared<sp/>a<sp/>function.<sp/>It<sp/>then<sp/>doesn&apos;t<sp/>that<sp/>annoying<sp/><sp/><sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="227"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>extra<sp/>indent.<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="228"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static_assert(true,<sp/>&quot;&quot;)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Automatic<sp/>noexcept<sp/>deduction<sp/>+<sp/>body<sp/>creation</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="231" refid="config_8hpp_1a6c1ff7423b598de62d8e1b7602eeb8f7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="232"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(__VA_ARGS__))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="233"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="234"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>(__VA_ARGS__);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="235"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="236"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static_assert(true,<sp/>&quot;&quot;)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="237"><highlight class="normal"></highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"></highlight></codeline>
-<codeline lineno="241"><highlight class="comment">//<sp/>See</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">//<sp/>http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4381.html</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="243"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="244"><highlight class="normal">constexpr<sp/>T<sp/>_static_const{};</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">//<sp/>It&apos;s<sp/>a<sp/>bad<sp/>idea<sp/>to<sp/>let<sp/>Doxygen<sp/>try<sp/>deduce<sp/>noexcept-ness.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190" refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>noexcept(whenever<sp/>possible)<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>||<sp/>!defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(...)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)<sp/>noexcept(__VA_ARGS__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Breathe<sp/>does<sp/>not<sp/>handle<sp/>decltype(auto)<sp/>correctly,<sp/>see</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">//<sp/>https://github.com/michaeljones/breathe/issues/330.<sp/>Hence,<sp/>trick<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">//<sp/>into<sp/>thinking<sp/>that<sp/>the<sp/>function<sp/>returns<sp/>a<sp/>plain<sp/>auto<sp/>insted.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209" refid="config_8hpp_1a516d82020cac114defa81888051e4c11" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DECLTYPE_AUTO<sp/>auto</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DECLTYPE_AUTO<sp/>decltype(auto)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Automatic<sp/>noexcept<sp/>deduction<sp/>+<sp/>trailing<sp/>return<sp/>type<sp/>+<sp/>body<sp/>creation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215" refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(__VA_ARGS__))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;decltype(__VA_ARGS__)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>(__VA_ARGS__);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>This<sp/>is<sp/>needed<sp/>to<sp/>make<sp/>clang-format<sp/>think<sp/>we&apos;ve<sp/>just<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>declared<sp/>a<sp/>function.<sp/>It<sp/>then<sp/>doesn&apos;t<sp/>that<sp/>annoying<sp/><sp/><sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>extra<sp/>indent.<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static_assert(true,<sp/>&quot;&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Automatic<sp/>noexcept<sp/>deduction<sp/>+<sp/>body<sp/>creation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227" refid="config_8hpp_1a6c1ff7423b598de62d8e1b7602eeb8f7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(__VA_ARGS__))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>(__VA_ARGS__);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>static_assert(true,<sp/>&quot;&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234" refid="namespaceboost_1_1static__views" refkind="compound"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="comment">//<sp/>See</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">//<sp/>http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4381.html</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">constexpr<sp/>T<sp/>_static_const{};</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_DISABLE_ASSERTS)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246" refid="config_8hpp_1a84409c4edf7d9fb671eeea87a5eb5ec1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_EXPECT(cond,<sp/>msg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_ASSUME(cond)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="249"><highlight class="normal"></highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BOOST_DISABLE_ASSERTS)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="251" refid="config_8hpp_1a84409c4edf7d9fb671eeea87a5eb5ec1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_EXPECT(cond,<sp/>msg)<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;exception&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
 <codeline lineno="253"><highlight class="normal"></highlight></codeline>
-<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;exception&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="255"><highlight class="normal"></highlight></codeline>
-<codeline lineno="256"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"></highlight></codeline>
-<codeline lineno="260"><highlight class="keyword">class<sp/></highlight><highlight class="normal">assert_failure<sp/>:<sp/>std::exception<sp/>{</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>_msg;</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"></highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>assert_failure(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>msg)<sp/>noexcept<sp/>:<sp/>_msg{msg}<sp/>{}</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"></highlight></codeline>
-<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>what()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>noexcept<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_msg;</highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="270"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"></highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="273"><highlight class="normal"></highlight></codeline>
-<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_EXPECT(cond,<sp/>msg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="275"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="276"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="277"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>(throw<sp/>assert_failure{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="278"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Assertion<sp/>failure<sp/>in<sp/>&apos;&quot;<sp/>__FILE__}))</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="279"><highlight class="normal"></highlight></codeline>
-<codeline lineno="280"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="keyword">class<sp/></highlight><highlight class="normal">assert_failure<sp/>:<sp/>std::exception<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>_msg;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>assert_failure(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>msg)<sp/>noexcept<sp/>:<sp/>_msg{msg}<sp/>{}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>what()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>noexcept<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_msg;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_EXPECT(cond,<sp/>msg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>(throw<sp/>assert_failure{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Assertion<sp/>failure<sp/>in<sp/>&apos;&quot;<sp/>__FILE__}))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_EXPECT(cond,<sp/>msg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))<sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>std::terminate())</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="281"><highlight class="normal"></highlight></codeline>
-<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_EXPECT(cond,<sp/>msg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="283"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))<sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="284"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>std::terminate())</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#error<sp/>&quot;No<sp/>error<sp/>handling<sp/>pocily<sp/>chosen.&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="285"><highlight class="normal"></highlight></codeline>
-<codeline lineno="286"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="287"><highlight class="normal"></highlight></codeline>
-<codeline lineno="288"><highlight class="normal"></highlight><highlight class="preprocessor">#error<sp/>&quot;No<sp/>error<sp/>handling<sp/>pocily<sp/>chosen.&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="289"><highlight class="normal"></highlight></codeline>
-<codeline lineno="290"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="291"><highlight class="normal"></highlight></codeline>
-<codeline lineno="292"><highlight class="normal"></highlight></codeline>
-<codeline lineno="293"><highlight class="normal"></highlight></codeline>
-<codeline lineno="294"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="295" refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_INLINE_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="296"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>namespace<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="297"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>const&amp;<sp/>name<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="298"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;type&gt;;<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="299"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="302"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_INLINE_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="303"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>name<sp/>=<sp/>type{};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="306"><highlight class="normal"></highlight></codeline>
-<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289" refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_INLINE_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>inline<sp/>namespace<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>const&amp;<sp/>name<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>::BOOST_STATIC_VIEWS_NAMESPACE::_static_const&lt;type&gt;;<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_INLINE_VARIABLE(type,<sp/>name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>constexpr<sp/>auto<sp/>name<sp/>=<sp/>type{};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP</highlight></codeline>
     </programlisting>
     <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp"/>
   </compounddef>

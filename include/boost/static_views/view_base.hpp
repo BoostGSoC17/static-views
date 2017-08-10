@@ -265,7 +265,30 @@ namespace view {
 
 } // namespace view
 
+/// \verbatim embed:rst:leading-slashes
+/// Defines the View concept. Here's a synopsis:
+///
+/// .. code-block:: cpp
+///
+///   struct View {
+///       template <class T>
+///       static constexpr auto test() noexcept -> bool;
+///
+///       template <class T>
+///       static constexpr auto check() noexcept -> bool;
+///   };
+///
+/// ``test()`` returns whether the requirements are satisfied, while
+/// ``check()`` *checks* that they are satisfied and triggers a
+/// ``static_assert`` failure if they aren't.
+/// \endverbatim
+#if defined(DOXYGEN_IN_HOUSE)
+// let Doxygen think it's just a struct.
+struct View {
+};
+#else
 using view::View;
+#endif
 
 } // namespace concepts
 

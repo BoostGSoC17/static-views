@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1concepts_1_1and___3_4" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::concepts::and_&lt;&gt;</compoundname>
+    <includes refid="utils_8hpp" local="no">utils.hpp</includes>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1concepts_1_1and___3_4_1a426ee26b1dec3cf0e67b6b86cd5305dc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::concepts::and_&lt;&gt;::test</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="89" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="89" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1concepts_1_1and___3_4_1adfeacba297e9d19dc034dc7eca5aedfa" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::concepts::and_&lt;&gt;::check</definition>
+        <argsstring>() noexcept -&gt; bool</argsstring>
+        <name>check</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="95" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="95" bodyend="98"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="87" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="87" bodyend="99"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_4_1adfeacba297e9d19dc034dc7eca5aedfa" prot="public" virt="non-virtual"><scope>boost::static_views::concepts::and_&lt;&gt;</scope><name>check</name></member>
+      <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_4_1a426ee26b1dec3cf0e67b6b86cd5305dc" prot="public" virt="non-virtual"><scope>boost::static_views::concepts::and_&lt;&gt;</scope><name>test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

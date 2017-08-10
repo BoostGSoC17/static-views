@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl" kind="struct" language="C++" prot="private">
+    <compoundname>boost::static_views::sequence_traits_default::Impl</compoundname>
+    <innerclass refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1_1HasExtent" prot="public">boost::static_views::sequence_traits_default::Impl::HasExtent</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class Dummy</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1af06e5c1bb4f9f1f0f021addabde4365f" prot="private" static="no">
+        <type>decltype(std::declval&lt; U const  &amp; &gt;().<ref refid="structboost_1_1static__views_1_1sequence__traits__default_1af3cce0082677a90342d3e3f414a81b00" kindref="member">size</ref>())</type>
+        <definition>using boost::static_views::sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::call_size_t =  decltype(std::declval&lt;U const&amp;&gt;().size())</definition>
+        <argsstring></argsstring>
+        <name>call_size_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="289" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a8cc22c4bc0e9894cb91906670422ac40" prot="private" static="no">
+        <type>decltype(U::size_impl(std::declval&lt; T const  &amp; &gt;()))</type>
+        <definition>using boost::static_views::sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::call_size_impl_t =  decltype(U::size_impl(std::declval&lt;T const&amp;&gt;()))</definition>
+        <argsstring></argsstring>
+        <name>call_size_impl_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="292" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a18dda771083ebb4c7ac873bae3db275c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(ExtentIsNonNegative, U,(U::extent() &gt;=0), &quot;&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>ExtentIsNonNegative</type>
+        </param>
+        <param>
+          <type>U</type>
+        </param>
+        <param>
+          <type>(U::extent() &gt;=0)</type>
+        </param>
+        <param>
+          <type>&quot;&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="320" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1ad76f0a0243a682886c9dd2c746df9ef0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(HasSize, U,(detail::is_detected&lt; call_size_t, U &gt;::value), &quot;&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>HasSize</type>
+        </param>
+        <param>
+          <type>U</type>
+        </param>
+        <param>
+          <type>(<ref refid="namespaceboost_1_1static__views_1_1detail_1a20af273fc3e3194340653219f8433ec9" kindref="member">detail::is_detected</ref>&lt; call_size_t, U &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="323" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a96cebdec3181a8a383907eaa86cd091e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::sequence_traits_default&lt; Derived, T &gt;::Impl&lt; Dummy &gt;::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(HasSizeImpl, U,(detail::is_detected&lt; call_size_impl_t, U &gt;::value), &quot;&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>HasSizeImpl</type>
+        </param>
+        <param>
+          <type>U</type>
+        </param>
+        <param>
+          <type>(<ref refid="namespaceboost_1_1static__views_1_1detail_1a20af273fc3e3194340653219f8433ec9" kindref="member">detail::is_detected</ref>&lt; call_size_impl_t, U &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="326" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="286" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="286" bodyend="328"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a18dda771083ebb4c7ac873bae3db275c" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default::Impl</scope><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1ad76f0a0243a682886c9dd2c746df9ef0" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default::Impl</scope><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a96cebdec3181a8a383907eaa86cd091e" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default::Impl</scope><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a8cc22c4bc0e9894cb91906670422ac40" prot="private" virt="non-virtual"><scope>boost::static_views::sequence_traits_default::Impl</scope><name>call_size_impl_t</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1af06e5c1bb4f9f1f0f021addabde4365f" prot="private" virt="non-virtual"><scope>boost::static_views::sequence_traits_default::Impl</scope><name>call_size_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

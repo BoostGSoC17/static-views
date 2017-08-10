@@ -1,0 +1,590 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="view__base_8hpp" kind="file" language="C++">
+    <compoundname>view_base.hpp</compoundname>
+    <includes refid="config_8hpp" local="yes">detail/config.hpp</includes>
+    <includes refid="utils_8hpp" local="yes">detail/utils.hpp</includes>
+    <includes refid="wrapper_8hpp" local="yes">detail/wrapper.hpp</includes>
+    <includes local="yes">errors.hpp</includes>
+    <includes local="no">type_traits</includes>
+    <includedby refid="find__first_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp</includedby>
+    <includedby refid="raw__view_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</includedby>
+    <includedby refid="drop_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</includedby>
+    <includedby refid="take_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</includedby>
+    <incdepgraph>
+      <node id="151">
+        <label>functional</label>
+      </node>
+      <node id="146">
+        <label>detail/utils.hpp</label>
+        <link refid="utils_8hpp"/>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>cassert</label>
+      </node>
+      <node id="150">
+        <label>invoke.hpp</label>
+        <link refid="invoke_8hpp"/>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="144">
+        <label>detail/config.hpp</label>
+        <link refid="config_8hpp"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="152">
+        <label>errors.hpp</label>
+      </node>
+      <node id="149">
+        <label>detail/wrapper.hpp</label>
+        <link refid="wrapper_8hpp"/>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>tuple</label>
+      </node>
+      <node id="143">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
+        <link refid="view__base_8hpp"/>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="148">
+        <label>type_traits</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="157">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp</label>
+        <link refid="slice_8hpp"/>
+      </node>
+      <node id="158">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</label>
+        <link refid="take_8hpp"/>
+        <childnode refid="157" relation="include">
+        </childnode>
+      </node>
+      <node id="153">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
+        <link refid="view__base_8hpp"/>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="158" relation="include">
+        </childnode>
+      </node>
+      <node id="154">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp</label>
+        <link refid="find__first_8hpp"/>
+      </node>
+      <node id="155">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</label>
+        <link refid="raw__view_8hpp"/>
+      </node>
+      <node id="156">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</label>
+        <link refid="drop_8hpp"/>
+        <childnode refid="157" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structboost_1_1static__views_1_1view__base" prot="public">boost::static_views::view_base</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1view__adaptor__core__access" prot="public">boost::static_views::view_adaptor_core_access</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" prot="public">boost::static_views::concepts::view::View</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1View" prot="public">boost::static_views::concepts::View</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1view__adaptor__base" prot="public">boost::static_views::view_adaptor_base</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1view__adaptor__base_1_1traits" prot="private">boost::static_views::view_adaptor_base::traits</innerclass>
+    <innernamespace refid="namespaceboost">boost</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views">boost::static_views</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1concepts">boost::static_views::concepts</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1concepts_1_1view">boost::static_views::concepts::view</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Copyright<sp/>Tom<sp/>Westerhout<sp/>2017.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Distributed<sp/>under<sp/>the<sp/>Boost<sp/>Software<sp/>License,<sp/>Version<sp/>1.0.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>(See<sp/>accompanying<sp/>file<sp/>LICENSE_1_0.txt<sp/>or<sp/>copy<sp/>at</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http://www.boost.org/LICENSE_1_0.txt)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Implementation<sp/>of<sp/>boost::static_views::view_base,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>boost::static_views::is_view,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>boost::static_views::view_adaptor_core_access<sp/>and</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>boost::static_views::view_adaptor_base.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BOOST_STATIC_VIEWS_VIEW_BASE_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_VIEW_BASE_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="config_8hpp" kindref="compound">detail/config.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="utils_8hpp" kindref="compound">detail/utils.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="wrapper_8hpp" kindref="compound">detail/wrapper.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;errors.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;type_traits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"></codeline>
+<codeline lineno="28" refid="structboost_1_1static__views_1_1view__base" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1view__base" kindref="compound">view_base</ref><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"></codeline>
+<codeline lineno="44"><highlight class="comment">//<sp/>template<sp/>&lt;class<sp/>V&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>struct<sp/>is_view<sp/>:<sp/>std::is_base_of&lt;view_base,<sp/>V&gt;<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/>};</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"></codeline>
+<codeline lineno="62" refid="structboost_1_1static__views_1_1view__adaptor__core__access" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1view__adaptor__core__access" kindref="compound">view_adaptor_core_access</ref><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>V&gt;</highlight></codeline>
+<codeline lineno="64" refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aa9a23e5ee27b4f7d859fc7b650783d60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1view__adaptor__base" kindref="compound">view_adaptor_base</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>private:<sp/>This<sp/>is<sp/>unfortunate<sp/>and<sp/>is<sp/>to<sp/>be<sp/>fixed<sp/>later!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="71" refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aec7f1dd938485e36aa5e162e1912038b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aec7f1dd938485e36aa5e162e1912038b" kindref="member">map</ref>(View<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>xs,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN</ref></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xs.map(i)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">concepts<sp/>{</highlight></codeline>
+<codeline lineno="80" refid="namespaceboost_1_1static__views_1_1concepts_1_1view" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">view<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Derives_from_view_base,<sp/>T,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::is_base_of&lt;view_base,<sp/>T&gt;::value),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`<sp/>doesn&apos;t<sp/>derive<sp/>from<sp/>`boost::static_views::view_base`,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;which<sp/>is,<sp/>unfortunately,<sp/>required<sp/>by<sp/>the<sp/>View<sp/>concept.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Hence,<sp/>the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Is_move_constructible,<sp/>T,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::is_move_constructible&lt;T&gt;::value),</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`<sp/>doesn&apos;t<sp/>model<sp/>the<sp/>MoveConstructible<sp/>concept,<sp/>which<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;it<sp/>should,<sp/>to<sp/>have<sp/>a<sp/>chance<sp/>at<sp/>modeling<sp/>the<sp/>View<sp/>concept.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Hence,<sp/>the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="95" refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a191c08b89d9f96e8cb0ecbeb2f32b0ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a191c08b89d9f96e8cb0ecbeb2f32b0ea" kindref="member">has_static_extent_t</ref><sp/>=<sp/>decltype(T::extent());</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_static_extent,<sp/>T,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(is_detected&lt;has_static_extent_t,<sp/>T&gt;::value),</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`<sp/>has<sp/>no<sp/>static<sp/>member<sp/>function<sp/>`extent()`.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Availability<sp/>of<sp/>it<sp/>is,<sp/>unfortunately,<sp/>required<sp/>by<sp/>the<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;View<sp/>concept.<sp/>Hence,<sp/>the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_correct_return_type_extent,<sp/>T,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::is_convertible&lt;detected_t&lt;has_static_extent_t,<sp/>T&gt;,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t&gt;::value),</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;The<sp/>View<sp/>concept<sp/>requires<sp/>the<sp/>return<sp/>type<sp/>of<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T::extent()`<sp/>to<sp/>be<sp/>convertible<sp/>to<sp/>`size_t`.<sp/>This<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;condition<sp/>is,<sp/>I&apos;m<sp/>afraid,<sp/>not<sp/>satisfied.<sp/>Hence,<sp/>the<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Is_noexcept_extent,<sp/>T,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(noexcept(T::extent())),</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T::extent()`<sp/>is<sp/>not<sp/>noexcept<sp/>while<sp/>it<sp/>should<sp/>be<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;to<sp/>have<sp/>a<sp/>chance<sp/>at<sp/>modeling<sp/>the<sp/>View<sp/>concept.<sp/>Hence,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a0d7ac4d0a8d5bb05d1c1466734600899" kindref="member">has_member_size_t</ref><sp/>=</highlight></codeline>
+<codeline lineno="119" refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a0d7ac4d0a8d5bb05d1c1466734600899" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(std::declval&lt;T<sp/>const&amp;&gt;().size());</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_member_size,<sp/>T,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(is_detected&lt;has_member_size_t,<sp/>T&gt;::value),</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`<sp/>has<sp/>no<sp/>member<sp/>function<sp/>`size()`.<sp/>Availability<sp/>of<sp/>it<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;is,<sp/>unfortunately,<sp/>required<sp/>by<sp/>the<sp/>View<sp/>concept.<sp/>Hence,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_correct_return_type_size,<sp/>T,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::is_convertible&lt;detected_t&lt;has_member_size_t,<sp/>T&gt;,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t&gt;::value),</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;The<sp/>View<sp/>concept<sp/>requires<sp/>the<sp/>return<sp/>type<sp/>of<sp/>the<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`size()`<sp/>member<sp/>function<sp/>to<sp/>be<sp/>convertible<sp/>to<sp/>`size_t`.<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;This<sp/>condition<sp/>is,<sp/>I&apos;m<sp/>afraid,<sp/>not<sp/>satisfied.<sp/>Hence,<sp/>the<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Is_noexcept_size,<sp/>T,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(noexcept(std::declval&lt;T<sp/>const&amp;&gt;().size())),</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`&apos;s<sp/>`size()`<sp/>member<sp/>function<sp/>is<sp/>not<sp/>noexcept<sp/>while<sp/>it<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;should<sp/>be<sp/>for<sp/>`T`<sp/>to<sp/>have<sp/>a<sp/>chance<sp/>at<sp/>modeling<sp/>the<sp/>View<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;concept.<sp/>Hence,<sp/>the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3954eeb9e8e8dcd7c2219113b3af83fa" kindref="member">has_operator_access_t</ref><sp/>=</highlight></codeline>
+<codeline lineno="143" refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3954eeb9e8e8dcd7c2219113b3af83fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(std::declval&lt;T&gt;()[std::declval&lt;std::size_t&gt;()]);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_operator_access,<sp/>T,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(is_detected&lt;has_operator_access_t,<sp/>T&gt;::value),</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`<sp/>has<sp/>no<sp/>`operator[](size_t)`.<sp/>Availability<sp/>of<sp/>it<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;is,<sp/>unfortunately,<sp/>required<sp/>by<sp/>the<sp/>View<sp/>concept.<sp/>Hence,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a47067a1b6800b76e95f22380a8c32eb5" kindref="member">has_member_map_t</ref><sp/>=<sp/>decltype(view_adaptor_core_access::map(</highlight></codeline>
+<codeline lineno="153" refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a47067a1b6800b76e95f22380a8c32eb5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;T&gt;(),<sp/>std::declval&lt;std::size_t&gt;()));</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_member_map,<sp/>T,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(is_detected&lt;has_member_map_t,<sp/>T&gt;::value),</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`<sp/>is<sp/>required<sp/>to<sp/>have<sp/>a<sp/>member<sp/>function<sp/>`map(size_t)`<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;accessible<sp/>through<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`boost::static_views::view_adaptor_core_access`.<sp/>Either<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;define<sp/>a<sp/>it<sp/>publicly<sp/>or<sp/>befriend<sp/>the<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`view_adaptor_core_access`<sp/>struct.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_correct_return_type_map,<sp/>T,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::is_convertible&lt;detected_t&lt;has_member_map_t,<sp/>T&gt;,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t&gt;::value),</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`&apos;s<sp/>`map(size_t)`<sp/>should<sp/>have<sp/>return<sp/>type<sp/>convertible<sp/>to<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;size_t.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Is_noexcept_map,<sp/>T,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(noexcept(view_adaptor_core_access::map(</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;T&gt;(),<sp/>std::declval&lt;std::size_t&gt;()))),</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`&apos;s<sp/>`map(size_t)`<sp/>member<sp/>function<sp/>is<sp/>not<sp/>noexcept<sp/>while<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;it<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;should<sp/>be.<sp/>Hence,<sp/>the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a35407306a7caf84a4ba0270b9a874adc" kindref="member">has_unsafe_at_t</ref><sp/>=<sp/>decltype(</highlight></codeline>
+<codeline lineno="178" refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a35407306a7caf84a4ba0270b9a874adc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;T&gt;().unsafe_at(std::declval&lt;std::size_t&gt;()));</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Has_unsafe_at,<sp/>T,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(is_detected&lt;has_unsafe_at_t,<sp/>T&gt;::value),</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`<sp/>is<sp/>required<sp/>to<sp/>have<sp/>a<sp/>member<sp/>function<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`unsafe_at(size_t)`.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kindref="member">BOOST_STATIC_VIEWS_DEFINE_CHECK</ref>(Is_noexcept_unsafe_at,<sp/>T,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(noexcept(std::declval&lt;T&gt;().unsafe_at(</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;std::size_t&gt;()))),</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`T`&apos;s<sp/>`unsafe_at(size_t)`<sp/>member<sp/>function<sp/>is<sp/>not<sp/>noexcept<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;while<sp/>it<sp/>should<sp/>be.<sp/>Hence,<sp/>the<sp/>error.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1all__" kindref="compound">View_impl</ref><sp/>=</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1all__" kindref="compound">all_</ref>&lt;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Derives_from_view_base,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Is_move_constructible,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Has_static_extent,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Has_correct_return_type_extent,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Is_noexcept_extent</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Has_member_size,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Has_correct_return_type_size,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Is_noexcept_size</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Has_operator_access</highlight></codeline>
+<codeline lineno="207" refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a1031995ae14c5184be0194820f91e4e7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210" refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref><sp/>:<sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1all__" kindref="compound">View_impl</ref><sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>View_impl::test;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="215" refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1a1b6ed3de3bc224b0432198b79f6beb81" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1a1b6ed3de3bc224b0432198b79f6beb81" kindref="member">check</ref>()<sp/>noexcept<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>test&lt;T&gt;();</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x,<sp/></highlight><highlight class="stringliteral">&quot;I&apos;m<sp/>sorry,<sp/>but<sp/>`T`<sp/>must<sp/>model<sp/>the<sp/>View<sp/>concept!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>View_impl::check&lt;T&gt;();</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">T,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;<ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt;Has_unsafe_at,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Is_noexcept_unsafe_at&gt;::test&lt;T&gt;()&gt;,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_FORCEINLINE</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/>unsafe_at_impl(T&amp;&amp;<sp/>xs,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/>noexcept</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;T&gt;(xs).unsafe_at(i);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">T,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;!<ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt;Has_unsafe_at,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Is_noexcept_unsafe_at&gt;::test&lt;T&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_FORCEINLINE</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>unsafe_at_impl(T&amp;&amp;<sp/>xs,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN</ref></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward&lt;T&gt;(xs)[i]</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">T,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>test&lt;std::remove_cv_t&lt;std::remove_reference_t&lt;T&gt;&gt;&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="257" refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1aa2956e6abd0462e2f0d1e4a3bfb70910" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1aa2956e6abd0462e2f0d1e4a3bfb70910" kindref="member">unsafe_at</ref>(T&amp;&amp;<sp/>xs,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN</ref></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>unsafe_at_impl(std::forward&lt;T&gt;(xs),<sp/>i)</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>view</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">#if<sp/>defined(DOXYGEN_IN_HOUSE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">//<sp/>let<sp/>Doxygen<sp/>think<sp/>it&apos;s<sp/>just<sp/>a<sp/>struct.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287" refid="structboost_1_1static__views_1_1concepts_1_1View" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1concepts_1_1View" kindref="compound">View</ref><sp/>{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">view::View</ref>;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>concepts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Derived,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Wrapper&gt;</highlight></codeline>
+<codeline lineno="300" refid="structboost_1_1static__views_1_1view__adaptor__base" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1view__adaptor__base" kindref="compound">view_adaptor_base</ref><sp/>:<sp/><ref refid="structboost_1_1static__views_1_1view__base" kindref="compound">view_base</ref><sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>derived_type<sp/>=<sp/>Derived;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>wrapper_type<sp/>=<sp/>Wrapper;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>view_type<sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Wrapper::type;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Dummy&gt;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">traits<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>has_map()<sp/>noexcept<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">concepts;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>and_&lt;view::Has_member_map,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>view::Has_correct_return_type_map,</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>view::Is_noexcept_map&gt;::test&lt;T&gt;();</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base" kindref="compound">view_adaptor_base_type</ref><sp/>=</highlight></codeline>
+<codeline lineno="321" refid="structboost_1_1static__views_1_1view__adaptor__base_1ae0758dc08ad0844ed7b0f82243017d8f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base" kindref="compound">view_adaptor_base&lt;Derived, Wrapper&gt;</ref>;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="329" refid="structboost_1_1static__views_1_1view__adaptor__base_1a212a8d90324bf7d1a7a802b1e4ca171e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1a212a8d90324bf7d1a7a802b1e4ca171e" kindref="member">view_adaptor_base</ref>(</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wrapper_type&amp;&amp;<sp/>view)</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_move_constructible&lt;wrapper_type&gt;::value)</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>_xs{std::move(view)}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>view_adaptor_base(view_adaptor_base<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>view_adaptor_base(view_adaptor_base&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/>view_adaptor_base&amp;<sp/>operator=(view_adaptor_base<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/>view_adaptor_base&amp;<sp/>operator=(view_adaptor_base&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="354"></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="358" refid="structboost_1_1static__views_1_1view__adaptor__base_1a96a00336636c531ca7ca4c58daf8234e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1a96a00336636c531ca7ca4c58daf8234e" kindref="member">parent</ref>()<sp/>const<sp/>&amp;<sp/>noexcept</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(noexcept(_xs.get()),</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;[INTERNAL]<sp/>view_adaptor_base&lt;&gt;<sp/>assumes<sp/>that<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;`wrapper::get()<sp/>const&amp;`<sp/>is<sp/>noexcept.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_xs.get();</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="368" refid="structboost_1_1static__views_1_1view__adaptor__base_1a03625ed5c427248f5a7316eaa456d333" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1a03625ed5c427248f5a7316eaa456d333" kindref="member">parent</ref>()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(std::declval&lt;wrapper_type&amp;&amp;&gt;().</highlight><highlight class="keyword">get</highlight><highlight class="normal">()))</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::move(_xs).get();</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight></codeline>
+<codeline lineno="376"><highlight class="comment"></highlight></codeline>
+<codeline lineno="381"></codeline>
+<codeline lineno="383" refid="structboost_1_1static__views_1_1view__adaptor__base_1a8e437dd8e9475704bea2c78e402f9ea4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1a8e437dd8e9475704bea2c78e402f9ea4" kindref="member">extent</ref>()<sp/>noexcept<sp/>-&gt;<sp/>std::ptrdiff_t</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>view_type::extent();</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"></codeline>
+<codeline lineno="394" refid="structboost_1_1static__views_1_1view__adaptor__base_1a195fd1168a57c356a36a07d4c7c3f83d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1a195fd1168a57c356a36a07d4c7c3f83d" kindref="member">size</ref>()<sp/>const<sp/>noexcept</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(noexcept(parent()),</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;[INTERNAL]<sp/>view_adaptor_base&lt;&gt;<sp/>assumes<sp/>that<sp/>its<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;own<sp/>`parent()<sp/>const&amp;`<sp/>member<sp/>function<sp/>does<sp/>not<sp/>throw.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>parent().size();</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Dummy<sp/>=<sp/>void,</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;traits&lt;Dummy&gt;::template</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>has_map&lt;derived_type&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="410" refid="structboost_1_1static__views_1_1view__adaptor__base_1acef5f41a2f000e46ae6b199b1b1afe21" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1acef5f41a2f000e46ae6b199b1b1afe21" kindref="member">unsafe_at</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(noexcept(</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>concepts::View::unsafe_at(</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;view_type<sp/>const&amp;&gt;(),</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;std::size_t&gt;())))</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(noexcept(parent()),</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;[INTERNAL]<sp/>view_adaptor_base&lt;&gt;<sp/>assumes<sp/>that<sp/>its<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;own<sp/>`parent()<sp/>const&amp;`<sp/>member<sp/>function<sp/>does<sp/>not<sp/>throw.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a84409c4edf7d9fb671eeea87a5eb5ec1" kindref="member">BOOST_STATIC_VIEWS_EXPECT</ref>(i<sp/>&lt;<sp/>derived().size(),</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;You&apos;re<sp/>trying<sp/>to<sp/>cause<sp/>undefined<sp/>behavior,<sp/>aren&apos;t<sp/>you?&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>view_adaptor_core_access::map(derived(),<sp/>i);</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>concepts::View::unsafe_at(parent(),<sp/>x);</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Dummy<sp/>=<sp/>void,</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;traits&lt;Dummy&gt;::template</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>has_map&lt;derived_type&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="431" refid="structboost_1_1static__views_1_1view__adaptor__base_1a03b41546eb70e2f74214c2e749a0bb73" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1a03b41546eb70e2f74214c2e749a0bb73" kindref="member">unsafe_at</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/>&amp;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(noexcept(</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>concepts::View::unsafe_at(</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;view_type<sp/>&amp;&gt;(),</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;std::size_t&gt;())))</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(noexcept(parent()),</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;[INTERNAL]<sp/>view_adaptor_base&lt;&gt;<sp/>assumes<sp/>that<sp/>its<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;own<sp/>`parent()<sp/>const&amp;`<sp/>member<sp/>function<sp/>does<sp/>not<sp/>throw.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a84409c4edf7d9fb671eeea87a5eb5ec1" kindref="member">BOOST_STATIC_VIEWS_EXPECT</ref>(i<sp/>&lt;<sp/>derived().size(),</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;You&apos;re<sp/>trying<sp/>to<sp/>cause<sp/>undefined<sp/>behavior,<sp/>aren&apos;t<sp/>you?&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>view_adaptor_core_access::map(derived(),<sp/>i);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>concepts::View::unsafe_at(parent(),<sp/>x);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Dummy<sp/>=<sp/>void,</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;traits&lt;Dummy&gt;::template</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>has_map&lt;derived_type&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="452" refid="structboost_1_1static__views_1_1view__adaptor__base_1a29907c5edf34fc6bc3a443ee0e83ca5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structboost_1_1static__views_1_1view__adaptor__base_1a29907c5edf34fc6bc3a443ee0e83ca5d" kindref="member">unsafe_at</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(noexcept(</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>concepts::View::unsafe_at(</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;view_type<sp/>&amp;&amp;&gt;(),</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;std::size_t&gt;())))</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(noexcept(parent()),</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;[INTERNAL]<sp/>view_adaptor_base&lt;&gt;<sp/>assumes<sp/>that<sp/>its<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;own<sp/>`parent()<sp/>const&amp;`<sp/>member<sp/>function<sp/>does<sp/>not<sp/>throw.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a84409c4edf7d9fb671eeea87a5eb5ec1" kindref="member">BOOST_STATIC_VIEWS_EXPECT</ref>(i<sp/>&lt;<sp/>derived().size(),</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;You&apos;re<sp/>trying<sp/>to<sp/>cause<sp/>undefined<sp/>behavior,<sp/>aren&apos;t<sp/>you?&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>view_adaptor_core_access::map(derived(),<sp/>i);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>concepts::View::unsafe_at(</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::forward&lt;view_adaptor_base&gt;(*this).parent(),<sp/>x);</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Dummy<sp/>=<sp/>void,</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;traits&lt;Dummy&gt;::template</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>has_map&lt;derived_type&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="474" refid="structboost_1_1static__views_1_1view__adaptor__base_1a37c18cab7fa905cc56e0e9d7f7ea49a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal">[](std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BOOST_STATIC_VIEWS_UNLIKELY(i<sp/>&gt;=<sp/>derived().size()))<sp/>{</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>make_out_of_bound_error(</highlight><highlight class="stringliteral">&quot;`i<sp/>&lt;<sp/>size()`<sp/>not<sp/>satisfied.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_UNREACHABLE;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>view_adaptor_core_access::map(derived(),<sp/>i);</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>parent()[x];</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Dummy<sp/>=<sp/>void,</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;traits&lt;Dummy&gt;::template</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>has_map&lt;derived_type&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="490" refid="structboost_1_1static__views_1_1view__adaptor__base_1a5ba32613855fcfdabf80def63812d90d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal">[](std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/>&amp;</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BOOST_STATIC_VIEWS_UNLIKELY(i<sp/>&gt;=<sp/>derived().size()))<sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>make_out_of_bound_error(</highlight><highlight class="stringliteral">&quot;`i<sp/>&lt;<sp/>size()`<sp/>not<sp/>satisfied.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_UNREACHABLE;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>view_adaptor_core_access::map(derived(),<sp/>i);</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>parent()[x];</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Dummy<sp/>=<sp/>void,</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;traits&lt;Dummy&gt;::template</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>has_map&lt;derived_type&gt;()&gt;&gt;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
+<codeline lineno="506" refid="structboost_1_1static__views_1_1view__adaptor__base_1a3cc81abf80ec61090df16bae9946a09a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal">[](std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BOOST_STATIC_VIEWS_UNLIKELY(i<sp/>&gt;=<sp/>derived().size()))<sp/>{</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>make_out_of_bound_error(</highlight><highlight class="stringliteral">&quot;`i<sp/>&lt;<sp/>size()`<sp/>not<sp/>satisfied.&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_UNREACHABLE;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>view_adaptor_core_access::map(derived(),<sp/>i);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::forward&lt;view_adaptor_base&gt;(*this).parent()[x];</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight></codeline>
+<codeline lineno="517"><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/>wrapper_type<sp/>_xs;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_FORCEINLINE</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>derived()<sp/>const<sp/>noexcept</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;<sp/>derived_type<sp/>const&amp;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">derived_type<sp/>const*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="527"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_VIEW_BASE_HPP</highlight></codeline>
+    </programlisting>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp"/>
+  </compounddef>
+</doxygen>

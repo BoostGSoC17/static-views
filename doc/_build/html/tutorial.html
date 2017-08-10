@@ -49,11 +49,31 @@
         
   <div class="section" id="tutorial">
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#installing" id="id4">Installing</a></li>
+<li><a class="reference internal" href="#sequences-and-views" id="id5">Sequences and Views</a></li>
+<li><a class="reference internal" href="#static-map" id="id6">Static Map</a></li>
+<li><a class="reference internal" href="#bitmaps-yet-to-be-updated" id="id7">Bitmaps (YET TO BE UPDATED)</a></li>
+</ul>
+</div>
 <div class="section" id="installing">
-<span id="id2"></span><h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id4">Installing</a><a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>The simplest way to get started with the library is to use its single
+header edition. Just one call to <code class="docutils literal highlight highlight-none"><span></span>wget</code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget https://github.com/BoostGSoC17/static-views/single-header/static_views.hpp
+</pre></div>
+</div>
+<p>and you’re done! Alternatively, clone the <a class="reference external" href="https://github.com/BoostGSoC17/static-views">repo</a> and point your compiler to
+the <code class="docutils literal highlight highlight-none"><span></span>include/</code> directory.</p>
+<p>The library has two modes of operation: “standalone” and “part of Boost”.
+The first one is chosen by default. To use the second instead, define the
+<code class="docutils literal highlight highlight-none"><span></span>BOOST_STATIC_VIEWS_USE_BOOST</code> macro before the inclusion of the
+headers. Static Views will then use <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/config/doc/html/index.html">Boost.Config</a> macros instead of
+reinventing the wheel.</p>
 </div>
 <div class="section" id="sequences-and-views">
-<span id="id3"></span><h2>Sequences and Views<a class="headerlink" href="#sequences-and-views" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id5">Sequences and Views</a><a class="headerlink" href="#sequences-and-views" title="Permalink to this headline">¶</a></h2>
 <p>Very rarely do we deal with compile-time data of infinite size. Usually,
 when we choose on hard-coding some data into the program, we store it as a
 static <code class="docutils literal highlight highlight-none"><span></span>C</code>-style array or tuple. These data structures not only have
@@ -193,7 +213,7 @@ same view (think <code class="code cpp c++ docutils literal highlight highlight-
 <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">filtered</span></code>, etc. in <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/range/doc/html/index.html">Boost.Range</a>).</p>
 </div>
 <div class="section" id="static-map">
-<span id="static-map-tutorial"></span><h2>Static Map<a class="headerlink" href="#static-map" title="Permalink to this headline">¶</a></h2>
+<span id="static-map-tutorial"></span><h2><a class="toc-backref" href="#id6">Static Map</a><a class="headerlink" href="#static-map" title="Permalink to this headline">¶</a></h2>
 <p>As a real life example of what one can implement using the library, an
 implementation of a <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">static_map</span></code> is provided. This is also probably
 the coolest feature of the library.</p>
@@ -274,7 +294,7 @@ is thus not required for <code class="code cpp c++ docutils literal highlight hi
 use arbitrary types, as long as they have <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">constexpr</span></code> constructors.</p>
 </div>
 <div class="section" id="bitmaps-yet-to-be-updated">
-<h2>Bitmaps (YET TO BE UPDATED)<a class="headerlink" href="#bitmaps-yet-to-be-updated" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Bitmaps (YET TO BE UPDATED)</a><a class="headerlink" href="#bitmaps-yet-to-be-updated" title="Permalink to this headline">¶</a></h2>
 <p>Suppose we have a bitmap (24-bit RGB) icon saved as a <code class="docutils literal highlight highlight-none"><span></span>constexpr</code> array of
 chars:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>static constexpr unsigned char smiley[] = {

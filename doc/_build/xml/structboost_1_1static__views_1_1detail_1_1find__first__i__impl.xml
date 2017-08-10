@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1find__first__i__impl" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::detail::find_first_i_impl</compoundname>
+    <includes refid="find__first_8hpp" local="no">find_first.hpp</includes>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains" prot="private">boost::static_views::detail::find_first_i_impl::Constrains</innerclass>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1a30128439b212a648d0a6abd370955904" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>class Predicate</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;!Constrains&lt;View, Predicate&gt;::test()&gt;</defval>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>void</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::find_first_i_impl::operator()</definition>
+        <argsstring>(View const &amp;, Predicate &amp;&amp;) const noexcept</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>View const &amp;</type>
+        </param>
+        <param>
+          <type>Predicate &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp" line="89" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp" bodystart="89" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp" line="19" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp" bodystart="19" bodyend="115"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1a30128439b212a648d0a6abd370955904" prot="public" virt="non-virtual"><scope>boost::static_views::detail::find_first_i_impl</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

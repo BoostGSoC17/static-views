@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="namespaceboost_1_1static__views_1_1concepts_1_1view" kind="namespace" language="C++">
+    <compoundname>boost::static_views::concepts::view</compoundname>
+    <innerclass refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" prot="public">boost::static_views::concepts::view::View</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a191c08b89d9f96e8cb0ecbeb2f32b0ea" prot="public" static="no">
+        <type>decltype(T::extent())</type>
+        <definition>using boost::static_views::concepts::view::has_static_extent_t = typedef decltype(T::extent())</definition>
+        <argsstring></argsstring>
+        <name>has_static_extent_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="95" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a0d7ac4d0a8d5bb05d1c1466734600899" prot="public" static="no">
+        <type>decltype(std::declval&lt; T const  &amp; &gt;().size())</type>
+        <definition>using boost::static_views::concepts::view::has_member_size_t = typedef decltype(std::declval&lt;T const&amp;&gt;().size())</definition>
+        <argsstring></argsstring>
+        <name>has_member_size_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="118" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3954eeb9e8e8dcd7c2219113b3af83fa" prot="public" static="no">
+        <type>decltype(std::declval&lt; T &gt;()[std::declval&lt; std::size_t &gt;()])</type>
+        <definition>using boost::static_views::concepts::view::has_operator_access_t = typedef decltype(std::declval&lt;T&gt;()[std::declval&lt;std::size_t&gt;()])</definition>
+        <argsstring></argsstring>
+        <name>has_operator_access_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="142" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a47067a1b6800b76e95f22380a8c32eb5" prot="public" static="no">
+        <type>decltype(<ref refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aec7f1dd938485e36aa5e162e1912038b" kindref="member">view_adaptor_core_access::map</ref>(std::declval&lt; T &gt;(), std::declval&lt; std::size_t &gt;()))</type>
+        <definition>using boost::static_views::concepts::view::has_member_map_t = typedef decltype(view_adaptor_core_access::map( std::declval&lt;T&gt;(), std::declval&lt;std::size_t&gt;()))</definition>
+        <argsstring></argsstring>
+        <name>has_member_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="152" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a35407306a7caf84a4ba0270b9a874adc" prot="public" static="no">
+        <type>decltype(std::declval&lt; T &gt;().unsafe_at(std::declval&lt; std::size_t &gt;()))</type>
+        <definition>using boost::static_views::concepts::view::has_unsafe_at_t = typedef decltype( std::declval&lt;T&gt;().unsafe_at(std::declval&lt;std::size_t&gt;()))</definition>
+        <argsstring></argsstring>
+        <name>has_unsafe_at_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="177" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a1031995ae14c5184be0194820f91e4e7" prot="public" static="no">
+        <type><ref refid="structboost_1_1static__views_1_1concepts_1_1all__" kindref="compound">all_</ref>&lt; Derives_from_view_base, Is_move_constructible, <ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt; Has_static_extent, Has_correct_return_type_extent, Is_noexcept_extent &gt;, <ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt; Has_member_size, Has_correct_return_type_size, Is_noexcept_size &gt;, Has_operator_access &gt;</type>
+        <definition>using boost::static_views::concepts::view::View_impl = typedef all_&lt; Derives_from_view_base, Is_move_constructible, and_&lt; Has_static_extent, Has_correct_return_type_extent, Is_noexcept_extent &gt;, and_&lt; Has_member_size, Has_correct_return_type_size, Is_noexcept_size &gt;, Has_operator_access &gt;</definition>
+        <argsstring></argsstring>
+        <name>View_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="192" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a2a16859fd9781ae4c199410b5e44e6fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Derives_from_view_base, T,(std::is_base_of&lt; view_base, T &gt;::value), &quot;`T` doesn&apos;t derive from `boost::static_views::view_base`, &quot; &quot;which is, unfortunately, required by the View concept. &quot; &quot;Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Derives_from_view_base</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(std::is_base_of&lt; <ref refid="structboost_1_1static__views_1_1view__base" kindref="compound">view_base</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T` doesn&apos;t derive from `<ref refid="structboost_1_1static__views_1_1view__base" kindref="compound">boost::static_views::view_base</ref>`</type>
+        </param>
+        <param>
+          <type>&quot; &quot;which</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required by the <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept. &quot; &quot;</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="82" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1afddeab7a5bf9b0ed48aa4a236f3c2f78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_move_constructible, T,(std::is_move_constructible&lt; T &gt;::value), &quot;`T` doesn&apos;t model the MoveConstructible concept, which &quot; &quot;it should, to have a chance at modeling the View concept. &quot; &quot;Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_move_constructible</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(std::is_move_constructible&lt; T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T` doesn&apos;t model the MoveConstructible</type>
+          <declname>concept</declname>
+        </param>
+        <param>
+          <type>which &quot; &quot;it</type>
+          <declname>should</declname>
+        </param>
+        <param>
+          <type>to have a chance at modeling the <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept. &quot; &quot;</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="88" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a02fd1d51e1e3bf760997b037e2f57783" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_static_extent, T,(is_detected&lt; has_static_extent_t, T &gt;::value), &quot;`T` has no static member function `extent()`. &quot; &quot;Availability of it is, unfortunately, required by the &quot; &quot;View concept. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_static_extent</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a191c08b89d9f96e8cb0ecbeb2f32b0ea" kindref="member">has_static_extent_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T` has no static member function `extent()`. &quot; &quot;Availability of it</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required by the &quot; &quot;<ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="97" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a6e671280cea96103c1e3541901af2dac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_correct_return_type_extent, T,(std::is_convertible&lt; detected_t&lt; has_static_extent_t, T &gt;, std::size_t &gt;::value), &quot;The View concept requires the return type of &quot; &quot;`T::extent()` to be convertible to `size_t`. This &quot; &quot;condition is, I&apos;m afraid, not satisfied. Hence, the &quot; &quot;error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_correct_return_type_extent</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(std::is_convertible&lt; detected_t&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a191c08b89d9f96e8cb0ecbeb2f32b0ea" kindref="member">has_static_extent_t</ref>, T &gt;, std::size_t &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;The <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept requires the return type of &quot; &quot;`T::extent()` to be convertible to `size_t`. This &quot; &quot;condition</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>I &apos;m</type>
+          <declname>afraid</declname>
+        </param>
+        <param>
+          <type>not satisfied.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the &quot; &quot;error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1af2cfec9e2f9338fb25e243b896e40ba0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_noexcept_extent, T,(noexcept(T::extent())), &quot;`T::extent()` is not noexcept while it should be &quot; &quot;to have a chance at modeling the View concept. Hence, &quot; &quot;the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_noexcept_extent</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(noexcept(T::extent()))</type>
+        </param>
+        <param>
+          <type>&quot;`T::extent()` is not noexcept while it should be &quot; &quot;to have a chance at modeling the <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>&quot; &quot;the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="111" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a7cb1e9af150f05e8eb09f9d43958ee10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_member_size, T,(is_detected&lt; has_member_size_t, T &gt;::value), &quot;`T` has no member function `size()`. Availability of it &quot; &quot;is, unfortunately, required by the View concept. Hence, &quot; &quot;the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_member_size</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a0d7ac4d0a8d5bb05d1c1466734600899" kindref="member">has_member_size_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T` has no member function `size()`. Availability of it &quot; &quot;</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required by the <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>&quot; &quot;the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="121" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3b94cc9610d2e25c9727cd3fe0776560" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_correct_return_type_size, T,(std::is_convertible&lt; detected_t&lt; has_member_size_t, T &gt;, std::size_t &gt;::value), &quot;The View concept requires the return type of the &quot; &quot;`size()` member function to be convertible to `size_t`. &quot; &quot;This condition is, I&apos;m afraid, not satisfied. Hence, the &quot; &quot;error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_correct_return_type_size</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(std::is_convertible&lt; detected_t&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a0d7ac4d0a8d5bb05d1c1466734600899" kindref="member">has_member_size_t</ref>, T &gt;, std::size_t &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;The <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept requires the return type of the &quot; &quot;`size()` member function to be convertible to `size_t`. &quot; &quot;This condition</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>I &apos;m</type>
+          <declname>afraid</declname>
+        </param>
+        <param>
+          <type>not satisfied.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the &quot; &quot;error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="127" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a100c860ce8cac0821f3b4afb10e560fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_noexcept_size, T,(noexcept(std::declval&lt; T const &amp;&gt;().size())), &quot;`T`&apos;s `size()` member function is not noexcept while it &quot; &quot;should be for `T` to have a chance at modeling the View &quot; &quot;concept. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_noexcept_size</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(noexcept(std::declval&lt; T const &amp; &gt;().size()))</type>
+        </param>
+        <param>
+          <type>&quot;`T`&apos;s `size()` member function is not noexcept while it &quot; &quot;should be for `T` to have a chance at modeling the <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> &quot; &quot;concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="135" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a283415aa929b8aa1ee6595cff6eaeb51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_operator_access, T,(is_detected&lt; has_operator_access_t, T &gt;::value), &quot;`T` has no `operator[](size_t)`. Availability of it &quot; &quot;is, unfortunately, required by the View concept. Hence, &quot; &quot;the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_operator_access</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3954eeb9e8e8dcd7c2219113b3af83fa" kindref="member">has_operator_access_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T` has no `operator(size_t)`.  []Availability of it &quot; &quot;</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type>unfortunately</type>
+        </param>
+        <param>
+          <type>required by the <ref refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kindref="compound">View</ref> concept.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>&quot; &quot;the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a2c083764cb5bb6425560ffd419a62866" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_member_map, T,(is_detected&lt; has_member_map_t, T &gt;::value), &quot;`T` is required to have a member function `map(size_t)` &quot; &quot;accessible through &quot; &quot;`boost::static_views::view_adaptor_core_access`. Either &quot; &quot;define a it publicly or befriend the &quot; &quot;`view_adaptor_core_access` struct.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_member_map</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a47067a1b6800b76e95f22380a8c32eb5" kindref="member">has_member_map_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T` is required to have a member function `map(size_t)` &quot; &quot;accessible through &quot; &quot;`<ref refid="structboost_1_1static__views_1_1view__adaptor__core__access" kindref="compound">boost::static_views::view_adaptor_core_access</ref>`. Either &quot; &quot;define a it publicly or befriend the &quot; &quot;`<ref refid="structboost_1_1static__views_1_1view__adaptor__core__access" kindref="compound">view_adaptor_core_access</ref>` struct.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="155" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a9fd4984d5fc52e1f0c4e9407cd845a8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_correct_return_type_map, T,(std::is_convertible&lt; detected_t&lt; has_member_map_t, T &gt;, std::size_t &gt;::value), &quot;`T`&apos;s `map(size_t)` should have return type convertible to &quot; &quot;size_t.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_correct_return_type_map</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(std::is_convertible&lt; detected_t&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a47067a1b6800b76e95f22380a8c32eb5" kindref="member">has_member_map_t</ref>, T &gt;, std::size_t &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T`&apos;s `map(size_t)` should have return type convertible to &quot; &quot;size_t.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="163" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a70f3d6f31b902fed76b8af85fd203db8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_noexcept_map, T,(noexcept(view_adaptor_core_access::map(std::declval&lt; T &gt;(), std::declval&lt; std::size_t &gt;()))), &quot;`T`&apos;s `map(size_t)` member function is not noexcept while &quot; &quot;it &quot; &quot;should be. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_noexcept_map</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(noexcept(<ref refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aec7f1dd938485e36aa5e162e1912038b" kindref="member">view_adaptor_core_access::map</ref>(std::declval&lt; T &gt;(), std::declval&lt; std::size_t &gt;())))</type>
+        </param>
+        <param>
+          <type>&quot;`T`&apos;s `map(size_t)` member function is not noexcept while &quot; &quot;it &quot; &quot;should be.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="169" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1abe80684df3590c69845d24d7b6d1f8bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Has_unsafe_at, T,(is_detected&lt; has_unsafe_at_t, T &gt;::value), &quot;`T` is required to have a member function &quot; &quot;`unsafe_at(size_t)`.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Has_unsafe_at</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(is_detected&lt; <ref refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a35407306a7caf84a4ba0270b9a874adc" kindref="member">has_unsafe_at_t</ref>, T &gt;::value)</type>
+        </param>
+        <param>
+          <type>&quot;`T` is required to have a member function &quot; &quot;`unsafe_at(size_t)`.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a4966d61d38228d44dce539e55cea6327" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>boost::static_views::concepts::view::BOOST_STATIC_VIEWS_DEFINE_CHECK</definition>
+        <argsstring>(Is_noexcept_unsafe_at, T,(noexcept(std::declval&lt; T &gt;().unsafe_at(std::declval&lt; std::size_t &gt;()))), &quot;`T`&apos;s `unsafe_at(size_t)` member function is not noexcept &quot; &quot;while it should be. Hence, the error.&quot;)</argsstring>
+        <name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name>
+        <param>
+          <type>Is_noexcept_unsafe_at</type>
+        </param>
+        <param>
+          <type>T</type>
+        </param>
+        <param>
+          <type>(noexcept(std::declval&lt; T &gt;().unsafe_at(std::declval&lt; std::size_t &gt;())))</type>
+        </param>
+        <param>
+          <type>&quot;`T`&apos;s `unsafe_at(size_t)` member function is not noexcept &quot; &quot;while it should be.</type>
+          <declname>Hence</declname>
+        </param>
+        <param>
+          <type>the error.&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="185" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="80" column="1"/>
+  </compounddef>
+</doxygen>
