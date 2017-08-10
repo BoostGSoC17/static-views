@@ -758,7 +758,8 @@ INPUT                  = ../include/boost/static_views/detail \
                          ../include/boost/static_views/raw_view.hpp \
                          ../include/boost/static_views/drop.hpp \
                          ../include/boost/static_views/take.hpp \
-                         ../include/boost/static_views/slice.hpp
+                         ../include/boost/static_views/slice.hpp \
+                         ../include/boost/static_views/view_base.hpp
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1988,7 +1989,10 @@ PREDEFINED             = DOXYGEN_IN_HOUSE \
                          BOOST_STATIC_VIEWS_DECLTYPE_AUTO=auto \
                          "BOOST_STATIC_VIEWS_NOEXCEPT_IF(...)=noexcept(whenever possible)" \
                          "BOOST_STATIC_VIEWS_INLINE_VARIABLE(type, name)=constexpr auto name = implementation detail;" \
-                         "BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN(...)=noexcept(whenever possible) { return __VA_ARGS__; } static_assert(true, \"\")"
+                         "BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN(...)=noexcept(whenever possible) { return __VA_ARGS__; } static_assert(true, \"\")" \
+			 "BOOST_STATIC_VIEWS_BEGIN_NAMESPACE=namespace boost{ namespace static_views {" \
+			 "BOOST_STATIC_VIEWS_END_NAMESPACE=} }"
+
 
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this

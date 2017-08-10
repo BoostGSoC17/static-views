@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::detail::raw_view_impl</compoundname>
+    <basecompoundref refid="structboost_1_1static__views_1_1view__base" prot="public" virt="non-virtual">boost::static_views::view_base</basecompoundref>
+    <includes refid="raw__view_8hpp" local="no">raw_view.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class Sequence</type>
+      </param>
+      <param>
+        <type>std::ptrdiff_t</type>
+        <declname>Extent</declname>
+        <defname>Extent</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a0055dc1973533becf41ca07fbcc98e20" prot="private" static="no">
+        <type>std::remove_cv_t&lt; Sequence &gt;</type>
+        <definition>using boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::sequence_type =  std::remove_cv_t&lt;Sequence&gt;</definition>
+        <argsstring></argsstring>
+        <name>sequence_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="33" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a391dac3a2cc1b2d9768211ddc4b899ab" prot="private" static="no" mutable="no">
+        <type>Sequence *</type>
+        <definition>Sequence* boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::_xs</definition>
+        <argsstring></argsstring>
+        <name>_xs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="34" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a73b1cf50be62f8ce8be46f0fdf08be56" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::raw_view_impl</definition>
+        <argsstring>(Sequence &amp;xs) noexcept</argsstring>
+        <name>raw_view_impl</name>
+        <param>
+          <type>Sequence &amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="38" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a963fa83f025cb0a17af72e9da00bee70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::raw_view_impl</definition>
+        <argsstring>(raw_view_impl const &amp;) noexcept=default</argsstring>
+        <name>raw_view_impl</name>
+        <param>
+          <type><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a7deeb0cb7faaac4d308e4bce4fc9043d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr</type>
+        <definition>constexpr boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::raw_view_impl</definition>
+        <argsstring>(raw_view_impl &amp;&amp;) noexcept=default</argsstring>
+        <name>raw_view_impl</name>
+        <param>
+          <type><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="44" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a87401071b82dbcd8003c493a2fce8486" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr <ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> &amp;</type>
+        <definition>constexpr raw_view_impl&amp; boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::operator=</definition>
+        <argsstring>(raw_view_impl const &amp;) noexcept=default</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1ae7bab2ef52ccf339c3dacefce36464f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr <ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> &amp;</type>
+        <definition>constexpr raw_view_impl&amp; boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::operator=</definition>
+        <argsstring>(raw_view_impl &amp;&amp;) noexcept=default</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kindref="compound">raw_view_impl</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1ad2aa61846b530f2ff658aa1ac05f3e9a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::size</definition>
+        <argsstring>() const noexcept -&gt; std::size_t</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="57" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="57" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a83ce24d06779bd215c15d1253bf77c0c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::unsafe_at</definition>
+        <argsstring>(std::size_t const i) const sequence_traits&lt; sequence_type &gt;</argsstring>
+        <name>unsafe_at</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="64" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="64" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a61e5f6b95467abd671c8766972181a03" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::operator[]</definition>
+        <argsstring>(std::size_t const i) const</argsstring>
+        <name>operator[]</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="74" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="74" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1afb91a51abab112d6b5989f8633038005" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;::extent</definition>
+        <argsstring>() noexcept -&gt; std::ptrdiff_t</argsstring>
+        <name>extent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="52" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="52" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="73">
+        <label>boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl"/>
+        <childnode refid="74" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>boost::static_views::view_base</label>
+        <link refid="structboost_1_1static__views_1_1view__base"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="75">
+        <label>boost::static_views::detail::raw_view_impl&lt; Sequence, Extent &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl"/>
+        <childnode refid="76" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>boost::static_views::view_base</label>
+        <link refid="structboost_1_1static__views_1_1view__base"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="30" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="30" bodyend="82"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a391dac3a2cc1b2d9768211ddc4b899ab" prot="private" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>_xs</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1afb91a51abab112d6b5989f8633038005" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>extent</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a87401071b82dbcd8003c493a2fce8486" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>operator=</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1ae7bab2ef52ccf339c3dacefce36464f4" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>operator=</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a61e5f6b95467abd671c8766972181a03" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>operator[]</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a73b1cf50be62f8ce8be46f0fdf08be56" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>raw_view_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a963fa83f025cb0a17af72e9da00bee70" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>raw_view_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a7deeb0cb7faaac4d308e4bce4fc9043d" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>raw_view_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a0055dc1973533becf41ca07fbcc98e20" prot="private" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>sequence_type</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1ad2aa61846b530f2ff658aa1ac05f3e9a" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>size</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a83ce24d06779bd215c15d1253bf77c0c" prot="public" virt="non-virtual"><scope>boost::static_views::detail::raw_view_impl</scope><name>unsafe_at</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

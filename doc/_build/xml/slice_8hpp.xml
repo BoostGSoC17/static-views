@@ -7,146 +7,120 @@
     <includes refid="take_8hpp" local="yes">take.hpp</includes>
     <includes local="no">type_traits</includes>
     <incdepgraph>
-      <node id="94">
+      <node id="113">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp</label>
       </node>
-      <node id="102">
+      <node id="121">
         <label>limits</label>
       </node>
-      <node id="89">
+      <node id="108">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp</label>
         <link refid="slice_8hpp"/>
-        <childnode refid="90" relation="include">
+        <childnode refid="109" relation="include">
         </childnode>
-        <childnode refid="92" relation="include">
+        <childnode refid="111" relation="include">
         </childnode>
-        <childnode refid="105" relation="include">
+        <childnode refid="123" relation="include">
         </childnode>
-        <childnode refid="98" relation="include">
+        <childnode refid="117" relation="include">
         </childnode>
       </node>
-      <node id="103">
-        <label>view_base.hpp</label>
-      </node>
-      <node id="91">
+      <node id="110">
         <label>cassert</label>
       </node>
-      <node id="100">
+      <node id="119">
         <label>sequence_traits.hpp</label>
         <link refid="sequence__traits_8hpp"/>
-        <childnode refid="90" relation="include">
+        <childnode refid="109" relation="include">
         </childnode>
-        <childnode refid="94" relation="include">
+        <childnode refid="113" relation="include">
         </childnode>
-        <childnode refid="101" relation="include">
+        <childnode refid="120" relation="include">
         </childnode>
-        <childnode refid="97" relation="include">
+        <childnode refid="121" relation="include">
         </childnode>
-        <childnode refid="102" relation="include">
+        <childnode refid="116" relation="include">
         </childnode>
       </node>
-      <node id="90">
+      <node id="109">
         <label>detail/config.hpp</label>
         <link refid="config_8hpp"/>
-        <childnode refid="91" relation="include">
+        <childnode refid="110" relation="include">
         </childnode>
       </node>
-      <node id="95">
+      <node id="114">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
       </node>
-      <node id="93">
+      <node id="112">
         <label>algorithm_base.hpp</label>
       </node>
-      <node id="97">
+      <node id="116">
         <label>tuple</label>
       </node>
-      <node id="105">
+      <node id="123">
         <label>take.hpp</label>
         <link refid="take_8hpp"/>
-        <childnode refid="93" relation="include">
+        <childnode refid="112" relation="include">
         </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="109" relation="include">
         </childnode>
-        <childnode refid="94" relation="include">
+        <childnode refid="113" relation="include">
         </childnode>
-        <childnode refid="100" relation="include">
+        <childnode refid="119" relation="include">
         </childnode>
-        <childnode refid="103" relation="include">
+        <childnode refid="115" relation="include">
         </childnode>
-        <childnode refid="104" relation="include">
+        <childnode refid="122" relation="include">
         </childnode>
-        <childnode refid="98" relation="include">
+        <childnode refid="117" relation="include">
         </childnode>
       </node>
-      <node id="96">
+      <node id="115">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
       </node>
-      <node id="99">
+      <node id="118">
         <label>utility</label>
       </node>
-      <node id="101">
+      <node id="120">
         <label>array</label>
       </node>
-      <node id="98">
+      <node id="117">
         <label>type_traits</label>
       </node>
-      <node id="104">
+      <node id="122">
         <label>algorithm</label>
       </node>
-      <node id="92">
+      <node id="111">
         <label>drop.hpp</label>
         <link refid="drop_8hpp"/>
-        <childnode refid="93" relation="include">
+        <childnode refid="112" relation="include">
         </childnode>
-        <childnode refid="90" relation="include">
+        <childnode refid="109" relation="include">
         </childnode>
-        <childnode refid="94" relation="include">
+        <childnode refid="113" relation="include">
         </childnode>
-        <childnode refid="95" relation="include">
+        <childnode refid="114" relation="include">
         </childnode>
-        <childnode refid="96" relation="include">
+        <childnode refid="115" relation="include">
         </childnode>
-        <childnode refid="97" relation="include">
+        <childnode refid="116" relation="include">
         </childnode>
-        <childnode refid="98" relation="include">
+        <childnode refid="117" relation="include">
         </childnode>
-        <childnode refid="99" relation="include">
+        <childnode refid="118" relation="include">
         </childnode>
-        <childnode refid="100" relation="include">
+        <childnode refid="119" relation="include">
         </childnode>
-        <childnode refid="103" relation="include">
-        </childnode>
-        <childnode refid="104" relation="include">
+        <childnode refid="122" relation="include">
         </childnode>
       </node>
     </incdepgraph>
-    <innerclass refid="structdetail_1_1slice__impl" prot="public">detail::slice_impl</innerclass>
-    <innerclass refid="structdetail_1_1make__slice__impl" prot="public">detail::make_slice_impl</innerclass>
-    <innerclass refid="structdetail_1_1make__slice__algo__impl" prot="public">detail::make_slice_algo_impl</innerclass>
-    <innernamespace refid="namespacedetail">detail</innernamespace>
-      <sectiondef kind="var">
-      <memberdef kind="variable" id="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" prot="public" static="no" mutable="no">
-        <type>constexpr auto</type>
-        <definition>constexpr auto slice</definition>
-        <argsstring></argsstring>
-        <name>slice</name>
-        <initializer>= implementation detail</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para><verbatim>embed:rst:leading-slashes
-/// :math:`\mathtt{slice} : \mathbb{N} \times \mathbb{N} \to \text{View} \to
-/// \text{View}` is a functor that let&apos;s you create slices of views.
-/// Given a index :math:`b \in \mathbb{N}`, an index :math:`e \in
-/// \mathbb{N}` and a :ref:`view
-/// &lt;view-concept&gt;` :math:`xs`, creates a view of elements of :math:`xs` with
-/// indices :math:`i \in \mathbb{N} \cap [b, e)`.
-/// </verbatim> </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="143" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="143" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1slice__impl" prot="public">boost::static_views::detail::slice_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl" prot="public">boost::static_views::detail::make_slice_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl" prot="public">boost::static_views::detail::make_slice_algo_impl</innerclass>
+    <innernamespace refid="namespaceboost">boost</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views">boost::static_views</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1detail">boost::static_views::detail</innernamespace>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -167,18 +141,18 @@
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><ref refid="config_8hpp_1af7a5d18b85d6b56f84277cd2708ca7b0" kindref="member">BOOST_STATIC_VIEWS_BEGIN_NAMESPACE</ref></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacedetail" kindref="compound">detail</ref><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">detail<sp/>{</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>DropTake&gt;</highlight></codeline>
-<codeline lineno="19" refid="structdetail_1_1slice__impl" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1slice__impl" kindref="compound">slice_impl</ref><sp/>:<sp/>DropTake<sp/>{</highlight></codeline>
+<codeline lineno="19" refid="structboost_1_1static__views_1_1detail_1_1slice__impl" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1detail_1_1slice__impl" kindref="compound">slice_impl</ref><sp/>:<sp/>DropTake<sp/>{</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="23"></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">View,</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>avoid<sp/>clashes<sp/>with<sp/>copy/move<sp/>constructors</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">=<sp/>std::enable_if_t&lt;!std::is_same&lt;std::decay_t&lt;View&gt;,</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1slice__impl" kindref="compound">slice_impl&lt;DropTake&gt;</ref>&gt;::value&gt;&gt;</highlight></codeline>
-<codeline lineno="46" refid="structdetail_1_1slice__impl_1a8beab2a5e9f5193211267075e6d84a85" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/><ref refid="structdetail_1_1slice__impl_1a8beab2a5e9f5193211267075e6d84a85" kindref="member">slice_impl</ref>(View&amp;&amp;<sp/>xs)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1slice__impl" kindref="compound">slice_impl&lt;DropTake&gt;</ref>&gt;::value&gt;&gt;</highlight></codeline>
+<codeline lineno="46" refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1a63b394a7550c0341a91a360b760a7220" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1a63b394a7550c0341a91a360b760a7220" kindref="member">slice_impl</ref>(View&amp;&amp;<sp/>xs)</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a349172823115c7f0b15ed9861e97bd59" kindref="member">BOOST_STATIC_VIEWS_NOEXCEPT_IF</ref>(</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_nothrow_constructible&lt;DropTake,<sp/>View&amp;&amp;&gt;::value)</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>DropTake{std::forward&lt;View&gt;(xs)}</highlight></codeline>
@@ -187,17 +161,17 @@
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="55"></codeline>
 <codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_FORCEINLINE</highlight></codeline>
-<codeline lineno="68" refid="structdetail_1_1slice__impl_1a18cde5cb05290751a3f2852152bd81a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1slice__impl_1a18cde5cb05290751a3f2852152bd81a2" kindref="member">map</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1a28d653403d4397523be791ed96c3d941" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1a28d653403d4397523be791ed96c3d941" kindref="member">map</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>i)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(std::declval&lt;DropTake<sp/>const&amp;&gt;().<ref refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kindref="member">parent</ref>()),</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(std::declval&lt;DropTake<sp/>const&amp;&gt;().parent()),</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" kindref="member">BOOST_STATIC_VIEWS_BUG_MESSAGE</ref>);</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(noexcept(std::declval&lt;DropTake<sp/>const&amp;&gt;().<ref refid="structdetail_1_1slice__impl_1a18cde5cb05290751a3f2852152bd81a2" kindref="member">map</ref>(</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(noexcept(std::declval&lt;DropTake<sp/>const&amp;&gt;().map(</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;std::size_t&gt;())),</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" kindref="member">BOOST_STATIC_VIEWS_BUG_MESSAGE</ref>);</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(std::declval&lt;DropTake<sp/>const&amp;&gt;().<ref refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kindref="member">parent</ref>().<ref refid="structdetail_1_1slice__impl_1a18cde5cb05290751a3f2852152bd81a2" kindref="member">map</ref>(</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(std::declval&lt;DropTake<sp/>const&amp;&gt;().parent().map(</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;std::size_t&gt;())),</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" kindref="member">BOOST_STATIC_VIEWS_BUG_MESSAGE</ref>);</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">*<sp/>p<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">DropTake<sp/>const*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
@@ -206,39 +180,39 @@
 <codeline lineno="84"><highlight class="normal"></highlight></codeline>
 <codeline lineno="86"></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
-<codeline lineno="93" refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kindref="member">parent</ref>()<sp/>const<sp/>noexcept</highlight></codeline>
+<codeline lineno="93" refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1ac7997d7f0243f760827e53316fca5703" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a516d82020cac114defa81888051e4c11" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_AUTO</ref><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1ac7997d7f0243f760827e53316fca5703" kindref="member">parent</ref>()<sp/>const<sp/>noexcept</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noexcept(</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;DropTake<sp/>const&amp;&gt;().<ref refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kindref="member">parent</ref>().<ref refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kindref="member">parent</ref>()),</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::declval&lt;DropTake<sp/>const&amp;&gt;().parent().parent()),</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a40160aa8f77c07867b6919a9a2e069cb" kindref="member">BOOST_STATIC_VIEWS_BUG_MESSAGE</ref>);</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">DropTake<sp/>const*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">this</highlight><highlight class="normal">)-&gt;<ref refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kindref="member">parent</ref>().parent();</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">DropTake<sp/>const*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">this</highlight><highlight class="normal">)-&gt;parent().parent();</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="101"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103" refid="structdetail_1_1make__slice__impl" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1make__slice__impl" kindref="compound">make_slice_impl</ref><sp/>{</highlight></codeline>
+<codeline lineno="103" refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl" kindref="compound">make_slice_impl</ref><sp/>{</highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>View&gt;</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_FORCEINLINE</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
-<codeline lineno="108" refid="structdetail_1_1make__slice__impl_1a23a372fecf706765390eb6f5625fbb63" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1make__slice__impl_1a23a372fecf706765390eb6f5625fbb63" kindref="member">operator()</ref>(View&amp;&amp;<sp/>xs,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>b,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>e)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl_1a9a6ace4ff6a98c9914e6c818fb9bd1c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl_1a9a6ace4ff6a98c9914e6c818fb9bd1c3" kindref="member">operator()</ref>(View&amp;&amp;<sp/>xs,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>b,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>e)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN</ref></highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1slice__impl" kindref="compound">slice_impl</ref>&lt;std::decay_t&lt;decltype(</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="drop_8hpp_1a279d671006ab8e9b6be8b10c07890d6d" kindref="member">drop_exactly</ref>(b)(<ref refid="take_8hpp_1ae1d440b34c38c79b8651e6b50aa41f90" kindref="member">take_exactly</ref>(e)(std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">())))&gt;&gt;{</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="drop_8hpp_1a279d671006ab8e9b6be8b10c07890d6d" kindref="member">drop_exactly</ref>(b)(<ref refid="take_8hpp_1ae1d440b34c38c79b8651e6b50aa41f90" kindref="member">take_exactly</ref>(e)(std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()))}</highlight></codeline>
-<codeline lineno="114" refid="structdetail_1_1make__slice__impl_1a7b50b17e5ce67296b4b30d6b734766e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1slice__impl" kindref="compound">slice_impl</ref>&lt;std::decay_t&lt;decltype(</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespaceboost_1_1static__views_1ae972e0e4e4b566ee49b29d0b1e8950a8" kindref="member">drop_exactly</ref>(b)(<ref refid="namespaceboost_1_1static__views_1a508a0ffbf07960009da96c372aef68c2" kindref="member">take_exactly</ref>(e)(std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">())))&gt;&gt;{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespaceboost_1_1static__views_1ae972e0e4e4b566ee49b29d0b1e8950a8" kindref="member">drop_exactly</ref>(b)(<ref refid="namespaceboost_1_1static__views_1a508a0ffbf07960009da96c372aef68c2" kindref="member">take_exactly</ref>(e)(std::forward&lt;View&gt;(xs).</highlight><highlight class="keyword">get</highlight><highlight class="normal">()))}</highlight></codeline>
+<codeline lineno="114" refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl_1aa9fd8fbdf9842e50e7229d86907ca29a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>on</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="116"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"></highlight></codeline>
-<codeline lineno="118" refid="structdetail_1_1make__slice__algo__impl" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdetail_1_1make__slice__algo__impl" kindref="compound">make_slice_algo_impl</ref><sp/>{</highlight></codeline>
+<codeline lineno="118" refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl" kindref="compound">make_slice_algo_impl</ref><sp/>{</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clang-format<sp/>off</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_STATIC_VIEWS_FORCEINLINE</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1a8e482408924d39139b1f23bf8a286544" kindref="member">BOOST_STATIC_VIEWS_CONSTEXPR</ref></highlight></codeline>
-<codeline lineno="122" refid="structdetail_1_1make__slice__algo__impl_1a8512f6611f07219f25bd50f10e0e60c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structdetail_1_1make__slice__algo__impl_1a8512f6611f07219f25bd50f10e0e60c6" kindref="member">operator()</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>b,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>e)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl_1afcb444a76cf0e49a076c612deb3cd71e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl_1afcb444a76cf0e49a076c612deb3cd71e" kindref="member">operator()</ref>(std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>b,<sp/>std::size_t<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>e)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="config_8hpp_1afdad3aa7242c15e4312624c4096b5888" kindref="member">BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN</ref></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>algorithm(<ref refid="structdetail_1_1make__slice__impl" kindref="compound">make_slice_impl</ref>{},<sp/>std::size_t{b},<sp/>std::size_t{e})</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>algorithm(<ref refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl" kindref="compound">make_slice_impl</ref>{},<sp/>std::size_t{b},<sp/>std::size_t{e})</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*algorithm_impl&lt;make_slice_impl,<sp/>std::size_t,<sp/>std::size_t&gt;(</highlight></codeline>
 <codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>make_slice_impl{},<sp/>b,<sp/>e)*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>);</highlight></codeline>
@@ -247,12 +221,12 @@
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
 <codeline lineno="132"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>end<sp/>namespace<sp/>detail</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><ref refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(</highlight></codeline>
-<codeline lineno="143" refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structdetail_1_1make__slice__algo__impl" kindref="compound">detail::make_slice_algo_impl</ref>,<sp/><ref refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kindref="member">slice</ref>)</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_SLICE_HPP</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><ref refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kindref="member">BOOST_STATIC_VIEWS_INLINE_VARIABLE</ref>(</highlight></codeline>
+<codeline lineno="142" refid="namespaceboost_1_1static__views_1af4f426822f44929b5ef3367b231bd36c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl" kindref="compound">detail::make_slice_algo_impl</ref>,<sp/><ref refid="namespaceboost_1_1static__views_1af4f426822f44929b5ef3367b231bd36c" kindref="member">slice</ref>)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><ref refid="config_8hpp_1a9104b5e36c2866e678338780d2885a02" kindref="member">BOOST_STATIC_VIEWS_END_NAMESPACE</ref></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>BOOST_STATIC_VIEWS_SLICE_HPP</highlight></codeline>
     </programlisting>
     <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp"/>
   </compounddef>

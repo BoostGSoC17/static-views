@@ -12,8 +12,8 @@
 #include "detail/config.hpp"
 #include "detail/utils.hpp"
 #include <array>
-#include <tuple>
 #include <limits>
+#include <tuple>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -105,9 +105,8 @@ namespace sequence {
     template <class T>
     using has_sequence_traits_spec_t = decltype(sequence_traits<T>{});
 
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(
-        HasSequenceTraitsSpecialisation, T,
-        (is_detected<has_sequence_traits_spec_t, T>::value),
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(HasSequenceTraitsSpecialisation,
+        T, (is_detected<has_sequence_traits_spec_t, T>::value),
         "There exists no specialisation of "
         "`boost::static_views::sequence_traits` for type `T`. "
         "Availability of it is, unfortunately, required "
@@ -158,7 +157,7 @@ namespace sequence {
         {
             return {};
         }
-        
+
         template <class T>
         static constexpr auto test_impl(...) -> std::false_type
         {
@@ -279,8 +278,6 @@ using sequence::StaticSequence;
 
 } // namespace concepts
 
-
-
 template <class Derived, class T>
 struct sequence_traits_default {
 
@@ -320,8 +317,8 @@ struct sequence_traits_default {
             }
         };
 
-        BOOST_STATIC_VIEWS_DEFINE_CHECK(ExtentIsNonNegative, U,
-            (U::extent() >= 0), "");
+        BOOST_STATIC_VIEWS_DEFINE_CHECK(
+            ExtentIsNonNegative, U, (U::extent() >= 0), "");
 
         BOOST_STATIC_VIEWS_DEFINE_CHECK(HasSize, U,
             (detail::is_detected<call_size_t, U>::value), "");
@@ -331,13 +328,13 @@ struct sequence_traits_default {
     };
 
   public: // This is really unfortunate
-
     // Derived::extent() exists and is non-negative
     template <class Dummy = void,
         class             = std::enable_if_t<
             concepts::and_<typename Impl<Dummy>::HasExtent,
                 typename Impl<Dummy>::ExtentIsNonNegative>::
-                template test<Derived>()>, class = void>
+                template test<Derived>()>,
+        class = void>
     static constexpr auto size_impl(T const& /*unused*/) noexcept
         -> std::size_t
     {
@@ -360,9 +357,10 @@ struct sequence_traits_default {
     static constexpr auto size_impl(T const& xs) noexcept
         -> std::size_t
     {
-        static_assert(std::is_convertible<
-            decltype(std::declval<T const&>().size()),
-                          std::size_t>::value,
+        static_assert(
+            std::is_convertible<decltype(
+                                    std::declval<T const&>().size()),
+                std::size_t>::value,
             "If you provide your own `size()` function, do you "
             "mind making it return something convertible to "
             "`std::size_t`?");
@@ -425,7 +423,6 @@ struct sequence_traits<std::array<T, N>>
     }
 };
 
-
 namespace detail {
 
 template <class Tuple, class = void>
@@ -457,8 +454,8 @@ struct sequence_traits_tuple<std::tuple<T, Ts...>,
         std::decay_t<auto(U)->decltype(dummy_get(std::declval<U>()))>;
 
     template <class Tuple, std::size_t... Is>
-    static constexpr decltype(auto) at_impl(
-        Tuple&& xs, std::size_t const i,
+    static constexpr decltype(auto) at_impl(Tuple&& xs,
+        std::size_t const                           i,
         std::index_sequence<Is...> /*unused*/) noexcept
     {
         constexpr get_type<Tuple&&> getters[] = {&std::get<Is>...};
@@ -491,7 +488,8 @@ struct sequence_traits<std::tuple<Ts...>>
     {
         constexpr std::size_t max_size = static_cast<std::size_t>(
             std::numeric_limits<std::ptrdiff_t>::max());
-        static_assert(sizeof...(Ts) <= max_size, "Overflow detected.");
+        static_assert(
+            sizeof...(Ts) <= max_size, "Overflow detected.");
 
         return static_cast<std::ptrdiff_t>(sizeof...(Ts));
     }

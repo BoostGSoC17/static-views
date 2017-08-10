@@ -1,243 +1,320 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.14">
-  <compound refid="structconcepts_1_1all__" kind="struct"><name>concepts::all_</name>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1all__" kind="struct"><name>boost::static_views::concepts::all_</name>
   </compound>
-  <compound refid="structconcepts_1_1all___3_01C1_00_01C2_8_8_8_01_4" kind="struct"><name>concepts::all_&lt; C1, C2... &gt;</name>
-    <member refid="structconcepts_1_1all___3_01C1_00_01C2_8_8_8_01_4_1a36a4d9d5ec89d9cb9ac04a59887a5c41" kind="function"><name>test</name></member>
-    <member refid="structconcepts_1_1all___3_01C1_00_01C2_8_8_8_01_4_1a82c23c33739b6bf6ad3fd313ce4060c2" kind="function"><name>check</name></member>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1all___3_01C1_00_01C2_8_8_8_01_4" kind="struct"><name>boost::static_views::concepts::all_&lt; C1, C2... &gt;</name>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1all___3_01C1_00_01C2_8_8_8_01_4_1a12853a6f8f7cf4d2a11f887caaca6707" kind="function"><name>test</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1all___3_01C1_00_01C2_8_8_8_01_4_1a098226b176155bd1f3787061cd381711" kind="function"><name>check</name></member>
   </compound>
-  <compound refid="structconcepts_1_1all___3_4" kind="struct"><name>concepts::all_&lt;&gt;</name>
-    <member refid="structconcepts_1_1all___3_4_1aed7efcac06618bb0f57a96aabd82b618" kind="function"><name>test</name></member>
-    <member refid="structconcepts_1_1all___3_4_1a986f6ed724b850a4d46660d66d258204" kind="function"><name>check</name></member>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1all___3_4" kind="struct"><name>boost::static_views::concepts::all_&lt;&gt;</name>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1all___3_4_1a9a79a228160a3ee1a37634f894fa09df" kind="function"><name>test</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1all___3_4_1a21c07ed65c19142da0f5bdfc3886f83e" kind="function"><name>check</name></member>
   </compound>
-  <compound refid="structconcepts_1_1and__" kind="struct"><name>concepts::and_</name>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1and__" kind="struct"><name>boost::static_views::concepts::and_</name>
   </compound>
-  <compound refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4" kind="struct"><name>concepts::and_&lt; C1, C2... &gt;</name>
-    <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a8f8411b073afd19130114138e7efbc1e" kind="function"><name>test_impl</name></member>
-    <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a457ea4f4b133308f162e5611fd553587" kind="function"><name>test_impl</name></member>
-    <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a9d65e9c0a5b8333850c0f1bad9ebc41b" kind="function"><name>check_impl</name></member>
-    <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a2e8f898568d4e3de93d5731bb5bbaa63" kind="function"><name>check_impl</name></member>
-    <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1aff27af7cec5404109163e9d052a28fa4" kind="function"><name>test</name></member>
-    <member refid="structconcepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a991507b80fa32a1444445fe12c2ec47b" kind="function"><name>check</name></member>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4" kind="struct"><name>boost::static_views::concepts::and_&lt; C1, C2... &gt;</name>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a81a9fe76b3371704cef7a69fe090bbb7" kind="function"><name>test_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a2a972b6a5921ea0f60abd64dcbef637c" kind="function"><name>test_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a8133adb0d99b442fc9387e07d240ab2f" kind="function"><name>check_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1afc45f3e08e5d4d5061cb70e9bdfa52e5" kind="function"><name>check_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a53d403faab918f06d30dc56c5bcda02d" kind="function"><name>test</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_01C1_00_01C2_8_8_8_01_4_1a439079d5b8565518d05536f321772f23" kind="function"><name>check</name></member>
   </compound>
-  <compound refid="structconcepts_1_1and___3_4" kind="struct"><name>concepts::and_&lt;&gt;</name>
-    <member refid="structconcepts_1_1and___3_4_1afda0d259a34bfef9077dae71162bf308" kind="function"><name>test</name></member>
-    <member refid="structconcepts_1_1and___3_4_1a9399286cd0f1150a342c4f2a980dbe2b" kind="function"><name>check</name></member>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1and___3_4" kind="struct"><name>boost::static_views::concepts::and_&lt;&gt;</name>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_4_1a426ee26b1dec3cf0e67b6b86cd5305dc" kind="function"><name>test</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1and___3_4_1adfeacba297e9d19dc034dc7eca5aedfa" kind="function"><name>check</name></member>
   </compound>
-  <compound refid="structdetail_1_1find__first__i__impl_1_1Constrains" kind="struct"><name>detail::find_first_i_impl::Constrains</name>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1abe632d60e6c13640593de8e21c7f4825" kind="function"><name>test</name></member>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1af7d2891616438748bcbc1ed7705b1fc6" kind="function"><name>check</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains" kind="struct"><name>boost::static_views::detail::find_first_i_impl::Constrains</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1a6b2e3eb4aed8d5822549792d9e4929f9" kind="function"><name>test</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1adfdd44446a736d574cb08f08aa47dd7b" kind="function"><name>check</name></member>
   </compound>
-  <compound refid="structdetail_1_1detector" kind="struct"><name>detail::detector</name>
-    <member refid="structdetail_1_1detector_1adaee5e5b62389f65671d6006646a7b7d" kind="typedef"><name>value_t</name></member>
-    <member refid="structdetail_1_1detector_1a807116c97600cf2e234efb73e7cdaaab" kind="typedef"><name>type</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1detector" kind="struct"><name>boost::static_views::detail::detector</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1detector_1ac8f5ea7061741699e99109932b07e4af" kind="typedef"><name>value_t</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1detector_1aa263e2982fa94e4b14264814d10e8cb2" kind="typedef"><name>type</name></member>
   </compound>
-  <compound refid="structdetail_1_1detector_3_01Default_00_01void__t_3_01Op_3_01Args_8_8_8_01_4_01_4_00_01Op_00_01Args_8_8_8_01_4" kind="struct"><name>detail::detector&lt; Default, void_t&lt; Op&lt; Args... &gt; &gt;, Op, Args... &gt;</name>
-    <member refid="structdetail_1_1detector_3_01Default_00_01void__t_3_01Op_3_01Args_8_8_8_01_4_01_4_00_01Op_00_01Args_8_8_8_01_4_1a5d1d57c0a1b9e8b9d7ecb78dd0b7f386" kind="typedef"><name>value_t</name></member>
-    <member refid="structdetail_1_1detector_3_01Default_00_01void__t_3_01Op_3_01Args_8_8_8_01_4_01_4_00_01Op_00_01Args_8_8_8_01_4_1afac40ba5f8649babce55fe469f7cfa3b" kind="typedef"><name>type</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1detector_3_01Default_00_01void__t_3_01Op_3_01Args_8_8_040b6926757d4168441ccde45cf03359" kind="struct"><name>boost::static_views::detail::detector&lt; Default, void_t&lt; Op&lt; Args... &gt; &gt;, Op, Args... &gt;</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1detector_3_01Default_00_01void__t_3_01Op_3_01Args_8_8_040b6926757d4168441ccde45cf03359_1a63ac6f09a3b6f4932c798c77d863b952" kind="typedef"><name>value_t</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1detector_3_01Default_00_01void__t_3_01Op_3_01Args_8_8_040b6926757d4168441ccde45cf03359_1ad2ae1b79a34781795bfdb9fc73502d35" kind="typedef"><name>type</name></member>
   </compound>
-  <compound refid="structdetail_1_1drop__impl" kind="struct"><name>detail::drop_impl</name>
-    <member refid="structdetail_1_1drop__impl_1abb795ff8cb4208cc369fa19b10a50c7f" kind="variable"><name>_b</name></member>
-    <member refid="structdetail_1_1drop__impl_1aef1552ca1504395673086e9564490719" kind="function"><name>drop_impl</name></member>
-    <member refid="structdetail_1_1drop__impl_1a1e809b2868a5d01598f20bdff08d0f0a" kind="function"><name>size</name></member>
-    <member refid="structdetail_1_1drop__impl_1a71d8a970243dfa3f4ebdf85a983e1123" kind="function"><name>map</name></member>
-    <member refid="structdetail_1_1drop__impl_1af9ac9f27d58876ced2a27519d78e1358" kind="function"><name>extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1drop__impl" kind="struct"><name>boost::static_views::detail::drop_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1aa0ab4913056bbd9208d65177048eb074" kind="variable"><name>_b</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1ad88a648aa5afd2fa464fc035cf097bf4" kind="function"><name>drop_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a4c5130d738ded3c6246900a339b86cdc" kind="function"><name>size</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a4282b5200f4eb91156d9f454dbfc081e" kind="function"><name>map</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a26ca9208da15ca49b17dc656eafae4a4" kind="function"><name>extent</name></member>
   </compound>
-  <compound refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr" kind="struct"><name>concepts::sequence::ExtentIsConstexpr</name>
-    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1a4e64a21cafb55bde73ffb52bea66c37b" kind="function"><name>test_impl</name></member>
-    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1adff1b9491704fc83f4cf09fcf83cbe7b" kind="function"><name>test_impl</name></member>
-    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1ab11b33cf9b8adaa7ab48be3cfb38f604" kind="function"><name>test</name></member>
-    <member refid="structconcepts_1_1sequence_1_1ExtentIsConstexpr_1a3e36f19c86673c19623e337ba22c34b4" kind="function"><name>check</name></member>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1sequence_1_1ExtentIsConstexpr" kind="struct"><name>boost::static_views::concepts::sequence::ExtentIsConstexpr</name>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1sequence_1_1ExtentIsConstexpr_1a3140bd228570978f945494ff8d13927c" kind="function"><name>test_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1sequence_1_1ExtentIsConstexpr_1ab2585d9e4ac09b3cb418a45f8f3341e4" kind="function"><name>test_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1sequence_1_1ExtentIsConstexpr_1a8664fc65905af235bca75c249c63bfea" kind="function"><name>test</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1sequence_1_1ExtentIsConstexpr_1a013b26332cfff8768c55edb4587a9401" kind="function"><name>check</name></member>
   </compound>
-  <compound refid="structdetail_1_1find__first__i__impl" kind="struct"><name>detail::find_first_i_impl</name>
-    <member refid="structdetail_1_1find__first__i__impl_1ae72e61f895bc87f0aeb9f5b124bbcd4b" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl" kind="struct"><name>boost::static_views::detail::find_first_i_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1a30128439b212a648d0a6abd370955904" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structsequence__traits__default_1_1Impl_1_1HasExtent" kind="struct"><name>sequence_traits_default::Impl::HasExtent</name>
-    <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1ac3f177fee1c8fd6cecd4695b13859c95" kind="function"><name>has_extent</name></member>
-    <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1a1c80c5577e794e83df257dc71eddb649" kind="function"><name>has_extent</name></member>
-    <member refid="structsequence__traits__default_1_1Impl_1_1HasExtent_1a5512e77b5cfe16290548424cdf21ede9" kind="function"><name>test</name></member>
+  <compound refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1_1HasExtent" kind="struct"><name>boost::static_views::sequence_traits_default::Impl::HasExtent</name>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1_1HasExtent_1a36d10aa190d92da4c30eeaf024d46fc7" kind="function"><name>has_extent</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1_1HasExtent_1a284dc9465fd472d05e3eb1686611d681" kind="function"><name>has_extent</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1_1HasExtent_1ac6b3f9b746eb658485d5070eb940893b" kind="function"><name>test</name></member>
   </compound>
-  <compound refid="structsequence__traits__default_1_1Impl" kind="struct"><name>sequence_traits_default::Impl</name>
-    <member refid="structsequence__traits__default_1_1Impl_1aa802cc3f968546f1df463c7fa363cf60" kind="typedef"><name>call_size_t</name></member>
-    <member refid="structsequence__traits__default_1_1Impl_1a4315ceffb7991441a1ab9f0adfaa7b46" kind="typedef"><name>call_size_impl_t</name></member>
-    <member refid="structsequence__traits__default_1_1Impl_1ad4367943cb6cd5df62456663f2526834" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="structsequence__traits__default_1_1Impl_1a8e28db4bd3461250595c42211b3b6d52" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="structsequence__traits__default_1_1Impl_1a6757d48715d15cf4c9717aa3f0af33bf" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+  <compound refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl" kind="struct"><name>boost::static_views::sequence_traits_default::Impl</name>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1af06e5c1bb4f9f1f0f021addabde4365f" kind="typedef"><name>call_size_t</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a8cc22c4bc0e9894cb91906670422ac40" kind="typedef"><name>call_size_impl_t</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a18dda771083ebb4c7ac873bae3db275c" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1ad76f0a0243a682886c9dd2c746df9ef0" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl_1a96cebdec3181a8a383907eaa86cd091e" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
   </compound>
-  <compound refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl" kind="struct"><name>detail::find_first_i_impl::Constrains::Impl</name>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a2ea76190a6221acb578abb134372d249" kind="typedef"><name>element_type_t</name></member>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a1ecea0243d6b159c415be9a98bdafdf2" kind="typedef"><name>has_call_t</name></member>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a722c10e80c33d1593866a68089c63604" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a6ba8777f73e3de18f60a9864d0e5f255" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1ab1d8a46c07c4445ff01d530e450cc040" kind="function"><name>test</name></member>
-    <member refid="structdetail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a2ecaef05c93823cedd9115f2b4981148" kind="function"><name>check</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1_1Impl" kind="struct"><name>boost::static_views::detail::find_first_i_impl::Constrains::Impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a6ccfb27303841b2f14b7c0c1c6053492" kind="typedef"><name>element_type_t</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1af21a02b95400dd9d5fa3aa663832142e" kind="typedef"><name>has_call_t</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1ac0e5e9eac14449d093aab0237991187f" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1abdc221950af7ac12962fed6635798ac8" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1a6faf548d2a5be78da1664dba431fe9fd" kind="function"><name>test</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl_1_1Constrains_1_1Impl_1afbce80574896923e3d3b33847d8ced9e" kind="function"><name>check</name></member>
   </compound>
-  <compound refid="structdetail_1_1invoke__impl" kind="struct"><name>detail::invoke_impl</name>
-    <member refid="structdetail_1_1invoke__impl_1a36e5ecc276647bfe897939f9f46d717a" kind="function"><name>call_impl</name></member>
-    <member refid="structdetail_1_1invoke__impl_1a55f1d248cd4d0eebd32e2331f6d4ab3f" kind="function"><name>call_impl</name></member>
-    <member refid="structdetail_1_1invoke__impl_1a5372b1bba684cd7866a5d53f3d2dbe31" kind="function"><name>call_impl</name></member>
-    <member refid="structdetail_1_1invoke__impl_1af66ca77b3b7112c6db17d5036e1076de" kind="function"><name>std::forward</name></member>
-    <member refid="structdetail_1_1invoke__impl_1a666ecc2d0e904087c76abb122b5fa8a7" kind="function"><name>std::forward</name></member>
-    <member refid="structdetail_1_1invoke__impl_1a27df396e15d0af121655456a52e46e3d" kind="function"><name>std::forward</name></member>
-    <member refid="structdetail_1_1invoke__impl_1a2a6efabbfb5d5f856c1376b0ac73b8ae" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1invoke__impl" kind="struct"><name>boost::static_views::detail::invoke_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1invoke__impl_1a4142df6f71a8f89ed1189f6f514ee660" kind="function"><name>call_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1invoke__impl_1a16cf3fa42ce4583f2b541bab02f27c39" kind="function"><name>call_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1invoke__impl_1aee63f871e381103ab67afc45e9b5c0a1" kind="function"><name>call_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1invoke__impl_1a4a9d91ae1d44477c5e0b1564ca7b6b30" kind="function"><name>std::forward</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1invoke__impl_1adfed56a6634522d7570650dc7d806456" kind="function"><name>std::forward</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1invoke__impl_1aa89cf3d45fa47f2124be09419d81434d" kind="function"><name>std::forward</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1invoke__impl_1a18a88d1549bf1a56bb6aa56a4c3bcee1" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1is__reference__wrapper" kind="struct"><name>detail::is_reference_wrapper</name>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1is__reference__wrapper" kind="struct"><name>boost::static_views::detail::is_reference_wrapper</name>
   </compound>
-  <compound refid="structdetail_1_1is__wrapper" kind="struct"><name>detail::is_wrapper</name>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1is__wrapper" kind="struct"><name>boost::static_views::detail::is_wrapper</name>
   </compound>
-  <compound refid="structdetail_1_1is__wrapper_3_01wrapper_3_01T_01_4_01_4" kind="struct"><name>detail::is_wrapper&lt; wrapper&lt; T &gt; &gt;</name>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1is__wrapper_3_01wrapper_3_01T_01_4_01_4" kind="struct"><name>boost::static_views::detail::is_wrapper&lt; wrapper&lt; T &gt; &gt;</name>
   </compound>
-  <compound refid="structdetail_1_1make__drop__algo__impl" kind="struct"><name>detail::make_drop_algo_impl</name>
-    <member refid="structdetail_1_1make__drop__algo__impl_1ad60a40142528ed62dd6bea4aaa8fee56" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__drop__algo__impl_1ae7a225c68c1f6a513d9258b8ef0f60f8" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl" kind="struct"><name>boost::static_views::detail::make_drop_algo_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl_1a784fd6c1e85ac3733221b579d2f69819" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl_1a3529d89ed5db3ba2c673b8595fb6f1dc" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__drop__exactly__algo__impl" kind="struct"><name>detail::make_drop_exactly_algo_impl</name>
-    <member refid="structdetail_1_1make__drop__exactly__algo__impl_1a7eb28ccc80cd6b1e4c75fb66d564f5c5" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__drop__exactly__algo__impl_1a51eeb9a4da99a999d95ab9d6f3003c85" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__algo__impl" kind="struct"><name>boost::static_views::detail::make_drop_exactly_algo_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__algo__impl_1a535732dffc97403ee5cedf2997a29f81" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__algo__impl_1a176be06f7eed6539f7026d15cec0a065" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__drop__exactly__impl" kind="struct"><name>detail::make_drop_exactly_impl</name>
-    <member refid="structdetail_1_1make__drop__exactly__impl_1a715e4fbe1898b30c414c9cc7e34f3811" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__drop__exactly__impl_1a5682884ff18fc0942392f890134e17e0" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__impl" kind="struct"><name>boost::static_views::detail::make_drop_exactly_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__impl_1a9e419e447b20cfb8531a1746cba9551b" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__impl_1ac71c58229b0ea9f6c449981b4dbc8043" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__drop__impl" kind="struct"><name>detail::make_drop_impl</name>
-    <member refid="structdetail_1_1make__drop__impl_1a46945a9f6e8e5a6a050160d54e61d19b" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__drop__impl_1a5acaf2b087124b24ab2514245f0c405a" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__drop__impl" kind="struct"><name>boost::static_views::detail::make_drop_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__impl_1a90ebb69557492d99df4460b0c8f49a49" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__impl_1a46ce118445db9f57ecf319ef7e76d179" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__slice__algo__impl" kind="struct"><name>detail::make_slice_algo_impl</name>
-    <member refid="structdetail_1_1make__slice__algo__impl_1a8512f6611f07219f25bd50f10e0e60c6" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl" kind="struct"><name>boost::static_views::detail::make_slice_algo_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl_1afcb444a76cf0e49a076c612deb3cd71e" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__slice__impl" kind="struct"><name>detail::make_slice_impl</name>
-    <member refid="structdetail_1_1make__slice__impl_1a7b50b17e5ce67296b4b30d6b734766e5" kind="variable"><name>possible</name></member>
-    <member refid="structdetail_1_1make__slice__impl_1a23a372fecf706765390eb6f5625fbb63" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl" kind="struct"><name>boost::static_views::detail::make_slice_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl_1aa9fd8fbdf9842e50e7229d86907ca29a" kind="variable"><name>possible</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl_1a9a6ace4ff6a98c9914e6c818fb9bd1c3" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__take__algo__impl" kind="struct"><name>detail::make_take_algo_impl</name>
-    <member refid="structdetail_1_1make__take__algo__impl_1ad13867c0594d2b407b560ce7f1f485e7" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__take__algo__impl_1ad0b23012974857f96100095f7af33335" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__take__algo__impl" kind="struct"><name>boost::static_views::detail::make_take_algo_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__algo__impl_1a5fb48757c5d931fd2df57e8d14e8ca41" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__algo__impl_1a7aa701d5920b991580d0a787edfccd21" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__take__exactly__algo__impl" kind="struct"><name>detail::make_take_exactly_algo_impl</name>
-    <member refid="structdetail_1_1make__take__exactly__algo__impl_1ab31a65232fe464fbf920ae39a92e49fe" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__take__exactly__algo__impl_1af0279b23ddb72d09e440e9ab8f0d660d" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__algo__impl" kind="struct"><name>boost::static_views::detail::make_take_exactly_algo_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__algo__impl_1af976f4f6aa1d22bbbe400d91d9956a57" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__algo__impl_1a865a6063ded6a752844bf8ffd965d0d1" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__take__exactly__impl" kind="struct"><name>detail::make_take_exactly_impl</name>
-    <member refid="structdetail_1_1make__take__exactly__impl_1adf462ab1da17585f94be8c3d6dc0f125" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__take__exactly__impl_1ab1d21f47a0125f5f9e645344a69f297b" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__impl" kind="struct"><name>boost::static_views::detail::make_take_exactly_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__impl_1a3cac983de9c6c7e5b3cc0f2d37e1ae59" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__impl_1a65927f7e822dc48d5d0873117e30fa35" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__take__impl" kind="struct"><name>detail::make_take_impl</name>
-    <member refid="structdetail_1_1make__take__impl_1ad6aa3df0d1ffddfd8e56efc11dabbff4" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__take__impl_1a7e459118544cae09d6f63c23a0b0fd46" kind="function"><name>View::type::extent</name></member>
-    <member refid="structdetail_1_1make__take__impl_1ad5b973a775c8feed8cb472363005f8da" kind="function"><name>operator()</name></member>
-    <member refid="structdetail_1_1make__take__impl_1a6d4974c0d1418dce6ef00b6b660e031d" kind="function"><name>View::type::extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__take__impl" kind="struct"><name>boost::static_views::detail::make_take_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__impl_1a9050e8164353807be3d6329cdd83684b" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__impl_1aa68373b26f1b9c0ecb0762af54511d13" kind="function"><name>View::type::extent</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__impl_1ae7c585e4f272cef5f621044ba6c79247" kind="function"><name>operator()</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__take__impl_1a37502ecb118b26b22ebb5796ba9c38de" kind="function"><name>View::type::extent</name></member>
   </compound>
-  <compound refid="structdetail_1_1make__wrapper__impl" kind="struct"><name>detail::make_wrapper_impl</name>
-    <member refid="structdetail_1_1make__wrapper__impl_1a72b8589b0c616f385f5c973507a5cf47" kind="typedef"><name>reference_or_move_constructible</name></member>
-    <member refid="structdetail_1_1make__wrapper__impl_1a44d26013551aa7968321ab4c33890f01" kind="function"><name>call_impl</name></member>
-    <member refid="structdetail_1_1make__wrapper__impl_1a8d7d3ae57cd161ee97bedd4f0260b446" kind="function"><name>call_impl</name></member>
-    <member refid="structdetail_1_1make__wrapper__impl_1aff9a7988e2653ccf1f2d11031f3a3833" kind="function"><name>operator()</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1make__wrapper__impl" kind="struct"><name>boost::static_views::detail::make_wrapper_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__wrapper__impl_1acc73f2a72f1ad1f2dded16863bf0184a" kind="typedef"><name>reference_or_move_constructible</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__wrapper__impl_1a0f29c5590323f849b45d93e08f536354" kind="function"><name>call_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__wrapper__impl_1ae31f758e1876ce8992406262b9a5c9bd" kind="function"><name>call_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1make__wrapper__impl_1ac33021d87ce162d9060def666b86fbbf" kind="function"><name>operator()</name></member>
   </compound>
-  <compound refid="structdetail_1_1nonesuch" kind="struct"><name>detail::nonesuch</name>
-    <member refid="structdetail_1_1nonesuch_1a283c791aacfbfba2e7bd0d1512fc439b" kind="function"><name>nonesuch</name></member>
-    <member refid="structdetail_1_1nonesuch_1ad569eaaae39f63de66bf4ed523d8db18" kind="function"><name>nonesuch</name></member>
-    <member refid="structdetail_1_1nonesuch_1afb0f5bd6786edce1e79cceacab5b755d" kind="function"><name>nonesuch</name></member>
-    <member refid="structdetail_1_1nonesuch_1ac2fa0f71f0564a665435c816350ea77a" kind="function"><name>operator=</name></member>
-    <member refid="structdetail_1_1nonesuch_1a506ad2fed638c7f0c32834e9973532cd" kind="function"><name>operator=</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1nonesuch" kind="struct"><name>boost::static_views::detail::nonesuch</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1nonesuch_1a67b012dbbec6df533cb12c050ddaa72b" kind="function"><name>nonesuch</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1nonesuch_1a27ce409b9928f9c3e50ec12265d6dc91" kind="function"><name>nonesuch</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1nonesuch_1aec71237d0f4be3db0b466f1bea694442" kind="function"><name>nonesuch</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1nonesuch_1a5003c52d0245a716328e1c4cddeb4951" kind="function"><name>operator=</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1nonesuch_1a7caee3e4e1b428f9188f17cd8c04c0d2" kind="function"><name>operator=</name></member>
   </compound>
-  <compound refid="structdetail_1_1raw__view__impl" kind="struct"><name>detail::raw_view_impl</name>
-    <member refid="structdetail_1_1raw__view__impl_1a55af6845c6c2bc6c326472470dcd0177" kind="typedef"><name>sequence_type</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a920f4889e3a59550eed2811b6a0caaf1" kind="variable"><name>_xs</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a4bf3c80383c2469ba29d900a05e600d6" kind="function"><name>raw_view_impl</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1acbb7c0a1ebe040bfeedb2944fe3ae6c2" kind="function"><name>raw_view_impl</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1abd09bcc9d67362df3ebda853cce38518" kind="function"><name>raw_view_impl</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1af6da30a113d7398616ac03bb364ca5f6" kind="function"><name>operator=</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a975c45d4bb898cb1afe2a83f8aad2bc9" kind="function"><name>operator=</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a2d72b0debd1e18dbc246c5aed7b5119a" kind="function"><name>size</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a3e3c2bdf410812dd6422d4d5d42006ad" kind="function"><name>unsafe_at</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a8fe9a53ba27ca7e3899bdfd32b708bd0" kind="function"><name>operator[]</name></member>
-    <member refid="structdetail_1_1raw__view__impl_1a615f61e1000d8998510e0a7c5a80bd3d" kind="function"><name>extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" kind="struct"><name>boost::static_views::detail::raw_view_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a0055dc1973533becf41ca07fbcc98e20" kind="typedef"><name>sequence_type</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a391dac3a2cc1b2d9768211ddc4b899ab" kind="variable"><name>_xs</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a73b1cf50be62f8ce8be46f0fdf08be56" kind="function"><name>raw_view_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a963fa83f025cb0a17af72e9da00bee70" kind="function"><name>raw_view_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a7deeb0cb7faaac4d308e4bce4fc9043d" kind="function"><name>raw_view_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a87401071b82dbcd8003c493a2fce8486" kind="function"><name>operator=</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1ae7bab2ef52ccf339c3dacefce36464f4" kind="function"><name>operator=</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1ad2aa61846b530f2ff658aa1ac05f3e9a" kind="function"><name>size</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a83ce24d06779bd215c15d1253bf77c0c" kind="function"><name>unsafe_at</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1a61e5f6b95467abd671c8766972181a03" kind="function"><name>operator[]</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl_1afb91a51abab112d6b5989f8633038005" kind="function"><name>extent</name></member>
   </compound>
-  <compound refid="structsequence__traits" kind="struct"><name>sequence_traits</name>
+  <compound refid="structboost_1_1static__views_1_1sequence__traits" kind="struct"><name>boost::static_views::sequence_traits</name>
   </compound>
-  <compound refid="structsequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4" kind="struct"><name>sequence_traits&lt; std::array&lt; T, N &gt; &gt;</name>
-    <member refid="structsequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4_1a689267075adbebde7b69e73721edadb0" kind="function"><name>extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4" kind="struct"><name>boost::static_views::sequence_traits&lt; std::array&lt; T, N &gt; &gt;</name>
+    <member refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4_1a5673fe47e6b31cbc37a63818f54e5229" kind="function"><name>extent</name></member>
   </compound>
-  <compound refid="structsequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4" kind="struct"><name>sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</name>
-    <member refid="structsequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4_1af24c534a7496f92fe556b3a06290bf37" kind="function"><name>extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4" kind="struct"><name>boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</name>
+    <member refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4_1ab821a8df5e8885f21dd959bb0f6db099" kind="function"><name>extent</name></member>
   </compound>
-  <compound refid="structsequence__traits_3_01T[N]_4" kind="struct"><name>sequence_traits&lt; T[N]&gt;</name>
-    <member refid="structsequence__traits_3_01T[N]_4_1a57a29b53a95a98ae4d8053141c0fd15b" kind="function"><name>extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1sequence__traits_3_01T[N]_4" kind="struct"><name>boost::static_views::sequence_traits&lt; T[N]&gt;</name>
+    <member refid="structboost_1_1static__views_1_1sequence__traits_3_01T[N]_4_1ae63ea7d071a0ed4a6f99bd0a30f04932" kind="function"><name>extent</name></member>
   </compound>
-  <compound refid="structsequence__traits__default" kind="struct"><name>sequence_traits_default</name>
-    <member refid="structsequence__traits__default_1a439a2d6a6544a3bf54fd1af6680c28c0" kind="function"><name>size_impl</name></member>
-    <member refid="structsequence__traits__default_1a495e8251cc3dcaab8b9eddee2ccf4f69" kind="function"><name>size_impl</name></member>
-    <member refid="structsequence__traits__default_1a84de9e14b5af8217afe41622fc68891c" kind="function"><name>at</name></member>
-    <member refid="structsequence__traits__default_1a2ce44df9100b9762b2631b489211687d" kind="function"><name>size</name></member>
-    <member refid="structsequence__traits__default_1aadcfb3a2ebea187f57b63d722f5a34d6" kind="function"><name>extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1sequence__traits__default" kind="struct"><name>boost::static_views::sequence_traits_default</name>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1ad510f32a84ce1c7372b5bb58f06ecbe7" kind="function"><name>size_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1adcee89503b82b251ff88225b50ed7f9c" kind="function"><name>size_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1a55556df53abc28a334e7a8a35f49a5d8" kind="function"><name>at</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1af3cce0082677a90342d3e3f414a81b00" kind="function"><name>size</name></member>
+    <member refid="structboost_1_1static__views_1_1sequence__traits__default_1a1ee9581a61a239de511f5f68fff26cdc" kind="function"><name>extent</name></member>
   </compound>
-  <compound refid="structdetail_1_1sequence__traits__tuple" kind="struct"><name>detail::sequence_traits_tuple</name>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple" kind="struct"><name>boost::static_views::detail::sequence_traits_tuple</name>
   </compound>
-  <compound refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a" kind="struct"><name>detail::sequence_traits_tuple&lt; std::tuple&lt; T, Ts... &gt;, std::enable_if_t&lt; utils::all(std::is_same&lt; T, Ts &gt;::value...)&gt; &gt;</name>
-    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a30cdb7b94db9647badff3bef876bbfe6" kind="typedef"><name>tuple_type</name></member>
-    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1ac7af0c1f8b3f898cffa7ed8fb4f31ff6" kind="typedef"><name>value_type</name></member>
-    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a9517be75d9ddf16e4694747f2ed2db11" kind="typedef"><name>get_type</name></member>
-    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1aa1c21b2ffb30f041ca37998706529837" kind="function"><name>dummy_get</name></member>
-    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a0e600d4bf5db5ff3eb3f8e9cf85ec4af" kind="function"><name>at_impl</name></member>
-    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts_8_8_8_01_4_00_01std_1_1en9c77457271f2b0376fd5a4a0b79a9f4a_1a6b543230ba88e092671b9a26e926f25b" kind="function"><name>at</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845" kind="struct"><name>boost::static_views::detail::sequence_traits_tuple&lt; std::tuple&lt; T, Ts... &gt;, std::enable_if_t&lt; utils::all(std::is_same&lt; T, Ts &gt;::value...)&gt; &gt;</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845_1a62238462ce92c9de7f3bce31d6320de7" kind="typedef"><name>tuple_type</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845_1a355ceef1041cddace6e9615628d4ff3c" kind="typedef"><name>value_type</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845_1a231bef124d6b266eed36eef65a601321" kind="typedef"><name>get_type</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845_1a419ccd454c350ada8816f9fbfea5c168" kind="function"><name>dummy_get</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845_1a88c6612001ee73f00f7a9f223cebc389" kind="function"><name>at_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845_1a339a7ecd405ee920e4a448e8760591fc" kind="function"><name>at</name></member>
   </compound>
-  <compound refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4" kind="struct"><name>detail::sequence_traits_tuple&lt; std::tuple&lt;&gt; &gt;</name>
-    <member refid="structdetail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4_1a3f7e1b9970793bb4802ac923432406aa" kind="function"><name>at</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4" kind="struct"><name>boost::static_views::detail::sequence_traits_tuple&lt; std::tuple&lt;&gt; &gt;</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4_1aa6355f8164a4efa0488e9df240abf831" kind="function"><name>at</name></member>
   </compound>
-  <compound refid="structdetail_1_1slice__impl" kind="struct"><name>detail::slice_impl</name>
-    <member refid="structdetail_1_1slice__impl_1a8beab2a5e9f5193211267075e6d84a85" kind="function"><name>slice_impl</name></member>
-    <member refid="structdetail_1_1slice__impl_1a18cde5cb05290751a3f2852152bd81a2" kind="function"><name>map</name></member>
-    <member refid="structdetail_1_1slice__impl_1a786bd7709dbd87c98e2f476aefb13696" kind="function"><name>parent</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1slice__impl" kind="struct"><name>boost::static_views::detail::slice_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1a63b394a7550c0341a91a360b760a7220" kind="function"><name>slice_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1a28d653403d4397523be791ed96c3d941" kind="function"><name>map</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1slice__impl_1ac7997d7f0243f760827e53316fca5703" kind="function"><name>parent</name></member>
   </compound>
-  <compound refid="structdetail_1_1take__impl" kind="struct"><name>detail::take_impl</name>
-    <member refid="structdetail_1_1take__impl_1aae184ca836aa3eabe48baddc24e39926" kind="variable"><name>_n</name></member>
-    <member refid="structdetail_1_1take__impl_1ab4213b8a22a4663ec4e3d9dd7f0dc7ff" kind="function"><name>take_impl</name></member>
-    <member refid="structdetail_1_1take__impl_1a08c19c60f260d636389bda2f176f8e33" kind="function"><name>size</name></member>
-    <member refid="structdetail_1_1take__impl_1af60e647670cef61fdaf7da4fb64552a5" kind="function"><name>map</name></member>
-    <member refid="structdetail_1_1take__impl_1a182134d9b698ef7dd4904283e810d724" kind="function"><name>extent</name></member>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1take__impl" kind="struct"><name>boost::static_views::detail::take_impl</name>
+    <member refid="structboost_1_1static__views_1_1detail_1_1take__impl_1aeb699d8cb91fe8f40b556588c9cfd27d" kind="variable"><name>_n</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1take__impl_1a350e31032bd453665d70bd40a6684627" kind="function"><name>take_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1take__impl_1af9d23e5603ca7c9ce947c43a523280d6" kind="function"><name>size</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1take__impl_1af6eb2125f941a0a9baac014fdf744530" kind="function"><name>map</name></member>
+    <member refid="structboost_1_1static__views_1_1detail_1_1take__impl_1a78d7b23ab1ae3219fcb7139b74bcfde8" kind="function"><name>extent</name></member>
   </compound>
-  <compound refid="structdetail_1_1wrapper" kind="struct"><name>detail::wrapper</name>
+  <compound refid="structboost_1_1static__views_1_1view__adaptor__base_1_1traits" kind="struct"><name>boost::static_views::view_adaptor_base::traits</name>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1_1traits_1ab9d491bc1af4130303c4ae9127e2f333" kind="function"><name>has_map</name></member>
   </compound>
-  <compound refid="namespaceconcepts" kind="namespace"><name>concepts</name>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1View" kind="struct"><name>boost::static_views::concepts::View</name>
   </compound>
-  <compound refid="namespaceconcepts_1_1sequence" kind="namespace"><name>concepts::sequence</name>
-    <member refid="namespaceconcepts_1_1sequence_1a8b846f63eb7c60f4a0f09cbe5c538dbd" kind="typedef"><name>has_sequence_traits_spec_t</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a662e9138b35be2e6fba09846af308fcf" kind="typedef"><name>has_extent_t</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a6c8b6054c80c4f4a234401f88b1fa0aa" kind="typedef"><name>has_size_t</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ac47dc96338027415201772286b626cc7" kind="typedef"><name>has_at_t</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ae91aca2e70c6f738157e887f121a7b37" kind="typedef"><name>Sequence</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a61a9d0cce486a5d7d73c6c483d61e627" kind="typedef"><name>StaticSequence</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ac4162ff63a92b1457bba8196f1a4d331" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a95cf00927bd31842d32e7b480b8b190d" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1adc5b8a50554a2456dae6bc03f0501c02" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a63a1ce1de5b2498e57e65ab06e529536" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a22e14733b5e9090fc73360c2eb8d3a63" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a2a63e4281510c58e8a3f8864bc579fe8" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a01e95b7cba0ae358ec7127a9b110df5e" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1ab6816391dd33f7b6e9ca9de6544ab7c6" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1af0bfae0a2ac73a797c8260eb50e11ff3" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a8af2a785ed0b6ebe196f8f83cb4cee98" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
-    <member refid="namespaceconcepts_1_1sequence_1a2803ca47e69bf552d1c6bb6f847c0fee" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+  <compound refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View" kind="struct"><name>boost::static_views::concepts::view::View</name>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1a1b6ed3de3bc224b0432198b79f6beb81" kind="function"><name>check</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1aa2956e6abd0462e2f0d1e4a3bfb70910" kind="function"><name>unsafe_at</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1a9ad1964631d2490ca1fe97ea0ccffc4a" kind="function"><name>unsafe_at_impl</name></member>
+    <member refid="structboost_1_1static__views_1_1concepts_1_1view_1_1View_1a4205c3068a700dd3c6c35590d0d14519" kind="function"><name>unsafe_at_impl</name></member>
   </compound>
-  <compound refid="namespacedetail" kind="namespace"><name>detail</name>
-    <member refid="namespacedetail_1a19f0ca9e6a180a3b84c6dcd02a6bbf41" kind="typedef"><name>void_t</name></member>
-    <member refid="namespacedetail_1af040ff7b29d4c7ebd4dc6062bb3db008" kind="typedef"><name>is_detected</name></member>
-    <member refid="namespacedetail_1a9d7d25c4bee06898292dff4eb4e381bf" kind="typedef"><name>detected_t</name></member>
-    <member refid="namespacedetail_1a7bea50ad2e2ca8b0d01da6ddbc7a4553" kind="variable"><name>f</name></member>
-    <member refid="namespacedetail_1aa694fb5100b84529b31e07c2bcd5409e" kind="function"><name>invoke_member_func_impl</name></member>
-    <member refid="namespacedetail_1aaa12bc165d6131a14265aec27ebfd85a" kind="function"><name>invoke_member_func_impl</name></member>
-    <member refid="namespacedetail_1a571d78d574bfe87b1b6b272eb265837d" kind="function"><name>invoke_member_func_impl</name></member>
-    <member refid="namespacedetail_1ac131bdbf8051c1216ac01c088fcc1b36" kind="function"><name>invoke_member_func</name></member>
-    <member refid="namespacedetail_1a01580f29e7618c9c3b704d24615473ae" kind="function"><name>invoke_member_data_impl</name></member>
-    <member refid="namespacedetail_1aa9f47d540fa3cc108be904f7ec91b8ad" kind="function"><name>invoke_member_data_impl</name></member>
-    <member refid="namespacedetail_1a60adac9cbc8b5017d20eba756e65a9da" kind="function"><name>invoke_member_data_impl</name></member>
-    <member refid="namespacedetail_1a4edf9684ac11d95c47f5319f06a87547" kind="function"><name>invoke_member_data</name></member>
-    <member refid="namespacedetail_1a67bc05d89f5b212823820ab2498ad84f" kind="function"><name>invoke_nonmember</name></member>
+  <compound refid="structboost_1_1static__views_1_1view__adaptor__base" kind="struct"><name>boost::static_views::view_adaptor_base</name>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a212a8d90324bf7d1a7a802b1e4ca171e" kind="function"><name>view_adaptor_base</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a96fa46c3106a583d72ed4643ae30e42d" kind="function"><name>view_adaptor_base</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a8af0686c948d5b78a9f49fe313b7fdd9" kind="function"><name>view_adaptor_base</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a709b375dc6518685883f0c3f370b4f07" kind="function"><name>operator=</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1afc89279105e490579dfea0e7bb1eaea1" kind="function"><name>operator=</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a96a00336636c531ca7ca4c58daf8234e" kind="function"><name>parent</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a03625ed5c427248f5a7316eaa456d333" kind="function"><name>parent</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1acef5f41a2f000e46ae6b199b1b1afe21" kind="function"><name>unsafe_at</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a03b41546eb70e2f74214c2e749a0bb73" kind="function"><name>unsafe_at</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a29907c5edf34fc6bc3a443ee0e83ca5d" kind="function"><name>unsafe_at</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a37c18cab7fa905cc56e0e9d7f7ea49a2" kind="function"><name>operator[]</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a5ba32613855fcfdabf80def63812d90d" kind="function"><name>operator[]</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a3cc81abf80ec61090df16bae9946a09a" kind="function"><name>operator[]</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1aa15450f5f428bdfd19d2e084146404fe" kind="typedef"><name>derived_type</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a255a0e74a5dab7585a83c70382a4f1a1" kind="typedef"><name>wrapper_type</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a423a836f3b17b5cdba986e345651b9d1" kind="typedef"><name>view_type</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1ae0758dc08ad0844ed7b0f82243017d8f" kind="typedef"><name>view_adaptor_base_type</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a07e27f73c4662e088581b3df4095e8d8" kind="variable"><name>_xs</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a195fd1168a57c356a36a07d4c7c3f83d" kind="function"><name>size</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a8e437dd8e9475704bea2c78e402f9ea4" kind="function"><name>extent</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a7e7198121e66bf4341d1e9d14e9183d0" kind="function"><name>derived</name></member>
   </compound>
-  <compound refid="namespacedetail_1_1utils" kind="namespace"><name>detail::utils</name>
-    <member refid="namespacedetail_1_1utils_1ab5a52f56721b46cbc041d6e23483be7d" kind="function"><name>all</name></member>
-    <member refid="namespacedetail_1_1utils_1a78fe290406dd31a7fd3132f0e8596dfe" kind="function"><name>all</name></member>
+  <compound refid="structboost_1_1static__views_1_1view__adaptor__core__access" kind="struct"><name>boost::static_views::view_adaptor_core_access</name>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aa9a23e5ee27b4f7d859fc7b650783d60" kind="friend"><name>view_adaptor_base</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aec7f1dd938485e36aa5e162e1912038b" kind="function"><name>map</name></member>
+  </compound>
+  <compound refid="structboost_1_1static__views_1_1view__base" kind="struct"><name>boost::static_views::view_base</name>
+  </compound>
+  <compound refid="structboost_1_1static__views_1_1detail_1_1wrapper" kind="struct"><name>boost::static_views::detail::wrapper</name>
+  </compound>
+  <compound refid="namespaceboost" kind="namespace"><name>boost</name>
+  </compound>
+  <compound refid="namespaceboost_1_1static__views" kind="namespace"><name>boost::static_views</name>
+    <member refid="namespaceboost_1_1static__views_1a8bb4089e81efddec8d3f3aaa04d261a9" kind="variable"><name>find_first_i</name></member>
+    <member refid="namespaceboost_1_1static__views_1a68285f3a68a5b81c8969eb989371bf53" kind="variable"><name>invoke</name></member>
+    <member refid="namespaceboost_1_1static__views_1a2a9df86e3cc0b5d004f89cecb72567b0" kind="variable"><name>make_wrapper</name></member>
+    <member refid="namespaceboost_1_1static__views_1a03b1149a802601deab30574774734dd0" kind="variable"><name>dynamic_extent</name></member>
+    <member refid="namespaceboost_1_1static__views_1a6e8f3602c58d63a274cccbde976c2c86" kind="variable"><name>capacity</name></member>
+    <member refid="namespaceboost_1_1static__views_1aa9b197af090992f10e3b726b2831df2a" kind="variable"><name>raw_view</name></member>
+    <member refid="namespaceboost_1_1static__views_1ad967341d66a78c8f58a050489011f8e3" kind="variable"><name>drop</name></member>
+    <member refid="namespaceboost_1_1static__views_1ae972e0e4e4b566ee49b29d0b1e8950a8" kind="variable"><name>drop_exactly</name></member>
+    <member refid="namespaceboost_1_1static__views_1ad39f8dd92e3689279487ea1986fffa0e" kind="variable"><name>take</name></member>
+    <member refid="namespaceboost_1_1static__views_1a508a0ffbf07960009da96c372aef68c2" kind="variable"><name>take_exactly</name></member>
+    <member refid="namespaceboost_1_1static__views_1af4f426822f44929b5ef3367b231bd36c" kind="variable"><name>slice</name></member>
+  </compound>
+  <compound refid="namespaceboost_1_1static__views_1_1concepts" kind="namespace"><name>boost::static_views::concepts</name>
+  </compound>
+  <compound refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence" kind="namespace"><name>boost::static_views::concepts::sequence</name>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1aeee7cacb846914acd5ba4b70686ed4b5" kind="typedef"><name>has_sequence_traits_spec_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a9d8c87094070fb5abc8e923c0b01760b" kind="typedef"><name>has_extent_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a1a7d60bde22b68950be582a4988c1b26" kind="typedef"><name>has_size_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1af10ba00020c096725c59b7fa46d97ed9" kind="typedef"><name>has_at_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1aabb1463650655085af1b23afe607501f" kind="typedef"><name>Sequence</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a5058cdb0338600ca2e377a7f71db82dd" kind="typedef"><name>StaticSequence</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1afdb81cc31becfb0094a72dbb1692864c" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a792a0882a85b2e29aefb5473bb8593f7" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a5691fa43255def0014d135ad9e9a9c42" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a007b41d39eee8bc1272a78cbb49c716f" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a0784d45db19198a442839ec42538a9b6" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a6b8f29734368784aeccfb2cf2cd82d98" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1aeedc89d74855270813715b7aa39edc65" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a9d2471f2e36f5428ee04153c2e61df46" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1ac6013697a00a0d60ca5825ff169b5028" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1ab39421c45d6013d29d15dc204ccf618d" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1sequence_1a57ab95b24796ced025edd09a0e6bdc95" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+  </compound>
+  <compound refid="namespaceboost_1_1static__views_1_1concepts_1_1view" kind="namespace"><name>boost::static_views::concepts::view</name>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a191c08b89d9f96e8cb0ecbeb2f32b0ea" kind="typedef"><name>has_static_extent_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a0d7ac4d0a8d5bb05d1c1466734600899" kind="typedef"><name>has_member_size_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3954eeb9e8e8dcd7c2219113b3af83fa" kind="typedef"><name>has_operator_access_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a47067a1b6800b76e95f22380a8c32eb5" kind="typedef"><name>has_member_map_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a35407306a7caf84a4ba0270b9a874adc" kind="typedef"><name>has_unsafe_at_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a1031995ae14c5184be0194820f91e4e7" kind="typedef"><name>View_impl</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a2a16859fd9781ae4c199410b5e44e6fb" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1afddeab7a5bf9b0ed48aa4a236f3c2f78" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a02fd1d51e1e3bf760997b037e2f57783" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a6e671280cea96103c1e3541901af2dac" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1af2cfec9e2f9338fb25e243b896e40ba0" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a7cb1e9af150f05e8eb09f9d43958ee10" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3b94cc9610d2e25c9727cd3fe0776560" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a100c860ce8cac0821f3b4afb10e560fd" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a283415aa929b8aa1ee6595cff6eaeb51" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a2c083764cb5bb6425560ffd419a62866" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a9fd4984d5fc52e1f0c4e9407cd845a8d" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a70f3d6f31b902fed76b8af85fd203db8" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1abe80684df3590c69845d24d7b6d1f8bd" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1concepts_1_1view_1a4966d61d38228d44dce539e55cea6327" kind="function"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
+  </compound>
+  <compound refid="namespaceboost_1_1static__views_1_1detail" kind="namespace"><name>boost::static_views::detail</name>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1ab0d7f70b4b44b5dc03ce7cd9582266f6" kind="typedef"><name>void_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1a20af273fc3e3194340653219f8433ec9" kind="typedef"><name>is_detected</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1ab84cada28abde0639dcac6ef21424e85" kind="typedef"><name>detected_t</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1acf40587ccf2e406202b0091dcbecac4c" kind="variable"><name>f</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1aba11d797d78f56b5f654aa5db6917529" kind="function"><name>invoke_member_func_impl</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1a418bac5d859835a0e319e0093c68fcea" kind="function"><name>invoke_member_func_impl</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1a6ecad883b55e8ba7cd9d892e4eab7269" kind="function"><name>invoke_member_func_impl</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1a817e36636c653516f49c64be3e3660b1" kind="function"><name>invoke_member_func</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1a6f8143c3532d5341ab2272c770fbdcba" kind="function"><name>invoke_member_data_impl</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1aac130377557c85bd506a96245b7b8d10" kind="function"><name>invoke_member_data_impl</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1af56151bd46cc6aa937bcd4f3b513434b" kind="function"><name>invoke_member_data_impl</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1af823282d8f2a23ea6a04aebfce2cdd2f" kind="function"><name>invoke_member_data</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1ab89dde3329c9aac1bf9f8b02bc564e2b" kind="function"><name>invoke_nonmember</name></member>
+  </compound>
+  <compound refid="namespaceboost_1_1static__views_1_1detail_1_1utils" kind="namespace"><name>boost::static_views::detail::utils</name>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1_1utils_1ad4b7e98e8dbdb69147afb3ed94f5b5c6" kind="function"><name>all</name></member>
+    <member refid="namespaceboost_1_1static__views_1_1detail_1_1utils_1a5c520c6f03fd2e730f4386af091b99cd" kind="function"><name>all</name></member>
   </compound>
   <compound refid="config_8hpp" kind="file"><name>config.hpp</name>
     <member refid="config_8hpp_1a7eab1818380a6251326089d864474644" kind="define"><name>BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE</name></member>
@@ -261,34 +338,25 @@
     <member refid="config_8hpp_1a01456e2757ca1ce16c463d9174b3af31" kind="define"><name>BOOST_STATIC_VIEWS_INLINE_VARIABLE</name></member>
   </compound>
   <compound refid="find__first_8hpp" kind="file"><name>find_first.hpp</name>
-    <member refid="find__first_8hpp_1ac0eed068dd22e82a33d225267c2be81e" kind="variable"><name>find_first_i</name></member>
   </compound>
   <compound refid="invoke_8hpp" kind="file"><name>invoke.hpp</name>
-    <member refid="invoke_8hpp_1a9947f11380c26eb4615156fa044d0355" kind="variable"><name>invoke</name></member>
   </compound>
   <compound refid="utils_8hpp" kind="file"><name>utils.hpp</name>
     <member refid="utils_8hpp_1a1014376d521b846c47a65c1c5398d033" kind="define"><name>BOOST_STATIC_VIEWS_DEFINE_CHECK</name></member>
   </compound>
   <compound refid="wrapper_8hpp" kind="file"><name>wrapper.hpp</name>
-    <member refid="wrapper_8hpp_1ae33820437331f5915a766f6fa3ba75dc" kind="variable"><name>make_wrapper</name></member>
   </compound>
   <compound refid="drop_8hpp" kind="file"><name>drop.hpp</name>
-    <member refid="drop_8hpp_1a322ee5c860b93d6bfb5571a028f5e5b2" kind="variable"><name>drop</name></member>
-    <member refid="drop_8hpp_1a279d671006ab8e9b6be8b10c07890d6d" kind="variable"><name>drop_exactly</name></member>
   </compound>
   <compound refid="raw__view_8hpp" kind="file"><name>raw_view.hpp</name>
-    <member refid="raw__view_8hpp_1afbca0a8494466fb12b26bdf7165bbc6d" kind="variable"><name>capacity</name></member>
-    <member refid="raw__view_8hpp_1a2c1dfee112e6ae6ce6f92a9a525cccae" kind="variable"><name>raw_view</name></member>
   </compound>
   <compound refid="sequence__traits_8hpp" kind="file"><name>sequence_traits.hpp</name>
-    <member refid="sequence__traits_8hpp_1a54817d47286dbd19d159e109edf72052" kind="variable"><name>dynamic_extent</name></member>
   </compound>
   <compound refid="slice_8hpp" kind="file"><name>slice.hpp</name>
-    <member refid="slice_8hpp_1a18968c488a8b0cdc2697296024da9293" kind="variable"><name>slice</name></member>
   </compound>
   <compound refid="take_8hpp" kind="file"><name>take.hpp</name>
-    <member refid="take_8hpp_1a2c20028c5115dcf38063d322f27b4ee1" kind="variable"><name>take</name></member>
-    <member refid="take_8hpp_1ae1d440b34c38c79b8651e6b50aa41f90" kind="variable"><name>take_exactly</name></member>
+  </compound>
+  <compound refid="view__base_8hpp" kind="file"><name>view_base.hpp</name>
   </compound>
   <compound refid="dir_1878a3f4746a95c6aad317458cc7ef80" kind="dir"><name>/home/tom/GSoC2017/static-views/include/boost</name>
   </compound>

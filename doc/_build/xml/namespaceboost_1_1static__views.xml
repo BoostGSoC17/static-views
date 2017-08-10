@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="namespaceboost_1_1static__views" kind="namespace" language="C++">
+    <compoundname>boost::static_views</compoundname>
+    <innerclass refid="structboost_1_1static__views_1_1sequence__traits" prot="public">boost::static_views::sequence_traits</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1array_3_01T_00_01N_01_4_01_4" prot="public">boost::static_views::sequence_traits&lt; std::array&lt; T, N &gt; &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1sequence__traits_3_01std_1_1tuple_3_01Ts_8_8_8_01_4_01_4" prot="public">boost::static_views::sequence_traits&lt; std::tuple&lt; Ts... &gt; &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1sequence__traits_3_01T[N]_4" prot="public">boost::static_views::sequence_traits&lt; T[N]&gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1sequence__traits__default" prot="public">boost::static_views::sequence_traits_default</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1view__adaptor__base" prot="public">boost::static_views::view_adaptor_base</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1view__adaptor__core__access" prot="public">boost::static_views::view_adaptor_core_access</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1view__base" prot="public">boost::static_views::view_base</innerclass>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1concepts">boost::static_views::concepts</innernamespace>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1detail">boost::static_views::detail</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1a8bb4089e81efddec8d3f3aaa04d261a9" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::find_first_i</definition>
+        <argsstring></argsstring>
+        <name>find_first_i</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp" line="120" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1a68285f3a68a5b81c8969eb989371bf53" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::invoke</definition>
+        <argsstring></argsstring>
+        <name>invoke</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="237" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1a2a9df86e3cc0b5d004f89cecb72567b0" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::make_wrapper</definition>
+        <argsstring></argsstring>
+        <name>make_wrapper</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// .. math::
+///
+///   \mathtt{make\_wrapper}: \mathtt{U} \to \mathtt{Wrapper}
+///
+/// Creates a :cpp:class:`detail::wrapper` of an lvalue reference when
+/// ``U = T&amp;`` for some type ``T`` or an rvalue reference when ``U ==
+/// T&amp;&amp;``. If ``U = T&amp;&amp;``, ``T`` is required to be
+/// `MoveConstructible &lt;http://en.cppreference.com/w/cpp/concept/MoveConstructible&gt;`_.
+/// </verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="312" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1a03b1149a802601deab30574774734dd0" prot="public" static="no" mutable="no">
+        <type>constexpr std::ptrdiff_t</type>
+        <definition>constexpr std::ptrdiff_t boost::static_views::dynamic_extent</definition>
+        <argsstring></argsstring>
+        <name>dynamic_extent</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+<para>Special value of that indicates that the size of a sequence is unknown at compile-time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="98" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1a6e8f3602c58d63a274cccbde976c2c86" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>std::size_t</type>
+            <declname>N</declname>
+            <defname>N</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::capacity</definition>
+        <argsstring></argsstring>
+        <name>capacity</name>
+        <initializer>= std::integral_constant&lt;std::size_t, N&gt;{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="23" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1aa9b197af090992f10e3b726b2831df2a" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::raw_view</definition>
+        <argsstring></argsstring>
+        <name>raw_view</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// :math:`\mathtt{raw\_view} : \mathtt{Sequence} \to \mathtt{View}`
+/// (i.e.  takes a :ref:`sequence &lt;sequence-concept&gt;` and returns a
+/// :ref:`view &lt;view-concept&gt;`). It will trigger ``static_assert``
+/// failures if passed a type not modeling the :ref:`sequence
+/// &lt;sequence-concept&gt;` concept.
+/// </verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" line="109" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1ad967341d66a78c8f58a050489011f8e3" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::drop</definition>
+        <argsstring></argsstring>
+        <name>drop</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// :math:`\mathtt{drop} : \mathbb{N} \to \text{View} \to
+/// \text{View}` is a functor that let&apos;s you create dropped views.
+/// Given a count :math:`n \in \mathbb{N}` and a :ref:`view
+/// &lt;view-concept&gt;` :math:`xs`, creates a view of :math:`xs` with the
+/// first :math:`n` elements dropped. If the size of :math:`xs` is
+/// less than :math:`n`, an empty view is returned.
+/// </verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="224" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1ae972e0e4e4b566ee49b29d0b1e8950a8" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::drop_exactly</definition>
+        <argsstring></argsstring>
+        <name>drop_exactly</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// :math:`\mathtt{drop} : \mathbb{N} \to \text{View} \to \text{View}`
+/// is a functor that let&apos;s you create dropped views. Very similar to
+/// :cpp:var:`drop`, but has an extra precondition. When given a count
+/// :math:`n` and a :ref:`view &lt;view-concept&gt;` :math:`xs`, it assumes
+/// that the size of :math:`xs` is at least :math:`n`. If that&apos;s not
+/// the case, an assertion failure is triggered.
+///
+/// .. warning::
+///
+///   If you disable the checks (i.e. define
+///   ``BOOST_STATIC_VIEWS_DISABLE_CHECKS``) and pass an :math:`n &gt;
+///   xs\mathtt{.size()}`, **the behavior is undefined**.
+/// </verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="241" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1ad39f8dd92e3689279487ea1986fffa0e" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::take</definition>
+        <argsstring></argsstring>
+        <name>take</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// :math:`\mathtt{take} : \mathbb{N} \to \text{View} \to
+/// \text{View}` is a functor that let&apos;s you create take views. Given
+/// a count :math:`n \in \mathbb{N}` and a :ref:`view &lt;view-concept&gt;`
+/// :math:`xs`, creates a view of :math:`xs` consisting only of the
+/// first :math:`n` elements of :math:`xs`. If the size of :math:`xs`
+/// is less than :math:`n`, view of the whole :math:`xs` is returned.
+/// </verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="224" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1a508a0ffbf07960009da96c372aef68c2" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::take_exactly</definition>
+        <argsstring></argsstring>
+        <name>take_exactly</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" line="227" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1af4f426822f44929b5ef3367b231bd36c" prot="public" static="no" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::slice</definition>
+        <argsstring></argsstring>
+        <name>slice</name>
+        <initializer>= implementation detail</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>embed:rst:leading-slashes
+/// :math:`\mathtt{slice} : \mathbb{N} \times \mathbb{N} \to
+/// \text{View} \to \text{View}` is a functor that let&apos;s you create
+/// slices of views. Given a index :math:`b \in \mathbb{N}`, an index
+/// :math:`e \in \mathbb{N}` and a :ref:`view &lt;view-concept&gt;`
+/// :math:`xs`, creates a view of elements of :math:`xs` with indices
+/// :math:`i \in \mathbb{N} \cap [b, e)`. </verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="142" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp" line="234" column="1"/>
+  </compounddef>
+</doxygen>

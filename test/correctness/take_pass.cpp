@@ -50,9 +50,9 @@ template <class T>
 using compile_make_take_t = decltype(MAKE_TAKE(T));
 
 #if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
-# define NOEXCEPT(...) true
+#define NOEXCEPT(...) true
 #else
-# define NOEXCEPT(...) noexcept(__VA_ARGS__)
+#define NOEXCEPT(...) noexcept(__VA_ARGS__)
 #endif
 
 #define TEST_MAKE_IMPL(view_type, q)                                 \
@@ -170,8 +170,8 @@ auto test_copy_move()
     auto const v1 = boost::static_views::take(1)(
         boost::static_views::raw_view(data_1));
     BOOST_STATIC_VIEWS_UNUSED decltype(v1) v2{v1};
-    auto         v3 = v1;
-    auto         v4 = std::move(v3);
+    auto                                   v3 = v1;
+    auto                                   v4 = std::move(v3);
     BOOST_STATIC_VIEWS_UNUSED decltype(v1) v5{std::move(v4)};
 }
 

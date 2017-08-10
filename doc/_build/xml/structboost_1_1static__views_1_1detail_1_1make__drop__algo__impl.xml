@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::detail::make_drop_algo_impl</compoundname>
+    <includes refid="drop_8hpp" local="no">drop.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl_1a784fd6c1e85ac3733221b579d2f69819" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::make_drop_algo_impl::operator()</definition>
+        <argsstring>(std::size_t const n) const algorithm(make_drop_impl</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>std::size_t const</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="194" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="194" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl_1a3529d89ed5db3ba2c673b8595fb6f1dc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>std::size_t</type>
+            <declname>N</declname>
+            <defname>N</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::make_drop_algo_impl::operator()</definition>
+        <argsstring>(std::integral_constant&lt; std::size_t, N &gt;) const algorithm(make_drop_impl</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>std::integral_constant&lt; std::size_t, N &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="205" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="205" bodyend="210"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="190" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="190" bodyend="212"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl_1a784fd6c1e85ac3733221b579d2f69819" prot="public" virt="non-virtual"><scope>boost::static_views::detail::make_drop_algo_impl</scope><name>operator()</name></member>
+      <member refid="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl_1a3529d89ed5db3ba2c673b8595fb6f1dc" prot="public" virt="non-virtual"><scope>boost::static_views::detail::make_drop_algo_impl</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

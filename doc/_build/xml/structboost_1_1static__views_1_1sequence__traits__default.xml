@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1sequence__traits__default" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::sequence_traits_default</compoundname>
+    <includes refid="sequence__traits_8hpp" local="no">sequence_traits.hpp</includes>
+    <innerclass refid="structboost_1_1static__views_1_1sequence__traits__default_1_1Impl" prot="private">boost::static_views::sequence_traits_default::Impl</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>Derived</declname>
+        <defname>Derived</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1ad510f32a84ce1c7372b5bb58f06ecbe7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Dummy</type>
+            <defval>void</defval>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;            <ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">concepts::and_</ref>&lt;typename Impl&lt;Dummy&gt;::HasExtent,                typename Impl&lt;Dummy&gt;::ExtentIsNonNegative&gt;::                template test&lt;Derived&gt;()&gt;</defval>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>void</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::sequence_traits_default&lt; Derived, T &gt;::size_impl</definition>
+        <argsstring>(T const &amp;) noexcept -&gt; std::size_t</argsstring>
+        <name>size_impl</name>
+        <param>
+          <type>T const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="338" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="338" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1adcee89503b82b251ff88225b50ed7f9c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Dummy</type>
+            <defval>void</defval>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;            !<ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">concepts::and_</ref>&lt;typename Impl&lt;Dummy&gt;::HasExtent,                typename Impl&lt;Dummy&gt;::ExtentIsNonNegative&gt;::                template test&lt;Derived&gt;()            &amp;&amp; Impl&lt;Dummy&gt;::HasSize::template test&lt;T&gt;()&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::sequence_traits_default&lt; Derived, T &gt;::size_impl</definition>
+        <argsstring>(T const &amp;xs) noexcept -&gt; std::size_t</argsstring>
+        <name>size_impl</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="357" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="357" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1a55556df53abc28a334e7a8a35f49a5d8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class S</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;std::is_same&lt;T,            std::remove_cv_t&lt;std::remove_reference_t&lt;S&gt;&gt;&gt;::value&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::sequence_traits_default&lt; Derived, T &gt;::at</definition>
+        <argsstring>(S &amp;&amp;xs, std::size_t i) noexcept -&gt; decltype(std::forward&lt; S &gt;(xs)[i])</argsstring>
+        <name>at</name>
+        <param>
+          <type>S &amp;&amp;</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="374" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="374" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1af3cce0082677a90342d3e3f414a81b00" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Dummy</type>
+            <defval>void</defval>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;Impl&lt;Dummy&gt;::HasSizeImpl::                template test&lt;<ref refid="structboost_1_1static__views_1_1sequence__traits__default" kindref="compound">sequence_traits_default</ref>&gt;()&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::sequence_traits_default&lt; Derived, T &gt;::size</definition>
+        <argsstring>(T const &amp;xs) noexcept</argsstring>
+        <name>size</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="386" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="386" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1static__views_1_1sequence__traits__default_1a1ee9581a61a239de511f5f68fff26cdc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto boost::static_views::sequence_traits_default&lt; Derived, T &gt;::extent</definition>
+        <argsstring>() noexcept -&gt; std::ptrdiff_t</argsstring>
+        <name>extent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="391" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="391" bodyend="394"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" line="282" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/sequence_traits.hpp" bodystart="282" bodyend="395"/>
+    <listofallmembers>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1a55556df53abc28a334e7a8a35f49a5d8" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default</scope><name>at</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1a1ee9581a61a239de511f5f68fff26cdc" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default</scope><name>extent</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1af3cce0082677a90342d3e3f414a81b00" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default</scope><name>size</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1ad510f32a84ce1c7372b5bb58f06ecbe7" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default</scope><name>size_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1sequence__traits__default_1adcee89503b82b251ff88225b50ed7f9c" prot="public" virt="non-virtual"><scope>boost::static_views::sequence_traits_default</scope><name>size_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

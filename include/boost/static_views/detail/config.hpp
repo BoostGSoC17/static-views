@@ -15,12 +15,10 @@
 // Define the following macro if when using Doxygen.
 //#define DOXYGEN_IN_HOUSE
 
-
 /// \brief Chooses whether to ignore the actual noexcept-ness of
 /// std::tuple implementstion and make some reasonable assumptions
 /// instead.
 #define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
-
 
 #define BOOST_DISABLE_ASSERTS
 
@@ -54,9 +52,6 @@
     "Congratulations, you've found a bug in the StaticViews "        \
     "library! Please, be so kind to submit here "                    \
     "https://github.com/BoostGSoC17/static-views/issues."
-
-
-
 
 #if defined(BOOST_STATIC_VIEWS_USE_BOOST)
 //////////////////////////////////////////////////////////////////////////////
@@ -112,7 +107,8 @@
 
 #define BOOST_STATIC_VIEWS_LIKELY(cond) __builtin_expect(!!(cond), 1)
 
-#define BOOST_STATIC_VIEWS_UNLIKELY(cond) __builtin_expect(!!(cond), 0)
+#define BOOST_STATIC_VIEWS_UNLIKELY(cond)                            \
+    __builtin_expect(!!(cond), 0)
 
 #define BOOST_STATIC_VIEWS_ASSUME(cond) __builtin_assume(!!(cond))
 
@@ -137,10 +133,11 @@
 
 #define BOOST_STATIC_VIEWS_LIKELY(cond) __builtin_expect(!!(cond), 1)
 
-#define BOOST_STATIC_VIEWS_UNLIKELY(cond) __builtin_expect(!!(cond), 0)
+#define BOOST_STATIC_VIEWS_UNLIKELY(cond)                            \
+    __builtin_expect(!!(cond), 0)
 
 #define BOOST_STATIC_VIEWS_ASSUME(cond)                              \
-    ((!!(cond)) ? static_cast<void>(0) : __builin_unreachable())
+    ((!!(cond)) ? static_cast<void>(0) : __builtin_unreachable())
 
 #define BOOST_STATIC_VIEWS_CURRENT_FUNCTION __PRETTY_FUNCTION__
 
@@ -177,7 +174,6 @@
 #endif
 
 #endif // use Boost.Config
-
 
 #define BOOST_STATIC_VIEWS_DO_JOIN2(X, Y) X##Y
 #define BOOST_STATIC_VIEWS_DO_JOIN1(X, Y)                            \
@@ -246,9 +242,9 @@ constexpr T _static_const{};
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
-
 #if defined(BOOST_DISABLE_ASSERTS)
-#define BOOST_STATIC_VIEWS_EXPECT(cond, msg) BOOST_STATIC_VIEWS_ASSUME(cond)
+#define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                         \
+    BOOST_STATIC_VIEWS_ASSUME(cond)
 #elif defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
 
 #include <exception>
@@ -271,10 +267,10 @@ class assert_failure : std::exception {
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
-#define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                            \
-    ((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))                              \
-            ? static_cast<void>(0)                                      \
-            : (throw assert_failure{                                    \
+#define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                         \
+    ((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))                           \
+            ? static_cast<void>(0)                                   \
+            : (throw assert_failure{                                 \
                   "Assertion failure in '" __FILE__}))
 
 #elif defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)
@@ -288,8 +284,6 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
 #error "No error handling pocily chosen."
 
 #endif
-
-
 
 #if defined(DOXYGEN_IN_HOUSE)
 #define BOOST_STATIC_VIEWS_INLINE_VARIABLE(type, name)               \

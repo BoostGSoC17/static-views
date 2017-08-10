@@ -1,0 +1,444 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="namespaceboost_1_1static__views_1_1detail" kind="namespace" language="C++">
+    <compoundname>boost::static_views::detail</compoundname>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1detector" prot="public">boost::static_views::detail::detector</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1detector_3_01Default_00_01void__t_3_01Op_3_01Args_8_8_040b6926757d4168441ccde45cf03359" prot="public">boost::static_views::detail::detector&lt; Default, void_t&lt; Op&lt; Args... &gt; &gt;, Op, Args... &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1drop__impl" prot="public">boost::static_views::detail::drop_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1find__first__i__impl" prot="public">boost::static_views::detail::find_first_i_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1invoke__impl" prot="public">boost::static_views::detail::invoke_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1is__reference__wrapper" prot="public">boost::static_views::detail::is_reference_wrapper</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1is__wrapper" prot="public">boost::static_views::detail::is_wrapper</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1is__wrapper_3_01wrapper_3_01T_01_4_01_4" prot="public">boost::static_views::detail::is_wrapper&lt; wrapper&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__drop__algo__impl" prot="public">boost::static_views::detail::make_drop_algo_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__algo__impl" prot="public">boost::static_views::detail::make_drop_exactly_algo_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__drop__exactly__impl" prot="public">boost::static_views::detail::make_drop_exactly_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__drop__impl" prot="public">boost::static_views::detail::make_drop_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__slice__algo__impl" prot="public">boost::static_views::detail::make_slice_algo_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__slice__impl" prot="public">boost::static_views::detail::make_slice_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__take__algo__impl" prot="public">boost::static_views::detail::make_take_algo_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__algo__impl" prot="public">boost::static_views::detail::make_take_exactly_algo_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__take__exactly__impl" prot="public">boost::static_views::detail::make_take_exactly_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__take__impl" prot="public">boost::static_views::detail::make_take_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1make__wrapper__impl" prot="public">boost::static_views::detail::make_wrapper_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1nonesuch" prot="public">boost::static_views::detail::nonesuch</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1raw__view__impl" prot="public">boost::static_views::detail::raw_view_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple" prot="public">boost::static_views::detail::sequence_traits_tuple</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_01T_00_01Ts2ab6b1a948ee91ad35a19bad6950d845" prot="public">boost::static_views::detail::sequence_traits_tuple&lt; std::tuple&lt; T, Ts... &gt;, std::enable_if_t&lt; utils::all(std::is_same&lt; T, Ts &gt;::value...)&gt; &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1sequence__traits__tuple_3_01std_1_1tuple_3_4_01_4" prot="public">boost::static_views::detail::sequence_traits_tuple&lt; std::tuple&lt;&gt; &gt;</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1slice__impl" prot="public">boost::static_views::detail::slice_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1take__impl" prot="public">boost::static_views::detail::take_impl</innerclass>
+    <innerclass refid="structboost_1_1static__views_1_1detail_1_1wrapper" prot="public">boost::static_views::detail::wrapper</innerclass>
+    <innernamespace refid="namespaceboost_1_1static__views_1_1detail_1_1utils">boost::static_views::detail::utils</innernamespace>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1detail_1ab0d7f70b4b44b5dc03ce7cd9582266f6" prot="public" static="no">
+        <type>void</type>
+        <definition>using boost::static_views::detail::void_t = typedef void</definition>
+        <argsstring></argsstring>
+        <name>void_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="33" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1detail_1a20af273fc3e3194340653219f8433ec9" prot="public" static="no">
+        <type>typename <ref refid="structboost_1_1static__views_1_1detail_1_1detector" kindref="compound">detector</ref>&lt; <ref refid="structboost_1_1static__views_1_1detail_1_1nonesuch" kindref="compound">nonesuch</ref>, void, Op, Args... &gt;::value_t</type>
+        <definition>using boost::static_views::detail::is_detected = typedef typename detector&lt;nonesuch, void, Op, Args...&gt;::value_t</definition>
+        <argsstring></argsstring>
+        <name>is_detected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="66" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1detail_1ab84cada28abde0639dcac6ef21424e85" prot="public" static="no">
+        <type>typename <ref refid="structboost_1_1static__views_1_1detail_1_1detector" kindref="compound">detector</ref>&lt; <ref refid="structboost_1_1static__views_1_1detail_1_1nonesuch" kindref="compound">nonesuch</ref>, void, Op, Args... &gt;::type</type>
+        <definition>using boost::static_views::detail::detected_t = typedef typename detector&lt;nonesuch, void, Op, Args...&gt;::type</definition>
+        <argsstring></argsstring>
+        <name>detected_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" line="70" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceboost_1_1static__views_1_1detail_1acf40587ccf2e406202b0091dcbecac4c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>boost::static_views::detail::f</definition>
+        <argsstring></argsstring>
+        <name>f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="115" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1aba11d797d78f56b5f654aa5db6917529" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Any</type>
+          </param>
+          <param>
+            <type>class Pointer</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_func_impl</definition>
+        <argsstring>(std::true_type, Any, Pointer f, Object &amp;&amp;obj, Args &amp;&amp;... args)(std</argsstring>
+        <name>invoke_member_func_impl</name>
+        <param>
+          <type>std::true_type</type>
+        </param>
+        <param>
+          <type>Any</type>
+        </param>
+        <param>
+          <type>Pointer</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="61" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="62" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1a418bac5d859835a0e319e0093c68fcea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Pointer</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_func_impl</definition>
+        <argsstring>(std::false_type, std::true_type, Pointer f, Object &amp;&amp;obj, Args &amp;&amp;... args)(std</argsstring>
+        <name>invoke_member_func_impl</name>
+        <param>
+          <type>std::false_type</type>
+        </param>
+        <param>
+          <type>std::true_type</type>
+        </param>
+        <param>
+          <type>Pointer</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="75" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="76" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1a6ecad883b55e8ba7cd9d892e4eab7269" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Pointer</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_func_impl</definition>
+        <argsstring>(std::false_type, std::false_type, Pointer f, Object &amp;&amp;obj, Args &amp;&amp;... args)((*std</argsstring>
+        <name>invoke_member_func_impl</name>
+        <param>
+          <type>std::false_type</type>
+        </param>
+        <param>
+          <type>std::false_type</type>
+        </param>
+        <param>
+          <type>Pointer</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="89" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="90" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1a817e36636c653516f49c64be3e3660b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Function</type>
+          </param>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_func</definition>
+        <argsstring>(Function(T::*f), Object &amp;&amp;obj, Args &amp;&amp;... args) invoke_member_func_impl(std</argsstring>
+        <name>invoke_member_func</name>
+        <param>
+          <type>FunctionT::*</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="103" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="104" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1a6f8143c3532d5341ab2272c770fbdcba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Any</type>
+          </param>
+          <param>
+            <type>class Pointer</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_data_impl</definition>
+        <argsstring>(std::true_type, Any, Pointer f, Object &amp;&amp;obj) std</argsstring>
+        <name>invoke_member_data_impl</name>
+        <param>
+          <type>std::true_type</type>
+        </param>
+        <param>
+          <type>Any</type>
+        </param>
+        <param>
+          <type>Pointer</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="120" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="121" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1aac130377557c85bd506a96245b7b8d10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Pointer</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_data_impl</definition>
+        <argsstring>(std::false_type, std::true_type, Pointer f, Object &amp;&amp;obj) std</argsstring>
+        <name>invoke_member_data_impl</name>
+        <param>
+          <type>std::false_type</type>
+        </param>
+        <param>
+          <type>std::true_type</type>
+        </param>
+        <param>
+          <type>Pointer</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="133" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="134" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1af56151bd46cc6aa937bcd4f3b513434b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Pointer</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_data_impl</definition>
+        <argsstring>(std::false_type, std::false_type, Pointer f, Object &amp;&amp;obj)(*std</argsstring>
+        <name>invoke_member_data_impl</name>
+        <param>
+          <type>std::false_type</type>
+        </param>
+        <param>
+          <type>std::false_type</type>
+        </param>
+        <param>
+          <type>Pointer</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="146" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="147" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1af823282d8f2a23ea6a04aebfce2cdd2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Function</type>
+          </param>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class Object</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_member_data</definition>
+        <argsstring>(Function(T::*f), Object &amp;&amp;obj) invoke_member_data_impl(std</argsstring>
+        <name>invoke_member_data</name>
+        <param>
+          <type>FunctionT::*</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Object &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="159" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="160" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1_1detail_1ab89dde3329c9aac1bf9f8b02bc564e2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Function</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::detail::invoke_nonmember</definition>
+        <argsstring>(Function &amp;&amp;f, Args &amp;&amp;... args) std</argsstring>
+        <name>invoke_nonmember</name>
+        <param>
+          <type>Function &amp;&amp;</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" line="174" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp" bodystart="175" bodyend="180"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp" line="17" column="1"/>
+  </compounddef>
+</doxygen>

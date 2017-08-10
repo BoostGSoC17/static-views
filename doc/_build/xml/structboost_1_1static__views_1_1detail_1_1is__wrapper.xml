@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="structboost_1_1static__views_1_1detail_1_1is__wrapper" kind="struct" language="C++" prot="public">
+    <compoundname>boost::static_views::detail::is_wrapper</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">false_type</basecompoundref>
+    <includes refid="wrapper_8hpp" local="no">wrapper.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="42">
+        <label>false_type</label>
+      </node>
+      <node id="41">
+        <label>boost::static_views::detail::is_wrapper&lt; T &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1is__wrapper"/>
+        <childnode refid="42" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="44">
+        <label>false_type</label>
+      </node>
+      <node id="43">
+        <label>boost::static_views::detail::is_wrapper&lt; T &gt;</label>
+        <link refid="structboost_1_1static__views_1_1detail_1_1is__wrapper"/>
+        <childnode refid="44" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" line="54" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp" bodystart="54" bodyend="55"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
