@@ -15,6 +15,7 @@
 #include "detail/utils.hpp"
 #include "detail/wrapper.hpp"
 #include "errors.hpp"
+#include "iterator.hpp"
 #include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
@@ -292,6 +293,26 @@ using view::View;
 
 } // namespace concepts
 
+// clang-format off
+template <class View,
+    class = std::enable_if_t<concepts::View::template test<View>()>>
+BOOST_STATIC_VIEWS_CONSTEXPR
+auto begin(View const& xs)
+BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+(
+    detail::view_iterator<View const>{&xs, 0}
+);
+
+template <class View,
+    class = std::enable_if_t<concepts::View::template test<View>()>>
+BOOST_STATIC_VIEWS_CONSTEXPR
+auto end(View const& xs)
+BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+(
+    detail::view_iterator<View const>{&xs, xs.size()}
+);
+// clang-format on
+
 /// \brief
 /// \verbatim embed:rst:leading-slashes
 /// Base class to that helps with modeling the :ref:`View
@@ -304,6 +325,8 @@ struct view_adaptor_base : view_base {
     using wrapper_type = Wrapper;
     using view_type    = typename Wrapper::type;
 
+    wrapper_type _xs;
+
     template <class Dummy>
     struct traits {
         template <class T>
@@ -315,6 +338,13 @@ struct view_adaptor_base : view_base {
                 view::Is_noexcept_map>::test<T>();
         }
     };
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() const noexcept
+        -> derived_type const&
+    {
+        return *static_cast<derived_type const*>(this);
+    }
 
   protected:
     using view_adaptor_base_type =
@@ -515,14 +545,20 @@ struct view_adaptor_base : view_base {
     // clang-format on
     /// \}
 
-  private:
-    wrapper_type _xs;
-
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() const noexcept
-        -> derived_type const&
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto begin() const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+        noexcept(::BOOST_STATIC_VIEWS_NAMESPACE::begin(
+            std::declval<derived_type const&>())))
     {
-        return *static_cast<derived_type const*>(this);
+        return ::BOOST_STATIC_VIEWS_NAMESPACE::begin(derived());
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto end() const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+        noexcept(::BOOST_STATIC_VIEWS_NAMESPACE::end(
+            std::declval<derived_type const&>())))
+    {
+        return ::BOOST_STATIC_VIEWS_NAMESPACE::end(derived());
     }
 };
 
