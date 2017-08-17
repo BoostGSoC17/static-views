@@ -470,6 +470,11 @@ namespace detail {
         {
             return at(k);
         }
+
+        using view_type::begin;
+        using view_type::end;
+        using view_type::bucket_count;
+        using view_type::bucket_size;
     };
 
 } // namespace detail
