@@ -32,7 +32,7 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto make_hasher() noexcept
 BOOST_STATIC_VIEWS_CONSTEXPR auto make_key_equal() noexcept
 {
     using namespace boost::static_views::static_map;
-    return std::equal_to<void>{}; 
+    return std::equal_to<void>{};
 }
 
 using hasher_type    = decltype(make_hasher());
@@ -41,8 +41,6 @@ using key_equal_type = decltype(make_key_equal());
 constexpr auto data_size         = 512;
 constexpr auto bucket_size       = 5;
 constexpr auto number_of_buckets = 2 * data_size;
-
-
 
 struct constexpr_prng {
   private:
@@ -62,7 +60,8 @@ struct constexpr_prng {
     }
 
   public:
-    BOOST_STATIC_VIEWS_CONSTEXPR constexpr_prng(std::uint32_t seed) noexcept
+    BOOST_STATIC_VIEWS_CONSTEXPR constexpr_prng(
+        std::uint32_t seed) noexcept
         : _ctx{0xf1ea5eed, seed, seed, seed}
     {
         for (std::size_t i = 0; i < 20; ++i) {
@@ -70,7 +69,8 @@ struct constexpr_prng {
         }
     }
 
-    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()() noexcept -> std::uint32_t
+    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()() noexcept
+        -> std::uint32_t
     {
         auto&         x = this->_ctx;
         std::uint32_t e = x.a - rot(x.b, 27);
@@ -82,7 +82,6 @@ struct constexpr_prng {
     }
 };
 
-
 struct table {
     field_type _data[data_size];
 
@@ -93,8 +92,8 @@ struct table {
         struct pred {
             key_type const _key;
 
-            BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(field_type const& x) noexcept
-                -> bool
+            BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
+                field_type const& x) noexcept -> bool
             {
                 return x.first == _key;
             }
@@ -104,7 +103,8 @@ struct table {
             boost::static_views::take(size)(
                 boost::static_views::raw_view(_data)),
             pred{key});
-        // auto const i = std::find_if(std::begin(_data), std::begin(_data) + size,
+        // auto const i = std::find_if(std::begin(_data),
+        // std::begin(_data) + size,
         //    pred{});
         return i < size;
         // return i != std::begin(_data) + size;
@@ -114,7 +114,7 @@ struct table {
         std::size_t const i, constexpr_prng& g) noexcept -> void
     {
         auto key = static_cast<key_type>(g());
-        while(contains(key, i)) {
+        while (contains(key, i)) {
             key = static_cast<key_type>(g());
         }
         if (contains(key, i)) {
@@ -124,11 +124,10 @@ struct table {
         _data[i].second = g();
     }
 
-
   public:
-    
     template <std::size_t... Is>
-    BOOST_STATIC_VIEWS_CONSTEXPR table(std::uint32_t seed, std::index_sequence<Is...>) noexcept
+    BOOST_STATIC_VIEWS_CONSTEXPR table(
+        std::uint32_t seed, std::index_sequence<Is...>) noexcept
         : _data{{Is, Is}...}
     {
         static_assert(sizeof...(Is) == data_size, "");
@@ -139,12 +138,51 @@ struct table {
     }
 };
 
-BOOST_STATIC_VIEWS_CONSTEXPR auto make_table(std::uint32_t seed) noexcept
+BOOST_STATIC_VIEWS_CONSTEXPR auto make_table(
+    std::uint32_t seed) noexcept
 {
     return table{seed, std::make_index_sequence<data_size>{}};
 }
 
-static BOOST_STATIC_VIEWS_CONSTEXPR auto const table = make_table(12345);
+BOOST_STATIC_VIEWS_FORCEINLINE
+constexpr auto combine(std::uint32_t const high, std::uint32_t const low)
+{
+    return (static_cast<std::uint64_t>(high) << 32) | low;
+}
+
+struct empty_tester {
+    BOOST_STATIC_VIEWS_NOINLINE
+    auto lookup(key_type const key) const
+        -> std::tuple<bool, std::size_t>
+    {
+        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2, cycles_high_2;
+
+        asm volatile("CPUID\n\t"
+                     "RDTSC\n\t"
+                     "mov %%edx, %0\n\t"
+                     "mov %%eax, %1\n\t"
+                     : "=r"(cycles_high_1), "=r"(cycles_low_1)
+                     :
+                     : "%rax", "%rbx", "%rcx", "%rdx");
+
+        asm volatile("RDTSCP\n\t"
+                     "mov %%edx, %0\n\t " 
+                     "mov %%eax, %1\n\t " 
+                     "CPUID\n\t"
+                     : "=r"(cycles_high_2), "=r"(cycles_low_2)
+                     :
+                     : "%rax", "%rbx", "%rcx", "%rdx");
+
+        auto const start = combine(cycles_high_1, cycles_low_1);
+        auto const end = combine(cycles_high_2, cycles_low_2);
+
+        if (end < start) std::terminate();
+        return {false, end - start};
+    }
+};
+
+static BOOST_STATIC_VIEWS_CONSTEXPR auto const table =
+    make_table(12345);
 static BOOST_STATIC_VIEWS_CONSTEXPR auto const static_map =
     boost::static_views::static_map::make_static_map<
         number_of_buckets, bucket_size>(
@@ -154,12 +192,35 @@ static BOOST_STATIC_VIEWS_CONSTEXPR auto const static_map =
 
 struct static_map_tester {
     BOOST_STATIC_VIEWS_NOINLINE
-    auto lookup(key_type const key) const -> std::tuple<bool, std::size_t>
+    auto lookup(key_type const key) const
+        -> std::tuple<bool, std::size_t>
     {
-        auto const t1 = __rdtsc();
-        auto const contains = (static_map.count(key) == 1);
-        auto const t2 = __rdtsc();
-        return {contains, t2 - t1};
+        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2, cycles_high_2;
+        bool contains;
+
+        asm volatile("CPUID\n\t"
+                     "RDTSC\n\t"
+                     "mov %%edx, %0\n\t"
+                     "mov %%eax, %1\n\t"
+                     : "=r"(cycles_high_1), "=r"(cycles_low_1)
+                     :
+                     : "%rax", "%rbx", "%rcx", "%rdx");
+
+        contains = (static_map.count(key) == 1);
+
+        asm volatile("RDTSCP\n\t"
+                     "mov %%edx, %0\n\t " 
+                     "mov %%eax, %1\n\t " 
+                     "CPUID\n\t"
+                     : "=r"(cycles_high_2), "=r"(cycles_low_2)
+                     :
+                     : "%rax", "%rbx", "%rcx", "%rdx");
+
+        auto const start = combine(cycles_high_1, cycles_low_1);
+        auto const end = combine(cycles_high_2, cycles_low_2);
+
+        if (end < start) std::terminate();
+        return {contains, end - start};
     }
 };
 
@@ -180,15 +241,37 @@ auto const unordered_map = initialise_unordered_map();
 
 struct unordered_map_tester {
     BOOST_STATIC_VIEWS_NOINLINE
-    auto lookup(key_type const key) const -> std::tuple<bool, std::size_t>
+    auto lookup(key_type const key) const
+        -> std::tuple<bool, std::size_t>
     {
-        auto const t1 = __rdtsc();
-        auto const contains = (unordered_map.count(key) == 1);
-        auto const t2 = __rdtsc();
-        return {contains, t2 - t1};
+        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2, cycles_high_2;
+        bool contains;
+
+        asm volatile("CPUID\n\t"
+                     "RDTSC\n\t"
+                     "mov %%edx, %0\n\t"
+                     "mov %%eax, %1\n\t"
+                     : "=r"(cycles_high_1), "=r"(cycles_low_1)
+                     :
+                     : "%rax", "%rbx", "%rcx", "%rdx");
+
+        contains = (unordered_map.count(key) == 1);
+
+        asm volatile("RDTSCP\n\t"
+                     "mov %%edx, %0\n\t " 
+                     "mov %%eax, %1\n\t " 
+                     "CPUID\n\t"
+                     : "=r"(cycles_high_2), "=r"(cycles_low_2)
+                     :
+                     : "%rax", "%rbx", "%rcx", "%rdx");
+
+        auto const start = combine(cycles_high_1, cycles_low_1);
+        auto const end = combine(cycles_high_2, cycles_low_2);
+
+        if (end < start) std::terminate();
+        return {contains, end - start};
     }
 };
-
 
 struct statistics {
 
@@ -209,11 +292,7 @@ struct statistics {
     }
 
   public:
-
-    statistics(std::size_t size)
-        : _data{generate_random(size)}
-    {
-    }
+    statistics(std::size_t size) : _data{generate_random(size)} {}
 
     template <class Tester>
     auto run(Tester const& tester)
@@ -250,14 +329,20 @@ struct statistics {
     }
 };
 
-
-
-
 int main(int argc, char** argv)
 {
     static_map_tester    sm_tester;
     unordered_map_tester um_tester;
-    statistics stats{1000000};
+    empty_tester         dummy_tester;
+    statistics           stats{10000000};
+
+    stats.run(dummy_tester);
+    {
+        std::ofstream out{"empty.dat"};
+        stats.save(out);
+    }
+
+    stats.reset();
 
     stats.run(sm_tester);
     {
