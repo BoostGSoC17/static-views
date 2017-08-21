@@ -51,14 +51,15 @@
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#installing" id="id4">Installing</a></li>
-<li><a class="reference internal" href="#sequences-and-views" id="id5">Sequences and Views</a></li>
-<li><a class="reference internal" href="#static-map" id="id6">Static Map</a></li>
-<li><a class="reference internal" href="#bitmaps-yet-to-be-updated" id="id7">Bitmaps (YET TO BE UPDATED)</a></li>
+<li><a class="reference internal" href="#installing" id="id6">Installing</a></li>
+<li><a class="reference internal" href="#sequences-and-views" id="id7">Sequences and Views</a></li>
+<li><a class="reference internal" href="#static-map" id="id8">Static Map</a></li>
+<li><a class="reference internal" href="#a-note-on-performance" id="id9">A Note on Performance</a></li>
+<li><a class="reference internal" href="#a-note-on-error-messages" id="id10">A Note on Error Messages</a></li>
 </ul>
 </div>
 <div class="section" id="installing">
-<span id="id2"></span><h2><a class="toc-backref" href="#id4">Installing</a><a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id6">Installing</a><a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
 <p>The simplest way to get started with the library is to use its single
 header edition. Just one call to <code class="docutils literal highlight highlight-none"><span></span>wget</code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>wget https://github.com/BoostGSoC17/static-views/single-header/static_views.hpp
@@ -67,107 +68,125 @@ header edition. Just one call to <code class="docutils literal highlight highlig
 <p>and you’re done! Alternatively, clone the <a class="reference external" href="https://github.com/BoostGSoC17/static-views">repo</a> and point your compiler to
 the <code class="docutils literal highlight highlight-none"><span></span>include/</code> directory.</p>
 <p>The library has two modes of operation: “standalone” and “part of Boost”.
-The first one is chosen by default. To use the second instead, define the
+The first one is chosen by default. Static Views then only relies on
+<code class="docutils literal highlight highlight-none"><span></span>STL</code>. To use the second instead, define the
 <code class="docutils literal highlight highlight-none"><span></span>BOOST_STATIC_VIEWS_USE_BOOST</code> macro before the inclusion of the
 headers. Static Views will then use <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/config/doc/html/index.html">Boost.Config</a> macros instead of
 reinventing the wheel.</p>
 </div>
 <div class="section" id="sequences-and-views">
-<span id="id3"></span><h2><a class="toc-backref" href="#id5">Sequences and Views</a><a class="headerlink" href="#sequences-and-views" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id7">Sequences and Views</a><a class="headerlink" href="#sequences-and-views" title="Permalink to this headline">¶</a></h2>
 <p>Very rarely do we deal with compile-time data of infinite size. Usually,
-when we choose on hard-coding some data into the program, we store it as a
-static <code class="docutils literal highlight highlight-none"><span></span>C</code>-style array or tuple. These data structures not only have
-finite size which is part of the type, they also provide random access to
-elements. Such data structures are called <em>Sequences</em> and are the ones
-that Static Views is meant to be used with. <code class="docutils literal highlight highlight-none"><span></span>C</code>-style arrays and tuples
-aren’t the only types that work out of the box. <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">array</span></code> and
-<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">gsl</span><span class="o">::</span><span class="n">span</span></code>, for example, are supported too. If you’re unsure whether
-your own sequence type <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> will work, just ask:</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static_assert</span><span class="p">(</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">Sequence</span><span class="o">::</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(),</span>
-    <span class="s">&quot;Nope, doesn&#39;t work out of the box.&quot;</span><span class="p">);</span>
+when we decide on hard-coding some data into the program, we store it as a
+<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">static</span></code> <code class="docutils literal highlight highlight-none"><span></span>C</code>-style array or a tuple. These data structures not only
+have finite size which is part of the type, they also provide random
+access to elements. We call such data structures <em>StaticSequences</em>. If,
+however, number of elements is not part of the type, we drop the word
+“Static” and just call the data structure a <em>Sequence</em>. Sequences only
+specify the amount of data and how to access it. Sequences are never
+copied, moved or otherwise touched. It is common practice to declare
+Sequence as global <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">static</span></code> variable.</p>
+<p><code class="docutils literal highlight highlight-none"><span></span>C</code>-style arrays and <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span></code>’s aren’t the only types that “are
+Sequences” out of the box. <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">std</span><span class="o">::</span><span class="n">array</span></code> and <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">gsl</span><span class="o">::</span><span class="n">span</span></code>, for
+example, are supported too. If you’re unsure whether your own type
+<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">T</span></code> is considered a Sequence, you can ask the library:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static_assert</span><span class="p">(</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">StaticSequence</span><span class="o">::</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(),</span>
+    <span class="s">&quot;Nope, T is not a StaticSequence.&quot;</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">Sequence</span><span class="o">::</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(),</span>
+    <span class="s">&quot;Nope, T is not a Sequence.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>As far as the library is concerned, sequences own the data and provide
-access to it. We don’t work with sequences explicitly though. We use them
-through <em>views</em>. Views are non-owning containers that provide random
-access to elements. There’s one special view called <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">raw_view</span></code> which
-wraps a sequence and can be constructed from a reference to it:</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">maintainers_phone_number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">};</span>
+<p>The core building blocks of the library is are views. Just like the name
+suggests, views let you have a look at your data, modify it if you want,
+but never ever do they own the data. Views can change the way you see
+your data without changing the data itself. That’s the main idea of having
+views in the first place. So if you have a view <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code> and want to
+search for an element in the second half of it, how do you accomplish it?
+Normally you would do something like this:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">find</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">end</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The main problem with this approach is that you can’t compose the
+algorithms easily. For example, suppose we add a requirement that only
+every third element it to be examined. Using views, this problem is easily
+solved:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">find</span><span class="p">(</span><span class="n">xs</span> <span class="o">|</span> <span class="n">drop</span><span class="p">(</span><span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="n">stride</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This syntax should be familiar to anyone who’s written a shell script or
+two in their lives:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><code class="docutils literal highlight highlight-none"><span></span>C++</code></th>
+<th class="head"><code class="docutils literal highlight highlight-none"><span></span>Bash</code></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">xs</span> <span class="o">|</span> <span class="n">drop</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span></code></td>
+<td><code class="docutils literal highlight highlight-none"><span></span>cat &quot;xs&quot; | tail -n +123</code></td>
+</tr>
+</tbody>
+</table>
+<p>If this syntax seems too radical, it’s OK. You’re not required to use it.
+<em>Piping</em> is equivalent to a function call, so the previous example could
+very well have been written as:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">find</span><span class="p">(</span><span class="n">stride</span><span class="p">(</span><span class="mi">3</span><span class="p">)(</span><span class="n">drop</span><span class="p">(</span><span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)(</span><span class="n">xs</span><span class="p">)),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>So you can see that views can be easily composed, i.e. you create views of
+views of views etc. We need a base case to terminate the recursion,
+though. There’s a special views for that – <a class="reference internal" href="reference/views.html#raw-view"><span class="std std-ref">raw_view</span></a>. It
+is the only view that can be constructed from a sequence. <strong>All other
+views can only be constructed from views!</strong>.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">static_views</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">maintainers_phone_number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">};</span>
 <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">maintainers_phone_number</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>At this point it may be worthwhile to note that although we call
-<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">raw_view</span></code> as a function, it’s not a function. Rather, it’s a
-functor, i.e. a class with an overloaded <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">operator</span><span class="p">()</span></code>. This
-approach is not limited to <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">raw_view</span></code>. <em>All</em> functions in the
-library are actually functors. The advantage of such an approach is that
-you can pass them to higher order functions without worrying about
-templates.</p>
-<p class="last"><code class="docutils literal highlight highlight-none"><span></span>@advanced users</code>: No, these “functions” won’t cause ODR violations.
-The method described in <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4381.html">n4381</a>
-is used to avoid that.</p>
-</div>
-<p><strong>All other views can only be constructed from views!</strong>.</p>
+<p>So you pass a reference to a Sequence to <a class="reference internal" href="reference/views.html#raw-view"><span class="std std-ref">raw_view</span></a> and
+get a View back. Mathematically speaking</p>
+<div class="math">
+\[\mathtt{raw\_view}: \mathtt{Sequence} \to \mathtt{View} \,.\]</div>
+<p>Such notation will be used throughout the documentation, because it would
+be a lie to say that <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">raw_view</span></code> is a function. It is a functor the
+type of which is an implementation detail. So as a quick recap, this
+<span class="math">\(f: \mathtt{View} \times \mathbb{N} \to \mathtt{char\ const*}\)</span> means
+that <span class="math">\(f\)</span> is a function taking a View and a natural number (i.e.
+unsigned integral type) and returning a pointer to <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="kt">char</span> <span class="k">const</span></code>; this
+<span class="math">\(g: (\mathbb{N} \to \mathbb{N}) \to \mathtt{View} \to \mathtt{View}\)</span>
+means that <span class="math">\(g\)</span> is a function that takes a function mapping natural
+numbers to themselves, and returns a function taking a View and returning
+another View.</p>
+<p>So <a class="reference internal" href="reference/views.html#drop-view"><span class="std std-ref">drop</span></a> that we’ve already encountered has the
+following signature:</p>
+<div class="math">
+\[\mathtt{drop}: \mathbb{N} \to \mathtt{View} \to \mathtt{View} \,.\]</div>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">char</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;h&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">};</span>
 <span class="c1">// drop(n) drops the first n elements</span>
-<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_bad</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">data</span><span class="p">);</span> <span class="c1">// Error!</span>
-<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_good</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span>      <span class="c1">// OK</span>
-    <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>                     <span class="c1">//</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_bad</span>  <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">data</span><span class="p">);</span> <span class="c1">// Error! A Sequence rather</span>
+                                                        <span class="c1">// than a View is passed</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_good</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span>       <span class="c1">// OK</span>
+    <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
 </pre></div>
 </div>
-<p>It’s not a big deal if you forget this rule though. <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">static_assert</span></code>’s
-will tell you exactly what you’ve done wrong. For example, in the above
-case Clang produces the following error message:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>In file included from test.cpp:8:
-In file included from ./include/boost/static_views/drop.hpp:13:
-./include/boost/static_views/algorithm_base.hpp:174:9: error: static_assert failed &quot;I&#39;m sorry, but `View` must model the View concept!&quot;
-        static_assert(
-        ^
-test.cpp:15:52: note: in instantiation of function template specialization
-      &#39;boost::static_views::detail::algorithm_impl&lt;boost::static_views::detail::make_drop_impl, unsigned long&gt;::operator()&lt;char const (&amp;)[5], void, void&gt;&#39;
-      requested here
-    constexpr auto view_bad = static_views::drop(2)(data); // Error!
-                                                   ^
-... [snip] ...
-
-In file included from test.cpp:7:
-In file included from ./include/boost/static_views/raw_view.hpp:17:
-./include/boost/static_views/view_base.hpp:82:5: error: static_assert failed &quot;`T` doesn&#39;t derive from `boost::static_views::view_base`, which is,
-      unfortunately, required by the View concept. Hence, the error.&quot;
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Derives_from_view_base, T,
-    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-... [snip] ...
-
-In file included from test.cpp:7:
-In file included from ./include/boost/static_views/raw_view.hpp:17:
-./include/boost/static_views/view_base.hpp:88:5: error: static_assert failed &quot;`T` doesn&#39;t model the MoveConstructible concept, which it should, to have a
-      chance at modeling the View concept. Hence, the error.&quot;
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_move_constructible, T,
-    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-... [snip] ...
-</pre></div>
-</div>
-<p>So Clang first tells you that data isn’t a view. In such simple cases as
-above it’s obvious that <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="kt">char</span> <span class="k">const</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span></code> is a sequence rather than a
-view. If, however, you’ve made a mistake while implementing your own
-complex view, it may not immediately be obvious what went wrong. For that
-reason the library also tells you exactly which requirements aren’t
-satisfied.</p>
-<p>Notice how in the example above an <em>rvalue</em> is passed to <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">drop</span></code>. This
-is not the only supported use case. <em>Lvalues</em> can be passed, too:</p>
+<p>Notice how in the example above an <em>rvalue</em> is passed to <a class="reference internal" href="reference/views.html#drop-view"><span class="std std-ref">drop</span></a>. This is not the only supported use case. <em>Lvalues</em> can be
+passed, too:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_tuple</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs</span>   <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">xs</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>There’s one important thing to note – the use of <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">static</span></code>. “Normal”
-<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">constexpr</span></code> variables live only in the mind of the compiler. You
-simply <strong>can’t take their address inside constant expressions</strong> as
-specified in section 5.20 of the Standard:</p>
+<p>The library then automatically decides what to store.  It’s similar to
+lambdas where you choose whether to capture a variable by value or by
+reference. There’s one important thing to note – the use of
+<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">static</span></code>. “Normal” <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">constexpr</span></code> variables live only in the mind
+of the compiler. You simply <strong>can’t take their address inside constant
+expressions</strong> as specified in section 5.20 of the Standard:</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line">if the value is of pointer type, it contains the</div>
@@ -177,8 +196,10 @@ specified in section 5.20 of the Standard:</p>
 </div>
 </div></blockquote>
 <p>There is, unfortunately, no way issue <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">static_assert</span></code>’s on such
-errors. Compilers are quite helpful though:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>test.cpp:16:20: error: constexpr variable &#39;view&#39; must be initialized by a constant expression
+errors. So that’s probably the only “rule” you really need to remember
+when using the library. Compilers try to be helpful though:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>test.cpp:16:20: error: constexpr variable &#39;view&#39; must be initialized by
+a constant expression
     constexpr auto view = static_views::drop(2)(xs);
                    ^      ~~~~~~~~~~~~~~~~~~~~~~~~~
 test.cpp:16:20: note: pointer to &#39;xs&#39; is not a constant expression
@@ -187,33 +208,40 @@ test.cpp:15:20: note: declared here
 </pre></div>
 </div>
 <p>Says Clang, if you forget to make <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">xs</span></code> static.</p>
-<p>Another interesting thing to note is that the <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">drop</span></code> functor is
-curried, i.e. its signature is</p>
-<div class="math">
-\[\mathtt{drop}: \mathbb{N} \to \mathtt{View} \to \mathtt{View}\]</div>
-<p>rather than</p>
-<div class="math">
-\[\mathtt{drop}: \mathbb{N} \times \mathtt{View} \to \mathtt{View} \,.\]</div>
-<p>All view-creating functions are curried. In other words, all functions
-that allow you to create views can be described by the following
-signature:</p>
-<div class="math">
-\[f: \mathtt{arg_1} \times \mathtt{arg_2} \times \dots
-    \times \mathtt{arg_N} \to \mathtt{View} \to \mathtt{View} \,.\]</div>
-<p>This allows people who love Bash-like pipes to use an alternative syntax
-to stack views:</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
-<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-                  <span class="o">|</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-                  <span class="o">|</span> <span class="n">static_views</span><span class="o">::</span><span class="n">stride</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// xs is now {1, 2, 3}</span>
+<p>By now you should have an idea of what Views are and how to create them.
+The only remaining question is what to do with them later. Here’s a
+synopsis of a general view:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">View</span> <span class="p">{</span>
+    <span class="n">View</span><span class="p">(</span><span class="n">View</span><span class="o">&amp;&amp;</span><span class="p">);</span>
+
+    <span class="c1">// Returns the number of elements viewed.</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+
+    <span class="c1">// Return the element at the specified index. These versions</span>
+    <span class="c1">// are optimised for performance and perform no error checking.</span>
+    <span class="c1">// Use them when implementing optimised algorithms etc.</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+
+    <span class="c1">// Return the element at the specified index. An exception is</span>
+    <span class="c1">// thrown if the index is out of bounds.</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">);</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="c1">// Returns either dynamic_extent to indicate that the size</span>
+    <span class="c1">// is unknown until run-time or a non-negative number that is</span>
+    <span class="c1">// at least as big as size().</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span> <span class="n">extent</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
+
+    <span class="c1">// Iterators</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">begin</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">end</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
-<p>With curried functions there’s no need to come up with two names for the
-same view (think <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">copy</span></code> and <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">copied</span></code>, <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">filter</span></code> and
-<code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">filtered</span></code>, etc. in <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/range/doc/html/index.html">Boost.Range</a>).</p>
 </div>
 <div class="section" id="static-map">
-<span id="static-map-tutorial"></span><h2><a class="toc-backref" href="#id6">Static Map</a><a class="headerlink" href="#static-map" title="Permalink to this headline">¶</a></h2>
+<span id="static-map-tutorial"></span><h2><a class="toc-backref" href="#id8">Static Map</a><a class="headerlink" href="#static-map" title="Permalink to this headline">¶</a></h2>
 <p>As a real life example of what one can implement using the library, an
 implementation of a <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">static_map</span></code> is provided. This is also probably
 the coolest feature of the library.</p>
@@ -281,6 +309,10 @@ equally elegant solution in <code class="docutils literal highlight highlight-no
     <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
     <span class="o">&amp;</span><span class="n">field</span><span class="o">::</span><span class="n">code</span><span class="p">,</span>
     <span class="o">&amp;</span><span class="n">field</span><span class="o">::</span><span class="n">fruit</span><span class="p">);</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="n">equal_c</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">456</span><span class="p">],</span> <span class="s">&quot;pear&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">);</span> <span class="c1">// Assume that equal_c</span>
+                                                 <span class="c1">// compares strings at</span>
+                                                 <span class="c1">// compile-time.</span>
 </pre></div>
 </div>
 <p><code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">static_map</span></code> is a hash map, so lookups are <span class="math">\(\mathcal{O}(1)\)</span>,
@@ -293,101 +325,56 @@ fact that you choose which field it used as a key and which as a value. It
 is thus not required for <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">data_type</span></code> to only have two fields. You can
 use arbitrary types, as long as they have <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="k">constexpr</span></code> constructors.</p>
 </div>
-<div class="section" id="bitmaps-yet-to-be-updated">
-<h2><a class="toc-backref" href="#id7">Bitmaps (YET TO BE UPDATED)</a><a class="headerlink" href="#bitmaps-yet-to-be-updated" title="Permalink to this headline">¶</a></h2>
-<p>Suppose we have a bitmap (24-bit RGB) icon saved as a <code class="docutils literal highlight highlight-none"><span></span>constexpr</code> array of
-chars:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>static constexpr unsigned char smiley[] = {
-  0x22, 0x22, 0x00, 0x25, 0x25, ...
-  ...
-};
+<div class="section" id="a-note-on-performance">
+<span id="id4"></span><h2><a class="toc-backref" href="#id9">A Note on Performance</a><a class="headerlink" href="#a-note-on-performance" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="a-note-on-error-messages">
+<span id="id5"></span><h2><a class="toc-backref" href="#id10">A Note on Error Messages</a><a class="headerlink" href="#a-note-on-error-messages" title="Permalink to this headline">¶</a></h2>
+<p>Consider a simple example from above:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">char</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;h&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">};</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_bad</span>  <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">data</span><span class="p">);</span> <span class="c1">// Error!</span>
 </pre></div>
 </div>
-<p>Now if a need comes up to convert it to 32-bit RGBA, StaticViews comes in
-handy. The only thing we have to do by ourselves is to write a function to
-convert <code class="docutils literal highlight highlight-none"><span></span>unsigned char[3]</code> (RGB) into <code class="docutils literal highlight highlight-none"><span></span>uint32_t</code> (RGBA). Let’s do it
-for little endian:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>[](auto&amp;&amp; xs) noexcept -&gt; std::uint32_t
-{
-    return (static_cast&lt;std::uint32_t&gt;( 0xFF) &lt;&lt; 24)
-         | (static_cast&lt;std::uint32_t&gt;(xs[2]) &lt;&lt; 16)
-         | (static_cast&lt;std::uint32_t&gt;(xs[1]) &lt;&lt;  8)
-         | (static_cast&lt;std::uint32_t&gt;(xs[0]) &lt;&lt;  0);
-}
-</pre></div>
-</div>
-<p>The big endian case is left as an exercise for the reader. If we’re now
-given a view of <code class="docutils literal highlight highlight-none"><span></span>char</code> representing 24-bit colours, we can easily create
-a view of <code class="docutils literal highlight highlight-none"><span></span>uint32_t</code>:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>template &lt;class V&gt;
-constexpr auto rgb_to_rgba(V&amp;&amp; rgb)
-{
-  if (rgb.size() % 3 != 0)
-    throw invalid_format_error{};
+<p>Here, we forgot to create a <a class="reference internal" href="reference/views.html#raw-view"><span class="std std-ref">raw_view</span></a> of <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="n">data</span></code>
+before passing it to <a class="reference internal" href="reference/views.html#drop-view"><span class="std std-ref">drop</span></a>. And here’s the error message
+Clang produces:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>In file included from test.cpp:8:
+In file included from ./include/boost/static_views/drop.hpp:13:
+./include/boost/static_views/algorithm_base.hpp:174:9: error: static_assert failed &quot;I&#39;m sorry, but `View` must model the View concept!&quot;
+        static_assert(
+        ^
+test.cpp:15:52: note: in instantiation of function template specialization
+      &#39;boost::static_views::detail::algorithm_impl&lt;boost::static_views::detail::make_drop_impl, unsigned long&gt;::operator()&lt;char const (&amp;)[5], void, void&gt;&#39;
+      requested here
+    constexpr auto view_bad = static_views::drop(2)(data); // Error!
+                                                   ^
+... [snip] ...
 
-  return rgb | chunk(3)
-             | map([](auto&amp;&amp; xs) noexcept -&gt; std::uint32_t {
-                 return (static_cast&lt;std::uint32_t&gt;( 0xFF) &lt;&lt; 24)
-                      | (static_cast&lt;std::uint32_t&gt;(xs[2]) &lt;&lt; 16)
-                      | (static_cast&lt;std::uint32_t&gt;(xs[1]) &lt;&lt;  8)
-                      | (static_cast&lt;std::uint32_t&gt;(xs[0]) &lt;&lt;  0);
-               });
-}
-</pre></div>
-</div>
-<p>What <code class="docutils literal highlight highlight-none"><span></span>chunk(N)</code> does is divide the source view into contiguous chunks of
-N elements (the last chunk may be shorter). If we want to do the inverse:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>template &lt;class V&gt;
-constexpr auto rgba_to_rgb(V&amp;&amp; rgba) noexcept
-{
-  return rgba | map([](auto&amp;&amp; x) noexcept {
-                  return raw_view(std::array&lt;unsigned char, 3&gt;{
-                    (x &amp; 0x000000FF), (x &amp; 0x0000FF00), (x &amp; 0x00FF0000)
-                  });
-                });
-              | concat();
-}
-</pre></div>
-</div>
-<p>We convert each integer into a view of chars and the flatten the view of
-views (think monadic bind for lists).</p>
-<p>Conversions to a 1-bit bitmaps is a tiny bit trickier. Apart from
-conversion from 24-bit RGB to a <code class="docutils literal highlight highlight-none"><span></span>bool</code>, we also need to convert 8
-<code class="docutils literal highlight highlight-none"><span></span>bool</code>’s into a char:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>[](auto&amp;&amp; bs)
-{
-  unsigned char c = 0x00;
-  for (std::size_t i = 0; i &lt; bs.size(); ++i) {
-    c |= static_cast&lt;unsigned char&gt;(bs[i])
-         &lt;&lt; (bs.size() - 1 - i);
-  }
-  return c;
-}
-</pre></div>
-</div>
-<p>Assume that the <code class="docutils literal highlight highlight-none"><span></span>pixel_rgb_to_bw</code> takes a view
-of 3 <code class="docutils literal highlight highlight-none"><span></span>char</code>’s and returns a <code class="docutils literal highlight highlight-none"><span></span>bool</code> (true – white, false – black).
-Then the complete conversion function becomes:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>template &lt;class V&gt;
-constexpr auto rgb_to_bw(V&amp;&amp; rgb)
-{
-  if (rgb.size() % 3 != 0)
-    throw invalid_format_error{};
+In file included from test.cpp:7:
+In file included from ./include/boost/static_views/raw_view.hpp:17:
+./include/boost/static_views/view_base.hpp:82:5: error: static_assert failed &quot;`T` doesn&#39;t derive from `boost::static_views::view_base`, which is,
+      unfortunately, required by the View concept. Hence, the error.&quot;
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Derives_from_view_base, T,
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  return rgb | chunk(3)
-             | map(pixel_rgb_to_bw)
-             | chunk(8)
-             | map([](auto&amp;&amp; bs) noexcept {
-                  unsigned char c = 0x00;
-                  for (std::size_t i = 0; i &lt; bs.size(); ++i) {
-                    c |= static_cast&lt;unsigned char&gt;(bs[i])
-                         &lt;&lt; (bs.size() - 1 - i);
-                  }
-                  return c;
-               });
-}
+... [snip] ...
+
+In file included from test.cpp:7:
+In file included from ./include/boost/static_views/raw_view.hpp:17:
+./include/boost/static_views/view_base.hpp:88:5: error: static_assert failed &quot;`T` doesn&#39;t model the MoveConstructible concept, which it should, to have a
+      chance at modeling the View concept. Hence, the error.&quot;
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_move_constructible, T,
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+... [snip] ...
 </pre></div>
 </div>
+<p>So Clang first tells you that data isn’t a view. In such simple cases as
+above it’s obvious that <code class="code cpp c++ docutils literal highlight highlight-c++"><span></span><span class="kt">char</span> <span class="k">const</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span></code> is a sequence rather than a
+view. If, however, you’ve made a mistake while implementing your own
+complex view, it may not immediately be obvious what went wrong. For that
+reason the library also tells you exactly which requirements aren’t
+satisfied.</p>
 </div>
 </div>
 

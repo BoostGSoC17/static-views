@@ -504,7 +504,7 @@
 <codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>__builtin_expect(!!(cond),<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="138"><highlight class="normal"></highlight></codeline>
 <codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_ASSUME(cond)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="140"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((!!(cond))<sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/>:<sp/>__builin_unreachable())</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((!!(cond))<sp/>?<sp/>static_cast&lt;void&gt;(0)<sp/>:<sp/>__builtin_unreachable())</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="141"><highlight class="normal"></highlight></codeline>
 <codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOST_STATIC_VIEWS_CURRENT_FUNCTION<sp/>__PRETTY_FUNCTION__</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="143"><highlight class="normal"></highlight></codeline>

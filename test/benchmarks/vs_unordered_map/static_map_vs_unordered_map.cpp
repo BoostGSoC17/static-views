@@ -1,4 +1,3 @@
-//          Copyright Tom Westerhout 2017.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -16,11 +15,14 @@ using key_type    = std::uint16_t;
 using mapped_type = std::uint64_t;
 using field_type  = std::pair<key_type, mapped_type>;
 
+constexpr auto bits = 10;
+
 struct entry {
     // std::uint64_t ticks;
     // std::uint16_t randidx;
-    std::uint64_t ticks : 44;
-    std::uint64_t randidx : 16;
+    std::uint64_t ticks : 64 - bits - 1;
+    std::uint64_t randidx : bits;
+    std::uint64_t found : 1;
 };
 
 BOOST_STATIC_VIEWS_CONSTEXPR auto make_hasher() noexcept
@@ -37,10 +39,15 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto make_key_equal() noexcept
 
 using hasher_type    = decltype(make_hasher());
 using key_equal_type = decltype(make_key_equal());
-
 constexpr auto data_size         = 512;
 constexpr auto bucket_size       = 5;
 constexpr auto number_of_buckets = 2 * data_size;
+
+
+BOOST_STATIC_VIEWS_CONSTEXPR auto mask(key_type const x) noexcept -> key_type
+{
+    return x & ((1 << bits) - 1);
+}
 
 struct constexpr_prng {
   private:
@@ -113,7 +120,7 @@ struct table {
     BOOST_STATIC_VIEWS_CONSTEXPR auto insert(
         std::size_t const i, constexpr_prng& g) noexcept -> void
     {
-        auto key = static_cast<key_type>(g());
+        auto key = mask(static_cast<key_type>(g()));
         while (contains(key, i)) {
             key = static_cast<key_type>(g());
         }
@@ -280,13 +287,12 @@ struct statistics {
 
     auto generate_random(std::size_t size)
     {
-        std::mt19937                            g;
-        std::uniform_int_distribution<key_type> dist;
+        constexpr_prng g{54321};
 
         std::vector<entry> entries(size);
         std::generate(std::begin(entries), std::end(entries),
-            [&g, &dist]() -> entry {
-                return {0, dist(g)};
+            [&g]() -> entry {
+                return {0, mask(g()), 0};
             });
         return entries;
     }
@@ -299,14 +305,16 @@ struct statistics {
     {
         std::for_each(
             std::begin(_data), std::end(_data), [&tester](auto& x) {
-                x.ticks = std::get<1>(tester.lookup(x.randidx));
+                auto answer = tester.lookup(x.randidx);
+                x.found = std::get<0>(answer);
+                x.ticks = std::get<1>(answer);
             });
     }
 
     auto reset()
     {
         std::for_each(std::begin(_data), std::end(_data),
-            [](auto& x) { x.ticks = 0; });
+            [](auto& x) { x.ticks = 0; x.found = 0; });
     }
 
     auto sum()
@@ -324,7 +332,8 @@ struct statistics {
         out << "randidx\tticks\n";
         std::for_each(std::begin(_data), std::end(_data),
             [&out](auto const& x) {
-                out << x.randidx << '\t' << x.ticks << '\n';
+                out << x.randidx << '\t' << x.ticks << '\t' << x.found
+                    << '\n';
             });
     }
 };
@@ -334,7 +343,7 @@ int main(int argc, char** argv)
     static_map_tester    sm_tester;
     unordered_map_tester um_tester;
     empty_tester         dummy_tester;
-    statistics           stats{10000000};
+    statistics           stats{1000000};
 
     stats.run(dummy_tester);
     {

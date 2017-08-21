@@ -472,9 +472,9 @@ namespace detail {
         }
 
         using view_type::begin;
-        using view_type::end;
         using view_type::bucket_count;
         using view_type::bucket_size;
+        using view_type::end;
     };
 
 } // namespace detail

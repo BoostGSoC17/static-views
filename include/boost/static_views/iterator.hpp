@@ -8,8 +8,8 @@
 
 #include "detail/config.hpp"
 #include "detail/utils.hpp"
-#include <type_traits>
 #include <iterator>
+#include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -18,10 +18,10 @@ namespace detail {
 template <class View>
 struct view_iterator {
 
-    using size_type       = std::size_t;
-    using difference_type = std::ptrdiff_t;
-    using reference =
-        decltype(std::declval<std::decay_t<View>>()[std::declval<size_type>()]);
+    using size_type         = std::size_t;
+    using difference_type   = std::ptrdiff_t;
+    using reference         = decltype(std::declval<
+        std::decay_t<View>>()[std::declval<size_type>()]);
     using value_type        = std::remove_reference_t<reference>;
     using pointer           = std::add_pointer_t<reference>;
     using iterator_category = std::random_access_iterator_tag;
@@ -49,7 +49,8 @@ struct view_iterator {
 
         BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_unsafe_at, T,
             (noexcept(std::declval<T>().unsafe_at(
-                std::declval<std::size_t>()))), "");
+                std::declval<std::size_t>()))),
+            "");
 
         // clang-format off
         template <class T,
