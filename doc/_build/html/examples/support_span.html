@@ -76,8 +76,8 @@
         <span class="c1">// Although sequence_traits_default can provides at()</span>
         <span class="c1">// when operator[] is available, span&#39;s operator[] is not</span>
         <span class="c1">// noexcept so it makes little sense.</span>
-        <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">at</span><span class="p">(</span>
-            <span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">i</span><span class="p">)</span> <span class="k">noexcept</span>
+        <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">at</span><span class="p">(</span><span class="n">gsl</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Extent</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span>
+            <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">i</span><span class="p">)</span> <span class="k">noexcept</span>
         <span class="p">{</span>
             <span class="c1">// Notice the absence of bound checks here! raw_view</span>
             <span class="c1">// takes care of that.</span>

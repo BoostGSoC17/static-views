@@ -223,6 +223,60 @@
         <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" line="142" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp" bodystart="142" bodyend="-1"/>
       </memberdef>
       </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1a04d3556689fb36999ad0ad673a9fc655" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;concepts::View::template test&lt;View&gt;()&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::begin</definition>
+        <argsstring>(View const &amp;xs) detail</argsstring>
+        <name>begin</name>
+        <param>
+          <type>View const &amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="300" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="300" bodyend="304"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1static__views_1abdb7db57a26507d572c3897bd83fb8f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class View</type>
+          </param>
+          <param>
+            <type>class</type>
+            <defval>std::enable_if_t&lt;concepts::View::template test&lt;View&gt;()&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr auto</type>
+        <definition>constexpr auto boost::static_views::end</definition>
+        <argsstring>(View const &amp;xs) detail</argsstring>
+        <name>end</name>
+        <param>
+          <type>View const &amp;</type>
+          <declname>xs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="309" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="309" bodyend="313"/>
+      </memberdef>
+      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

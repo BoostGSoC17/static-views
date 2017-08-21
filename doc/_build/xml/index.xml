@@ -227,9 +227,11 @@
     <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a423a836f3b17b5cdba986e345651b9d1" kind="typedef"><name>view_type</name></member>
     <member refid="structboost_1_1static__views_1_1view__adaptor__base_1ae0758dc08ad0844ed7b0f82243017d8f" kind="typedef"><name>view_adaptor_base_type</name></member>
     <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a07e27f73c4662e088581b3df4095e8d8" kind="variable"><name>_xs</name></member>
-    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a195fd1168a57c356a36a07d4c7c3f83d" kind="function"><name>size</name></member>
-    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a8e437dd8e9475704bea2c78e402f9ea4" kind="function"><name>extent</name></member>
     <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a7e7198121e66bf4341d1e9d14e9183d0" kind="function"><name>derived</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a195fd1168a57c356a36a07d4c7c3f83d" kind="function"><name>size</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a318a9dd33bddd2f2e05cee96f87c630a" kind="function"><name>begin</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a71d80acac47e56a8a3c2059ebc65e773" kind="function"><name>end</name></member>
+    <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a8e437dd8e9475704bea2c78e402f9ea4" kind="function"><name>extent</name></member>
   </compound>
   <compound refid="structboost_1_1static__views_1_1view__adaptor__core__access" kind="struct"><name>boost::static_views::view_adaptor_core_access</name>
     <member refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aa9a23e5ee27b4f7d859fc7b650783d60" kind="friend"><name>view_adaptor_base</name></member>
@@ -253,6 +255,8 @@
     <member refid="namespaceboost_1_1static__views_1ad39f8dd92e3689279487ea1986fffa0e" kind="variable"><name>take</name></member>
     <member refid="namespaceboost_1_1static__views_1a508a0ffbf07960009da96c372aef68c2" kind="variable"><name>take_exactly</name></member>
     <member refid="namespaceboost_1_1static__views_1af4f426822f44929b5ef3367b231bd36c" kind="variable"><name>slice</name></member>
+    <member refid="namespaceboost_1_1static__views_1a04d3556689fb36999ad0ad673a9fc655" kind="function"><name>begin</name></member>
+    <member refid="namespaceboost_1_1static__views_1abdb7db57a26507d572c3897bd83fb8f9" kind="function"><name>end</name></member>
   </compound>
   <compound refid="namespaceboost_1_1static__views_1_1concepts" kind="namespace"><name>boost::static_views::concepts</name>
   </compound>

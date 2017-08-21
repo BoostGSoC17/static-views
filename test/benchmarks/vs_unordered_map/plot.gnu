@@ -93,13 +93,16 @@ unset xtics
 set ytics nomirror out
 set key right top
 
+set logscale y 10
 plot \
 	sm u 0:(column("ticks") - Mean) w lp \
 		lt 1 lw 1 pt 7 ps 0.3 lc rgb "#2E911A" title "static_map", \
 	um u 0:(column("ticks") - Mean) w lp \
 		lt 1 lw 1 pt 7 ps 0.3 lc rgb "#1A6A91" title "unordered_map"
 set output
+unset logscale
 
+# exit 0
 
 #####################################################################
 
