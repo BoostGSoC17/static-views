@@ -14,60 +14,56 @@
     <includes local="no">algorithm</includes>
     <includedby refid="slice_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp</includedby>
     <incdepgraph>
-      <node id="68">
+      <node id="70">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/utils.hpp</label>
       </node>
-      <node id="76">
+      <node id="78">
         <label>limits</label>
       </node>
-      <node id="74">
+      <node id="76">
         <label>sequence_traits.hpp</label>
         <link refid="sequence__traits_8hpp"/>
-        <childnode refid="67" relation="include">
+        <childnode refid="69" relation="include">
         </childnode>
-        <childnode refid="68" relation="include">
+        <childnode refid="70" relation="include">
         </childnode>
-        <childnode refid="75" relation="include">
+        <childnode refid="77" relation="include">
         </childnode>
-        <childnode refid="76" relation="include">
+        <childnode refid="78" relation="include">
         </childnode>
-        <childnode refid="71" relation="include">
+        <childnode refid="73" relation="include">
         </childnode>
-      </node>
-      <node id="67">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp</label>
       </node>
       <node id="69">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
-      </node>
-      <node id="66">
-        <label>algorithm_base.hpp</label>
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp</label>
       </node>
       <node id="71">
-        <label>tuple</label>
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
       </node>
-      <node id="70">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
+      <node id="68">
+        <label>algorithm_base.hpp</label>
       </node>
       <node id="73">
-        <label>utility</label>
-      </node>
-      <node id="75">
-        <label>array</label>
+        <label>tuple</label>
       </node>
       <node id="72">
-        <label>type_traits</label>
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
+      </node>
+      <node id="75">
+        <label>utility</label>
       </node>
       <node id="77">
+        <label>array</label>
+      </node>
+      <node id="74">
+        <label>type_traits</label>
+      </node>
+      <node id="79">
         <label>algorithm</label>
       </node>
-      <node id="65">
+      <node id="67">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</label>
         <link refid="drop_8hpp"/>
-        <childnode refid="66" relation="include">
-        </childnode>
-        <childnode refid="67" relation="include">
-        </childnode>
         <childnode refid="68" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
@@ -82,19 +78,23 @@
         </childnode>
         <childnode refid="74" relation="include">
         </childnode>
-        <childnode refid="77" relation="include">
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="79">
+      <node id="81">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp</label>
         <link refid="slice_8hpp"/>
       </node>
-      <node id="78">
+      <node id="80">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</label>
         <link refid="drop_8hpp"/>
-        <childnode refid="79" relation="include">
+        <childnode refid="81" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

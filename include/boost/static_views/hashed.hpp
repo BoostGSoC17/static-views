@@ -308,15 +308,6 @@ struct hashed_impl
             this->parent());
     }
 
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto unsafe_at(std::size_t const hash) const noexcept
-    {
-        auto const i = bucket_size() * (hash % bucket_count());
-        return through(slice(i, i + bucket_size())(
-            raw_view(_storage)))(this->parent());
-    }
-
     template <class Predicate>
     BOOST_STATIC_VIEWS_FORCEINLINE   //
         BOOST_STATIC_VIEWS_CONSTEXPR //

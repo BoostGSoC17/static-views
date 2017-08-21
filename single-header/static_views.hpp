@@ -11,6 +11,7 @@
 #include <cassert>
 #include <exception>
 #include <functional>
+#include <iterator>
 #include <limits>
 #include <tuple>
 #include <type_traits>
@@ -1126,6 +1127,262 @@ void (*make_full_bucket_error)(char const*) = &detail::make_full_bucket;
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+//////////////////////////////////////////////////////////////////////
+// Expanded from 'iterator.hpp'
+//////////////////////////////////////////////////////////////////////
+
+BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
+
+namespace detail {
+
+template <class View>
+struct view_iterator {
+
+    using size_type         = std::size_t;
+    using difference_type   = std::ptrdiff_t;
+    using reference         = decltype(std::declval<
+        std::decay_t<View>>()[std::declval<size_type>()]);
+    using value_type        = std::remove_reference_t<reference>;
+    using pointer           = std::add_pointer_t<reference>;
+    using iterator_category = std::random_access_iterator_tag;
+
+  private:
+    View*          _view;
+    std::ptrdiff_t _i;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR auto is_dereferenceable() const
+        noexcept -> bool
+    {
+        return _view != nullptr && _i >= 0
+               && static_cast<size_type>(_i) <= _view->size();
+    }
+
+  public:
+    BOOST_STATIC_VIEWS_CONSTEXPR view_iterator(
+        View* view = nullptr, size_type const i = 0)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
+        : _view{view}, _i{static_cast<difference_type>(i)}
+    {
+        BOOST_STATIC_VIEWS_EXPECT(
+            i < static_cast<size_type>(
+                    std::numeric_limits<difference_type>::max()),
+            "Overflow detected.");
+        BOOST_STATIC_VIEWS_EXPECT(
+            view == nullptr && i == 0
+                || view != nullptr && i <= view->size(),
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_iterator(view_iterator const&) noexcept = default;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_iterator(view_iterator&&) noexcept = default;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_iterator& operator=(view_iterator const&) noexcept = default;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_iterator& operator=(view_iterator&&) noexcept = default;
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto* operator-> () const BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+        noexcept(std::declval<View&>().unsafe_at(
+            std::declval<size_type>())))
+    {
+        BOOST_STATIC_VIEWS_EXPECT(is_dereferenceable(),
+            "Nah, this iterator is not dereferenceable.");
+        return &_view->unsafe_at(static_cast<size_type>(_i));
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO
+    operator*() const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+        noexcept(std::declval<view_iterator const&>().operator->()))
+    {
+        return *operator->();
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO
+    operator[](difference_type const n) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
+            std::declval<view_iterator const&>().operator*()))
+    {
+        return *(*this + n);
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator++() noexcept -> view_iterator&
+    {
+        ++_i;
+        return *this;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator--() noexcept -> view_iterator&
+    {
+        --_i;
+        return *this;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator++(int)noexcept -> view_iterator
+    {
+        view_iterator temp{*this};
+        ++(*this);
+        return temp;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator--(int)noexcept -> view_iterator
+    {
+        view_iterator temp{*this};
+        --(*this);
+        return temp;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator+=(difference_type const n) noexcept
+        -> view_iterator&
+    {
+        _i += n;
+        return *this;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator-=(difference_type const n) noexcept
+        -> view_iterator&
+    {
+        _i -= n;
+        return *this;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator+(view_iterator const& x,
+        difference_type const n) noexcept -> view_iterator
+    {
+        view_iterator temp{x};
+        temp += n;
+        return temp;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator-(view_iterator const& x,
+        difference_type const n) noexcept -> view_iterator
+    {
+        view_iterator temp{x};
+        temp -= n;
+        return temp;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator+(difference_type const n,
+        view_iterator const& x) noexcept -> view_iterator
+    {
+        return x + n;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator-(view_iterator const& x,
+        view_iterator const& y) noexcept -> difference_type
+    {
+        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
+            "It's a bad idea to subtract iterators to different "
+            "objects.");
+        return x._i - y._i;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator==(
+        view_iterator const& x, view_iterator const& y)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
+    {
+        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
+            "It's a bad idea to compare iterators to different "
+            "objects.");
+        return x._i == y._i;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator!=(
+        view_iterator const& x, view_iterator const& y)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
+    {
+        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
+            "It's a bad idea to compare iterators to different "
+            "objects.");
+        return x._i != y._i;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator<(
+        view_iterator const& x, view_iterator const& y)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
+    {
+        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
+            "It's a bad idea to compare iterators to different "
+            "objects.");
+        return x._i < y._i;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator>(
+        view_iterator const& x, view_iterator const& y)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
+    {
+        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
+            "It's a bad idea to compare iterators to different "
+            "objects.");
+        return x._i > y._i;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator<=(
+        view_iterator const& x, view_iterator const& y)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
+    {
+        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
+            "It's a bad idea to compare iterators to different "
+            "objects.");
+        return x._i <= y._i;
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    friend auto operator>=(
+        view_iterator const& x, view_iterator const& y)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
+    {
+        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
+            "It's a bad idea to compare iterators to different "
+            "objects.");
+        return x._i >= y._i;
+    }
+};
+
+} // namespace detail
+
+BOOST_STATIC_VIEWS_END_NAMESPACE
+
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 /// \brief Base class for all the views.
@@ -1401,6 +1658,26 @@ using view::View;
 
 } // namespace concepts
 
+// clang-format off
+template <class View,
+    class = std::enable_if_t<concepts::View::template test<View>()>>
+BOOST_STATIC_VIEWS_CONSTEXPR
+auto begin(View const& xs)
+BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+(
+    detail::view_iterator<View const>{&xs, 0}
+);
+
+template <class View,
+    class = std::enable_if_t<concepts::View::template test<View>()>>
+BOOST_STATIC_VIEWS_CONSTEXPR
+auto end(View const& xs)
+BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+(
+    detail::view_iterator<View const>{&xs, xs.size()}
+);
+// clang-format on
+
 /// \brief
 /// \verbatim embed:rst:leading-slashes
 /// Base class to that helps with modeling the :ref:`View
@@ -1413,6 +1690,8 @@ struct view_adaptor_base : view_base {
     using wrapper_type = Wrapper;
     using view_type    = typename Wrapper::type;
 
+    wrapper_type _xs;
+
     template <class Dummy>
     struct traits {
         template <class T>
@@ -1424,6 +1703,13 @@ struct view_adaptor_base : view_base {
                 view::Is_noexcept_map>::test<T>();
         }
     };
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() const noexcept
+        -> derived_type const&
+    {
+        return *static_cast<derived_type const*>(this);
+    }
 
   protected:
     using view_adaptor_base_type =
@@ -1624,14 +1910,20 @@ struct view_adaptor_base : view_base {
     // clang-format on
     /// \}
 
-  private:
-    wrapper_type _xs;
-
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() const noexcept
-        -> derived_type const&
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto begin() const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+        noexcept(::BOOST_STATIC_VIEWS_NAMESPACE::begin(
+            std::declval<derived_type const&>())))
     {
-        return *static_cast<derived_type const*>(this);
+        return ::BOOST_STATIC_VIEWS_NAMESPACE::begin(derived());
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto end() const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+        noexcept(::BOOST_STATIC_VIEWS_NAMESPACE::end(
+            std::declval<derived_type const&>())))
+    {
+        return ::BOOST_STATIC_VIEWS_NAMESPACE::end(derived());
     }
 };
 

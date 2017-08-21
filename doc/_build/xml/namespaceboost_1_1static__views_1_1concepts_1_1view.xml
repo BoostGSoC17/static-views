@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="95" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="95" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="96" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a0d7ac4d0a8d5bb05d1c1466734600899" prot="public" static="no">
         <type>decltype(std::declval&lt; T const  &amp; &gt;().size())</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="118" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="119" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="119" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="120" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3954eeb9e8e8dcd7c2219113b3af83fa" prot="public" static="no">
         <type>decltype(std::declval&lt; T &gt;()[std::declval&lt; std::size_t &gt;()])</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="142" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="143" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="143" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a47067a1b6800b76e95f22380a8c32eb5" prot="public" static="no">
         <type>decltype(<ref refid="structboost_1_1static__views_1_1view__adaptor__core__access_1aec7f1dd938485e36aa5e162e1912038b" kindref="member">view_adaptor_core_access::map</ref>(std::declval&lt; T &gt;(), std::declval&lt; std::size_t &gt;()))</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="152" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="153" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="153" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="154" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a35407306a7caf84a4ba0270b9a874adc" prot="public" static="no">
         <type>decltype(std::declval&lt; T &gt;().unsafe_at(std::declval&lt; std::size_t &gt;()))</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="177" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="178" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="178" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a1031995ae14c5184be0194820f91e4e7" prot="public" static="no">
         <type><ref refid="structboost_1_1static__views_1_1concepts_1_1all__" kindref="compound">all_</ref>&lt; Derives_from_view_base, Is_move_constructible, <ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt; Has_static_extent, Has_correct_return_type_extent, Is_noexcept_extent &gt;, <ref refid="structboost_1_1static__views_1_1concepts_1_1and__" kindref="compound">and_</ref>&lt; Has_member_size, Has_correct_return_type_size, Is_noexcept_size &gt;, Has_operator_access &gt;</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="192" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="207" bodyend="-1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="193" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" bodystart="208" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -121,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="82" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="83" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1afddeab7a5bf9b0ed48aa4a236f3c2f78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="88" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="89" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a02fd1d51e1e3bf760997b037e2f57783" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -194,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="97" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="98" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a6e671280cea96103c1e3541901af2dac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="103" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="104" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1af2cfec9e2f9338fb25e243b896e40ba0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="111" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="112" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a7cb1e9af150f05e8eb09f9d43958ee10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -296,7 +296,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="121" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="122" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a3b94cc9610d2e25c9727cd3fe0776560" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -333,7 +333,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="127" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="128" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a100c860ce8cac0821f3b4afb10e560fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -362,7 +362,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="135" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="136" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a283415aa929b8aa1ee6595cff6eaeb51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -398,7 +398,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="145" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="146" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a2c083764cb5bb6425560ffd419a62866" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -423,7 +423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="155" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="156" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a9fd4984d5fc52e1f0c4e9407cd845a8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -448,7 +448,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="163" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="164" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a70f3d6f31b902fed76b8af85fd203db8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -477,7 +477,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="169" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="170" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1abe80684df3590c69845d24d7b6d1f8bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -502,7 +502,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="180" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="181" column="1"/>
       </memberdef>
       <memberdef kind="function" id="namespaceboost_1_1static__views_1_1concepts_1_1view_1a4966d61d38228d44dce539e55cea6327" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -531,13 +531,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="185" column="1"/>
+        <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="186" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="80" column="1"/>
+    <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp" line="81" column="1"/>
   </compounddef>
 </doxygen>

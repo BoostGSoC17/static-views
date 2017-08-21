@@ -7,79 +7,79 @@
     <includes local="no">type_traits</includes>
     <includedby refid="wrapper_8hpp" local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</includedby>
     <incdepgraph>
-      <node id="29">
+      <node id="31">
         <label>functional</label>
       </node>
-      <node id="28">
+      <node id="30">
         <label>cassert</label>
       </node>
-      <node id="26">
+      <node id="28">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp</label>
         <link refid="invoke_8hpp"/>
-        <childnode refid="27" relation="include">
-        </childnode>
         <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>config.hpp</label>
+        <link refid="config_8hpp"/>
         <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="27">
-        <label>config.hpp</label>
-        <link refid="config_8hpp"/>
-        <childnode refid="28" relation="include">
-        </childnode>
-      </node>
-      <node id="30">
+      <node id="32">
         <label>type_traits</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="37">
+      <node id="39">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/slice.hpp</label>
         <link refid="slice_8hpp"/>
       </node>
-      <node id="31">
+      <node id="33">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/invoke.hpp</label>
         <link refid="invoke_8hpp"/>
-        <childnode refid="32" relation="include">
-        </childnode>
-      </node>
-      <node id="32">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
-        <link refid="wrapper_8hpp"/>
-        <childnode refid="33" relation="include">
-        </childnode>
-      </node>
-      <node id="38">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</label>
-        <link refid="take_8hpp"/>
-        <childnode refid="37" relation="include">
-        </childnode>
-      </node>
-      <node id="33">
-        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
-        <link refid="view__base_8hpp"/>
         <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
         </childnode>
       </node>
       <node id="34">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/wrapper.hpp</label>
+        <link refid="wrapper_8hpp"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/take.hpp</label>
+        <link refid="take_8hpp"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>/home/tom/GSoC2017/static-views/include/boost/static_views/view_base.hpp</label>
+        <link refid="view__base_8hpp"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/detail/find_first.hpp</label>
         <link refid="find__first_8hpp"/>
       </node>
-      <node id="35">
+      <node id="37">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/raw_view.hpp</label>
         <link refid="raw__view_8hpp"/>
       </node>
-      <node id="36">
+      <node id="38">
         <label>/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp</label>
         <link refid="drop_8hpp"/>
-        <childnode refid="37" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

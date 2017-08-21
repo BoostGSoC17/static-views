@@ -5,12 +5,16 @@
     <includes refid="view__base_8hpp" local="yes">../view_base.hpp</includes>
     <includes local="yes">/home/tom/GSoC2017/static-views/include/boost/static_views/detail/config.hpp</includes>
     <includes local="no">exception</includes>
+    <includes local="no">type_traits</includes>
+    <includes local="no">iterator</includes>
     <includes refid="utils_8hpp" local="yes">utils.hpp</includes>
     <includes local="no">functional</includes>
-    <includes local="no">type_traits</includes>
     <incdepgraph>
       <node id="22">
         <label>functional</label>
+      </node>
+      <node id="24">
+        <label>iterator.hpp</label>
       </node>
       <node id="17">
         <label>detail/utils.hpp</label>
@@ -21,6 +25,9 @@
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
+      </node>
+      <node id="26">
+        <label>iterator</label>
       </node>
       <node id="16">
         <label>cassert</label>
@@ -35,7 +42,7 @@
         <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="25">
         <label>exception</label>
       </node>
       <node id="15">
@@ -71,6 +78,8 @@
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
         <childnode refid="19" relation="include">
         </childnode>
       </node>
@@ -81,13 +90,15 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="19">

@@ -163,7 +163,9 @@
     <location file="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" line="27" column="1" bodyfile="/home/tom/GSoC2017/static-views/include/boost/static_views/drop.hpp" bodystart="26" bodyend="89"/>
     <listofallmembers>
       <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1aa0ab4913056bbd9208d65177048eb074" prot="private" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>_b</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a318a9dd33bddd2f2e05cee96f87c630a" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>begin</name></member>
       <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1ad88a648aa5afd2fa464fc035cf097bf4" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>drop_impl</name></member>
+      <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a71d80acac47e56a8a3c2059ebc65e773" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>end</name></member>
       <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a26ca9208da15ca49b17dc656eafae4a4" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>extent</name></member>
       <member refid="structboost_1_1static__views_1_1detail_1_1drop__impl_1a4282b5200f4eb91156d9f454dbfc081e" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>map</name></member>
       <member refid="structboost_1_1static__views_1_1view__adaptor__base_1a709b375dc6518685883f0c3f370b4f07" prot="public" virt="non-virtual"><scope>boost::static_views::detail::drop_impl</scope><name>operator=</name></member>
