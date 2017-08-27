@@ -9,6 +9,7 @@
 #include "detail/config.hpp"
 #include "detail/utils.hpp"
 #include <iterator>
+#include <limits>
 #include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE

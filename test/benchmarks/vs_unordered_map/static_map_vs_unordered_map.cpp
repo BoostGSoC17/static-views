@@ -15,7 +15,7 @@ using key_type    = std::uint16_t;
 using mapped_type = std::uint64_t;
 using field_type  = std::pair<key_type, mapped_type>;
 
-constexpr auto bits = 10;
+constexpr auto bits = 11;
 
 struct entry {
     // std::uint64_t ticks;
@@ -37,14 +37,14 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto make_key_equal() noexcept
     return std::equal_to<void>{};
 }
 
-using hasher_type    = decltype(make_hasher());
-using key_equal_type = decltype(make_key_equal());
-constexpr auto data_size         = 512;
-constexpr auto bucket_size       = 5;
+using hasher_type                = decltype(make_hasher());
+using key_equal_type             = decltype(make_key_equal());
+constexpr auto data_size         = 1024;
+constexpr auto bucket_size       = 4;
 constexpr auto number_of_buckets = 2 * data_size;
 
-
-BOOST_STATIC_VIEWS_CONSTEXPR auto mask(key_type const x) noexcept -> key_type
+BOOST_STATIC_VIEWS_CONSTEXPR auto mask(key_type const x) noexcept
+    -> key_type
 {
     return x & ((1 << bits) - 1);
 }
@@ -122,7 +122,7 @@ struct table {
     {
         auto key = mask(static_cast<key_type>(g()));
         while (contains(key, i)) {
-            key = static_cast<key_type>(g());
+            key = mask(static_cast<key_type>(g()));
         }
         if (contains(key, i)) {
             std::terminate();
@@ -152,7 +152,8 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto make_table(
 }
 
 BOOST_STATIC_VIEWS_FORCEINLINE
-constexpr auto combine(std::uint32_t const high, std::uint32_t const low)
+constexpr auto combine(
+    std::uint32_t const high, std::uint32_t const low)
 {
     return (static_cast<std::uint64_t>(high) << 32) | low;
 }
@@ -162,8 +163,12 @@ struct empty_tester {
     auto lookup(key_type const key) const
         -> std::tuple<bool, std::size_t>
     {
-        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2, cycles_high_2;
+        /*
+        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2,
+            cycles_high_2;
+        */
 
+        /*
         asm volatile("CPUID\n\t"
                      "RDTSC\n\t"
                      "mov %%edx, %0\n\t"
@@ -171,26 +176,31 @@ struct empty_tester {
                      : "=r"(cycles_high_1), "=r"(cycles_low_1)
                      :
                      : "%rax", "%rbx", "%rcx", "%rdx");
+        */
+        auto const start = std::chrono::high_resolution_clock::now();
 
+        /*
         asm volatile("RDTSCP\n\t"
-                     "mov %%edx, %0\n\t " 
-                     "mov %%eax, %1\n\t " 
+                     "mov %%edx, %0\n\t "
+                     "mov %%eax, %1\n\t "
                      "CPUID\n\t"
                      : "=r"(cycles_high_2), "=r"(cycles_low_2)
                      :
                      : "%rax", "%rbx", "%rcx", "%rdx");
+        */
+        auto const end = std::chrono::high_resolution_clock::now();
 
-        auto const start = combine(cycles_high_1, cycles_low_1);
-        auto const end = combine(cycles_high_2, cycles_low_2);
+        // auto const start = combine(cycles_high_1, cycles_low_1);
+        // auto const end   = combine(cycles_high_2, cycles_low_2);
 
         if (end < start) std::terminate();
-        return {false, end - start};
+        return {false, (end - start).count()};
     }
 };
 
 static BOOST_STATIC_VIEWS_CONSTEXPR auto const table =
     make_table(12345);
-static BOOST_STATIC_VIEWS_CONSTEXPR auto const static_map =
+static auto const static_map =
     boost::static_views::static_map::make_static_map<
         number_of_buckets, bucket_size>(
         boost::static_views::raw_view(table._data),
@@ -202,9 +212,13 @@ struct static_map_tester {
     auto lookup(key_type const key) const
         -> std::tuple<bool, std::size_t>
     {
-        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2, cycles_high_2;
+        /*
+        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2,
+            cycles_high_2;
+        */
         bool contains;
 
+        /*
         asm volatile("CPUID\n\t"
                      "RDTSC\n\t"
                      "mov %%edx, %0\n\t"
@@ -212,22 +226,27 @@ struct static_map_tester {
                      : "=r"(cycles_high_1), "=r"(cycles_low_1)
                      :
                      : "%rax", "%rbx", "%rcx", "%rdx");
+        */
+        auto const start = std::chrono::high_resolution_clock::now();
 
         contains = (static_map.count(key) == 1);
 
+        /*
         asm volatile("RDTSCP\n\t"
-                     "mov %%edx, %0\n\t " 
-                     "mov %%eax, %1\n\t " 
+                     "mov %%edx, %0\n\t "
+                     "mov %%eax, %1\n\t "
                      "CPUID\n\t"
                      : "=r"(cycles_high_2), "=r"(cycles_low_2)
                      :
                      : "%rax", "%rbx", "%rcx", "%rdx");
+        */
+        auto const end = std::chrono::high_resolution_clock::now();
 
-        auto const start = combine(cycles_high_1, cycles_low_1);
-        auto const end = combine(cycles_high_2, cycles_low_2);
+        // auto const start = combine(cycles_high_1, cycles_low_1);
+        // auto const end   = combine(cycles_high_2, cycles_low_2);
 
         if (end < start) std::terminate();
-        return {contains, end - start};
+        return {contains, (end - start).count()};
     }
 };
 
@@ -251,9 +270,13 @@ struct unordered_map_tester {
     auto lookup(key_type const key) const
         -> std::tuple<bool, std::size_t>
     {
-        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2, cycles_high_2;
+        /*
+        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2,
+            cycles_high_2;
+        */
         bool contains;
 
+        /*
         asm volatile("CPUID\n\t"
                      "RDTSC\n\t"
                      "mov %%edx, %0\n\t"
@@ -261,22 +284,27 @@ struct unordered_map_tester {
                      : "=r"(cycles_high_1), "=r"(cycles_low_1)
                      :
                      : "%rax", "%rbx", "%rcx", "%rdx");
+        */
+        auto const start = std::chrono::high_resolution_clock::now();
 
         contains = (unordered_map.count(key) == 1);
 
+        /*
         asm volatile("RDTSCP\n\t"
-                     "mov %%edx, %0\n\t " 
-                     "mov %%eax, %1\n\t " 
+                     "mov %%edx, %0\n\t "
+                     "mov %%eax, %1\n\t "
                      "CPUID\n\t"
                      : "=r"(cycles_high_2), "=r"(cycles_low_2)
                      :
                      : "%rax", "%rbx", "%rcx", "%rdx");
+        */
+        auto const end = std::chrono::high_resolution_clock::now();
 
-        auto const start = combine(cycles_high_1, cycles_low_1);
-        auto const end = combine(cycles_high_2, cycles_low_2);
+        // auto const start = combine(cycles_high_1, cycles_low_1);
+        // auto const end   = combine(cycles_high_2, cycles_low_2);
 
         if (end < start) std::terminate();
-        return {contains, end - start};
+        return {contains, (end - start).count()};
     }
 };
 
@@ -290,8 +318,8 @@ struct statistics {
         constexpr_prng g{54321};
 
         std::vector<entry> entries(size);
-        std::generate(std::begin(entries), std::end(entries),
-            [&g]() -> entry {
+        std::generate(
+            std::begin(entries), std::end(entries), [&g]() -> entry {
                 return {0, mask(g()), 0};
             });
         return entries;
@@ -306,15 +334,18 @@ struct statistics {
         std::for_each(
             std::begin(_data), std::end(_data), [&tester](auto& x) {
                 auto answer = tester.lookup(x.randidx);
-                x.found = std::get<0>(answer);
-                x.ticks = std::get<1>(answer);
+                x.found     = std::get<0>(answer);
+                x.ticks     = std::get<1>(answer);
             });
     }
 
     auto reset()
     {
-        std::for_each(std::begin(_data), std::end(_data),
-            [](auto& x) { x.ticks = 0; x.found = 0; });
+        std::for_each(
+            std::begin(_data), std::end(_data), [](auto& x) {
+                x.ticks = 0;
+                x.found = 0;
+            });
     }
 
     auto sum()
@@ -343,7 +374,17 @@ int main(int argc, char** argv)
     static_map_tester    sm_tester;
     unordered_map_tester um_tester;
     empty_tester         dummy_tester;
-    statistics           stats{1000000};
+
+    if (argc != 2) {
+        std::cout << "Usage: " << argv[0] << " count\n"
+                  << "    with count -- number of data points.\n";
+        return 1;
+    }
+    statistics stats{std::stoul(argv[1])};
+
+    for (auto bucket : static_map) {
+        std::cout << bucket.size() << '\n';
+    }
 
     stats.run(dummy_tester);
     {

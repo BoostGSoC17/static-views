@@ -5,6 +5,11 @@
 #    (See accompanying file LICENSE_1_0.txt or copy at
 #          http://www.boost.org/LICENSE_1_0.txt)
 
+sm = 'static_map.dat'
+um = 'unordered_map.dat'
+empty = 'empty.dat'
+name = 'out'
+
 if (! exists("sm")) {
 	print "Error: missing the 'sm' argument"
 	exit 1
@@ -27,6 +32,7 @@ if (! exists("name")) {
 
 bin(x, width) = width * floor(x / width + .5)
 normal(x, mu, sd) = exp(- (x - mu)**2 / (2 * sd**2))
+half_normal(x, mu, sd) = (x >= mu) ? exp(- (x - mu)**2 / (2 * sd**2)) : 0.0
 
 set style line 101 lt 1 lw 2 lc rgb "#2E911A"
 set style line 102 lt 1 lw 2 lc rgb "#1A6A91"
@@ -52,10 +58,6 @@ A = E_records / 2
 Mean = E_mean
 Stddev = 2
 fit A * normal(x, Mean, Stddev) table_file via A, Mean, Stddev
-
-print "A = ", A, " +/- ", A_err/A, "%"
-print "avg = ", Mean, " +/- ", Mean_err/Mean, "%"
-print "stddev = ", Stddev, " +/- ", Stddev_err/Stddev, "%"
 
 system("rm " . table_file)
 
@@ -95,9 +97,9 @@ set key right top
 
 set logscale y 10
 plot \
-	sm u 0:(column("ticks") - Mean) w lp \
+	sm u 0:(column("ticks")) w p \
 		lt 1 lw 1 pt 7 ps 0.3 lc rgb "#2E911A" title "static_map", \
-	um u 0:(column("ticks") - Mean) w lp \
+	um u 0:(column("ticks")) w p \
 		lt 1 lw 1 pt 7 ps 0.3 lc rgb "#1A6A91" title "unordered_map"
 set output
 unset logscale
@@ -124,11 +126,11 @@ set boxwidth binwidth
 set style line 101 lt 1 lw 2 lc rgb "#2E911A"
 set style line 102 lt 1 lw 2 lc rgb "#1A6A91"
 
-plot [-10:100][0:E_records / 2] \
-	um u (bin(column("ticks") - Mean, binwidth)):(1.0) \
+plot [0:100][0:] \
+	um u (bin(column("ticks"), binwidth)):(1.0) \
 		smooth freq w boxes ls 102 fs transparent solid 0.8 \
 		title "unordered_map", \
-	sm u (bin(column("ticks") - Mean, binwidth)):(1.0) \
+	sm u (bin(column("ticks"), binwidth)):(1.0) \
 		smooth freq w boxes ls 101 fs transparent solid 0.50 \
 		title "static_map"
 

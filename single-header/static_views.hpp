@@ -6,28 +6,33 @@
 #ifndef BOOST_STATIC_VIEWS_ALL_IN_ONE_HPP
 #define BOOST_STATIC_VIEWS_ALL_IN_ONE_HPP
 
-#include <algorithm>
-#include <array>
-#include <cassert>
-#include <exception>
-#include <functional>
-#include <iterator>
 #include <limits>
-#include <tuple>
+#include <iterator>
+#include <cassert>
 #include <type_traits>
+#include <tuple>
+#include <array>
+#include <algorithm>
+#include <functional>
+#include <exception>
 #include <utility>
+
+
 
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'static_views.hpp'
 //////////////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'algorithm_base.hpp'
 //////////////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'config.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 // Define the following macro if you want to use StaticViews as part
 // of Boost.
@@ -319,9 +324,11 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
 /**/
 #endif
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'utils.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -513,13 +520,16 @@ struct all_<C1, C2...> {
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'wrapper.hpp'
 //////////////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'invoke.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -743,6 +753,7 @@ struct invoke_impl {
 BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::invoke_impl, invoke)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -1045,13 +1056,16 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'view_base.hpp'
 //////////////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'errors.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -1127,9 +1141,11 @@ void (*make_full_bucket_error)(char const*) = &detail::make_full_bucket;
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'iterator.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -1156,6 +1172,60 @@ struct view_iterator {
         return _view != nullptr && _i >= 0
                && static_cast<size_type>(_i) <= _view->size();
     }
+
+    struct Impl {
+
+      private:
+        template <class T>
+        using has_unsafe_at_t = decltype(
+            std::declval<T>().unsafe_at(std::declval<std::size_t>()));
+
+        BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_unsafe_at, T,
+            (is_detected<has_unsafe_at_t, T>::value), "");
+
+        BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_unsafe_at, T,
+            (noexcept(std::declval<T>().unsafe_at(
+                std::declval<std::size_t>()))),
+            "");
+
+        // clang-format off
+        template <class T,
+            class = std::enable_if_t<concepts::and_<Has_unsafe_at,
+                Is_noexcept_unsafe_at>::template test<T>()>,
+            class = void>
+        BOOST_STATIC_VIEWS_FORCEINLINE
+        static BOOST_STATIC_VIEWS_CONSTEXPR
+        BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at_impl(T&& xs,
+            std::size_t const i) noexcept
+        {
+            return std::forward<T>(xs).unsafe_at(i);
+        }
+        // clang-format on
+
+        // clang-format off
+        template <class T,
+            class = std::enable_if_t<!concepts::and_<Has_unsafe_at,
+                Is_noexcept_unsafe_at>::template test<T>()>>
+        BOOST_STATIC_VIEWS_FORCEINLINE
+        static BOOST_STATIC_VIEWS_CONSTEXPR
+        auto unsafe_at_impl(T&& xs, std::size_t const i)
+        BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+        (
+            std::forward<T>(xs)[i]
+        );
+        // clang-format on
+
+      public:
+        // clang-format off
+        template <class T>
+        static BOOST_STATIC_VIEWS_CONSTEXPR
+        auto unsafe_at(T&& xs, std::size_t const i)
+        BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+        (
+            unsafe_at_impl(std::forward<T>(xs), i)
+        );
+    };
+
 
   public:
     BOOST_STATIC_VIEWS_CONSTEXPR view_iterator(
@@ -1193,16 +1263,18 @@ struct view_iterator {
     {
         BOOST_STATIC_VIEWS_EXPECT(is_dereferenceable(),
             "Nah, this iterator is not dereferenceable.");
-        return &_view->unsafe_at(static_cast<size_type>(_i));
+        return &Impl::unsafe_at(*_view, static_cast<size_type>(_i));
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO
-    operator*() const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-        noexcept(std::declval<view_iterator const&>().operator->()))
+    operator*() const BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(noexcept(
+        std::declval<View&>().unsafe_at(std::declval<size_type>())))
     {
-        return *operator->();
+        BOOST_STATIC_VIEWS_EXPECT(is_dereferenceable(),
+            "Nah, this iterator is not dereferenceable.");
+        return Impl::unsafe_at(*_view, static_cast<size_type>(_i));
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -1233,7 +1305,7 @@ struct view_iterator {
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator++(int)noexcept -> view_iterator
+    auto operator++(int) noexcept -> view_iterator
     {
         view_iterator temp{*this};
         ++(*this);
@@ -1242,7 +1314,7 @@ struct view_iterator {
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator--(int)noexcept -> view_iterator
+    auto operator--(int) noexcept -> view_iterator
     {
         view_iterator temp{*this};
         --(*this);
@@ -1382,6 +1454,7 @@ struct view_iterator {
 } // namespace detail
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -1929,6 +2002,7 @@ struct view_adaptor_base : view_base {
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 /// \brief Base class for all the algorithms.
@@ -2196,13 +2270,16 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'drop.hpp'
 //////////////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'sequence_traits.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -2603,6 +2680,15 @@ struct sequence_traits<std::array<T, N>>
     : sequence_traits_default<sequence_traits<std::array<T, N>>,
           std::array<T, N>> {
 
+    template <class S,
+        class = std::enable_if_t<std::is_same<std::array<T, N>,
+            std::remove_cv_t<std::remove_reference_t<S>>>::value>>
+    static constexpr auto at(S&& xs, std::size_t i) noexcept
+        -> decltype(std::forward<S>(xs)[i])
+    {
+        return std::forward<S>(xs).data()[i];
+    }
+
     static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
         constexpr std::size_t max_size = static_cast<std::size_t>(
@@ -2685,6 +2771,7 @@ struct sequence_traits<std::tuple<Ts...>>
 };
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -2910,13 +2997,16 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'hashed.hpp'
 //////////////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'find_first.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -3027,9 +3117,11 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'raw_view.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -3124,13 +3216,16 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_raw_view, raw_view)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'slice.hpp'
 //////////////////////////////////////////////////////////////////////
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'take.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -3342,6 +3437,7 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
@@ -3474,9 +3570,11 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'through.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -3650,6 +3748,7 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(
     detail::make_through_algo_impl, through)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -3942,15 +4041,6 @@ struct hashed_impl
             this->parent());
     }
 
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto unsafe_at(std::size_t const hash) const noexcept
-    {
-        auto const i = bucket_size() * (hash % bucket_count());
-        return through(slice(i, i + bucket_size())(
-            raw_view(_storage)))(this->parent());
-    }
-
     template <class Predicate>
     BOOST_STATIC_VIEWS_FORCEINLINE   //
         BOOST_STATIC_VIEWS_CONSTEXPR //
@@ -4075,9 +4165,11 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto const& hashed =
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
+
 //////////////////////////////////////////////////////////////////////
 // Expanded from 'pipe.hpp'
 //////////////////////////////////////////////////////////////////////
+
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
@@ -4094,5 +4186,8 @@ auto operator|(View&& xs, Function&& pipe)
 // clang-format on
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
+
+
+
 
 #endif // BOOST_STATIC_VIEWS_ALL_IN_ONE_HPP

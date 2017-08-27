@@ -38,9 +38,9 @@ headers. Static Views will then use `Boost.Config`_ macros instead of
 reinventing the wheel.
 
 
-.. _sequences-and-views:
+.. _sequences:
 
-Sequences and Views
+Sequences
 ==========================================================================
 
 Very rarely do we deal with compile-time data of infinite size. Usually,
@@ -49,43 +49,68 @@ when we decide on hard-coding some data into the program, we store it as a
 have finite size which is part of the type, they also provide random
 access to elements. We call such data structures *StaticSequences*. If,
 however, number of elements is not part of the type, we drop the word
-"Static" and just call the data structure a *Sequence*. Sequences only
-specify the amount of data and how to access it. Sequences are never
-copied, moved or otherwise touched. It is common practice to declare
-Sequence as global :cpp:`static` variable.
+"Static" and just call the data structure a *Sequence*.
+:cpp:`std::initializer_list` and :cpp:`std::vector` are examples of
+(non-Static) Sequences.
+
+Sequences only specify the amount of data and how to access it. They are
+never copied, moved or otherwise touched. It is common practice to declare
+a Sequence as a global :cpp:`static` variable.
 
 ``C``-style arrays and :cpp:`std::tuple`'s aren't the only types that "are
 Sequences" out of the box. :cpp:`std::array` and :cpp:`gsl::span`, for
-example, are supported too. If you're unsure whether your own type
-:cpp:`T` is considered a Sequence, you can ask the library:
+example, are supported too. By supported I means that StaticViews agrees
+that a particular type is indeed a sequence. This information is part of
+the public interface, so you can ask the library whether some type
+:cpp:`T` is considered a Sequence:
 
 .. code-block:: cpp
 
-  static_assert(static_views::concepts::StaticSequence::test<T>(),
-      "Nope, T is not a StaticSequence.");
-  static_assert(static_views::concepts::Sequence::test<T>(),
-      "Nope, T is not a Sequence.");
+  // Ask whether T is a Sequence
+  constexpr bool T_is_a_Sequence = static_views::concepts::StaticSequence::test<T>();
 
-The core building blocks of the library is are views. Just like the name
+  // Assert that T is a Sequence. Will trigger a static_assert with
+  // and explanation if not.
+  static_views::concepts::Sequence::check<T>();
+
+
+
+.. _views:
+
+Views
+=========================================================================
+
+The core building blocks of the library are *Views*. Just like the name
 suggests, views let you have a look at your data, modify it if you want,
 but never ever do they own the data. Views can change the way you see
 your data without changing the data itself. That's the main idea of having
-views in the first place. So if you have a view :cpp:`xs` and want to
-search for an element in the second half of it, how do you accomplish it?
-Normally you would do something like this:
+views in the first place.
+
+Suppose you want to do something to the second half of your data. In the
+world of iterators, you obtain an iterator to the middle, an iterator to
+the end, and pass them to your algorithm of choice. Something along the
+lines
 
 .. code-block:: cpp
 
-   find(begin(xs) + xs.size() / 2, end(xs), element);
+  find(begin(xs) + xs.size() / 2, end(xs), element);
 
-The main problem with this approach is that you can't compose the
-algorithms easily. For example, suppose we add a requirement that only
-every third element it to be examined. Using views, this problem is easily
-solved:
+In the world of views, however, we just create a view containing the
+second half of the data. This can be accomplished by, for example,
+"throwing away" the first half of the data:
 
 .. code-block:: cpp
 
-   find(xs | drop(xs.size() / 2) | stride(3), element);
+  find(drop(xs.size() / 2)(xs), element);
+
+The two approaches are very similar so far. The disadvantage of using
+iterators lies in inability to easily compose algorithms. For example,
+suppose we add a requirement that only every third element is to be
+examined. Using views, this problem is easily solved:
+
+.. code-block:: cpp
+
+  find(xs | drop(xs.size() / 2) | stride(3), element);
 
 This syntax should be familiar to anyone who's written a shell script or
 two in their lives:
@@ -96,25 +121,50 @@ two in their lives:
 | :cpp:`xs | drop(123)`    | ``cat "xs" | tail -n +123``    |
 +--------------------------+--------------------------------+
 
-If this syntax seems too radical, it's OK. You're not required to use it.
-*Piping* is equivalent to a function call, so the previous example could
-very well have been written as:
+And with iterators:
 
 .. code-block:: cpp
 
-   find(stride(3)(drop(xs.size() / 2)(xs)), element);
+  // Assume stride returns a stride iterator.
+  find(stride(begin(xs) + xs.size() / 2, 3), stride(end(xs), 3), element);
 
-So you can see that views can be easily composed, i.e. you create views of
+Notice how we essentially do the work twice. "Neither readable nor
+maintainable this code is."
+
+   find(begin(xs) + xs.size() / 2, end(xs), element);
+
+The main problem with this approach is that you can't compose the
+algorithms easily. For example, suppose we add a requirement that only
+every third element it to be examined. Using views, this problem is easily
+solved:
+
+  If the pipe syntax seems too radical, it's OK. You're not required to
+  use it.  *Piping* is equivalent to a function call, so the previous
+  example could very well have been written as:
+
+  .. code-block:: cpp
+
+    find(stride(3)(drop(xs.size() / 2)(xs)), element);
+
+
+.. _creating-views:
+
+Creating Views
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+So you can see that views are easily composable, i.e. you create views of
 views of views etc. We need a base case to terminate the recursion,
 though. There's a special views for that -- :ref:`raw_view <raw-view>`. It
-is the only view that can be constructed from a sequence. **All other
-views can only be constructed from views!**. 
+is the only view that can be constructed from a :ref:`sequence
+<sequences>`. **All other views can only be constructed from views!**
 
 .. code-block:: cpp
 
   using namespace static_views = boost::static_views;
-  
+
+  // A Sequence
   static constexpr unsigned maintainers_phone_number[] = {1, 2, 3, 4, 5, 6, 7, 8};
+  // xs is a View
   constexpr auto xs = static_views::raw_view(maintainers_phone_number);
 
 So you pass a reference to a Sequence to :ref:`raw_view <raw-view>` and
@@ -124,24 +174,28 @@ get a View back. Mathematically speaking
 
    \mathtt{raw\_view}: \mathtt{Sequence} \to \mathtt{View} \,.
 
-Such notation will be used throughout the documentation, because it would
-be a lie to say that :cpp:`raw_view` is a function. It is a functor the
-type of which is an implementation detail. So as a quick recap, this
-:math:`f: \mathtt{View} \times \mathbb{N} \to \mathtt{char\ const*}` means
-that :math:`f` is a function taking a View and a natural number (i.e.
-unsigned integral type) and returning a pointer to :cpp:`char const`; this
-:math:`g: (\mathbb{N} \to \mathbb{N}) \to \mathtt{View} \to \mathtt{View}`
-means that :math:`g` is a function that takes a function mapping natural
-numbers to themselves, and returns a function taking a View and returning
-another View.
+.. note::
 
+  Such notation will be used throughout the documentation, because it would
+  be a lie to say that :cpp:`raw_view` is a function. It is a functor the
+  type of which is an implementation detail. So as a quick recap, this
+  :math:`f: \mathtt{View} \times \mathbb{N} \to \mathtt{char\ const*}` means
+  that :math:`f` is a function taking a View and a natural number (i.e.
+  unsigned integral type) and returning a pointer to :cpp:`char const`; this
+  :math:`g: (\mathbb{N} \to \mathbb{N}) \to \mathtt{View} \to \mathtt{View}`
+  means that :math:`g` is a function that takes a function mapping natural
+  numbers to themselves, and returns a function taking a View and returning
+  another View.
 
-So :ref:`drop <drop-view>` that we've already encountered has the
-following signature:
+  So :ref:`drop <drop-view>` that we've already encountered has the
+  following signature:
 
-.. math::
+  .. math::
 
-   \mathtt{drop}: \mathbb{N} \to \mathtt{View} \to \mathtt{View} \,.
+     \mathtt{drop}: \mathbb{N} \to \mathtt{View} \to \mathtt{View} \,.
+
+After you've created a raw view of your data, you can move on to create
+other views:
 
 .. code-block:: cpp
 
@@ -151,7 +205,6 @@ following signature:
                                                           // than a View is passed
   constexpr auto view_good = static_views::drop(2)(       // OK
       static_views::raw_view(data));
-
 
 Notice how in the example above an *rvalue* is passed to :ref:`drop
 <drop-view>`. This is not the only supported use case. *Lvalues* can be
@@ -163,7 +216,7 @@ passed, too:
   static constexpr auto xs   = static_views::raw_view(data);
   constexpr auto view = static_views::drop(2)(xs);
 
-The library then automatically decides what to store.  It's similar to
+The library then automatically decides what to store. It's similar to
 lambdas where you choose whether to capture a variable by value or by
 reference. There's one important thing to note -- the use of
 :cpp:`static`. "Normal" :cpp:`constexpr` variables live only in the mind
@@ -192,6 +245,11 @@ when using the library. Compilers try to be helpful though:
 Says Clang, if you forget to make :cpp:`xs` static.
 
 
+.. _using-views:
+
+Using Views
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 By now you should have an idea of what Views are and how to create them.
 The only remaining question is what to do with them later. Here's a
 synopsis of a general view:
@@ -199,7 +257,7 @@ synopsis of a general view:
 .. code-block:: cpp
 
   struct View {
-      View(View&&); 
+      View(View&&);
 
       // Returns the number of elements viewed.
       constexpr auto size() const noexcept -> std::size_t;
@@ -218,13 +276,256 @@ synopsis of a general view:
       // Returns either dynamic_extent to indicate that the size
       // is unknown until run-time or a non-negative number that is
       // at least as big as size().
-      static constexpr std::ptrdiff_t extent() noexcept;
+      static constexpr auto extent() noexcept -> std::ptrdiff_t;
 
       // Iterators
       constexpr auto begin() const noexcept;
       constexpr auto end() const noexcept;
   };
 
+The interface is very similar to an array. You obtain the number of
+elements using the :cpp:`size()` member function. You then access elements
+using :cpp:`operator[]`. For the case that you want to use Views with
+algorithms that work with iterators, :cpp:`begin()` and :cpp:`end()`
+member functions returning iterators are provided.
+
+For starters, let's implement a straightforward linear search using views:
+
+      // Return the element at the specified index. An exception is
+      // thrown if the index is out of bounds.
+      constexpr auto operator[](std::size_t);
+      constexpr auto operator[](std::size_t) const;
+
+  template <class View, class Predicate>
+  constexpr auto find_first_i(View const& xs, Predicate&& p) -> std::size_t;
+
+We accept a view and a predicate and return the smallest index :cpp:`i` for
+which :cpp:`p(xs[i])` returns :cpp:`true`. To indicate that there's no
+such index, we can just return :cpp:`xs.size()`.
+
+.. code-block:: cpp
+
+  template <class View, class Predicate>
+  constexpr auto find_first_i(View const& xs, Predicate&& p) -> std::size_t
+  {
+      using boost::static_views::invoke;
+
+      std::size_t const n = xs.size();
+      std::size_t       i;
+      for (i = 0; (i < n) && !invoke(p, xs[i]); ++i)
+          ;
+      return i;
+  }
+
+Notice the use of :cpp:`invoke`. It allows us to pass *any* callable
+objects. So, for example, pointers to member data will just work.
+
+.. note::
+
+  Why not :cpp:`std::invoke`? First of all, :cpp:`std::invoke` is not part
+  of ``C++14`` while the library is ``C++14``-compatible. Then,
+  :cpp:`std::invoke` is not :cpp:`constexpr`! It's crazy and I really hope
+  it will be fixed in ``C++20``, but for now we're stuck with hand-rolled
+  implementations.
+
+Although, the function above will work as expected, it is not really
+consistent with how the rest of StaticViews is implemented. All free
+"functions" are actually not functions at all. They are references to
+functor objects. The advantage of such approach is that it significantly
+simplifies passing functions to higher order functions (and :cpp:`sizeof`
+empty :cpp:`struct` is 1 byte while :cpp:`sizeof` a function pointer is 4
+or 8 bytes **;-)**). Just remember the last time you had a vector of
+tuples and you wanted to create a vector of third elements of the tuples.
+What we'd like to write is
+
+.. code-block:: cpp
+
+  std::transform(std::begin(source), std::end(source),
+      std::back_inserter(destination), std::get<2>);
+
+while what we have to write is
+
+.. code-block:: cpp
+
+  std::transform(std::begin(source), std::end(source),
+      std::back_inserter(destination),
+      [](auto&& x) -> decltype(auto) {
+          return std::get<2>(std::forward<decltype(x)>(x));
+      });
+
+And we just hope that we don't forget that extra :cpp:`decltype(auto)` to
+make sure we return a reference rather than a copy... I hope, it's clear
+from this example that if we want to promote clear functional style of
+programming in C++, functors are the way to go. So the StaticViews way of
+implementing :cpp:`find_first_i` is
+
+.. code-block:: cpp
+
+  namespace detail {
+    struct find_first_i_impl {
+        template <class View, class Predicate>
+        constexpr auto operator()(View const& xs, Predicate&& p) const
+            -> std::size_t
+        {
+            using boost::static_views::invoke;
+
+            std::size_t const n = xs.size();
+            std::size_t       i = 0;
+            for (; (i < n) && !invoke(p, xs[i]); ++i)
+                ;
+            return i;
+        }
+    };
+  } // namespace detail
+
+  BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::find_first_i_impl, find_first_i);
+
+The :cpp:`BOOST_STATIC_VIEWS_INLINE_VARIABLE(type, name)` expands to
+(almost) :cpp:`constexpr auto name = type{};`. So we still use the normal
+function call syntax.
+
+
+.. _advanced-usage:
+
+Advanced Usage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are still a couple of issues with our implementation of the search.
+The core ``C++`` philosophy is to provide abstractions with no performance
+overhead. Although we have an :math:`\mathcal{O}(N)` solution, just like
+we should, it is terribly inefficient. We call :cpp:`operator[]`, which is
+"safe", i.e. it checks that :cpp:`i < xs.size()`. But we know that this
+condition is satisfied, so why check twice? Specifically for this reason
+Views have :cpp:`unsafe_at` member function which behaves just like
+:cpp:`operator[]` except that it performs no bounds checking. So
+:cpp:`xs[i]` :math:`\mapsto` :cpp:`xs.unsafe_at(i)`.
+
+Then there are constrains. Not every type maybe passed as the first
+argument. We want :cpp:`xs` to model the View concept. Just like you can
+check whether some type is a Sequence, the library provides a way to check
+whether a particular type :cpp:`T` models the View concept:
+
+.. code-block:: cpp
+
+  // Check whether T is a View
+  constexpr bool T_is_a_View = boost::static_views::concepts::View::test<T>();
+  // Assert the T is a View
+  boost::static_views::concepts::View::check<T>();
+
+So if we want to be SFINAE friendly, we can do something like:
+
+.. code-block:: cpp
+
+  template <class View, class Predicate, class Dummy = std::enable_if_t<
+      boost::static_views::concepts::View::test<View>()>>
+  constexpr auto operator()(View const& xs, Predicate&& p) const;
+
+If we don't care about SFINAE, just insert the call to :cpp:`check` into
+the function body. And finally, we might want to check for noexcept-ness.
+So an acceptable version looks like this:
+
+.. code-block:: cpp
+
+  namespace detail {
+    struct find_first_i_impl {
+        template <class View, class Predicate>
+        constexpr auto operator()(View const& xs, Predicate&& p) const
+            noexcept(noexcept(boost::static_views::invoke(p, xs.unsafe_at(i))))
+            -> std::size_t
+        {
+            using boost::static_views::invoke;
+            boost::static_views::concepts::View::check<View>();
+
+            std::size_t const n = xs.size();
+            std::size_t       i = 0;
+            for (; (i < n) && !invoke(p, xs.unsafe_at(i)); ++i)
+                ;
+            return i;
+        }
+    };
+  } // namespace detail
+
+  BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::find_first_i_impl, find_first_i);
+
+
+.. _towards-static-map:
+
+Towards static_map
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There is a slice view in the library which allows you to view an interval
+of your data. So if :cpp:`xs` is some view, :cpp:`slice(b, e)(xs)` will
+contain elements of :cpp:`xs` at indices :math:`i \in \{\mathtt{b},
+\mathtt{b} + 1, \dots, \mathtt{e} - 1\}`:
+
+.. code-block:: cpp
+
+  static constexpr int data[] = { 1, 1, 8, 1, 1,
+                                  2, 8, 2, 2, 2,
+                                  3, 3, 3, 3, 8,
+                                  4, 4, 4, 4, 4 };
+  static constexpr auto xs = boost::static_views::raw_view(data);
+  constexpr std::size_t row_size = 5;
+
+  #if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
+  constexpr auto is_8 = [](int const x) { return x == 8 };
+  #else
+  struct is_8_impl {
+      constexpr auto operator()(int const x) const noexcept
+      {
+          return x == 8;
+      }
+  };
+  constexpr is_8_impl is_8{};
+  #endif
+
+  // We can now search for 8 is a certain row
+  constexpr row_3_has_8 = find_first_i(
+      boost::static_views::slice(2 * row_size, 3 * row_size)(xs), is_8)
+      != row_size;
+
+This is very similar to how a bucket-based hash table performs a lookup,
+right? It computes the hash, jumps to a specific bucket and does a linear
+search there. How about we implement it?
+
+Notice how we didn't need the :cpp:`is_8` function until the very lookup.
+This suggests that we can separate the tasks:
+
+* A special view, called :cpp:`hashed` view takes care of the hashing. Its
+  :cpp:`operator[]` returns a :cpp:`slice` view of the data containing all
+  elements with the specified hash.
+
+* Hash table, called :cpp:`static_map` in the library, takes care of
+  comparing the elements so that we can search for a particular key.
+
+Data is not always ordered nicely as in the previous example. Usually,
+elements with the same hash are all over the place. We need a way to
+change the order without touching the data. There's a view for that. It's
+called the :cpp:`through` view, and it just uses an array of indices to
+define the order:
+
+.. code-block:: cpp
+
+  using namespace boost::static_views;
+
+  // Suppose we have some data that's nor ordered the way we want it to be.
+  static constexpr int data[] = {5, 2, 1, 3, 4};
+  // We create an array of indices that defines the new ordering.
+  static constexpr std::size_t indices = {2, 1, 3, 4, 0};
+
+  constexpr auto correctly_ordered = through(raw_view(indices))(raw_view(data));
+
+  std::copy(correctly_ordered.begin(), correctly_ordered.end(),
+      std::ostream_iterator<int>{std::cout, ", "});
+  // Prints '1, 2, 3, 4, 5, '
+
+So now even if the data is not ordered correctly, :cpp:`hashed` view can
+reorder elements into groups with the same hash. :cpp:`operator[]` can
+then give us all the elements that correspond to a particular hash.
+
+:cpp:`static_map` then only needs to call our :cpp:`find_first_i` function
+to search for an element. Except for some minor details this is the way
+things are implemented in the library.
 
 
 .. _static-map-tutorial:
@@ -232,9 +533,8 @@ synopsis of a general view:
 Static Map
 ==========================================================================
 
-As a real life example of what one can implement using the library, an
-implementation of a :cpp:`static_map` is provided. This is also probably
-the coolest feature of the library.
+So we've seen how one could implement a hash table using StaticViews. But
+why would we need one?
 
 Consider the following scenario. You have some data that's very unlikely
 to change, so you've hard-coded it:
@@ -334,11 +634,6 @@ A Note on Performance
 =========================================================================
 
 
-
-
-
-
-
 .. _a-note-on-error-messages:
 
 A Note on Error Messages
@@ -347,7 +642,7 @@ A Note on Error Messages
 Consider a simple example from above:
 
 .. code-block:: cpp
-   
+
   static constexpr char data[] = {'h', 'e', 'l', 'l', 'o'};
   constexpr auto view_bad  = static_views::drop(2)(data); // Error!
 
@@ -365,7 +660,7 @@ Clang produces:
   test.cpp:15:52: note: in instantiation of function template specialization
         'boost::static_views::detail::algorithm_impl<boost::static_views::detail::make_drop_impl, unsigned long>::operator()<char const (&)[5], void, void>'
         requested here
-      constexpr auto view_bad = static_views::drop(2)(data); // Error! 
+      constexpr auto view_bad = static_views::drop(2)(data); // Error!
                                                      ^
   ... [snip] ...
 

@@ -414,6 +414,15 @@ struct sequence_traits<std::array<T, N>>
     : sequence_traits_default<sequence_traits<std::array<T, N>>,
           std::array<T, N>> {
 
+    template <class S,
+        class = std::enable_if_t<std::is_same<std::array<T, N>,
+            std::remove_cv_t<std::remove_reference_t<S>>>::value>>
+    static constexpr auto at(S&& xs, std::size_t i) noexcept
+        -> decltype(std::forward<S>(xs)[i])
+    {
+        return std::forward<S>(xs).data()[i];
+    }
+
     static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
         constexpr std::size_t max_size = static_cast<std::size_t>(
