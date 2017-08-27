@@ -40,43 +40,43 @@ matrix:
     ############################################################################
     # Builds with GCC
     ############################################################################
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=true
-      addons:
-        apt:
-          packages:
-            - g++-6
-            - gnuplot
-          sources:
-            - ubuntu-toolchain-r-test
+    # - os: linux
+    #   env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++14" BENCHMARK=true
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - g++-6
+    #         - gnuplot
+    #       sources:
+    #         - ubuntu-toolchain-r-test
 
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++1z" BENCHMARK=false
-      addons:
-        apt:
-          packages:
-            - g++-6
-          sources:
-            - ubuntu-toolchain-r-test
+    # - os: linux
+    #   env: TOOLSET=gcc COMPILER=g++-6 CXXFLAGS="-std=c++1z" BENCHMARK=false
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - g++-6
+    #       sources:
+    #         - ubuntu-toolchain-r-test
 
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++14" BENCHMARK=true
-      addons:
-        apt:
-          packages:
-            - g++-7
-            - gnuplot
-          sources:
-            - ubuntu-toolchain-r-test
+    # - os: linux
+    #   env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++14" BENCHMARK=true
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - g++-7
+    #         - gnuplot
+    #       sources:
+    #         - ubuntu-toolchain-r-test
 
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
-      addons:
-        apt:
-          packages:
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
+    # - os: linux
+    #   env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - g++-7
+    #       sources:
+    #         - ubuntu-toolchain-r-test
 
     ############################################################################
     # Builds with Clang
