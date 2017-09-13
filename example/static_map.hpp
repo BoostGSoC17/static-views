@@ -8,11 +8,11 @@
 
 #include <type_traits>
 
-#include <boost/static_views/detail/config.hpp>
-#include <boost/static_views/detail/find_first.hpp>
-#include <boost/static_views/detail/invoke.hpp>
-#include <boost/static_views/detail/utils.hpp>
-#include <boost/static_views/hashed.hpp>
+#include "../include/boost/static_views/detail/config.hpp"
+#include "../include/boost/static_views/detail/find_first.hpp"
+#include "../include/boost/static_views/detail/invoke.hpp"
+#include "../include/boost/static_views/detail/utils.hpp"
+#include "../include/boost/static_views/hashed.hpp"
 
 // clang-format off
 #if __cplusplus > 201402L
