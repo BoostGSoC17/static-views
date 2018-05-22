@@ -11,6 +11,7 @@
 
 #include "detail/config.hpp"
 #include "detail/utils.hpp"
+#include "concepts.hpp"
 #include <array>
 #include <limits>
 #include <tuple>
@@ -93,317 +94,239 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 template <class T>
 struct sequence_traits;
 
-/// \brief Special value of that indicates that the size of a sequence
-/// is unknown at compile-time.
-constexpr std::ptrdiff_t dynamic_extent = -1;
-
-namespace concepts {
-namespace sequence {
-
-    /// \brief Helper trait to determine whether a specialisation
-    /// of #sequence_traits for `T` exists.
-    template <class T>
-    using has_sequence_traits_spec_t = decltype(sequence_traits<T>{});
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(HasSequenceTraitsSpecialisation,
-        T, (is_detected<has_sequence_traits_spec_t, T>::value),
-        "There exists no specialisation of "
-        "`boost::static_views::sequence_traits` for type `T`. "
-        "Availability of it is, unfortunately, required "
-        "by the Sequence concept. Hence, the error.");
-
-    /*
-    /// \brief Helper trait to determine whether a specialisation
-    /// of #sequence_traits for `T` has a `type` typedef.
-    template <class T>
-    using has_type_typedef_t = typename sequence_traits<T>::type;
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(
-        Has_type_typedef, T,
-        (is_detected<has_type_typedef_t, T>::value),
-        "`boost::static_views::sequence_traits<T>` has no "
-        "`type` typedef. Availability of it is, unfortunately, "
-        "required by the Sequence concept. Hence, the error.");
-    */
-
-    template <class T>
-    using has_extent_t = decltype(sequence_traits<T>::extent());
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(HasExtent, T,
-        (is_detected<has_extent_t, T>::value),
-        "`boost::static_views::sequence_traits<T>` has no "
-        "static member function `extent()`. Availability of "
-        "it is, unfortunately, required by the Sequence concept. "
-        "Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(ExtentHasCorrectReturnType, T,
-        (std::is_convertible<detected_t<has_extent_t, T>,
-            std::ptrdiff_t>::value),
-        "Return type of "
-        "`boost::static_views::sequence_traits<T>::extent()` is "
-        "not convertible to ptrdiff_t. According to the "
-        "Sequence concept, it should be. Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(ExtentIsNoexcept, T,
-        (noexcept(sequence_traits<T>::extent())),
-        "`boost::static_views::sequence_traits<T>::extent()` is "
-        "not noexcept. It should be though, according to the "
-        "Sequence concept. Hence, the error.");
-
-    struct ExtentIsConstexpr {
-      private:
-        template <class T, int = (T::extent(), 0)>
-        static constexpr auto test_impl(int) -> std::true_type
-        {
-            return {};
-        }
-
-        template <class T>
-        static constexpr auto test_impl(...) -> std::false_type
-        {
-            return {};
-        }
-
-      public:
-        template <class T>
-        static constexpr auto test() noexcept -> bool
-        {
-            return test_impl<T>(int{});
-        }
-
-        template <class T>
-        static constexpr auto check() noexcept -> bool
-        {
-            constexpr auto x = test<T>();
-            static_assert(x,
-                "`boost::static_views::sequence_traits<T>::extent()` "
-                "is not constexpr. It should be though for `T` to "
-                "satisfy the Sequence concept. Hence, the error.");
-            return x;
-        }
-    };
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(ExtentHasCorrectReturnValue, T,
-        (sequence_traits<T>::extent() == dynamic_extent
-            || sequence_traits<T>::extent() >= 0),
-        "`boost::static_views::sequence_traits<T>::extent()` returns "
-        "an invald extent. Either a non-negative number or "
-        "`boost::static_views::dynamic_extent` should be returned. "
-        "Hence, the error.");
-
-    template <class T>
-    using has_size_t =
-        decltype(sequence_traits<T>::size(std::declval<T const&>()));
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(HasSize, T,
-        (is_detected<has_size_t, T>::value),
-        "`boost::static_views::sequence_traits<T>` has no "
-        "static member function `size(T const&)`. Availability of "
-        "it is, unfortunately, required by the Sequence concept. "
-        "Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(SizeHasCorrectReturnType, T,
-        (std::is_convertible<detected_t<has_size_t, T>,
-            std::size_t>::value),
-        "Return type of "
-        "`boost::static_views::sequence_traits<T>::size(T const&)` "
-        "is not convertible to size_t. According to the "
-        "Sequence concept, it should be. Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(SizeIsNoexcept, T,
-        (noexcept(
-            sequence_traits<T>::size(std::declval<T const&>()))),
-        "`boost::static_views::sequence_traits<T>::size(T const&)` "
-        "is not noexcept. It should be though, according to the "
-        "Sequence concept. Hence, the error.");
-
-    template <class T>
-    using has_at_t = decltype(sequence_traits<T>::at(
-        std::declval<T>(), std::declval<std::size_t>()));
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(HasAt, T,
-        (is_detected<has_at_t, T>::value),
-        "`boost::static_views::sequence_traits<T>` has no "
-        "static member function `at(T, size_t)`. "
-        "Availability of it is, unfortunately, required by "
-        "the Sequence concept. Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(AtIsNoexcept, T,
-        (noexcept(sequence_traits<T>::at(
-            std::declval<T>(), std::declval<std::size_t>()))),
-        "`boost::static_views::sequence_traits<T>::at(T, size_t)` "
-        "is not noexcept. It should be though, according to the "
-        "Sequence concept. Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(HasFixedSize, T,
-        (sequence_traits<T>::extent() >= 0),
-        "`boost::static_views::sequence_traits<T>::extent() should "
-        "return a non-negative number. It does not. Hence, the "
-        "error.");
-
-    // clang-format off
-    using Sequence =
-        and_<
-            HasSequenceTraitsSpecialisation,
-            all_<
-                and_<
-                    HasExtent,
-                    ExtentHasCorrectReturnType,
-                    ExtentIsNoexcept,
-                    ExtentHasCorrectReturnValue
-                >,
-                and_<
-                    HasAt,
-                    AtIsNoexcept
-                >,
-                and_<
-                    HasSize,
-                    SizeHasCorrectReturnType,
-                    SizeIsNoexcept
-                >
-            >
-        >;
-
-    using StaticSequence =
-        and_<
-            Sequence,
-            HasFixedSize
-        >;
-    // clang-format on
-
-} // namespace sequence
-
-using sequence::Sequence;
-using sequence::StaticSequence;
-
-} // namespace concepts
-
-template <class Derived, class T>
+template <class Derived, class Sequence>
 struct sequence_traits_default {
+
+    using size_type       = unsigned; // std::size_t;
+    using difference_type = int;      // std::ptrdiff_t;
+    using index_type      = int;      // difference_type;
 
   private:
     template <class Dummy>
-    struct Impl {
-      private:
-        template <class U>
-        using call_size_t = decltype(std::declval<U const&>().size());
-
-        template <class U>
-        using call_size_impl_t =
-            decltype(U::size_impl(std::declval<T const&>()));
-
-      public:
-        struct HasExtent {
-          private:
-            template <class U, int = (U::extent(), 0)>
-            static constexpr auto has_extent(int) noexcept
-                -> std::true_type
-            {
-                return {};
-            }
-
-            template <class U>
-            static constexpr auto has_extent(...) noexcept
-                -> std::false_type
-            {
-                return {};
-            }
-
-          public:
-            template <class U>
-            static constexpr auto test() noexcept -> bool
-            {
-                return has_extent<U>(int{});
-            }
-        };
-
-        BOOST_STATIC_VIEWS_DEFINE_CHECK(
-            ExtentIsNonNegative, U, (U::extent() >= 0), "");
-
-        BOOST_STATIC_VIEWS_DEFINE_CHECK(HasSize, U,
-            (detail::is_detected<call_size_t, U>::value), "");
-
-        BOOST_STATIC_VIEWS_DEFINE_CHECK(HasSizeImpl, U,
-            (detail::is_detected<call_size_impl_t, U>::value), "");
+    struct traits {
+        using derived  = Derived;
+        using sequence = Sequence;
+        using type     = sequence_traits_default<Derived, Sequence>;
     };
 
-  public: // This is really unfortunate
-    // Derived::extent() exists and is non-negative
-    template <class Dummy = void,
-        class             = std::enable_if_t<
-            concepts::and_<typename Impl<Dummy>::HasExtent,
-                typename Impl<Dummy>::ExtentIsNonNegative>::
-                template test<Derived>()>,
-        class = void>
-    static constexpr auto size_impl(T const& /*unused*/) noexcept
-        -> std::size_t
+    // template <class> friend struct traits;
+
+    // Derived::extent() is non-negative
+    // clang-format off
+    template <class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(traits<Dummy>::derived::extent() >= 0)
+    static constexpr auto size_impl(
+        Sequence const& /*unused*/, int /*unused*/) noexcept
+    // clang-format on
     {
-        static_assert(std::is_convertible<decltype(Derived::extent()),
-                          std::ptrdiff_t>::value,
-            "If you provide your own `extent()` function, do you "
-            "mind making it return something convertible to "
-            "`std::ptrdiff_t`?");
-        return static_cast<std::size_t>(Derived::extent());
+        return static_cast<size_type>(Derived::extent());
     }
 
-    // Derived::extent() either doesn't exist or returns a negative
-    // number, but T::size() does exist.
-    template <class Dummy = void,
-        class             = std::enable_if_t<
-            !concepts::and_<typename Impl<Dummy>::HasExtent,
-                typename Impl<Dummy>::ExtentIsNonNegative>::
-                template test<Derived>()
-            && Impl<Dummy>::HasSize::template test<T>()>>
-    static constexpr auto size_impl(T const& xs) noexcept
-        -> std::size_t
+    // Sequence::size() exists
+    // clang-format on
+    template <class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(
+            HasSize<typename traits<Dummy>::sequence>)
+    static constexpr auto size_impl(
+        Sequence const& xs, ... /*unused*/) noexcept
+    // clang-format off
     {
-        static_assert(
-            std::is_convertible<decltype(
-                                    std::declval<T const&>().size()),
-                std::size_t>::value,
-            "If you provide your own `size()` function, do you "
-            "mind making it return something convertible to "
-            "`std::size_t`?");
+        static_assert(noexcept(xs.size()),
+            "Throwing size() is a bad idea :)");
         return xs.size();
     }
 
-  public:
-    template <class S,
-        class = std::enable_if_t<std::is_same<T,
-            std::remove_cv_t<std::remove_reference_t<S>>>::value>>
-    static constexpr auto at(S&& xs, std::size_t i) noexcept
-        -> decltype(std::forward<S>(xs)[i])
+    // clang-format off
+    template <class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(
+            HasExtent<typename traits<Dummy>::sequence>)
+    static constexpr auto extent_impl(int /*unused*/) noexcept
+    // clang-format on
     {
-        static_assert(
-            noexcept(std::forward<S>(xs)[i]), "Why not noexcept?");
+        return Sequence::extent();
+    }
+
+    static constexpr auto extent_impl(...) noexcept
+    {
+        return dynamic_extent;
+    }
+
+  public:
+
+    // clang-format off
+    template <class S, class IndexType
+        BOOST_STATIC_VIEWS_REQUIRES(
+            Same<Sequence, std::remove_cv_t<std::remove_reference_t<S>>>
+                && HasIndexOperator<S, IndexType>)
+    static constexpr decltype(auto) at(S&& xs, IndexType i)
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::forward<S>(xs)[i]))
+    // clang-format on
+    {
         return std::forward<S>(xs)[i];
     }
 
     // Only enable if size_impl is available
-    template <class Dummy = void,
-        class = std::enable_if_t<Impl<Dummy>::HasSizeImpl::
-                template test<sequence_traits_default>()>>
-    static constexpr auto size(T const& xs) noexcept
+    template <class Dummy = void>
+    static constexpr auto size(Sequence const& xs) noexcept
+        -> decltype(traits<Dummy>::type::size_impl(xs, int{}))
     {
-        return sequence_traits_default::size_impl(xs);
+        return sequence_traits_default::size_impl(xs, int{});
     }
 
     static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
-        return dynamic_extent;
+        constexpr auto extent =
+            sequence_traits_default::extent_impl(int{});
+        static_assert(extent >= 0 || extent == dynamic_extent,
+            "Extent of a Sequence cannot be negative.");
+        return extent;
     }
 };
+
+#if defined(BOOST_STATIC_VIEWS_CONCEPTS)
+// clang-format off
+template <class T>
+concept bool Sequence = requires(T& a, T const& b,
+                                 typename sequence_traits<T>::index_type i) {
+    { sequence_traits<T>::extent() } noexcept -> std::ptrdiff_t;
+    sequence_traits<T>::extent() >= 0
+        || sequence_traits<T>::extent() == dynamic_extent;
+    { sequence_traits<T>::size(b)  } noexcept
+        -> typename sequence_traits<T>::size_type;
+    { sequence_traits<T>::at(a, i) }
+        ->typename sequence_traits<T>::reference;
+    { sequence_traits<T>::at(b, i) }
+        ->typename sequence_traits<T>::const_reference;
+};
+// clang-format on
+
+// clang-format on
+template <class T>
+concept bool StaticSequence = requires() {
+    Sequence<T>;
+    sequence_traits<T>::extent() >= 0;
+};
+// clang-format off
+#else
+namespace detail {
+
+template <class T>
+using has_sequence_traits_specialisation_t =
+    decltype(sequence_traits<T>{});
+
+template <class T>
+constexpr bool HasSequenceTraitsSpecialisation =
+    is_detected<has_sequence_traits_specialisation_t, T>::value;
+
+template <class T, class = void>
+struct _SequenceTraitsHaveExtent : std::false_type {
+};
+
+template <class T>
+struct _SequenceTraitsHaveExtent<T,
+    std::enable_if_t<
+        // First of all, make sure sequence_traits<T>::extent() exists
+        // and returns a std::ptrdiff_t
+        // P.S. No need to go through the detected_t path as std::is_same is
+        // lazy. Yay! :)
+        std::is_same<decltype(sequence_traits<T>::extent()),
+            std::ptrdiff_t>::value
+        // std::is_same<detected_t<sequence_traits_have_extent_t, T>,
+        //     std::ptrdiff_t>::value
+        // Next, make sure it is constexpr
+        && (sequence_traits<T>::extent(), true)>>
+    // Finally, check that the returned value makes sense.
+    : std::conditional_t<sequence_traits<T>::extent() >= 0
+                             || sequence_traits<T>::extent()
+                                    == dynamic_extent,
+          std::true_type, std::false_type> {
+    // This is a hack
+    using is_static =
+        std::conditional_t<sequence_traits<T>::extent() >= 0,
+            std::true_type, std::false_type>;
+};
+
+template <class T>
+constexpr bool SequenceTraitsHaveExtent =
+    _SequenceTraitsHaveExtent<T>::value;
+
+template <class T, class = void>
+struct _SequenceTraitsHaveSize : std::false_type {
+};
+
+template <class T>
+struct _SequenceTraitsHaveSize<T,
+    std::enable_if_t<std::is_same<decltype(sequence_traits<T>::size(
+                                      std::declval<T const&>())),
+        typename sequence_traits<T>::size_type>::value>>
+    : std::true_type {
+};
+
+template <class T>
+constexpr bool SequenceTraitsHaveSize =
+    _SequenceTraitsHaveSize<T>::value;
+
+template <class T, class = void>
+struct _SequenceTraitsHaveAt : std::false_type {
+};
+
+template <class T>
+struct _SequenceTraitsHaveAt<T,
+    std::enable_if_t<
+        std::is_same<
+            decltype(sequence_traits<T>::at(std::declval<T&>(),
+                std::declval<
+                    typename sequence_traits<T>::index_type>())),
+            typename sequence_traits<T>::reference>::value
+        && std::is_same<decltype(sequence_traits<T>::at(
+                            std::declval<T const&>(),
+                            std::declval<typename sequence_traits<
+                                T>::index_type>())),
+               typename sequence_traits<T>::const_reference>::value>>
+    : std::true_type {
+};
+
+template <class T>
+constexpr bool SequenceTraitsHaveAt = _SequenceTraitsHaveAt<T>::value;
+
+} // namespace detail
+
+// clang-format off
+template <class T>
+constexpr bool Sequence =
+    detail::HasSequenceTraitsSpecialisation<T>
+    && detail::SequenceTraitsHaveExtent<T>
+    && detail::SequenceTraitsHaveSize<T>
+    && detail::SequenceTraitsHaveAt<T>;
+// clang-format on
+
+template <class T>
+constexpr bool StaticSequence = Sequence<T>&& std::is_same<
+    typename detail::_SequenceTraitsHaveExtent<T>::is_static,
+    std::true_type>::value;
+#endif
+
+
 
 /// \brief Specialisation of #sequence_traits for C-arrays.
 template <class T, std::size_t N>
 struct sequence_traits<T[N]>
     : sequence_traits_default<sequence_traits<T[N]>, T[N]> {
 
-    static constexpr auto extent() noexcept -> std::ptrdiff_t
+    using value_type = T;
+    using reference  = std::add_lvalue_reference_t<T>;
+    using const_reference =
+        std::add_lvalue_reference_t<std::add_const_t<T>>;
+    using index_type      = int;
+    using size_type       = unsigned;
+    using difference_type = index_type;
+
+    static_assert(std::numeric_limits<index_type>::max() >= N,
+        "Wow! That's one long array! Please, submit a bug report "
+        "here " BOOST_STATIC_VIEWS_ISSUES_LINK);
+
+    static constexpr auto extent() noexcept
     {
-        constexpr std::size_t max_size = static_cast<std::size_t>(
-            std::numeric_limits<std::ptrdiff_t>::max());
-        static_assert(N <= max_size, "Overflow detected.");
         return static_cast<std::ptrdiff_t>(N);
     }
 };
@@ -414,20 +337,28 @@ struct sequence_traits<std::array<T, N>>
     : sequence_traits_default<sequence_traits<std::array<T, N>>,
           std::array<T, N>> {
 
-    template <class S,
-        class = std::enable_if_t<std::is_same<std::array<T, N>,
-            std::remove_cv_t<std::remove_reference_t<S>>>::value>>
-    static constexpr auto at(S&& xs, std::size_t i) noexcept
-        -> decltype(std::forward<S>(xs)[i])
+    using value_type = T;
+    using reference  = std::add_lvalue_reference_t<T>;
+    using const_reference =
+        std::add_lvalue_reference_t<std::add_const_t<T>>;
+    using index_type      = int;
+    using size_type       = unsigned;
+    using difference_type = index_type;
+
+    static constexpr decltype(auto) at(
+        std::array<T, N>& xs, index_type const i) noexcept
     {
-        return std::forward<S>(xs).data()[i];
+        return xs.data()[i];
     }
 
-    static constexpr auto extent() noexcept -> std::ptrdiff_t
+    static constexpr decltype(auto) at(
+        std::array<T, N> const& xs, index_type const i) noexcept
     {
-        constexpr std::size_t max_size = static_cast<std::size_t>(
-            std::numeric_limits<std::ptrdiff_t>::max());
-        static_assert(N <= max_size, "Overflow detected.");
+        return xs.data()[i];
+    }
+
+    static constexpr auto extent() noexcept
+    {
         return static_cast<std::ptrdiff_t>(N);
     }
 };
@@ -440,16 +371,21 @@ struct sequence_traits_tuple;
 template <>
 struct sequence_traits_tuple<std::tuple<>> {
     static constexpr auto at(
-        std::tuple<> xs, std::size_t const i) noexcept -> nonesuch;
+        std::tuple<> xs, std::size_t i) noexcept -> nonesuch;
 };
 
 template <class T, class... Ts>
 struct sequence_traits_tuple<std::tuple<T, Ts...>,
     std::enable_if_t<utils::all(std::is_same<T, Ts>::value...)>> {
 
+  public:
+    using value_type = T;
+    using reference  = std::add_lvalue_reference_t<T>;
+    using const_reference =
+        std::add_lvalue_reference_t<std::add_const_t<T>>;
+
   private:
     using tuple_type = std::tuple<T, Ts...>;
-    using value_type = T;
 
     template <class U>
     static constexpr decltype(auto) dummy_get(U&& tpl) noexcept
@@ -493,13 +429,8 @@ struct sequence_traits<std::tuple<Ts...>>
 
     using detail::sequence_traits_tuple<std::tuple<Ts...>>::at;
 
-    static constexpr auto extent() noexcept -> std::ptrdiff_t
+    static constexpr auto extent() noexcept
     {
-        constexpr std::size_t max_size = static_cast<std::size_t>(
-            std::numeric_limits<std::ptrdiff_t>::max());
-        static_assert(
-            sizeof...(Ts) <= max_size, "Overflow detected.");
-
         return static_cast<std::ptrdiff_t>(sizeof...(Ts));
     }
 };

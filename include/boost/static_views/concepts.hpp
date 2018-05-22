@@ -490,6 +490,9 @@ struct member_index_operator {
 #elif defined(__has_include) && __has_include(<experimental/concepts>)
 #include <experimental/concepts>
 #else
+template <class T, class U>
+concept bool Same = std::is_same<T, U>::value;
+
 template <class From, class To>
 concept bool ConvertibleTo = std::is_convertible<From, To>::value
     && requires(From (&f)()) { static_cast<To>(f()); };
@@ -513,7 +516,10 @@ namespace detail {
 template <class From, class To>
 using funny_extra_test_in_convertible_t =
     decltype(static_cast<To>(std::declval<From (&)()>()()));
-};
+} // namespace detail
+
+template <class T, class U>
+constexpr bool Same = std::is_same<T, U>::value;
 
 template <class From, class To>
 constexpr bool ConvertibleTo =
@@ -535,6 +541,60 @@ template <class T, class Dummy>
 constexpr bool _MoveConstructible = MoveConstructible<T>;
 #endif
 
+namespace detail {
+template <class T, int = (T::extent(), 0)>
+static constexpr auto has_extent_impl(int) noexcept -> std::true_type
+{
+    return {};
+}
+
+template <class T>
+static constexpr auto has_extent_impl(...) noexcept -> std::false_type
+{
+    return {};
+}
+
+template <class T>
+using has_size_t = decltype(std::declval<T const&>().size());
+
+template <class T, class IndexType>
+using has_at_t =
+    decltype(std::declval<T>().at(std::declval<IndexType>()));
+
+template <class T, class IndexType>
+using has_index_operator_t =
+    decltype(std::declval<T>()[std::declval<IndexType>()]);
+} // namespace detail
+
+#if defined(BOOST_STATIC_VIEWS_CONCEPTS)
+template <class T>
+concept bool HasExtent = requires() {
+    { T::extent() } noexcept;
+};
+template <class T>
+concept bool HasSize = requires(T const& xs) {
+    { xs.size() } noexcept;
+};
+template <class T, class IndexType = std::size_t>
+concept bool HasAt = requires(T xs, IndexType i) {
+    xs.at(i);
+};
+template <class T, class IndexType = std::size_t>
+concept bool HasIndexOperator = requires(T xs, IndexType i) {
+    xs[i];
+};
+#else
+template <class T>
+constexpr bool HasExtent = detail::has_extent_impl<T>(int{})();
+template <class T>
+constexpr bool HasSize = is_detected<detail::has_size_t, T>::value;
+template <class T, class IndexType = std::size_t>
+constexpr bool HasAt =
+    is_detected<detail::has_at_t, T, IndexType>::value;
+template <class T, class IndexType = std::size_t>
+constexpr bool HasIndexOperator =
+    is_detected<detail::has_index_operator_t, T, IndexType>::value;
+#endif
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
