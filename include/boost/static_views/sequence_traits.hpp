@@ -152,12 +152,13 @@ struct sequence_traits_default {
     }
 
   public:
-
     // clang-format off
-    template <class S, class IndexType
-        BOOST_STATIC_VIEWS_REQUIRES(
-            Same<Sequence, std::remove_cv_t<std::remove_reference_t<S>>>
-                && HasIndexOperator<S, IndexType>)
+    template <class IndexType, class S
+        BOOST_STATIC_VIEWS_REQUIRES(HasIndexOperator<S, IndexType>
+           && (std::is_array<Sequence>::value
+                   && Same<Sequence, std::remove_reference_t<S>>
+           || !std::is_array<Sequence>::value
+                   && Same<Sequence, std::remove_cv_t<std::remove_reference_t<S>>>))
     static constexpr decltype(auto) at(S&& xs, IndexType i)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::forward<S>(xs)[i]))
     // clang-format on
@@ -186,27 +187,22 @@ struct sequence_traits_default {
 #if defined(BOOST_STATIC_VIEWS_CONCEPTS)
 // clang-format off
 template <class T>
-concept bool Sequence = requires(T& a, T const& b,
-                                 typename sequence_traits<T>::index_type i) {
+concept bool Sequence = requires(T& a, typename sequence_traits<T>::index_type i) {
     { sequence_traits<T>::extent() } noexcept -> std::ptrdiff_t;
     sequence_traits<T>::extent() >= 0
         || sequence_traits<T>::extent() == dynamic_extent;
-    { sequence_traits<T>::size(b)  } noexcept
+    { sequence_traits<T>::size(a) } noexcept
         -> typename sequence_traits<T>::size_type;
     { sequence_traits<T>::at(a, i) }
         ->typename sequence_traits<T>::reference;
-    { sequence_traits<T>::at(b, i) }
-        ->typename sequence_traits<T>::const_reference;
 };
-// clang-format on
 
-// clang-format on
 template <class T>
 concept bool StaticSequence = requires() {
     Sequence<T>;
     sequence_traits<T>::extent() >= 0;
 };
-// clang-format off
+// clang-format on
 #else
 namespace detail {
 
@@ -227,8 +223,8 @@ struct _SequenceTraitsHaveExtent<T,
     std::enable_if_t<
         // First of all, make sure sequence_traits<T>::extent() exists
         // and returns a std::ptrdiff_t
-        // P.S. No need to go through the detected_t path as std::is_same is
-        // lazy. Yay! :)
+        // P.S. No need to go through the detected_t path as
+        // std::is_same is lazy. Yay! :)
         std::is_same<decltype(sequence_traits<T>::extent()),
             std::ptrdiff_t>::value
         // std::is_same<detected_t<sequence_traits_have_extent_t, T>,
@@ -272,17 +268,10 @@ struct _SequenceTraitsHaveAt : std::false_type {
 
 template <class T>
 struct _SequenceTraitsHaveAt<T,
-    std::enable_if_t<
-        std::is_same<
-            decltype(sequence_traits<T>::at(std::declval<T&>(),
-                std::declval<
-                    typename sequence_traits<T>::index_type>())),
-            typename sequence_traits<T>::reference>::value
-        && std::is_same<decltype(sequence_traits<T>::at(
-                            std::declval<T const&>(),
-                            std::declval<typename sequence_traits<
-                                T>::index_type>())),
-               typename sequence_traits<T>::const_reference>::value>>
+    std::enable_if_t<std::is_same<
+        decltype(sequence_traits<T>::at(std::declval<T&>(),
+            std::declval<typename sequence_traits<T>::index_type>())),
+        typename sequence_traits<T>::reference>::value>>
     : std::true_type {
 };
 
@@ -313,10 +302,8 @@ template <class T, std::size_t N>
 struct sequence_traits<T[N]>
     : sequence_traits_default<sequence_traits<T[N]>, T[N]> {
 
-    using value_type = T;
-    using reference  = std::add_lvalue_reference_t<T>;
-    using const_reference =
-        std::add_lvalue_reference_t<std::add_const_t<T>>;
+    using value_type      = T;
+    using reference       = std::add_lvalue_reference_t<value_type>;
     using index_type      = int;
     using size_type       = unsigned;
     using difference_type = index_type;
@@ -337,10 +324,8 @@ struct sequence_traits<std::array<T, N>>
     : sequence_traits_default<sequence_traits<std::array<T, N>>,
           std::array<T, N>> {
 
-    using value_type = T;
-    using reference  = std::add_lvalue_reference_t<T>;
-    using const_reference =
-        std::add_lvalue_reference_t<std::add_const_t<T>>;
+    using value_type      = T;
+    using reference       = std::add_lvalue_reference_t<T>;
     using index_type      = int;
     using size_type       = unsigned;
     using difference_type = index_type;
@@ -381,8 +366,6 @@ struct sequence_traits_tuple<std::tuple<T, Ts...>,
   public:
     using value_type = T;
     using reference  = std::add_lvalue_reference_t<T>;
-    using const_reference =
-        std::add_lvalue_reference_t<std::add_const_t<T>>;
 
   private:
     using tuple_type = std::tuple<T, Ts...>;
