@@ -483,6 +483,54 @@ struct member_index_operator {
     , class = std::enable_if_t<__VA_ARGS__>>
 #endif
 
+#if defined(__cpp_lib_is_swappable)                                  \
+    && __cpp_lib_is_swappable >= 201603
+// We have std::is_swappable, let's use it
+using std::is_nothrow_swappable;
+using std::is_nothrow_swappable_with;
+using std::is_swappable;
+using std::is_swappable_with;
+
+#else
+
+namespace detail {
+namespace swap_adl {
+    using std::swap;
+
+    template <class T, class U>
+    using swap_t =
+        decltype(swap(std::declval<T>(), std::declval<U>()));
+
+    template <class T, class U>
+    using is_swappable_with =
+        is_detected<swap_t, T, U>&& is_detected<swap_t, U, T>;
+
+    template <class T, class U, class = void>
+    struct is_nothrow_swappable_with : std::false_type {
+    };
+
+    template <class T, class U>
+    struct is_nothrow_swappable_with<T, U,
+        std::enable_if_t<is_swappable_with<T, U>::value>>
+        : std::conditional_t<noexcept(swap(std::declval<T>(),
+                                 std::declval<U>()))
+                                 && noexcept(swap(std::declval<U>(),
+                                        std::declval<T>())),
+              std::true_type, std::false_type> {
+    };
+} // namespace swap_adl
+} // namespace detail
+
+using detail::swap_adl::is_nothrow_swappable_with;
+using detail::swap_adl::is_swappable_with;
+
+template <class T>
+using is_swappable = is_swappable_with<T&, T&>;
+
+template <class T>
+using is_nothrow_swappable = is_nothrow_swappable_with<T&, T&>;
+
+#endif
 
 #if defined(BOOST_STATIC_VIEWS_CONCEPTS)
 #if defined(__has_include) && __has_include(<concepts>)
@@ -510,6 +558,9 @@ concept bool MoveConstructible =
 
 template <class T, class Dummy>
 concept bool _MoveConstructible = MoveConstructible<T>;
+
+template <class T>
+concept bool Swappable = is_swappable<T>::value;
 #endif
 #else
 namespace detail {
@@ -539,6 +590,9 @@ constexpr bool MoveConstructible =
 
 template <class T, class Dummy>
 constexpr bool _MoveConstructible = MoveConstructible<T>;
+
+template <class T>
+constexpr bool Swappable = is_swappable<T>::value;
 #endif
 
 namespace detail {
@@ -554,46 +608,160 @@ static constexpr auto has_extent_impl(...) noexcept -> std::false_type
     return {};
 }
 
+template <class T, class = void>
+struct HasExtent : std::false_type {};
+
+template <class T>
+struct HasExtent<T, std::enable_if_t<has_extent_impl<T>(int{})>>
+    : std::conditional_t<noexcept(T::extent())
+                             && (T::extent() >= 0
+                                    || T::extent() == dynamic_extent),
+          std::true_type, std::false_type> {
+};
+
 template <class T>
 using has_size_t = decltype(std::declval<T const&>().size());
 
-template <class T, class IndexType>
-using has_at_t =
-    decltype(std::declval<T>().at(std::declval<IndexType>()));
+template <class T>
+using has_size_type_t = typename T::size_type;
+
+template <class T, class = void>
+struct HasSize : std::false_type {};
+
+template <class T>
+struct HasSize<T, std::enable_if_t<is_detected<has_size_t, T>::value>>
+    : std::conditional_t<noexcept(std::declval<T const&>().size()),
+          std::true_type, std::false_type> {
+};
+
+template <class T>
+using HasSizeWithType = std::conditional_t<
+    HasSize<T>::value
+        && std::is_same<detected_t<has_size_t, T>,
+               detected_t<has_size_type_t, T>>::value,
+    std::true_type, std::false_type>;
 
 template <class T, class IndexType>
 using has_index_operator_t =
     decltype(std::declval<T>()[std::declval<IndexType>()]);
+
+template <class T, class IndexType>
+using HasIndexOperator =
+    is_detected<has_index_operator_t, T, IndexType>;
+
+template <class T, class = void, class = void, class = void>
+struct HasIndexOperatorWithType : std::false_type {};
+
+template <class T>
+struct HasIndexOperatorWithType<T, typename T::index_type,
+    typename T::reference, typename T::const_reference>
+    : std::conditional_t<
+          std::is_same<detected_t<has_index_operator_t, T&,
+                           typename T::index_type>,
+              typename T::reference>::value
+              && std::is_same<detected_t<has_index_operator_t,
+                                  T const&, typename T::index_type>,
+                     typename T::const_reference>::value,
+          std::true_type, std::false_type> {
+};
+
+template <class T, class IndexType>
+using has_unsafe_at_t =
+    decltype(std::declval<T>().unsafe_at(std::declval<IndexType>()));
+
+template <class T, class IndexType>
+using HasUnsafeAt = is_detected<has_unsafe_at_t, IndexType>;
+
+template <class T, class = void, class = void, class = void>
+struct HasUnsafeAtWithType : std::false_type {};
+
+template <class T>
+struct HasUnsafeAtWithType<T, typename T::index_type,
+    typename T::reference, typename T::const_reference>
+    : std::conditional_t<
+          std::is_same<detected_t<has_unsafe_at_t, T&,
+                           typename T::index_type>,
+              typename T::reference>::value
+              && std::is_same<detected_t<has_unsafe_at_t,
+                                  T const&, typename T::index_type>,
+                     typename T::const_reference>::value,
+          std::true_type, std::false_type> {
+};
+
+template <class T, class IndexType>
+using has_map_t =
+    decltype(std::declval<T>().map(std::declval<IndexType>()));
+
+template <class T>
+using HasMap =
+    is_detected<has_map_t, T const&, typename T::index_type>;
+
 } // namespace detail
 
 #if defined(BOOST_STATIC_VIEWS_CONCEPTS)
+// clang-format off
 template <class T>
 concept bool HasExtent = requires() {
-    { T::extent() } noexcept;
+    { T::extent() } noexcept -> std::ptrdiff_t;
+    T::extent() >= 0 || T::extent() == dynamic_extent;
 };
 template <class T>
 concept bool HasSize = requires(T const& xs) {
     { xs.size() } noexcept;
 };
-template <class T, class IndexType = std::size_t>
-concept bool HasAt = requires(T xs, IndexType i) {
-    xs.at(i);
+template <class T>
+concept bool HasSizeWithType = requires(T const& xs) {
+    { xs.size() } noexcept -> typename T::size_type;
 };
-template <class T, class IndexType = std::size_t>
-concept bool HasIndexOperator = requires(T xs, IndexType i) {
-    xs[i];
+template <class T, class IndexType>
+concept bool HasIndexOperator = requires(T& ref, T const& cref,
+                                         IndexType i) {
+    ref[i];
+    cref[i];
 };
+template <class T>
+concept bool HasIndexOperatorWithType = requires(T& ref, T const& cref,
+                                                 typename T::index_type i) {
+    { ref[i] } -> typename T::reference;
+    { cref[i] } -> typename T::const_reference;
+};
+template <class T, class IndexType>
+concept bool HasUnsafeAt = requires(T& ref, T const& cref,
+                                    IndexType i) {
+    ref.unsafe_at(i);
+    cref.unsafe_at(i);
+};
+template <class T>
+concept bool HasUnsafeAtWithType = requires(T& ref, T const& cref,
+                                            typename T::index_type i) {
+    { ref.unsafe_at(i) } -> typename T::reference;
+    { cref.unsafe_at(i) } -> typename T::const_reference;
+};
+template <class T>
+concept bool HasMap = requires(T const& x, typename T::index_type i) {
+    x.map(i);
+};
+// clang-format on
 #else
 template <class T>
-constexpr bool HasExtent = detail::has_extent_impl<T>(int{})();
+constexpr bool HasExtent = detail::HasExtent<T>::value;
 template <class T>
-constexpr bool HasSize = is_detected<detail::has_size_t, T>::value;
-template <class T, class IndexType = std::size_t>
-constexpr bool HasAt =
-    is_detected<detail::has_at_t, T, IndexType>::value;
-template <class T, class IndexType = std::size_t>
+constexpr bool HasSize = detail::HasSize<T>::value;
+template <class T>
+constexpr bool HasSizeWithType = detail::HasSizeWithType<T>::value;
+template <class T, class IndexType>
 constexpr bool HasIndexOperator =
-    is_detected<detail::has_index_operator_t, T, IndexType>::value;
+    detail::HasIndexOperator<T, IndexType>::value;
+template <class T>
+constexpr bool HasIndexOperatorWithType =
+    detail::HasIndexOperatorWithType<T>::value;
+template <class T, class IndexType>
+constexpr bool HasUnsafeAt = detail::HasUnsafeAt<T, IndexType>::value;
+template <class T>
+constexpr bool HasUnsafeAtWithType =
+    detail::HasUnsafeAtWithType<T>::value;
+template <class T>
+constexpr bool HasMap = detail::HasMap<T>::value;
 #endif
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
