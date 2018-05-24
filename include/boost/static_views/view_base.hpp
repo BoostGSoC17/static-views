@@ -11,6 +11,7 @@
 #ifndef BOOST_STATIC_VIEWS_VIEW_BASE_HPP
 #define BOOST_STATIC_VIEWS_VIEW_BASE_HPP
 
+#include "concepts.hpp"
 #include "detail/config.hpp"
 #include "detail/utils.hpp"
 #include "detail/wrapper.hpp"
@@ -20,32 +21,7 @@
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
-/// \brief Base class for all the views.
-
-/// \verbatim embed:rst:leading-slashes
-/// By deriving from :cpp:class:`view_base`, you tell StaticView that
-/// the derived class models the :ref:`view <view-concept>` concept.
-/// \endverbatim
-struct view_base {
-};
-
-/// \brief Checks whether `V` models the View concept.
-
-/// \verbatim embed:rst:leading-slashes
-/// Metafunction that returns whether ``V`` models the :ref:`View
-/// <view-concept>` concept:
-///
-/// .. code-block:: cpp
-///
-///   template <class View>
-///   struct is_view : std::is_base_of<view_base, View>
-///   {};
-///
-/// \endverbatim
-// template <class V>
-// struct is_view : std::is_base_of<view_base, V> {
-// };
-
+#if 0
 /// \brief Helper class one can befriend to give StaticViews access to
 /// the private `map` function.
 
@@ -76,240 +52,39 @@ struct view_adaptor_core_access {
     );
     // clang-format on
 };
-
-namespace concepts {
-namespace view {
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Derives_from_view_base, T,
-        (std::is_base_of<view_base, T>::value),
-        "`T` doesn't derive from `boost::static_views::view_base`, "
-        "which is, unfortunately, required by the View concept. "
-        "Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_move_constructible, T,
-        (std::is_move_constructible<T>::value),
-        "`T` doesn't model the MoveConstructible concept, which "
-        "it should, to have a chance at modeling the View concept. "
-        "Hence, the error.");
-
-    template <class T>
-    using has_static_extent_t = decltype(T::extent());
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_static_extent, T,
-        (is_detected<has_static_extent_t, T>::value),
-        "`T` has no static member function `extent()`. "
-        "Availability of it is, unfortunately, required by the "
-        "View concept. Hence, the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_correct_return_type_extent, T,
-        (std::is_convertible<detected_t<has_static_extent_t, T>,
-            std::size_t>::value),
-        "The View concept requires the return type of "
-        "`T::extent()` to be convertible to `size_t`. This "
-        "condition is, I'm afraid, not satisfied. Hence, the "
-        "error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_extent, T,
-        (noexcept(T::extent())),
-        "`T::extent()` is not noexcept while it should be "
-        "to have a chance at modeling the View concept. Hence, "
-        "the error.");
-
-    template <class T>
-    using has_member_size_t =
-        decltype(std::declval<T const&>().size());
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_member_size, T,
-        (is_detected<has_member_size_t, T>::value),
-        "`T` has no member function `size()`. Availability of it "
-        "is, unfortunately, required by the View concept. Hence, "
-        "the error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_correct_return_type_size, T,
-        (std::is_convertible<detected_t<has_member_size_t, T>,
-            std::size_t>::value),
-        "The View concept requires the return type of the "
-        "`size()` member function to be convertible to `size_t`. "
-        "This condition is, I'm afraid, not satisfied. Hence, the "
-        "error.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_size, T,
-        (noexcept(std::declval<T const&>().size())),
-        "`T`'s `size()` member function is not noexcept while it "
-        "should be for `T` to have a chance at modeling the View "
-        "concept. Hence, the error.");
-
-    template <class T>
-    using has_operator_access_t =
-        decltype(std::declval<T>()[std::declval<std::size_t>()]);
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_operator_access, T,
-        (is_detected<has_operator_access_t, T>::value),
-        "`T` has no `operator[](size_t)`. Availability of it "
-        "is, unfortunately, required by the View concept. Hence, "
-        "the error.");
-
-    template <class T>
-    using has_member_map_t = decltype(view_adaptor_core_access::map(
-        std::declval<T>(), std::declval<std::size_t>()));
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_member_map, T,
-        (is_detected<has_member_map_t, T>::value),
-        "`T` is required to have a member function `map(size_t)` "
-        "accessible through "
-        "`boost::static_views::view_adaptor_core_access`. Either "
-        "define a it publicly or befriend the "
-        "`view_adaptor_core_access` struct.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_correct_return_type_map, T,
-        (std::is_convertible<detected_t<has_member_map_t, T>,
-            std::size_t>::value),
-        "`T`'s `map(size_t)` should have return type convertible to "
-        "size_t.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_map, T,
-        (noexcept(view_adaptor_core_access::map(
-            std::declval<T>(), std::declval<std::size_t>()))),
-        "`T`'s `map(size_t)` member function is not noexcept while "
-        "it "
-        "should be. Hence, the error.");
-
-    template <class T>
-    using has_unsafe_at_t = decltype(
-        std::declval<T>().unsafe_at(std::declval<std::size_t>()));
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_unsafe_at, T,
-        (is_detected<has_unsafe_at_t, T>::value),
-        "`T` is required to have a member function "
-        "`unsafe_at(size_t)`.");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_unsafe_at, T,
-        (noexcept(std::declval<T>().unsafe_at(
-            std::declval<std::size_t>()))),
-        "`T`'s `unsafe_at(size_t)` member function is not noexcept "
-        "while it should be. Hence, the error.");
-
-    // clang-format off
-    using View_impl =
-        all_<
-            Derives_from_view_base,
-            Is_move_constructible,
-            and_<
-                Has_static_extent,
-                Has_correct_return_type_extent,
-                Is_noexcept_extent
-            >,
-            and_<
-                Has_member_size,
-                Has_correct_return_type_size,
-                Is_noexcept_size
-            >,
-            Has_operator_access
-        >;
-    // clang-format on
-
-    struct View : View_impl {
-
-        using View_impl::test;
-
-        template <class T>
-        static constexpr auto check() noexcept -> bool
-        {
-            constexpr bool x = test<T>();
-            static_assert(
-                x, "I'm sorry, but `T` must model the View concept!");
-            return View_impl::check<T>();
-        }
-
-      private:
-        // clang-format off
-        template <class T,
-            class = std::enable_if_t<and_<Has_unsafe_at,
-                Is_noexcept_unsafe_at>::test<T>()>,
-            class = void>
-        BOOST_STATIC_VIEWS_FORCEINLINE
-        static BOOST_STATIC_VIEWS_CONSTEXPR
-        BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at_impl(T&& xs,
-            std::size_t const i) noexcept
-        {
-            return std::forward<T>(xs).unsafe_at(i);
-        }
-        // clang-format on
-
-        // clang-format off
-        template <class T,
-            class = std::enable_if_t<!and_<Has_unsafe_at,
-                Is_noexcept_unsafe_at>::test<T>()>>
-        BOOST_STATIC_VIEWS_FORCEINLINE
-        static BOOST_STATIC_VIEWS_CONSTEXPR
-        auto unsafe_at_impl(T&& xs, std::size_t const i)
-        BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-        (
-            std::forward<T>(xs)[i]
-        );
-        // clang-format on
-
-      public:
-        // clang-format off
-        template <class T,
-            class = std::enable_if_t<
-                test<std::remove_cv_t<std::remove_reference_t<T>>>()>>
-        static BOOST_STATIC_VIEWS_CONSTEXPR
-        auto unsafe_at(T&& xs, std::size_t const i)
-        BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-        (
-            unsafe_at_impl(std::forward<T>(xs), i)
-        );
-        // clang-format on
-    };
-    // clang-format on
-
-} // namespace view
-
-/// \verbatim embed:rst:leading-slashes
-/// Defines the View concept. Here's a synopsis:
-///
-/// .. code-block:: cpp
-///
-///   struct View {
-///       template <class T>
-///       static constexpr auto test() noexcept -> bool;
-///
-///       template <class T>
-///       static constexpr auto check() noexcept -> bool;
-///   };
-///
-/// ``test()`` returns whether the requirements are satisfied, while
-/// ``check()`` *checks* that they are satisfied and triggers a
-/// ``static_assert`` failure if they aren't.
-/// \endverbatim
-#if defined(DOXYGEN_IN_HOUSE)
-// let Doxygen think it's just a struct.
-struct View {
-};
-#else
-using view::View;
 #endif
 
-} // namespace concepts
-
 // clang-format off
-template <class View,
-    class = std::enable_if_t<concepts::View::template test<View>()>>
-BOOST_STATIC_VIEWS_CONSTEXPR
-auto begin(View const& xs)
+template <class T
+    BOOST_STATIC_VIEWS_REQUIRES(View<T>)
+BOOST_STATIC_VIEWS_CONSTEXPR auto begin(T const& xs)
 BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
 (
-    detail::view_iterator<View const>{&xs, 0}
+    view_iterator<T const>{&xs, 0}
 );
 
-template <class View,
-    class = std::enable_if_t<concepts::View::template test<View>()>>
-BOOST_STATIC_VIEWS_CONSTEXPR
-auto end(View const& xs)
+template <class T
+    BOOST_STATIC_VIEWS_REQUIRES(View<T>)
+BOOST_STATIC_VIEWS_CONSTEXPR auto begin(T& xs)
 BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
 (
-    detail::view_iterator<View const>{&xs, xs.size()}
+    view_iterator<T>{&xs, 0}
+);
+
+template <class T
+    BOOST_STATIC_VIEWS_REQUIRES(View<T>)
+BOOST_STATIC_VIEWS_CONSTEXPR auto end(T const& xs)
+BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+(
+    view_iterator<T const>{&xs, xs.size()}
+);
+
+template <class T
+    BOOST_STATIC_VIEWS_REQUIRES(View<T>)
+BOOST_STATIC_VIEWS_CONSTEXPR auto end(T& xs)
+BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
+(
+    view_iterator<T>{&xs, xs.size()}
 );
 // clang-format on
 
@@ -318,25 +93,17 @@ BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
 /// Base class to that helps with modeling the :ref:`View
 /// <view-concept>` concept. \endverbatim
 template <class Derived, class Wrapper>
-struct view_adaptor_base : view_base {
+struct view_adaptor_base : private Wrapper {
 
   private:
     using derived_type = Derived;
     using wrapper_type = Wrapper;
     using view_type    = typename Wrapper::type;
 
-    wrapper_type _xs;
 
     template <class Dummy>
     struct traits {
-        template <class T>
-        static constexpr auto has_map() noexcept -> bool
-        {
-            using namespace concepts;
-            return and_<view::Has_member_map,
-                view::Has_correct_return_type_map,
-                view::Is_noexcept_map>::test<T>();
-        }
+        using derived = derived_type;
     };
 
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -351,16 +118,22 @@ struct view_adaptor_base : view_base {
         view_adaptor_base<Derived, Wrapper>;
 
   public:
+    using value_type      = typename view_type::value_type;
+    using reference       = typename view_type::reference;
+    using const_reference = typename view_type::const_reference;
+    using size_type       = typename view_type::size_type;
+    using index_type      = typename view_type::index_type;
+
     /// \name Constructors
     ///
     /// \brief Constructs an adaptor of \p view.
     /// \details Here, \p view is a wrapper around the actual view
     /// created with #make_wrapper(T&&) function.
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR view_adaptor_base(
-        wrapper_type&& view)
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_adaptor_base(wrapper_type&& view)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             std::is_nothrow_move_constructible<wrapper_type>::value)
-        : _xs{std::move(view)}
+        : wrapper_type{std::move(view)}
     {
     }
 
@@ -369,39 +142,28 @@ struct view_adaptor_base : view_base {
     /// Defines default copy and move constructors and assignments,
     /// i.e. is copy/move-constructible/assignable if \p View is.
     /// \{
-    BOOST_STATIC_VIEWS_CONSTEXPR
     view_adaptor_base(view_adaptor_base const&) = default;
-
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    view_adaptor_base(view_adaptor_base&&) = default;
-
-    BOOST_STATIC_VIEWS_CONSTEXPR
+    view_adaptor_base(view_adaptor_base&&)      = default;
     view_adaptor_base& operator=(view_adaptor_base const&) = default;
-
-    BOOST_STATIC_VIEWS_CONSTEXPR
     view_adaptor_base& operator=(view_adaptor_base&&) = default;
     /// \}
 
     /// \brief Returns the underlying view.
     /// \{
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() const & noexcept
+    BOOST_STATIC_VIEWS_CONSTEXPR auto const& parent() const& noexcept
     {
-        static_assert(noexcept(_xs.get()),
-            "[INTERNAL] view_adaptor_base<> assumes that "
-            "`wrapper::get() const&` is noexcept.");
-        return _xs.get();
+        static_assert(
+            noexcept(this->get()), BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        return this->get();
     }
 
-    // clang-format off
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO parent() &&
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(std::declval<wrapper_type&&>().get()))
+    BOOST_STATIC_VIEWS_CONSTEXPR auto parent()
+        && BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+               std::is_nothrow_move_constructible<
+                   wrapper_type>::value)
     {
-        return std::move(_xs).get();
+        return static_cast<wrapper_type&&>(*this).get();
     }
-    // clang-format on
     /// \}
 
     /// \brief
@@ -409,8 +171,7 @@ struct view_adaptor_base : view_base {
     /// Default implementation of the ``capacity`` function required
     /// by the :ref:`view concept <view-concept>`. \endverbatim
 
-    /// Just calls `capacity()` on the underlying view.
-    static constexpr auto extent() noexcept -> std::ptrdiff_t
+    static constexpr auto extent() noexcept
     {
         return view_type::extent();
     }
@@ -423,9 +184,8 @@ struct view_adaptor_base : view_base {
     /// Just calls `size()` on the underlying view.
     BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
     {
-        static_assert(noexcept(parent()),
-            "[INTERNAL] view_adaptor_base<> assumes that its "
-            "own `parent() const&` member function does not throw.");
+        static_assert(
+            noexcept(parent()), BOOST_STATIC_VIEWS_BUG_MESSAGE);
         return parent().size();
     }
 
@@ -433,116 +193,68 @@ struct view_adaptor_base : view_base {
     /// \{
 
     // clang-format off
-    template <class Dummy = void,
-        class = std::enable_if_t<traits<Dummy>::template
-            has_map<derived_type>()>>
+    template <class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(HasMap<typename traits<Dummy>::derived>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(std::size_t const i) const&
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(index_type const i) const&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            concepts::View::unsafe_at(
-                std::declval<view_type const&>(),
-                std::declval<std::size_t>())))
-    {
-        static_assert(noexcept(parent()),
-            "[INTERNAL] view_adaptor_base<> assumes that its "
-            "own `parent() const&` member function does not throw.");
-        BOOST_STATIC_VIEWS_EXPECT(i < derived().size(),
-            "You're trying to cause undefined behavior, aren't you?");
-        auto const x = view_adaptor_core_access::map(derived(), i);
-        return concepts::View::unsafe_at(parent(), x);
-    }
+            std::declval<view_type const&>.unsafe_at(
+                std::declval<derived_type const&>.map(i))))
     // clang-format on
+    {
+        static_assert(noexcept(parent()) && noexcept(derived()),
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        return parent().unsafe_at(derived().map(i));
+    }
 
     // clang-format off
-    template <class Dummy = void,
-        class = std::enable_if_t<traits<Dummy>::template
-            has_map<derived_type>()>>
+    template <class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(HasMap<typename traits<Dummy>::derived>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(std::size_t const i) &
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(index_type const i) &&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            concepts::View::unsafe_at(
-                std::declval<view_type &>(),
-                std::declval<std::size_t>())))
-    {
-        static_assert(noexcept(parent()),
-            "[INTERNAL] view_adaptor_base<> assumes that its "
-            "own `parent() const&` member function does not throw.");
-        BOOST_STATIC_VIEWS_EXPECT(i < derived().size(),
-            "You're trying to cause undefined behavior, aren't you?");
-        auto const x = view_adaptor_core_access::map(derived(), i);
-        return concepts::View::unsafe_at(parent(), x);
-    }
+            std::declval<view_type&&>.unsafe_at(
+                std::declval<derived_type const&>.map(i))))
     // clang-format on
+    {
+        static_assert(noexcept(parent()) && noexcept(derived()),
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        return static_cast<wrapper_type&&>(*this).get().unsafe_at(
+            derived().map(i));
+    }
 
     // clang-format off
-    template <class Dummy = void,
-        class = std::enable_if_t<traits<Dummy>::template
-            has_map<derived_type>()>>
+    template <class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(HasMap<typename traits<Dummy>::derived>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(std::size_t const i) &&
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            concepts::View::unsafe_at(
-                std::declval<view_type &&>(),
-                std::declval<std::size_t>())))
-    {
-        static_assert(noexcept(parent()),
-            "[INTERNAL] view_adaptor_base<> assumes that its "
-            "own `parent() const&` member function does not throw.");
-        BOOST_STATIC_VIEWS_EXPECT(i < derived().size(),
-            "You're trying to cause undefined behavior, aren't you?");
-        auto const x = view_adaptor_core_access::map(derived(), i);
-        return concepts::View::unsafe_at(
-            std::forward<view_adaptor_base>(*this).parent(), x);
-    }
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](index_type const i) const&
     // clang-format on
-
-    // clang-format off
-    template <class Dummy = void,
-        class = std::enable_if_t<traits<Dummy>::template
-            has_map<derived_type>()>>
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) const&
     {
         if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
-            make_out_of_bound_error("`i < size()` not satisfied.");
+            make_out_of_bound_error(
+                "Precondition `i < size()` not satisfied in "
+                "boost::static_views::view_base::operator[].");
             BOOST_STATIC_VIEWS_UNREACHABLE;
         }
-        auto const x = view_adaptor_core_access::map(derived(), i);
-        return parent()[x];
+        return parent()[derived().map(i)];
     }
-    // clang-format on
 
     // clang-format off
-    template <class Dummy = void,
-        class = std::enable_if_t<traits<Dummy>::template
-            has_map<derived_type>()>>
+    template <class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(HasMap<typename traits<Dummy>::derived>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) &
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](index_type const i) &&
+    // clang-format on
     {
         if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
-            make_out_of_bound_error("`i < size()` not satisfied.");
+            make_out_of_bound_error(
+                "Precondition `i < size()` not satisfied in "
+                "boost::static_views::view_base::operator[].");
             BOOST_STATIC_VIEWS_UNREACHABLE;
         }
-        auto const x = view_adaptor_core_access::map(derived(), i);
-        return parent()[x];
+        return static_cast<wrapper_type&&>(*this)
+            .get()[derived().map(i)];
     }
-    // clang-format on
-
-    // clang-format off
-    template <class Dummy = void,
-        class = std::enable_if_t<traits<Dummy>::template
-            has_map<derived_type>()>>
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](std::size_t const i) &&
-    {
-        if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
-            make_out_of_bound_error("`i < size()` not satisfied.");
-            BOOST_STATIC_VIEWS_UNREACHABLE;
-        }
-        auto const x = view_adaptor_core_access::map(derived(), i);
-        return std::forward<view_adaptor_base>(*this).parent()[x];
-    }
-    // clang-format on
     /// \}
 
     BOOST_STATIC_VIEWS_CONSTEXPR

@@ -87,6 +87,24 @@ struct A3 {
 
 int main(void)
 {
+    using boost::static_views::is_detected;
+    using boost::static_views::detected_t;
+    STATIC_ASSERT(boost::static_views::HasExtent<A1>, "");
+    STATIC_ASSERT(boost::static_views::HasSizeWithType<A1>, "");
+    STATIC_ASSERT((boost::static_views::HasIndexOperator<A1&, A1::index_type>), "");
+    STATIC_ASSERT(
+        (std::is_same<detected_t<boost::static_views::detail::
+                                     has_index_operator_t,
+                          A1&, A1::index_type>,
+            A1::reference>::value), "");
+    STATIC_ASSERT(
+        (std::is_same<detected_t<boost::static_views::detail::
+                                     has_index_operator_t,
+                          A1 const&, A1::index_type>,
+            A1::const_reference>::value), "");
+    STATIC_ASSERT((boost::static_views::HasIndexOperator<A1 const&, A1::index_type>), "");
+    STATIC_ASSERT(boost::static_views::HasIndexOperatorWithType<A1>, "");
+    STATIC_ASSERT(boost::static_views::HasUnsafeAtWithType<A1>, "");
     STATIC_ASSERT(boost::static_views::View<A1>,
         "A1 does not model the View concept.");
     STATIC_ASSERT(!boost::static_views::View<A2>,

@@ -653,15 +653,22 @@ template <class T, class = void, class = void, class = void>
 struct HasIndexOperatorWithType : std::false_type {};
 
 template <class T>
-struct HasIndexOperatorWithType<T, typename T::index_type,
-    typename T::reference, typename T::const_reference>
+struct HasIndexOperatorWithType<T, void_t<typename T::index_type>,
+    void_t<typename T::reference>
+#if 0
+    , void_t<typename T::const_reference>
+#endif
+    >
     : std::conditional_t<
           std::is_same<detected_t<has_index_operator_t, T&,
                            typename T::index_type>,
               typename T::reference>::value
+#if 0
               && std::is_same<detected_t<has_index_operator_t,
                                   T const&, typename T::index_type>,
-                     typename T::const_reference>::value,
+                     typename T::const_reference>::value
+#endif
+          ,
           std::true_type, std::false_type> {
 };
 
@@ -676,15 +683,22 @@ template <class T, class = void, class = void, class = void>
 struct HasUnsafeAtWithType : std::false_type {};
 
 template <class T>
-struct HasUnsafeAtWithType<T, typename T::index_type,
-    typename T::reference, typename T::const_reference>
+struct HasUnsafeAtWithType<T, void_t<typename T::index_type>,
+    void_t<typename T::reference>
+#if 0
+    , void_t<typename T::const_reference>
+#endif
+    >
     : std::conditional_t<
-          std::is_same<detected_t<has_unsafe_at_t, T&,
-                           typename T::index_type>,
+          std::is_same<
+              detected_t<has_unsafe_at_t, T&, typename T::index_type>,
               typename T::reference>::value
-              && std::is_same<detected_t<has_unsafe_at_t,
-                                  T const&, typename T::index_type>,
-                     typename T::const_reference>::value,
+#if 0
+              && std::is_same<detected_t<has_unsafe_at_t, T const&,
+                                  typename T::index_type>,
+                     typename T::const_reference>::value
+#endif
+          ,
           std::true_type, std::false_type> {
 };
 
@@ -713,29 +727,33 @@ template <class T>
 concept bool HasSizeWithType = requires(T const& xs) {
     { xs.size() } noexcept -> typename T::size_type;
 };
+
+// TODO: Still not sure whether Views should preserve const'ness. Not preserving
+// const'ness makes my life a whole lot easier, so I'll stick to that for now :)
+
 template <class T, class IndexType>
 concept bool HasIndexOperator = requires(T& ref, T const& cref,
                                          IndexType i) {
     ref[i];
-    cref[i];
+    // cref[i];
 };
 template <class T>
 concept bool HasIndexOperatorWithType = requires(T& ref, T const& cref,
                                                  typename T::index_type i) {
     { ref[i] } -> typename T::reference;
-    { cref[i] } -> typename T::const_reference;
+    // { cref[i] } -> typename T::const_reference;
 };
 template <class T, class IndexType>
 concept bool HasUnsafeAt = requires(T& ref, T const& cref,
                                     IndexType i) {
     ref.unsafe_at(i);
-    cref.unsafe_at(i);
+    // cref.unsafe_at(i);
 };
 template <class T>
 concept bool HasUnsafeAtWithType = requires(T& ref, T const& cref,
                                             typename T::index_type i) {
     { ref.unsafe_at(i) } -> typename T::reference;
-    { cref.unsafe_at(i) } -> typename T::const_reference;
+    // { cref.unsafe_at(i) } -> typename T::const_reference;
 };
 template <class T>
 concept bool HasMap = requires(T const& x, typename T::index_type i) {
