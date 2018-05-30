@@ -1,4 +1,4 @@
-//          Copyright Tom Westerhout 2017.
+//          Copyright Tom Westerhout 2017-2018.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,11 +10,8 @@
 #ifndef BOOST_STATIC_VIEWS_DROP_HPP
 #define BOOST_STATIC_VIEWS_DROP_HPP
 
-#include "algorithm_base.hpp"
-#include "detail/config.hpp"
-#include "detail/utils.hpp"
-#include "sequence_traits.hpp"
 #include "view_base.hpp"
+
 #include <algorithm>
 #include <type_traits>
 
@@ -23,51 +20,56 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 namespace detail {
 
 template <class Wrapper, std::ptrdiff_t Extent>
-struct drop_impl
-    : view_adaptor_base<drop_impl<Wrapper, Extent>, Wrapper> {
+struct drop_view_impl
+    : view_adaptor_base<drop_view_impl<Wrapper, Extent>, Wrapper> {
+
+  private:
+    using wrapper_type = Wrapper;
+    using base = view_adaptor_base<drop_view_impl<Wrapper, Extent>, Wrapper>;
+
+  public:
+    using typename base::index_type;
+    using typename base::reference;
+    using typename base::size_type;
+    using typename base::value_type;
+
+    using base::parent;
 
     /// \brief Constructs a view of \p xs with the first \p b elements
     /// dropped.
 
     /// \param xs **Rvalue** reference to a wrapper around a view.
-    /// \param b  Number of elements to drop. The resulting view will
-    ///           contain `max(xs.get().size() - b, 0)` elements.
-    ///
-    /// \exception Never throws, unless the initialisation of
-    /// #view_adaptor_base with `Wrapper&&` throws.
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR drop_impl(
-        Wrapper&& xs, std::size_t const b)
-#if !defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
-        // This is formally wrong, but come on,
-        // std::min(size_t, size_t) _should_ be noexcept.
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(std::is_nothrow_constructible<
-            typename drop_impl::view_adaptor_base_type,
-            Wrapper&&>::value)
-#endif
-        : drop_impl::view_adaptor_base_type{std::move(xs)}, _b{b}
+    /// \param b  Number of elements to drop. \p b must not exceed the size of
+    ///           \p xs.
+    BOOST_STATIC_VIEWS_CONSTEXPR drop_view_impl(
+        Wrapper&& xs, index_type const b)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            std::is_nothrow_constructible<typename drop_impl::base,
+                Wrapper&&>::value)
+        : base{std::move(xs)}, _b{b}
     {
-        BOOST_STATIC_VIEWS_EXPECT(b <= this->parent().size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
         BOOST_STATIC_VIEWS_EXPECT(
-            extent() == dynamic_extent || extent() >= size(),
+            0 <= b && b <= static_cast<index_type>(parent().size()),
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
     }
 
+    drop_view_impl(drop_view_impl const&) = default;
+    drop_view_impl(drop_view_impl&&)      = default;
+    drop_view_impl& operator=(drop_view_impl const&) = default;
+    drop_view_impl& operator=(drop_view_impl&&) = default;
+
     /// \brief Returns the number of elements viewed.
-    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
-        -> std::size_t
+    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept -> size_type
     {
-        static_assert(noexcept(this->parent().size()),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        // Constructor makes sure this never causes underflow
-        BOOST_STATIC_VIEWS_EXPECT(_b <= this->parent().size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        return this->parent().size() - _b;
+        static_assert(
+            noexcept(parent().size()), BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        // Per construction, 0 <= _b <= parent().size(), so this is safe
+        return parent().size() - static_cast<size_type>(_b);
     }
 
     static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
-        return Extent;
+        return dynamic_extent;
     }
 
     /// \brief "Maps" index \p i to the corresponding index in the
@@ -75,66 +77,51 @@ struct drop_impl
 
     /// For \f$ i \geq \text{xs.size}()\f$ behavior of this function
     /// is undefined
-    BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
-        noexcept
+    BOOST_STATIC_VIEWS_CONSTEXPR auto map(index_type const i) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
     {
-        BOOST_STATIC_VIEWS_EXPECT(i < size(),
-            "Which part of `map: [0, size()) --> N` you didn't "
-            "understand?");
+        BOOST_STATIC_VIEWS_EXPECT(0 <= i && i < static_cast<index_type>(size()),
+            "boost::static_views::drop_impl::map: Precondition "
+            "`0 <= i < size()` is not satisfied.");
         return _b + i;
     }
 
   private:
-    std::size_t _b;
+    index_type _b;
 };
 
-struct make_drop_exactly_impl {
-    // clang-format off
-    template <class Wrapper>
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(Wrapper&& xs, std::size_t const b) const
-    // clang-format on
-#if !defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            drop_impl<std::decay_t<Wrapper>, Wrapper::type::extent()>{
-                std::forward<Wrapper>(xs), b}))
-#endif
-    {
-        BOOST_STATIC_VIEWS_EXPECT(b <= xs.get().size(),
-            "drop_exactly(n)(xs) expects `n <= xs.size()`.");
-        BOOST_STATIC_VIEWS_EXPECT(
-            Wrapper::type::extent() == dynamic_extent
-                || Wrapper::type::extent() >= xs.get().size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        return drop_impl<std::decay_t<Wrapper>,
-            Wrapper::type::extent()>{std::forward<Wrapper>(xs), b};
-    }
+struct drop_exactly_impl {
+  private:
+    template <class Wrapper, class IndexType>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(Wrapper xs, IndexType b) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            drop_view_impl<Wrapper, dynamic_extent>{std::move(xs), b});
 
+  public:
     // clang-format off
-    template <class Wrapper, std::size_t N>
+    template <class V
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(Wrapper&& xs,
-        std::integral_constant<std::size_t, N> /*unused*/) const
-    // clang-format on
-#if !defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            drop_impl<std::decay_t<Wrapper>, Wrapper::type::extent()>{
-                std::forward<Wrapper>(xs), N}))
-#endif
+    auto operator()(V&& xs,
+        typename std::remove_cv_t<
+                 std::remove_reference_t<V>>::index_type const b) const
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            noexcept(std::declval<make_drop_exactly_impl const&>().call_impl(
+                make_wrapper(std::forward<V>(xs), b))))
     {
-        BOOST_STATIC_VIEWS_EXPECT(N <= xs.get().size(),
-            "drop_exactly(n)(xs) expects `n <= xs.size()`.");
+        using index_type =
+            typename std::remove_cv_t<std::remove_reference_t<V>>::index_type;
         BOOST_STATIC_VIEWS_EXPECT(
-            Wrapper::type::extent() == dynamic_extent
-                || Wrapper::type::extent() >= xs.get().size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        return drop_impl<std::decay_t<Wrapper>,
-            ((Wrapper::type::extent() > N)
-                    ? (Wrapper::type::extent() - N)
-                    : 0)>{std::forward<Wrapper>(xs), N};
+            0 <= b && b <= static_cast<index_type>(xs.size()),
+            "boost::static_views::drop_exactly(xs, b): Precondition "
+            "`0 <= b <= xs.size()` is not satisfied.");
+        return call_impl(make_wrapper(std::forward<V>(xs)), b);
     }
 };
 
+#if 0
 struct make_drop_exactly_algo_impl {
     // clang-format off
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -210,6 +197,7 @@ struct make_drop_algo_impl {
     );
     // clang-format on
 };
+#endif
 
 } // end namespace detail
 
@@ -221,7 +209,7 @@ struct make_drop_algo_impl {
 /// first :math:`n` elements dropped. If the size of :math:`xs` is
 /// less than :math:`n`, an empty view is returned.
 /// \endverbatim
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_drop_algo_impl, drop)
+// BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_drop_algo_impl, drop)
 
 /// \verbatim embed:rst:leading-slashes
 /// :math:`\mathtt{drop} : \mathbb{N} \to \text{View} \to \text{View}`
@@ -237,8 +225,9 @@ BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_drop_algo_impl, drop)
 ///   ``BOOST_STATIC_VIEWS_DISABLE_CHECKS``) and pass an :math:`n >
 ///   xs\mathtt{.size()}`, **the behavior is undefined**.
 /// \endverbatim
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(
-    detail::make_drop_exactly_algo_impl, drop_exactly)
+// BOOST_STATIC_VIEWS_INLINE_VARIABLE(
+//     detail::make_drop_exactly_algo_impl, drop_exactly)
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::drop_exactly_impl, drop_exactly)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

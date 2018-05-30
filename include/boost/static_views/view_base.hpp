@@ -98,7 +98,7 @@ struct view_adaptor_base : private Wrapper {
   private:
     using derived_type = Derived;
     using wrapper_type = Wrapper;
-    using view_type    = typename Wrapper::type;
+    using view_type    = typename Wrapper::value_type;
 
 
     template <class Dummy>
@@ -120,7 +120,6 @@ struct view_adaptor_base : private Wrapper {
   public:
     using value_type      = typename view_type::value_type;
     using reference       = typename view_type::reference;
-    using const_reference = typename view_type::const_reference;
     using size_type       = typename view_type::size_type;
     using index_type      = typename view_type::index_type;
 
@@ -198,8 +197,8 @@ struct view_adaptor_base : private Wrapper {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(index_type const i) const&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            std::declval<view_type const&>.unsafe_at(
-                std::declval<derived_type const&>.map(i))))
+            std::declval<view_type const&>().unsafe_at(
+                std::declval<derived_type const&>().map(i))))
     // clang-format on
     {
         static_assert(noexcept(parent()) && noexcept(derived()),
@@ -213,8 +212,8 @@ struct view_adaptor_base : private Wrapper {
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at(index_type const i) &&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            std::declval<view_type&&>.unsafe_at(
-                std::declval<derived_type const&>.map(i))))
+            std::declval<view_type&&>().unsafe_at(
+                std::declval<derived_type const&>().map(i))))
     // clang-format on
     {
         static_assert(noexcept(parent()) && noexcept(derived()),
@@ -230,7 +229,8 @@ struct view_adaptor_base : private Wrapper {
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](index_type const i) const&
     // clang-format on
     {
-        if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
+        if (BOOST_STATIC_VIEWS_UNLIKELY(
+                i >= static_cast<index_type>(derived().size()))) {
             make_out_of_bound_error(
                 "Precondition `i < size()` not satisfied in "
                 "boost::static_views::view_base::operator[].");
@@ -246,7 +246,8 @@ struct view_adaptor_base : private Wrapper {
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](index_type const i) &&
     // clang-format on
     {
-        if (BOOST_STATIC_VIEWS_UNLIKELY(i >= derived().size())) {
+        if (BOOST_STATIC_VIEWS_UNLIKELY(
+                i >= static_cast<index_type>(derived().size()))) {
             make_out_of_bound_error(
                 "Precondition `i < size()` not satisfied in "
                 "boost::static_views::view_base::operator[].");

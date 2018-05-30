@@ -101,7 +101,7 @@ template <class Function, class T, class Object, class... Args>
 BOOST_STATIC_VIEWS_FORCEINLINE
 BOOST_STATIC_VIEWS_CONSTEXPR
 auto invoke_member_func
-    ( Function (T::*f)
+    ( Function T::*f
     , Object&& obj
     , Args&&... args )
 BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
@@ -157,7 +157,7 @@ template <class Function, class T, class Object>
 BOOST_STATIC_VIEWS_FORCEINLINE
 BOOST_STATIC_VIEWS_CONSTEXPR
 auto invoke_member_data
-    ( Function (T::*f)
+    ( Function T::*f
     , Object&& obj )
 BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
 (
@@ -185,10 +185,10 @@ struct invoke_impl {
   private:
     template <class Function, class T, class Object,
         class = std::enable_if_t<
-            std::is_member_object_pointer<Function(T::*)>::value>>
+            std::is_member_object_pointer<Function T::*>::value>>
     BOOST_STATIC_VIEWS_FORCEINLINE
     static BOOST_STATIC_VIEWS_CONSTEXPR
-    auto call_impl(Function(T::*f), Object&& obj)
+    auto call_impl(Function T::*f, Object&& obj)
     BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
     (
         invoke_member_data(f, std::forward<Object>(obj))
@@ -196,10 +196,10 @@ struct invoke_impl {
 
     template <class Function, class T, class Object, class... Args,
         class = std::enable_if_t<
-            std::is_member_function_pointer<Function(T::*)>::value>>
+            std::is_member_function_pointer<Function T::*>::value>>
     BOOST_STATIC_VIEWS_FORCEINLINE
     static BOOST_STATIC_VIEWS_CONSTEXPR
-    auto call_impl(Function(T::*f), Object&& obj, Args&&... args)
+    auto call_impl(Function T::*f, Object&& obj, Args&&... args)
     BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
     (
         invoke_member_func(f, std::forward<Object>(obj),

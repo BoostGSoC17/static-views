@@ -7,6 +7,7 @@
 #define BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
 
 #include <cassert>
+#include <cstddef>
 
 // Define the following macro if you want to use StaticViews as part
 // of Boost.
@@ -175,6 +176,9 @@
 
 #endif // use Boost.Config
 
+#define BOOST_STATIC_VIEWS_ISSUES_LINK                               \
+    "https://github.com/BoostGSoC17/static-views/issues"
+
 #define BOOST_STATIC_VIEWS_DO_JOIN2(X, Y) X##Y
 #define BOOST_STATIC_VIEWS_DO_JOIN1(X, Y)                            \
     BOOST_STATIC_VIEWS_DO_JOIN2(X, Y)
@@ -265,6 +269,7 @@ class assert_failure : std::exception {
     }
 };
 
+
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
 #define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                         \
@@ -281,7 +286,7 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
 
 #else
 
-#error "No error handling pocily chosen."
+#error "No error handling policy chosen."
 
 #endif
 
@@ -297,5 +302,13 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
     constexpr auto name = type{};                                    \
 /**/
 #endif
+
+BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
+
+/// \brief Special value of that indicates that the size of a sequence
+/// is unknown at compile-time.
+constexpr std::ptrdiff_t dynamic_extent = -1;
+
+BOOST_STATIC_VIEWS_END_NAMESPACE
 
 #endif // BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
