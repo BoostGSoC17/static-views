@@ -108,7 +108,7 @@ struct drop_exactly_impl {
                  std::remove_reference_t<V>>::index_type const b) const
         // clang-format on
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
-            noexcept(std::declval<make_drop_exactly_impl const&>().call_impl(
+            noexcept(std::declval<drop_exactly_impl const&>().call_impl(
                 make_wrapper(std::forward<V>(xs), b))))
     {
         using index_type =
