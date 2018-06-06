@@ -503,7 +503,9 @@ namespace swap_adl {
 
     template <class T, class U>
     using is_swappable_with =
-        is_detected<swap_t, T, U>&& is_detected<swap_t, U, T>;
+        std::conditional_t<is_detected<swap_t, T, U>::value
+                               && is_detected<swap_t, U, T>::value,
+            std::true_type, std::false_type>;
 
     template <class T, class U, class = void>
     struct is_nothrow_swappable_with : std::false_type {
