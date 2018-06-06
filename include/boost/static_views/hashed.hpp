@@ -322,7 +322,7 @@ struct hashed_view_impl
     /// \endverbatim
     BOOST_STATIC_VIEWS_CONSTEXPR
     hashed_view_impl(Wrapper&& xs, Hasher&& hf)
-        : base{std::move(xs)}, _data{{}, std::move(hf)}
+        : base{std::move(xs)}, _data{array_wrapper{}, std::move(hf)}
     {
         initialise_storage();
     }
