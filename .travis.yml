@@ -189,7 +189,8 @@ before_install:
     if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
       brew install python3
     fi
-  - pip3 install --user sphinx
+  - python3 --version
+  - pip install --user sphinx
   # - >
   #   git clone --recursive -b stable
   #   https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
