@@ -82,48 +82,23 @@ matrix:
     # Builds with Clang
     ############################################################################
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.8 CXXFLAGS="-std=c++14" BENCHMARK=true
-      addons:
-        apt:
-          packages:
-            - clang-3.8
-            - g++-7
-            - gnuplot
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.8
-
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
             - clang-3.9
-            - g++-7
-            - gnuplot
+            - g++-8
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-3.9
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z" BENCHMARK=false
-      addons:
-        apt:
-          packages:
-            - clang-3.9
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.9
-
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
             - clang-4.0
-            - g++-7
-            - gnuplot
+            - g++-8
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
@@ -146,21 +121,32 @@ matrix:
         apt:
           packages:
             - clang-5.0
-            - gnuplot
+            - g++-8
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-6.0 CXXFLAGS="-std=c++14" BENCHMARK=false
+      addons:
+        apt:
+          packages:
+            - clang-6.0
+            - g++-8
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-6.0
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-7.0 CXXFLAGS="-std=c++14" BENCHMARK=false
+      addons:
+        apt:
+          packages:
+            - clang-7.0
+            - g++-8
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty
-
-    # - os: linux
-    #   env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
-    #   addons:
-    #     apt:
-    #       packages:
-    #         - clang-5.0
-    #         - g++-7
-    #       sources:
-    #         - ubuntu-toolchain-r-test
-    #         - llvm-toolchain-trusty
 
     ############################################################################
     # Builds with XCode

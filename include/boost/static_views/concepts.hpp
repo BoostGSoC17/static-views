@@ -739,9 +739,9 @@ concept bool HasIndexOperator = requires(T& ref, T const& cref,
     ref[i];
     // cref[i];
 };
+// TODO: This is buggy on gcc-7.3.0, but works on gcc-8
 template <class T>
-concept bool HasIndexOperatorWithType = requires(T& ref, T const& cref,
-                                                 typename T::index_type i) {
+concept bool HasIndexOperatorWithType = requires(T& ref, typename T::index_type i) {
     { ref[i] } -> typename T::reference;
     // { cref[i] } -> typename T::const_reference;
 };
