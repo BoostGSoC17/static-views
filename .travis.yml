@@ -142,7 +142,7 @@ matrix:
       addons:
         apt:
           packages:
-            - clang
+            - llvm-7
             - g++-8
           sources:
             - ubuntu-toolchain-r-test
@@ -176,6 +176,7 @@ before_install:
       python3 --version
       pip install --user sphinx
       apt-cache search llvm-
+      apt-cache search clang-
     fi
   # - >
   #   git clone --recursive -b stable
