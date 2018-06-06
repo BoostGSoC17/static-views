@@ -138,11 +138,11 @@ matrix:
             - llvm-toolchain-trusty-6.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-7.0 CXXFLAGS="-std=c++14" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++-7 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
-            - llvm-7
+            - clang-7
             - g++-8
           sources:
             - ubuntu-toolchain-r-test
