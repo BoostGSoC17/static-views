@@ -1,4 +1,4 @@
-//          Copyright Tom Westerhout 2017.
+//          Copyright Tom Westerhout 2017-2018.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -9,21 +9,34 @@
 
 auto test_carray_traits()
 {
-    using S      = int[10];
-    using Traits = boost::static_views::sequence_traits<S>;
+    using S               = int[10];
     static constexpr S xs = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    // const here is due to the constexpr above
+    using Traits = boost::static_views::sequence_traits<S const>;
 
     BOOST_TEST_TRAIT_TRUE(
         (std::is_same<Traits::size_type, unsigned>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<Traits::index_type, int>));
     BOOST_TEST_TRAIT_TRUE(
         (std::is_same<Traits::difference_type, int>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<Traits::value_type, int>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<Traits::reference, int&>));
     BOOST_TEST_TRAIT_TRUE(
-        (std::is_same<Traits::const_reference, int const&>));
+        (std::is_same<Traits::value_type, int const>));
+    BOOST_TEST_TRAIT_TRUE(
+        (std::is_same<Traits::reference, int const&>));
+    S ys = {};
+    STATIC_ASSERT(
+        (std::is_same<decltype(boost::static_views::sequence_traits<
+                          S>::at(ys, 2)),
+            int&>::value),
+        "");
+    // STATIC_ASSERT(boost::static_views::detail::SequenceTraitsHaveAt<S>, "");
     STATIC_ASSERT(boost::static_views::StaticSequence<S>,
         "foo[10] does not model the StaticSequence concept.");
+    // This one is important!
+    STATIC_ASSERT(boost::static_views::Sequence<int const[3]>,
+        "const int[3] does not model the Sequence concept.");
+    STATIC_ASSERT(boost::static_views::Sequence<int const volatile[3]>,
+        "const int[3] does not model the Sequence concept.");
     STATIC_ASSERT(Traits::extent() == 10, "extent() is broken.");
     STATIC_ASSERT(Traits::size(xs) == 10, "size() is broken.");
     STATIC_ASSERT(Traits::at(xs, 2) == 3, "at() is broken.");
@@ -46,8 +59,6 @@ auto test_stdarray_traits()
         (std::is_same<Traits::difference_type, int>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<Traits::value_type, foo>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<Traits::reference, foo&>));
-    BOOST_TEST_TRAIT_TRUE(
-        (std::is_same<Traits::const_reference, foo const&>));
     STATIC_ASSERT(boost::static_views::StaticSequence<S>,
         "std::array<foo, 10> does not model the StaticSequence "
         "concept.");
@@ -70,8 +81,6 @@ auto test_stdtuple_traits()
         (std::is_same<Traits::difference_type, int>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<Traits::value_type, char>));
     BOOST_TEST_TRAIT_TRUE((std::is_same<Traits::reference, char&>));
-    BOOST_TEST_TRAIT_TRUE(
-        (std::is_same<Traits::const_reference, char const&>));
     STATIC_ASSERT(boost::static_views::StaticSequence<S>,
         "std::tuple<char, char, char, char, char> does not model the "
         "StaticSequence concept.");
@@ -116,7 +125,6 @@ struct sequence_traits<A1>
     using index_type = difference_type;
     using value_type = int;
     using reference = char&;
-    using const_reference = std::pair<int, float> const&;
 };
 
 template <>
@@ -127,7 +135,6 @@ struct sequence_traits<A2>
     using index_type = difference_type;
     using value_type = int;
     using reference = char&;
-    using const_reference = std::pair<int, float> const&;
 };
 
 template <>
@@ -138,7 +145,6 @@ struct sequence_traits<A3>
     using index_type = difference_type;
     using value_type = int;
     using reference = char&;
-    using const_reference = std::pair<int, float> const&;
 };
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
