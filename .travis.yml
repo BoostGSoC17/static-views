@@ -172,11 +172,11 @@ matrix:
 
 before_install:
   - |
-    if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
-      brew install python3
+    if [[ ${TRAVIS_OS_NAME} != "osx" ]]; then
+      python3 --version
+      pip install --user sphinx
+      apt-cache search llvm-
     fi
-  - python3 --version
-  - pip install --user sphinx
   # - >
   #   git clone --recursive -b stable
   #   https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
