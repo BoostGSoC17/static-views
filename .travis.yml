@@ -11,7 +11,7 @@ sudo: false
 # We need Ubuntu 14.04 rather than 12.04 to get latest compilers
 dist: trusty
 
-python: "3.4"
+python: "3.6"
 
 
 os:
@@ -197,12 +197,12 @@ before_install:
   # - python3 setup.py build
   # - export PYTHONPATH="${SPHINX_ROOT}/build/lib:${PYTHONPATH}"
 
-  - >
-    git clone --recursive -b master
-    https://github.com/michaeljones/breathe ${BREATHE_ROOT}
-  - cd ${BREATHE_ROOT}
-  - python3 setup.py build
-  - export PYTHONPATH="${BREATHE_ROOT}/build/lib:${PYTHONPATH}"
+  # - >
+  # - git clone --recursive -b master
+  # - https://github.com/michaeljones/breathe ${BREATHE_ROOT}
+  # - cd ${BREATHE_ROOT}
+  # - python3 setup.py build
+  # - export PYTHONPATH="${BREATHE_ROOT}/build/lib:${PYTHONPATH}"
 
   - git clone --depth 1 https://github.com/boostorg/boost.git ${BOOST_ROOT}
   - cd ${BOOST_ROOT}
