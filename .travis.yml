@@ -142,7 +142,7 @@ matrix:
       addons:
         apt:
           packages:
-            - clang-7.0
+            - clang
             - g++-8
           sources:
             - ubuntu-toolchain-r-test
