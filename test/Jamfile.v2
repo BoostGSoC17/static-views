@@ -30,8 +30,8 @@ local .gcc-warnings = -W -Wall -Wextra -pedantic -Wcast-align
                       -Wstrict-overflow=5
                       -Wvariadic-macros 
                       -Wparentheses 
-                      -Wno-noexcept
-                      -Wno-noexcept-type
+# -Wno-noexcept
+#                      -Wno-noexcept-type
                     ;
 
 local .clang-warnings = -W -Weverything
@@ -63,7 +63,8 @@ project
     ;
 
 
-alias static_views_tests : headers correctness optimisation ;
+alias static_views_tests : correctness ;
+# headers correctness optimisation ;
 
 alias minimal : static_views_tests ;
 alias ful     : static_views_tests ;

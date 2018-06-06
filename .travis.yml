@@ -141,38 +141,37 @@ matrix:
     #         - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
             - clang-5.0
-            - g++-7
             - gnuplot
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty
 
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
-      addons:
-        apt:
-          packages:
-            - clang-5.0
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty
+    # - os: linux
+    #   env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - clang-5.0
+    #         - g++-7
+    #       sources:
+    #         - ubuntu-toolchain-r-test
+    #         - llvm-toolchain-trusty
 
     ############################################################################
     # Builds with XCode
     ############################################################################
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
       osx_image: xcode9
 
-    - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
-      osx_image: xcode9
+    # - os: osx
+    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+    #   osx_image: xcode9
     # - os: osx
     #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
     #   osx_image: xcode8.3
@@ -207,7 +206,7 @@ before_install:
 
   - git clone --depth 1 https://github.com/boostorg/boost.git ${BOOST_ROOT}
   - cd ${BOOST_ROOT}
-    # For now, let StaticViews explicitely depend on two libraries: Boost.Core 
+    # For now, let StaticViews explicitly depend on two libraries: Boost.Core 
     # and Boost.Config. We thus get the following dependency "tree"
     # 
     # boost/config <--+-- boost/detail
