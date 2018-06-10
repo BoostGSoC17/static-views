@@ -13,6 +13,7 @@
 #include <boost/static_views/detail/invoke.hpp>
 #include <boost/static_views/detail/utils.hpp>
 #include <boost/static_views/hashed.hpp>
+#include <boost/static_views/compose.hpp>
 
 // clang-format off
 #if __cplusplus > 201402L
@@ -74,7 +75,7 @@ namespace detail {
     auto length_c(Char const* const str) noexcept -> std::size_t
     // clang-format on
     {
-        using boost::static_views::detail::is_detected;
+        using boost::static_views::is_detected;
         static_assert(
             std::is_nothrow_default_constructible<Char>::value,
             "`boost::static_views::static_map::detail::length_c<Char>"
@@ -138,7 +139,7 @@ namespace detail {
     auto simple_hash(Char const* const str) noexcept
     // clang-format on
     {
-        using boost::static_views::detail::is_detected;
+        using boost::static_views::is_detected;
         static_assert(
             std::is_nothrow_default_constructible<Char>::value,
             "`boost::static_views::static_map::detail::simple_hash<"
@@ -218,89 +219,67 @@ struct hash_c {
 namespace detail {
 
     template <class Pred, class GetKey, class GetMapped>
-    class map_config : private std::tuple<Pred, GetKey, GetMapped> {
-
-      private:
-        static_assert(
-            std::is_same<Pred, std::decay_t<Pred>>::value, "");
-        static_assert(
-            std::is_same<GetKey, std::decay_t<GetKey>>::value, "");
-        static_assert(
-            std::is_same<GetMapped, std::decay_t<GetMapped>>::value,
-            "");
-
-        using tuple_type = std::tuple<Pred, GetKey, GetMapped>;
+    class map_config : private Pred, GetKey, GetMapped {
 
       public:
-        using key_equal     = typename Pred::type;
-        using key_getter    = typename GetKey::type;
-        using mapped_getter = typename GetMapped::type;
+        using key_equal     = typename Pred::value_type;
+        using key_getter    = typename GetKey::value_type;
+        using mapped_getter = typename GetMapped::value_type;
 
         BOOST_STATIC_VIEWS_CONSTEXPR
-        explicit map_config(tuple_type&& tpl)
-#if defined(BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE)
+        map_config(Pred&& equal, GetKey&& get_key, GetMapped&& get_mapped)
             BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-                ::BOOST_STATIC_VIEWS_NAMESPACE::detail::utils::all(
-                    std::is_nothrow_move_constructible<Pred>::value,
-                    std::is_nothrow_move_constructible<GetKey>::value,
-                    std::is_nothrow_move_constructible<
-                        GetMapped>::value))
-#else
-            BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-                std::is_nothrow_move_constructible<tuple_type>::value)
-#endif
-            : tuple_type{std::move(tpl)}
+                std::is_nothrow_move_constructible<Pred>::value&&
+                        std::is_nothrow_move_constructible<GetKey>::value&&
+                        std::is_nothrow_move_constructible<GetMapped>::value)
+            : Pred{std::move(equal)}
+            , GetKey{std::move(get_key)}
+            , GetMapped{std::move(get_mapped)}
         {
         }
 
+        map_config(map_config const&) = default;
+        map_config(map_config&&)      = default;
+        map_config& operator=(map_config const&) = default;
+        map_config& operator=(map_config&&) = default;
+
         BOOST_STATIC_VIEWS_CONSTEXPR
-        decltype(auto) equal() const & noexcept
+        auto const& equal() const& noexcept
         {
-            return std::get<0>(static_cast<tuple_type const&>(*this))
-                .get();
+            return static_cast<Pred const&>(*this).get();
         }
 
         BOOST_STATIC_VIEWS_CONSTEXPR
-        decltype(auto) equal() && noexcept
+        auto equal() && noexcept { return static_cast<Pred&&>(*this).get(); }
+
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        auto const& key() const& noexcept
         {
-            return std::get<0>(static_cast<tuple_type&&>(*this))
-                .get();
+            return static_cast<GetKey const&>(*this).get();
         }
 
         BOOST_STATIC_VIEWS_CONSTEXPR
-        decltype(auto) key() const & noexcept
+        auto key() && noexcept { return static_cast<GetKey&&>(*this).get(); }
+
+        BOOST_STATIC_VIEWS_CONSTEXPR
+        auto const& mapped() const& noexcept
         {
-            return std::get<1>(static_cast<tuple_type const&>(*this))
-                .get();
+            return static_cast<GetMapped const&>(*this).get();
         }
 
         BOOST_STATIC_VIEWS_CONSTEXPR
-        decltype(auto) key() && noexcept
+        auto mapped() && noexcept
         {
-            return std::get<1>(static_cast<tuple_type&&>(*this))
-                .get();
-        }
-
-        BOOST_STATIC_VIEWS_CONSTEXPR
-        decltype(auto) mapped() const & noexcept
-        {
-            return std::get<2>(static_cast<tuple_type const&>(*this))
-                .get();
-        }
-
-        BOOST_STATIC_VIEWS_CONSTEXPR
-        decltype(auto) mapped() && noexcept
-        {
-            return std::get<2>(static_cast<tuple_type&&>(*this))
-                .get();
+            return static_cast<GetMapped&&>(*this).get();
         }
     };
 
     template <class Pred, class GetKey, class GetMapped>
     BOOST_STATIC_VIEWS_CONSTEXPR auto make_map_config_impl(
-        std::tuple<Pred, GetKey, GetMapped>&& tpl)
+        Pred p, GetKey k, GetMapped m)
     {
-        return map_config<Pred, GetKey, GetMapped>{std::move(tpl)};
+        return map_config<Pred, GetKey, GetMapped>{
+            std::move(p), std::move(k), std::move(m)};
     }
 
     template <class Pred, class GetKey, class GetMapped>
@@ -308,9 +287,9 @@ namespace detail {
         Pred&& p, GetKey&& k, GetMapped&& m)
     {
         return make_map_config_impl(
-            std::make_tuple(make_wrapper(std::forward<Pred>(p)),
-                make_wrapper(std::forward<GetKey>(k)),
-                make_wrapper(std::forward<GetMapped>(m))));
+            make_wrapper(std::forward<Pred>(p)),
+            make_wrapper(std::forward<GetKey>(k)),
+            make_wrapper(std::forward<GetMapped>(m)));
     }
 
     template <class HashedView, class MapConfig>
@@ -318,66 +297,39 @@ namespace detail {
         : private HashedView
         , private MapConfig {
 
-      public:
         using type        = static_map<HashedView, MapConfig>;
-        using bucket_type = std::decay_t<decltype(
-            std::declval<HashedView>()[std::declval<std::size_t>()])>;
-        using value_type =
-            std::remove_reference_t<decltype(std::declval<
-                bucket_type>()[std::declval<std::size_t>()])>;
+
+      public:
+        using bucket_type   = typename HashedView::value_type;
+        using value_type    = typename bucket_type::value_type;
+        using reference     = typename bucket_type::reference;
         using key_equal     = typename MapConfig::key_equal;
         using key_getter    = typename MapConfig::key_getter;
         using mapped_getter = typename MapConfig::mapped_getter;
 
-      private:
-        template <class T>
-        using callable_with_value_t = decltype(invoke(
-            std::declval<T const&>(), std::declval<value_type>()));
+        static_assert(is_invocable<key_getter, reference>::value,
+            "`key_getter` in boost::static_views::static_map must be invocable "
+            "with `reference`.");
 
-        static_assert(concepts::is_detected<callable_with_value_t,
-                          key_getter>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        // static_assert(concepts::is_detected<callable_with_value_t,
-        //                  mapped_getter>::value,
-        //    BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        using key_type = std::remove_reference_t<decltype(invoke(
+            std::declval<key_getter const&>(), std::declval<reference>()))>;
 
-      public:
-        using key_type    = std::remove_reference_t<decltype(
-            invoke(std::declval<key_getter const&>(),
-                std::declval<value_type&>()))>;
-        using mapped_type = std::remove_reference_t<decltype(
-            invoke(std::declval<mapped_getter const&>(),
-                std::declval<value_type&>()))>;
+        static_assert(is_invocable<key_getter, reference>::value,
+            "`mapped_getter` in boost::static_views::static_map must be "
+            "invocable with `reference`.");
 
-      private:
-        template <class T>
-        using callable_with_key_t =
-            decltype(invoke(std::declval<T const&>(),
-                std::declval<key_type const&>()));
+        using mapped_type = std::remove_reference_t<decltype(invoke(
+            std::declval<mapped_getter const&>(), std::declval<reference>()))>;
 
-        template <class T>
-        using callable_with_2_key_t = decltype(invoke(
-            std::declval<T const&>(), std::declval<key_type const&>(),
-            std::declval<key_type const&>()));
-
-        static_assert(concepts::is_detected<callable_with_2_key_t,
-                          key_equal>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-
-      public:
-        // To be improved
-        using hasher =
-            std::decay_t<decltype(std::declval<HashedView const&>()
-                                      .hash_function()
-                                      ._hasher)>;
         static_assert(
-            std::is_convertible<
-                concepts::detected_t<callable_with_key_t, hasher>,
-                std::size_t>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+            is_invocable_r<bool, key_equal, key_type&, key_type&>::value,
+            "`key_equal` in boost::static_views::static_map must be invocable "
+            "with two `key_type&` and, when invoked, return something "
+            "convertible to `bool`..");
 
-        using difference_type = std::ptrdiff_t;
-        using size_type       = std::size_t;
+        using typename HashedView::size_type;
+        using key_hasher = typename HashedView::hasher_type::first_fn;
+        using index_type = key_type;
 
       private:
         using view_type   = HashedView;
@@ -388,60 +340,67 @@ namespace detail {
         BOOST_STATIC_VIEWS_DECLTYPE_AUTO _hash_function() const
             noexcept
         {
-            // To be improved
-            return this->hash_function()._hasher;
+            // TODO: This is ugly!
+            return this->hash_function().second();
         }
 
         BOOST_STATIC_VIEWS_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR
-        auto _lookup(key_type const& k) const -> value_type*
+        auto* _lookup(key_type const& k) const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(invoke(std::declval<key_equal const&>(),
+                std::declval<key_type const&>(),
+                invoke(std::declval<key_getter const&>(),
+                    std::declval<reference>())))
+#if 0
+            && noexcept(invoke(
+                   std::declval<static_map const&>()._hash_function(), k))
+#endif
+            )
         {
             struct pred_equal {
                 key_getter const& get_key;
                 key_equal const&  equal;
                 key_type const&   key;
 
-                BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
-                    value_type const& y) -> bool
+                BOOST_STATIC_VIEWS_CONSTEXPR
+                auto operator()(value_type const& y)
+                    BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+                        noexcept(invoke(std::declval<key_equal const&>(),
+                            std::declval<key_type const&>(),
+                            invoke(std::declval<key_getter const&>(), y))))
+                        -> bool
                 {
                     return invoke(equal, key, invoke(get_key, y));
                 }
             };
 
-            auto const hash = view_type::bucket_size()
-                              * (invoke(_hash_function(), k)
-                                    % view_type::bucket_count());
-            return this->lookup(
+            auto const hash =
+                view_type::bucket_size()
+                * (_hash_function()(k) % view_type::bucket_count());
+            return static_cast<HashedView const&>(*this).lookup(
                 hash, pred_equal{this->key(), this->equal(), k});
-            /*
-            // get all elements matching key k
-            auto const                               ys =
-                static_cast<view_type const*>(this)->operator[](
-                    boost::static_views::invoke(_hash_function(), k));
-            // search for the one that compares equal to k
-            auto const i = boost::static_views::find_first_i(
-                ys, pred_equal{this->key(), this->equal(), k});
-
-            return (i < ys.size()) ? &(ys.unsafe_at(i)) : nullptr;
-            */
         }
 
       public:
         BOOST_STATIC_VIEWS_CONSTEXPR
         static_map(view_type&& xs, config_type&& conf)
+            BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+                std::is_nothrow_move_constructible<view_type>::value&&
+                    std::is_nothrow_move_constructible<config_type>::value)
             : view_type{std::move(xs)}, config_type{std::move(conf)}
         {
         }
 
         BOOST_STATIC_VIEWS_CONSTEXPR
-        auto size() const -> size_type
+        auto size() const noexcept -> size_type
         {
-            return static_cast<view_type const*>(this)->size();
+            return static_cast<view_type const&>(*this).size();
         }
 
         BOOST_STATIC_VIEWS_FORCEINLINE
         BOOST_STATIC_VIEWS_CONSTEXPR
-        auto find(key_type const& k) const -> value_type*
+        auto* find(key_type const& k) const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(std::declval<static_map const&>()._lookup(k)))
         {
             return _lookup(k);
         }
@@ -479,6 +438,50 @@ namespace detail {
 
 } // namespace detail
 
+
+template <std::size_t BucketCount = 0, std::size_t BucketSize = 0>
+struct make_static_map_impl {
+
+  private:
+    template <class HashedView, class MapConfig>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(
+        HashedView view, MapConfig config) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            detail::static_map<HashedView, MapConfig>{
+                std::move(view), std::move(config)});
+
+  public:
+    // clang-format off
+    template <class View, class GetKey, class GetMapped,
+        class KeyEqual = std::equal_to<void>, class Hasher = hash_c>
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(View&& xs, GetKey get_key, GetMapped&& get_mapped,
+        KeyEqual&& key_equal = KeyEqual{}, Hasher&& hasher = Hasher{})
+    // clang-format on
+    {
+        using view_type = std::remove_cv_t<std::remove_reference_t<View>>;
+        static_assert(view_type::extent() != dynamic_extent,
+            "For views of unknown size you need to manually specify a non-zero "
+            "BucketCount.");
+
+        constexpr auto bucket_count =
+            (BucketCount == 0) ? 2 * view_type::extent() : BucketCount;
+        constexpr auto bucket_size = (BucketSize == 0) ? 2 : BucketSize;
+
+        static_assert(std::is_copy_constructible<GetKey>::value,
+            "Current implemetation of boost::static_views::static_map requires "
+            "GetKey to be copy constructible. If you absolutely cannot live "
+            "with this, please submit a bug report.");
+        auto view = hashed<bucket_count, bucket_size>(std::forward<View>(xs),
+            compose(std::forward<Hasher>(hasher), GetKey{get_key}));
+        auto conf = detail::make_map_config(std::forward<KeyEqual>(key_equal),
+            std::move(get_key), std::forward<GetMapped>(get_mapped));
+
+        return call_impl(std::move(view), std::move(conf));
+    }
+};
+
+#if 0
 // clang-format off
 template <std::size_t BucketCount = 0, std::size_t BucketSize = 0,
     class View = void, class GetKey = void, class GetMapped = void,
@@ -486,6 +489,7 @@ template <std::size_t BucketCount = 0, std::size_t BucketSize = 0,
 BOOST_STATIC_VIEWS_CONSTEXPR
 auto make_static_map(View&& xs, GetKey&& get_key, GetMapped&& get_mapped,
     KeyEqual&& key_equal = KeyEqual{}, Hasher&& hasher = Hasher{})
+// clang-format on
 {
     using value_type = std::remove_reference_t<decltype(
         xs[std::declval<std::size_t>()])>;
@@ -502,12 +506,12 @@ auto make_static_map(View&& xs, GetKey&& get_key, GetMapped&& get_mapped,
     };
 
     using view_type = std::remove_cv_t<std::remove_reference_t<View>>;
-    constexpr auto bucket_count = (BucketCount == 0)
-        ? 2 * view_type::extent()
-        : BucketCount;
-    constexpr auto bucket_size = (BucketSize == 0)
-        ? 2
-        : BucketSize;
+    static_assert(view_type::extent() != dynamic_extent,
+        "For views of unknown size you need to manually specify a non-zero "
+        "BucketCount.");
+    constexpr auto bucket_count =
+        (BucketCount == 0) ? 2 * view_type::extent() : BucketCount;
+    constexpr auto bucket_size = (BucketSize == 0) ? 2 : BucketSize;
 
     auto view = hashed<bucket_count, bucket_size>(
         tricky_hasher{std::forward<Hasher>(hasher), get_key})(
@@ -519,7 +523,7 @@ auto make_static_map(View&& xs, GetKey&& get_key, GetMapped&& get_mapped,
     return detail::static_map<decltype(view), decltype(conf)>{
             std::move(view), std::move(conf)};
 }
-// clang-format on
+#endif
 
 } // namespace static_map
 

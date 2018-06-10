@@ -189,15 +189,14 @@ struct hashed_view_impl
     static_assert(is_wrapper<Hasher>(),
         "[INTERNAL] Invalid use of hashed_impl.");
 
-    using hasher_type = typename Hasher::value_type;
     using base        = view_adaptor_base<
         hashed_view_impl<BucketCount, BucketSize, Wrapper, Hasher>, Wrapper>;
-
     using base_index_type = typename base::index_type;
+
   public:
+    using hasher_type = typename Hasher::value_type;
     using index_type = std::size_t;
     using typename base::size_type;
-    using typename base::value_type;
 
     using base::parent;
 
@@ -374,13 +373,15 @@ struct hashed_view_impl
         return this->operator[](hash);
     }
 
-    using reference  = decltype(
+    using reference = decltype(
         std::declval<hashed_view_impl const&>()[std::declval<index_type>()]);
+    using value_type = std::remove_reference_t<reference>;
 
     template <class Predicate>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto lookup(index_type h, Predicate&& p) const noexcept -> value_type*
+    auto lookup(index_type h, Predicate&& p) const noexcept
+        -> typename value_type::value_type*
     {
         auto const xs = bucket(h);
         for (typename base::index_type i = 0;
