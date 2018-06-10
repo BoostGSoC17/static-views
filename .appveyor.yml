@@ -67,6 +67,7 @@ install:
   - xcopy /E /H /Y C:\projects\static-views %BOOST_ROOT%\libs\
   - .\bootstrap.bat
   - .\b2 headers
+  - dir "C:\Program Files (x86)"
   - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ClangC2\bin\amd64"
   - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
@@ -78,5 +79,5 @@ build: off
 
 test_script:
   - cd %BOOST_ROOT%
-  - .\b2 libs\static-views\test\correctness
+  - .\b2 libs\static-views\test
 
