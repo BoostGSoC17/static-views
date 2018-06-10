@@ -1,5 +1,5 @@
 #include <iostream>
-#include "static_map.hpp"
+#include <boost/static_views/static_map.hpp>
 
 struct equal_c {
 
@@ -72,7 +72,7 @@ void test1()
             }
         };
         constexpr auto cmap =
-            boost::static_views::static_map::make_static_map_impl<10, 1>{}(
+            boost::static_views::make_static_map_impl<10, 1>{}(
                 boost::static_views::raw_view(map_data), get_key{},
                 get_mapped{});
 
