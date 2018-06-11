@@ -23,6 +23,8 @@ auto test_make()
         xs, std::integral_constant<std::size_t, 2>{});
     STATIC_ASSERT(sizeof(bs) == sizeof(xs), "EBO in drop doesn't work.");
     STATIC_ASSERT(decltype(bs)::extent() == 18u, "extent() is broken.");
+    auto cs =
+        boost::static_views::drop_exactly(std::integral_constant<int, 8>{})(xs);
 }
 
 int main()
