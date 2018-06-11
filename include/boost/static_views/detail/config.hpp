@@ -117,6 +117,8 @@
 
 #define BOOST_STATIC_VIEWS_UNREACHABLE __builtin_unreachable()
 
+#define BOOST_STATIC_VIEWS_PURE __attribute__((__pure__))
+
 #elif defined(__GNUC__)
 // ===========================================================================
 // We're being compiled with GCC
@@ -144,6 +146,8 @@
 
 #define BOOST_STATIC_VIEWS_UNREACHABLE __builtin_unreachable()
 
+#define BOOST_STATIC_VIEWS_PURE __attribute__((__pure__))
+
 #elif defined(_MSC_VER)
 // ===========================================================================
 // We're being compiled with Microsoft Visual C++
@@ -167,6 +171,7 @@
 
 #define BOOST_STATIC_VIEWS_UNREACHABLE __assume(0)
 
+#define BOOST_STATIC_VIEWS_PURE
 #else
 // clang-format off
 #   error "Unsupported compiler. Please, submit a request to https://github.com/boostgsoc17/static-views/issues."

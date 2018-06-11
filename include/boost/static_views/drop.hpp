@@ -11,6 +11,7 @@
 #define BOOST_STATIC_VIEWS_DROP_HPP
 
 #include "view_base.hpp"
+#include "compact_index.hpp"
 
 #include <algorithm>
 #include <type_traits>
@@ -21,11 +22,17 @@ namespace detail {
 
 template <class Wrapper, std::ptrdiff_t Extent>
 struct drop_view_impl
-    : view_adaptor_base<drop_view_impl<Wrapper, Extent>, Wrapper> {
+    : view_adaptor_base<drop_view_impl<Wrapper, Extent>, Wrapper>
+    , private compact_index<
+          typename view_adaptor_base<drop_view_impl<Wrapper, Extent>,
+              Wrapper>::index_type,
+          Extent> {
 
   private:
     using wrapper_type = Wrapper;
     using base = view_adaptor_base<drop_view_impl<Wrapper, Extent>, Wrapper>;
+    using compact_index_type = compact_index<typename base::index_type, Extent>;
+    using compact_index_type::index;
 
   public:
     using typename base::index_type;
@@ -42,11 +49,10 @@ struct drop_view_impl
     /// \param b  Number of elements to drop. \p b must not exceed the size of
     ///           \p xs.
     BOOST_STATIC_VIEWS_CONSTEXPR drop_view_impl(
-        Wrapper&& xs, index_type const b)
+        Wrapper&& xs, compact_index_type const b)
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
-            std::is_nothrow_constructible<typename drop_impl::base,
-                Wrapper&&>::value)
-        : base{std::move(xs)}, _b{b}
+            std::is_nothrow_constructible<base, Wrapper&&>::value)
+        : base{std::move(xs)}, compact_index_type{b}
     {
         BOOST_STATIC_VIEWS_EXPECT(
             0 <= b && b <= static_cast<index_type>(parent().size()),
@@ -59,17 +65,23 @@ struct drop_view_impl
     drop_view_impl& operator=(drop_view_impl&&) = default;
 
     /// \brief Returns the number of elements viewed.
+    BOOST_STATIC_VIEWS_PURE
     BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept -> size_type
     {
         static_assert(
             noexcept(parent().size()), BOOST_STATIC_VIEWS_BUG_MESSAGE);
         // Per construction, 0 <= _b <= parent().size(), so this is safe
-        return parent().size() - static_cast<size_type>(_b);
+        return parent().size() - static_cast<size_type>(index());
     }
 
     static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
-        return dynamic_extent;
+        static_assert(base::extent() == dynamic_extent
+                          || base::extent() >= compact_index_type::extent(),
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        return base::extent() == dynamic_extent
+                   ? dynamic_extent
+                   : base::extent() - compact_index_type::extent();
     }
 
     /// \brief "Maps" index \p i to the corresponding index in the
@@ -83,19 +95,20 @@ struct drop_view_impl
         BOOST_STATIC_VIEWS_EXPECT(0 <= i && i < static_cast<index_type>(size()),
             "boost::static_views::drop_impl::map: Precondition "
             "`0 <= i < size()` is not satisfied.");
-        return _b + i;
+        return index() + i;
     }
-
-  private:
-    index_type _b;
 };
 
 struct drop_exactly_impl {
   private:
     template <class Wrapper, class IndexType>
-    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(Wrapper xs, IndexType b) const
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(Wrapper xs, IndexType const b) const
         BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
-            drop_view_impl<Wrapper, dynamic_extent>{std::move(xs), b});
+            drop_view_impl<Wrapper, IndexType::extent()>{std::move(xs), b});
+
+    template <class T>
+    using index_t =
+        typename std::remove_cv_t<std::remove_reference_t<T>>::index_type;
 
   public:
     // clang-format off
@@ -109,15 +122,37 @@ struct drop_exactly_impl {
         // clang-format on
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
             noexcept(std::declval<drop_exactly_impl const&>().call_impl(
-                make_wrapper(std::forward<V>(xs), b))))
+                make_wrapper(std::forward<V>(xs)), index(b))))
     {
-        using index_type =
-            typename std::remove_cv_t<std::remove_reference_t<V>>::index_type;
+        using index_type = index_t<V>;
         BOOST_STATIC_VIEWS_EXPECT(
             0 <= b && b <= static_cast<index_type>(xs.size()),
             "boost::static_views::drop_exactly(xs, b): Precondition "
             "`0 <= b <= xs.size()` is not satisfied.");
-        return call_impl(make_wrapper(std::forward<V>(xs)), b);
+        return call_impl(make_wrapper(std::forward<V>(xs)), index(b));
+    }
+
+    // clang-format off
+    template <class V, class Int, Int I
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>)
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(V&& xs, std::integral_constant<Int, I> /*unused*/) const
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            noexcept(std::declval<drop_exactly_impl const&>().call_impl(
+                make_wrapper(std::forward<V>(xs)),
+                index(std::integral_constant<index_t<V>, I>{}))))
+    {
+        using index_type =
+            typename std::remove_cv_t<std::remove_reference_t<V>>::index_type;
+        constexpr auto b = static_cast<index_type>(I);
+        BOOST_STATIC_VIEWS_EXPECT(
+            0 <= b && b <= static_cast<index_type>(xs.size()),
+            "boost::static_views::drop_exactly(xs, b): Precondition "
+            "`0 <= b <= xs.size()` is not satisfied.");
+        return call_impl(make_wrapper(std::forward<V>(xs)),
+            index(std::integral_constant<index_type, I>{}));
     }
 };
 
