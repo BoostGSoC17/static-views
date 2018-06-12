@@ -42,7 +42,7 @@ struct raw_view_impl {
     using index_type      = typename traits_type::index_type;
     using difference_type = typename traits_type::difference_type;
 
-    constexpr raw_view_impl() noexcept = default;
+    // constexpr raw_view_impl() noexcept = default;
 
     BOOST_STATIC_VIEWS_CONSTEXPR
     explicit raw_view_impl(S& xs) noexcept : _xs{&xs} {}
@@ -64,8 +64,13 @@ struct raw_view_impl {
         return sequence_traits<sequence_type>::extent();
     }
 
+    // This annotation is important, because we could be dereferencing a nullptr
+    // which is UB and not really "pure" :)
+    // However, per construction this never happens, so we're safe.
+    BOOST_STATIC_VIEWS_PURE
     constexpr auto size() const noexcept
     {
+        BOOST_STATIC_VIEWS_ASSUME(_xs != nullptr);
         return sequence_traits<sequence_type>::size(*_xs);
     }
 

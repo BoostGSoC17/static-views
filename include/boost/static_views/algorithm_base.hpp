@@ -15,68 +15,11 @@
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
-/// \brief Base class for all the algorithms.
-
-/// \verbatim embed:rst:leading-slashes
-/// By deriving from :cpp:class:`algorithm_base`, you tell StaticView
-/// that the derived class models the :ref:`view <algorithm-concept>`
-/// concept. \endverbatim
-struct algorithm_base {
-};
-
-/// \brief Checks whether `T` models the Algorithm concept.
-
-/// \verbatim embed:rst:leading-slashes
-/// Metafunction that returns whether ``T`` models the :ref:`algorithm
-/// <algorithm-concept>` concept:
-///
-/// .. code-block:: cpp
-///
-///   template <class T>
-///   struct is_algorithm : std::is_base_of<algorithm_base, T>
-///   {};
-///
-/// \endverbatim
-template <class V>
-struct is_algorithm : std::is_base_of<algorithm_base, V> {
-};
-
 namespace detail {
 template <class Function, class... Args>
-struct algorithm_impl : private std::tuple<Function, Args...> {
+struct lazy_adaptor_impl : private std::tuple<Function, Args...> {
 
     using base_type = std::tuple<Function, Args...>;
-    using self_type = algorithm_impl;
-#if 0
-    template <class T>
-    using compile_call_cref_t =
-        decltype(invoke(std::declval<Function const&>(),
-            make_wrapper(std::declval<T>()),
-            std::declval<Args const&>()...));
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_cref_callable, T,
-        (is_detected<compile_call_cref_t, T>::value), "");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_cref_call, T,
-        (noexcept(invoke(std::declval<Function const&>(),
-            make_wrapper(std::declval<T>()),
-            std::declval<Args const&>()...))),
-        "");
-
-    template <class T>
-    using compile_call_move_t = decltype(invoke(
-        std::declval<Function&&>(), make_wrapper(std::declval<T>()),
-        std::declval<Args&&>()...));
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_move_callable, T,
-        (is_detected<compile_call_move_t, T>::value), "");
-
-    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_move_call, T,
-        (noexcept(invoke(std::declval<Function&&>(),
-            make_wrapper(std::declval<T>()),
-            std::declval<Args&&>()...))),
-        "");
-#endif
 
     template <class Dummy>
     struct traits {
@@ -94,6 +37,8 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
         }
         return all;
     }
+
+    // The following functions kind of try to "fix" std::tuple.
 
     static constexpr auto is_base_nothrow_move_constructible() noexcept -> bool
     {
@@ -153,36 +98,44 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
     }
 
     // clang-format off
-    template <class View, std::size_t... Is>
+    template <class V, std::size_t... Is>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    decltype(auto) call_impl(View&& xs, std::index_sequence<Is...> /*unused*/)
+    decltype(auto) call_impl(V&& xs, std::index_sequence<Is...> /*unused*/)
         // clang-format on
         const& BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            is_call_noexcept<base_type const&, View>())
+            is_call_noexcept<base_type const&, V>())
     {
-        return invoke(std::get<0>(base()), std::forward<View>(xs),
+        static_assert(
+            sizeof...(Is) == sizeof...(Args), BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        static_assert(View<std::remove_cv_t<std::remove_reference_t<V>>>,
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        return invoke(std::get<0>(base()), std::forward<V>(xs),
             std::get<Is + 1>(base())...);
     }
 
     // clang-format off
-    template <class View, std::size_t... Is>
+    template <class V, std::size_t... Is>
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    decltype(auto) call_impl(View&& xs, std::index_sequence<Is...> /*unused*/) &&
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            is_call_noexcept<base_type&&, View>())
-    // clang-format on
+    decltype(auto) call_impl(V&& xs, std::index_sequence<Is...> /*unused*/) &&
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(is_call_noexcept<base_type&&, V>())
     {
-        return invoke(std::get<0>(static_cast<algorithm_impl&&>(*this).base()),
-            std::forward<View>(xs),
+        static_assert(
+            sizeof...(Is) == sizeof...(Args), BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        static_assert(View<std::remove_cv_t<std::remove_reference_t<V>>>,
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        return invoke(
+            std::get<0>(static_cast<lazy_adaptor_impl&&>(*this).base()),
+            std::forward<V>(xs),
             std::get<Is + 1>(
-                std::move(static_cast<algorithm_impl&&>(*this)))...);
+                std::move(static_cast<lazy_adaptor_impl&&>(*this)))...);
     }
 
   public:
     BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl(Function f, Args... args)
+    lazy_adaptor_impl(Function f, Args... args)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(is_base_nothrow_move_constructible())
         : base_type{std::move(f), std::move(args)...}
     {
@@ -197,7 +150,7 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
             std::is_copy_constructible<
                 typename traits<Dummy>::base_type>::value)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl(algorithm_impl const& other)
+    lazy_adaptor_impl(lazy_adaptor_impl const& other)
         // clang-format on
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             is_base_nothrow_copy_constructible()) : base_type{other.base()}
@@ -205,12 +158,14 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
     }
 
     // clang-format off
+    // TODO: Do we need this? The first constructor already assumes that
+    // Function and Args... are move-constructible.
     template <class Dummy
         BOOST_STATIC_VIEWS_REQUIRES(
             std::is_move_constructible<
                 typename traits<Dummy>::base_type>::value)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl(algorithm_impl&& other)
+    lazy_adaptor_impl(lazy_adaptor_impl&& other)
         // clang-format on
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
             is_base_nothrow_move_constructible()) : base_type{
@@ -224,7 +179,7 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
             std::is_copy_assignable<
                 typename traits<Dummy>::base_type>::value)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl& operator=(algorithm_impl const& other)
+    lazy_adaptor_impl& operator=(lazy_adaptor_impl const& other)
         // clang-format on
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(is_base_nothrow_copy_assignable())
     {
@@ -238,13 +193,24 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
             std::is_move_assignable<
                 typename traits<Dummy>::base_type>::value)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    algorithm_impl& operator=(algorithm_impl&& other)
-    // clang-format on
-            BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-                is_base_nothrow_move_assignable())
+    lazy_adaptor_impl& operator=(lazy_adaptor_impl&& other)
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(is_base_nothrow_move_assignable())
     {
         base() = std::move(other).base();
         return *this;
+    }
+
+    // clang-format off
+    template <class V, class = void
+        BOOST_STATIC_VIEWS_REQUIRES(
+            !View<std::remove_cv_t<std::remove_reference_t<V>>>)
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    decltype(auto) operator()(V&& /*unused*/) const noexcept
+    // clang-format on
+    {
+        return why_is_my_argument_not_a_view<
+            std::remove_cv_t<std::remove_reference_t<V>>>();
     }
 
     // clang-format off
@@ -254,7 +220,7 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
     BOOST_STATIC_VIEWS_CONSTEXPR
     decltype(auto) operator()(V&& xs) const&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            std::declval<algorithm_impl const&>().call_impl(
+            std::declval<lazy_adaptor_impl const&>().call_impl(
                 std::forward<V>(xs),
                 std::make_index_sequence<sizeof...(Args)>{})))
     // clang-format on
@@ -270,17 +236,17 @@ struct algorithm_impl : private std::tuple<Function, Args...> {
     BOOST_STATIC_VIEWS_CONSTEXPR
     decltype(auto) operator()(V&& xs) &&
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            std::declval<self_type&&>().call_impl(
+            std::declval<lazy_adaptor_impl&&>().call_impl(
                 std::forward<V>(xs),
                 std::make_index_sequence<sizeof...(Args)>{})))
     // clang-format on
     {
-        return static_cast<self_type&&>(*this).call_impl(
+        return static_cast<lazy_adaptor_impl&&>(*this).call_impl(
             std::forward<V>(xs), std::make_index_sequence<sizeof...(Args)>{});
     }
 };
 
-struct make_algorithm_impl {
+struct make_lazy_adaptor_impl {
     // clang-format off
     template <class Function, class... Args>
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -288,7 +254,7 @@ struct make_algorithm_impl {
     auto operator()(Function&& fn, Args&&... args) const
     BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
     (
-        algorithm_impl<std::decay_t<Function>,
+        lazy_adaptor_impl<std::decay_t<Function>,
             std::decay_t<Args>...>(std::forward<Function>(fn),
                 std::forward<Args>(args)...)
     );
@@ -307,7 +273,7 @@ struct make_algorithm_impl {
     }
 */
 
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_algorithm_impl, adaptor)
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_lazy_adaptor_impl, lazy_adaptor)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

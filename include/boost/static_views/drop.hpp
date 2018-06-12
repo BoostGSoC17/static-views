@@ -187,7 +187,7 @@ struct drop_exactly_impl {
     auto operator()(IndexType const b) const noexcept
     // clang-format on
     {
-        return adaptor(drop_exactly_impl{}, b);
+        return lazy_adaptor(drop_exactly_impl{}, b);
     }
 
     // clang-format off
@@ -203,7 +203,12 @@ struct drop_exactly_impl {
                 index(std::integral_constant<index_t<V>, I>{}))))
     {
         using index_type = index_t<V>;
+        using view_type = std::remove_cv_t<std::remove_reference_t<V>>;
         constexpr auto b = static_cast<index_type>(I);
+        static_assert(
+            view_type::extent() == dynamic_extent || view_type::extent() >= b,
+            "boost::static_views::drop_exactly(xs, b): Can't drop more "
+            "elements than there are in the view.");
         BOOST_STATIC_VIEWS_EXPECT(
             0 <= b && b <= static_cast<index_type>(xs.size()),
             "boost::static_views::drop_exactly(xs, b): Precondition "
@@ -218,8 +223,24 @@ struct drop_exactly_impl {
     auto operator()(std::integral_constant<IndexType, I> const b) const noexcept
     // clang-format on
     {
-        return adaptor(drop_exactly_impl{}, b);
+        return lazy_adaptor(drop_exactly_impl{}, b);
     }
+
+#if !defined(BOOST_STATIC_VIEWS_SFINAE)
+    // clang-format off
+    template <class V, class IndexType
+        BOOST_STATIC_VIEWS_REQUIRES(
+            !View<std::remove_cv_t<std::remove_reference_t<V>>>)
+    constexpr auto operator()(V&& /*unused*/, IndexType /*unused*/) const noexcept
+    // clang-format on
+    {
+        static_assert(View<std::remove_cv_t<std::remove_reference_t<V>>>,
+            "`boost::static_views::drop_exactly(xs, b)` requires xs to model "
+            "the View concept.");
+        return why_is_my_argument_not_a_view<
+            std::remove_cv_t<std::remove_reference_t<V>>>();
+    }
+#endif
 };
 
 #if 0

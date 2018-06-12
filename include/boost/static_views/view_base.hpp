@@ -149,6 +149,7 @@ struct view_adaptor_base : private Wrapper {
 
     /// \brief Returns the underlying view.
     /// \{
+    BOOST_STATIC_VIEWS_PURE
     BOOST_STATIC_VIEWS_CONSTEXPR auto const& parent() const& noexcept
     {
         static_assert(
@@ -181,6 +182,7 @@ struct view_adaptor_base : private Wrapper {
     /// the :ref:`view concept <view-concept>`. \endverbatim
 
     /// Just calls `size()` on the underlying view.
+    BOOST_STATIC_VIEWS_PURE
     BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
     {
         static_assert(
