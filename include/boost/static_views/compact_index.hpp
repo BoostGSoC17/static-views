@@ -71,9 +71,11 @@ struct compact_index<IndexType, Extent, std::enable_if_t<Extent >= 0>> {
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto index() const noexcept { return static_cast<IndexType>(Extent); }
 
+    /*
     BOOST_STATIC_VIEWS_PURE
     BOOST_STATIC_VIEWS_CONSTEXPR
     operator IndexType() const noexcept { return index(); }
+    */
 };
 
 // clang-format off
@@ -86,7 +88,8 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto index(IndexType const x) noexcept
 }
 
 template <class IndexType, IndexType I>
-auto index(std::integral_constant<IndexType, I> /*unused*/) noexcept
+BOOST_STATIC_VIEWS_CONSTEXPR auto index(
+    std::integral_constant<IndexType, I> /*unused*/) noexcept
 {
     return compact_index<IndexType, I>{};
 }
