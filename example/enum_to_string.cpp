@@ -58,7 +58,10 @@ static constexpr char const* weekday_strings[] = {
 // We mark the function `extern "C"` so that it has the same name in
 // the object file. This means, however, that we can't throw exceptions on
 // invalid input, so we return a null pointer instead.
-extern "C" constexpr auto to_string_old(weekday const x) noexcept -> char const*
+extern "C"
+BOOST_STATIC_VIEWS_NOINLINE
+constexpr auto weekday_to_string_old(weekday const x) noexcept
+    -> char const*
 {
     auto constexpr size =
         std::end(weekday_strings) - std::begin(weekday_strings);
@@ -97,7 +100,8 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
 
 // The newer, longer, and slower version of the to_string :)
 //
-extern "C" constexpr auto to_string_new(weekday const x) noexcept -> char const*
+extern "C" constexpr auto weekday_to_string_new(weekday const x) noexcept
+    -> char const*
 {
     using value_type = std::pair<weekday, char const*>;
 #if 0
@@ -117,21 +121,26 @@ extern "C" constexpr auto to_string_new(weekday const x) noexcept -> char const*
 }
 
 // And some simple checks that our functions actually work.
-void test()
+void weekday_test()
 {
-    static_assert(equal_c{}(to_string_old(weekday::tuesday), "tuesday"), "");
-    static_assert(equal_c{}(to_string_old(weekday::friday), "friday"), "");
-    static_assert(to_string_old(static_cast<weekday>(128)) == nullptr, "");
     static_assert(
-        equal_c{}(to_string_new(weekday::wednesday), "wednesday"), "");
-    static_assert(equal_c{}(to_string_new(weekday::sunday), "sunday"), "");
-    static_assert(to_string_new(static_cast<weekday>(128)) == nullptr, "");
+        equal_c{}(weekday_to_string_old(weekday::tuesday), "tuesday"), "");
+    static_assert(
+        equal_c{}(weekday_to_string_old(weekday::friday), "friday"), "");
+    static_assert(
+        weekday_to_string_old(static_cast<weekday>(128)) == nullptr, "");
+    static_assert(
+        equal_c{}(weekday_to_string_new(weekday::wednesday), "wednesday"), "");
+    static_assert(
+        equal_c{}(weekday_to_string_new(weekday::sunday), "sunday"), "");
+    static_assert(
+        weekday_to_string_new(static_cast<weekday>(128)) == nullptr, "");
 
     // These two don't appear in assembly, i.e. compiler is able to perform the
     // look-up at compile-time if the argument is a compile-time expression.
-    if (!equal_c{}(to_string_old(weekday::thursday), "thursday"))
+    if (!equal_c{}(weekday_to_string_old(weekday::thursday), "thursday"))
         std::terminate();
-    if (!equal_c{}(to_string_new(weekday::thursday), "thursday"))
+    if (!equal_c{}(weekday_to_string_new(weekday::thursday), "thursday"))
         std::terminate();
 }
 
@@ -170,9 +179,128 @@ void test()
 // The old version is, obviously, better, but it's cool that Static_views'
 // version is only a few instructions longer.
 
+
+// Now, how about the case when values are not distributed nicely?
+// Consider the following, for example:
+
+// clang-format off
+enum class colour : std::uint32_t {
+    coral = 0xFF7F50,
+    crimson = 0xDC143C,
+    cyan = 0x00FFFF,
+    firebrick = 0xB22222,
+    gold = 0xFFD700,
+    gray = 0x7F7F7F,
+    green = 0x008000,
+    indigo = 0x4B0082,
+    magenta = 0xFF00FF,
+    olive = 0x808000,
+    orange = 0xFFA500,
+    pink = 0xFFC0CB,
+    thistle = 0xD8BFD8,
+    yellow = 0xFFFF00,
+};
+// clang-format on
+
+// Now, we can't use a simple look-up table, and the "old" version becomes a
+// switch:
+extern "C" constexpr auto colour_to_string_old(colour const x) noexcept
+    -> char const*
+{
+    switch (x) {
+    case colour::coral: return "coral";
+    case colour::crimson: return "crimson";
+    case colour::cyan: return "cyan";
+    case colour::firebrick: return "firebrick";
+    case colour::gold: return "gold";
+    case colour::gray: return "gray";
+    case colour::green: return "green";
+    case colour::indigo: return "indigo";
+    case colour::magenta: return "magenta";
+    case colour::olive: return "olive";
+    case colour::orange: return "orange";
+    case colour::pink: return "pink";
+    case colour::thistle: return "thistle";
+    case colour::yellow: return "yellow";
+    default: return nullptr;
+    } // end switch
+}
+
+// clang-format off
+static constexpr std::pair<colour, char const*> colour_to_string[] = {
+    {colour::coral, "coral"},
+    {colour::crimson, "crimson"},
+    {colour::cyan, "cyan"},
+    {colour::firebrick, "firebrick"},
+    {colour::gold, "gold"},
+    {colour::gray, "gray"},
+    {colour::green, "green"},
+    {colour::indigo, "indigo"},
+    {colour::magenta, "magenta"},
+    {colour::olive, "olive"},
+    {colour::orange, "orange"},
+    {colour::pink, "pink"},
+    {colour::thistle, "thistle"},
+    {colour::yellow, "yellow"},
+};
+// clang-format on
+
+BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
+
+template <>
+struct hash_impl<colour> {
+    constexpr auto operator()(colour const x) const noexcept -> std::size_t
+    {
+        return static_cast<std::size_t>(x);
+    }
+};
+
+BOOST_STATIC_VIEWS_END_NAMESPACE
+
+extern "C" constexpr auto colour_to_string_new(colour const x) noexcept
+    -> char const*
+{
+    using value_type = std::pair<colour, char const*>;
+    auto constexpr size =
+        std::end(colour_to_string) - std::begin(colour_to_string);
+    constexpr auto colour_map =
+        boost::static_views::make_static_map_impl<2 * size, 3>{}(
+            boost::static_views::raw_view(colour_to_string),
+            &value_type::first, &value_type::second);
+    auto* s = colour_map.find(x);
+    return (s == nullptr) ? nullptr : s->second;
+}
+
+void colour_test()
+{
+    static_assert(equal_c{}(colour_to_string_old(colour::cyan), "cyan"), "");
+    static_assert(
+        equal_c{}(colour_to_string_old(colour::orange), "orange"), "");
+    static_assert(
+        colour_to_string_old(static_cast<colour>(0xFF000000)) == nullptr, "");
+    static_assert(equal_c{}(colour_to_string_new(colour::pink), "pink"), "");
+    static_assert(equal_c{}(colour_to_string_new(colour::green), "green"), "");
+    static_assert(
+        colour_to_string_new(static_cast<colour>(0xFF000000)) == nullptr, "");
+
+    // These two don't appear in assembly, i.e. compiler is able to perform the
+    // look-up at compile-time if the argument is a compile-time expression.
+    if (!equal_c{}(colour_to_string_old(colour::gray), "gray"))
+        std::terminate();
+    if (!equal_c{}(colour_to_string_new(colour::gray), "gray"))
+        std::terminate();
+}
+
+// Force the compiler to emit code for our functions.
+BOOST_STATIC_VIEWS_UNUSED auto* _tmp_ptr_1 = &weekday_to_string_old;
+BOOST_STATIC_VIEWS_UNUSED auto* _tmp_ptr_2 = &weekday_to_string_new;
+BOOST_STATIC_VIEWS_UNUSED auto* _tmp_ptr_3 = &colour_to_string_old;
+BOOST_STATIC_VIEWS_UNUSED auto* _tmp_ptr_4 = &colour_to_string_new;
+
 int main(int argc, char** argv)
 {
-    test();
+    weekday_test();
+    colour_test();
     return 0;
 }
 
