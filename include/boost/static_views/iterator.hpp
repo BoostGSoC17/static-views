@@ -50,8 +50,8 @@ struct view_iterator {
         : _view{view}, _i{i}
     {
         BOOST_STATIC_VIEWS_EXPECT(
-            view == nullptr && i == 0
-                || view != nullptr && 0 <= i && i <= view->size(),
+            (view == nullptr && i == 0)
+                || (view != nullptr && 0 <= i && i <= view->size()),
             "It's a bad idea to create an iterator pointing neither "
             "into the view nor to the one-past-the-end element.");
     }

@@ -258,8 +258,8 @@ struct hashed_view_impl
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
     {
         // Note that i absolutely must not exceed the size of storage.
-        return take_exactly(
-            drop_exactly(raw_view(storage()), i), bucket_size());
+        return take_exactly(drop_exactly(raw_view(storage()), i),
+            std::integral_constant<base_index_type, bucket_size()>{});
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -272,7 +272,65 @@ struct hashed_view_impl
             storage()[guess + p] = i;
         }
         else {
-            std::cout << i << ", " << guess << '\n' << std::flush;
+            make_full_bucket_error("Bucket is full.");
+        }
+    }
+
+    /// \brief Finds an element in a bucket at the given index which satisfies
+    /// the given predicate.
+    // clang-format off
+    template <class Predicate
+        BOOST_STATIC_VIEWS_REQUIRES(
+            is_invocable_r<bool, Predicate, typename base::reference>::value)
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto find_in_bucket(typename base::index_type const h, Predicate&& p)
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(invoke(p, std::declval<typename base::reference>())))
+        -> typename base::value_type*
+    {
+        auto const xs = bucket(h);
+        for (typename base::index_type i = 0;
+             i < bucket_size() && !empty(xs.unsafe_at(i)); ++i) {
+            // i -- index in the bucket
+            // xs.unsafe_at(i) -- index in the parent view
+            // parent().unsafe_at(xs.unsafe_at(i)) -- element in the parent
+            // view.
+            auto& x = parent().unsafe_at(xs.unsafe_at(i));
+            if (invoke(p, x)) return &x;
+        }
+        return nullptr;
+    }
+
+    // clang-format off
+    template <class Equal>
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto insert(typename base::index_type const i,
+        typename base::index_type const guess, Equal& equal) -> void
+    // clang-format on
+    {
+        struct Predicate {
+            Equal&                                     _equal;
+            std::add_const_t<typename base::reference> _value;
+
+            constexpr auto operator()(typename base::reference x)
+            {
+                return invoke(_equal, _value, x);
+            }
+        };
+
+        if (find_in_bucket(guess, Predicate{equal, parent().unsafe_at(i)})
+            != nullptr) {
+            // We already have this element.
+            return;
+        }
+        auto const p = find_first_i(bucket(guess), is_empty{});
+        if (p != bucket_size()) {
+            storage()[guess + p] = i;
+        }
+        else {
             make_full_bucket_error("Bucket is full.");
         }
     }
@@ -287,6 +345,21 @@ struct hashed_view_impl
              ++i) {
             auto const hash = invoke(hash_function(), parent().unsafe_at(i));
             insert(i, static_cast<I>(bucket_size() * (hash % bucket_count())));
+        }
+    }
+
+    template <class Equal>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto initialise_storage(Equal&& equal)
+    {
+        using I = typename base::index_type;
+        for (std::size_t i = 0; i < bucket_count() * bucket_size(); ++i)
+            storage()[i] = bucket_count() * bucket_size();
+
+        for (I i = 0, size = static_cast<I>(parent().size()); i < size;
+             ++i) {
+            auto const hash = invoke(hash_function(), parent().unsafe_at(i));
+            insert(i, static_cast<I>(bucket_size() * (hash % bucket_count())),
+                equal);
         }
     }
 
@@ -324,6 +397,14 @@ struct hashed_view_impl
         : base{std::move(xs)}, _data{array_wrapper{}, std::move(hf)}
     {
         initialise_storage();
+    }
+
+    template <class Equal>
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    hashed_view_impl(Wrapper&& xs, Hasher&& hf, Equal&& equal)
+        : base{std::move(xs)}, _data{array_wrapper{}, std::move(hf)}
+    {
+        initialise_storage(std::forward<Equal>(equal));
     }
 
     /// \brief Returns the capacity of the view.
@@ -405,6 +486,13 @@ struct hashed_impl {
             hashed_view_impl<BucketCount, BucketSize, Wrapper, Hasher>{
                 std::move(xs), std::move(hf)});
 
+    template <class Wrapper, class Hasher, class Equal>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(
+        Wrapper xs, Hasher hf, Equal&& equal) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            hashed_view_impl<BucketCount, BucketSize, Wrapper, Hasher>{
+                std::move(xs), std::move(hf), std::forward<Equal>(equal)});
+
     static_assert(BucketCount > 0,
         "`boost::static_views::hashed<BucketCount, BucketSize>` "
         "requires BucketCount to be greater than zero.");
@@ -425,6 +513,20 @@ struct hashed_impl {
     {
         return call_impl(make_wrapper(std::forward<V>(xs)),
             make_wrapper(std::forward<H>(hf)));
+    }
+
+    // clang-format off
+    template <class V, class H, class Equal
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>
+         && Hasher<H, typename std::remove_cv_t<
+                          std::remove_reference_t<V>>::reference>)
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(V&& xs, H&& hf, Equal&& equal) const
+    // clang-format on
+    {
+        return call_impl(make_wrapper(std::forward<V>(xs)),
+            make_wrapper(std::forward<H>(hf)), std::forward<Equal>(equal));
     }
 };
 

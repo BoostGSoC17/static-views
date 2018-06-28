@@ -154,7 +154,7 @@ BENCHMARK(benchmark_static_map_lookup)
     ->Args({140, 8 * N})
     ->Args({141, 8 * N})
     ->Args({142, 8 * N})
-    ->Complexity();
+    ->Complexity([](auto const n) -> double { return n; });
 
 BENCHMARK(benchmark_unordered_map_lookup)
     ->Args({123, 1 * N})
@@ -177,7 +177,7 @@ BENCHMARK(benchmark_unordered_map_lookup)
     ->Args({140, 8 * N})
     ->Args({141, 8 * N})
     ->Args({142, 8 * N})
-    ->Complexity();
+    ->Complexity([](auto const n) -> double { return n; });
 
 BENCHMARK_MAIN();
 

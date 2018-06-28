@@ -11,14 +11,17 @@
 #include "static_views/algorithm_base.hpp"
 #include "static_views/drop.hpp"
 #include "static_views/errors.hpp"
+#include "static_views/hash_c.hpp"
 #include "static_views/hashed.hpp"
 #include "static_views/iterator.hpp"
 #include "static_views/pipe.hpp"
 #include "static_views/raw_view.hpp"
 #include "static_views/sequence_traits.hpp"
 #include "static_views/slice.hpp"
+#include "static_views/static_map.hpp"
 #include "static_views/take.hpp"
 #include "static_views/through.hpp"
 #include "static_views/view_base.hpp"
+#include "static_views/view_concept.hpp"
 
 #endif // BOOST_STATIC_VIEWS_STATIC_VIEWS_HPP

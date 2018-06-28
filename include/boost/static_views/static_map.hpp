@@ -15,7 +15,7 @@
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
-struct key_not_found_error : std::exception {
+struct key_not_found_error : public virtual std::exception {
     auto what() const noexcept -> char const* override { return _msg; }
 
   private:
@@ -202,6 +202,10 @@ class static_map
 
         auto const hash =
             view_type::bucket_size()
+            // TODO: For optimal performance, I need a way to mark a hash
+            // function "trustworthy". Such functions are then assumed to never
+            // return values larger that bucker_count() which would avoid a
+            // costly `mod` operation.
             * (invoke(_hash_function(), k) % view_type::bucket_count());
         return static_cast<HashedView const&>(*this).lookup(
             hash, pred_equal{this->key(), this->equal(), k});
@@ -217,6 +221,11 @@ class static_map
     {
     }
 
+    static_map(static_map const&) = default;
+    static_map(static_map&&)      = default;
+    static_map& operator=(static_map const&) = default;
+    static_map& operator=(static_map&&) = default;
+
     BOOST_STATIC_VIEWS_CONSTEXPR
     auto size() const noexcept -> size_type
     {
@@ -225,8 +234,8 @@ class static_map
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto* find(key_type const& k) const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-        noexcept(std::declval<static_map const&>()._lookup(k)))
+    auto find(key_type const& k) const BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+        noexcept(std::declval<static_map const&>()._lookup(k))) -> value_type*
     {
         return _lookup(k);
     }
@@ -292,7 +301,7 @@ struct make_static_map_impl {
             "GetKey to be copy constructible. If you absolutely cannot live "
             "with this, please submit a bug report.");
         auto view = hashed<bucket_count, bucket_size>(std::forward<View>(xs),
-            compose(std::forward<Hasher>(hasher), GetKey{get_key}));
+            compose(std::forward<Hasher>(hasher), GetKey{get_key}), key_equal);
         auto conf = detail::make_map_config(std::forward<KeyEqual>(key_equal),
             std::move(get_key), std::forward<GetMapped>(get_mapped));
 

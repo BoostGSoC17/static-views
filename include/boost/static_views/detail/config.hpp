@@ -21,13 +21,13 @@
 /// instead.
 #define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
 
-#define BOOST_DISABLE_ASSERTS
-
+// #define BOOST_DISABLE_CHECKS
 // #define BOOST_STATIC_VIEWS_THROW_ON_FAILURES
 // #define BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES
 
-#if !defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)                   \
-    && !defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)
+#if !defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)                                \
+    && !defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)                      \
+    && !defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
 #define BOOST_STATIC_VIEWS_THROW_ON_FAILURES
 #endif
 
@@ -251,7 +251,7 @@ constexpr T _static_const{};
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
-#if defined(BOOST_DISABLE_ASSERTS)
+#if defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)
 #define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                         \
     BOOST_STATIC_VIEWS_ASSUME(cond)
 #elif defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
