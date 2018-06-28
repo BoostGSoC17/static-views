@@ -1,411 +1,183 @@
+//          Copyright Tom Westerhout 2017-2018.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "../../../example/static_map.hpp"
 #include <chrono>
 #include <fstream>
 #include <iostream>
 #include <random>
 #include <unordered_map>
 
+#include <benchmark/benchmark.h>
+
+#include <boost/static_views.hpp>
+
+// Configuration
+#if !defined(BUCKET_SIZE)
+#error "Need BUCKET_SIZE"
+#endif
+
+#if !defined(BUCKET_COUNT)
+#error "Need BUCKET_COUNT"
+#endif
+
+
 // #define BOOST_STATIC_VIEWS_CONSTEXPR
 
-using key_type    = std::uint16_t;
-using mapped_type = std::uint64_t;
-using field_type  = std::pair<key_type, mapped_type>;
+namespace sv = boost::static_views;
 
-constexpr auto bits = 11;
+using key_type       = std::uint16_t;
+using mapped_type    = std::uint64_t;
+using field_type     = std::pair<key_type, mapped_type>;
+using hasher_type    = sv::hash_c;
+using key_equal_type = std::equal_to<>;
 
-struct entry {
-    // std::uint64_t ticks;
-    // std::uint16_t randidx;
-    std::uint64_t ticks : 64 - bits - 1;
-    std::uint64_t randidx : bits;
-    std::uint64_t found : 1;
+constexpr auto bucket_size       = BUCKET_SIZE;
+constexpr auto number_of_buckets = BUCKET_COUNT;
+
+static constexpr field_type data_table[] = {
+    #include "test_data.ipp"
 };
 
-BOOST_STATIC_VIEWS_CONSTEXPR auto make_hasher() noexcept
+constexpr auto data_size = std::end(data_table) - std::begin(data_table);
+
+auto generate_lookup_keys(std::size_t const n, double const positive_frac,
+    std::size_t seed) -> std::vector<key_type>
 {
-    using namespace boost::static_views::static_map;
-    return hash_c{};
-}
-
-BOOST_STATIC_VIEWS_CONSTEXPR auto make_key_equal() noexcept
-{
-    using namespace boost::static_views::static_map;
-    return std::equal_to<void>{};
-}
-
-using hasher_type                = decltype(make_hasher());
-using key_equal_type             = decltype(make_key_equal());
-constexpr auto data_size         = 1024;
-constexpr auto bucket_size       = 4;
-constexpr auto number_of_buckets = 2 * data_size;
-
-BOOST_STATIC_VIEWS_CONSTEXPR auto mask(key_type const x) noexcept
-    -> key_type
-{
-    return x & ((1 << bits) - 1);
-}
-
-struct constexpr_prng {
-  private:
-    struct ranctx {
-        std::uint32_t a;
-        std::uint32_t b;
-        std::uint32_t c;
-        std::uint32_t d;
-    };
-
-    ranctx _ctx;
-
-    static constexpr auto rot(
-        std::uint32_t const x, int const k) noexcept -> std::uint32_t
-    {
-        return (x << k) | (x >> (32 - k));
+    if (n < static_cast<std::size_t>(data_size)) {
+        throw std::invalid_argument{"Currently, only `n`s greater or equal to "
+                                    "`data_size` are supported."};
+    }
+    if (positive_frac < 0 || positive_frac > 1) {
+        throw std::invalid_argument{
+            "Fraction of positive samples must be between 0 and 1."};
     }
 
-  public:
-    BOOST_STATIC_VIEWS_CONSTEXPR constexpr_prng(
-        std::uint32_t seed) noexcept
-        : _ctx{0xf1ea5eed, seed, seed, seed}
-    {
-        for (std::size_t i = 0; i < 20; ++i) {
-            static_cast<void>(this->operator()());
+    std::mt19937 gen(seed);
+    std::uniform_int_distribution<key_type> dist;
+    std::vector<key_type> keys(n);
+    auto const pos_n = static_cast<std::size_t>(positive_frac * n);
+
+    std::transform(std::begin(data_table), std::end(data_table),
+        std::begin(keys), [](auto const& x) { return x.first; });
+    std::shuffle(std::begin(keys), std::begin(keys) + data_size, gen);
+    // Yes, I know this is extremely slow and even never terminate.
+    // But it's simple! :)
+    for (auto i = std::begin(keys) + pos_n; i != std::end(keys); ++i) {
+        auto const end = std::begin(keys) + pos_n;
+        auto       k   = dist(gen);
+        while (std::find(std::begin(keys), end, k) != end) {
+            ++k;
+        }
+        *i = k;
+    }
+    std::shuffle(std::begin(keys), std::end(keys), gen);
+
+    return keys;
+}
+
+auto lookup_noop(key_type const k) -> field_type* { return nullptr; }
+
+auto benchmark_empty_lookup(benchmark::State& state)
+{
+    auto const seed = state.range(0);
+    auto const n = state.range(1);
+    auto const keys = generate_lookup_keys(n, 0.5, seed);
+
+    for (auto _ : state) {
+        for (auto k : keys) {
+            benchmark::DoNotOptimize(lookup_noop(k));
+        }
+    }
+}
+
+auto benchmark_static_map_lookup(benchmark::State& state)
+{
+    auto const seed = state.range(0);
+    auto const n = state.range(1);
+    auto const keys = generate_lookup_keys(n, 0.5, seed);
+
+    static constexpr auto map =
+        sv::make_static_map_impl<number_of_buckets, bucket_size>{}(
+            sv::raw_view(data_table), &field_type::first, &field_type::second,
+            key_equal_type{}, hasher_type{});
+
+    for (auto _ : state) {
+        for (auto k : keys) {
+            benchmark::DoNotOptimize(map.find(k));
         }
     }
 
-    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()() noexcept
-        -> std::uint32_t
-    {
-        auto&         x = this->_ctx;
-        std::uint32_t e = x.a - rot(x.b, 27);
-        x.a             = x.b ^ rot(x.c, 17);
-        x.b             = x.c + x.d;
-        x.c             = x.d + e;
-        x.d             = e + x.a;
-        return x.d;
-    }
-};
+    state.SetComplexityN(state.range(1));
+}
 
-struct table {
-    field_type _data[data_size];
+auto benchmark_unordered_map_lookup(benchmark::State& state)
+{
+    auto const seed = state.range(0);
+    auto const n = state.range(1);
+    auto const keys = generate_lookup_keys(n, 0.5, seed);
 
-  private:
-    BOOST_STATIC_VIEWS_CONSTEXPR auto contains(
-        key_type const key, std::size_t const size) noexcept -> bool
-    {
-        struct pred {
-            key_type const _key;
+    auto const map =
+        std::unordered_map<key_type, mapped_type, hasher_type, key_equal_type>{
+            std::begin(data_table), std::end(data_table), number_of_buckets};
 
-            BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
-                field_type const& x) noexcept -> bool
-            {
-                return x.first == _key;
-            }
-        };
-
-        auto const i = boost::static_views::find_first_i(
-            boost::static_views::take(size)(
-                boost::static_views::raw_view(_data)),
-            pred{key});
-        // auto const i = std::find_if(std::begin(_data),
-        // std::begin(_data) + size,
-        //    pred{});
-        return i < size;
-        // return i != std::begin(_data) + size;
-    }
-
-    BOOST_STATIC_VIEWS_CONSTEXPR auto insert(
-        std::size_t const i, constexpr_prng& g) noexcept -> void
-    {
-        auto key = mask(static_cast<key_type>(g()));
-        while (contains(key, i)) {
-            key = mask(static_cast<key_type>(g()));
-        }
-        if (contains(key, i)) {
-            std::terminate();
-        }
-        _data[i].first  = key;
-        _data[i].second = g();
-    }
-
-  public:
-    template <std::size_t... Is>
-    BOOST_STATIC_VIEWS_CONSTEXPR table(
-        std::uint32_t seed, std::index_sequence<Is...>) noexcept
-        : _data{{Is, Is}...}
-    {
-        static_assert(sizeof...(Is) == data_size, "");
-        constexpr_prng g{seed};
-        for (std::size_t i = 0; i < data_size; ++i) {
-            insert(i, g);
+    for (auto _ : state) {
+        for (auto k : keys) {
+            benchmark::DoNotOptimize(map.find(k));
         }
     }
-};
 
-BOOST_STATIC_VIEWS_CONSTEXPR auto make_table(
-    std::uint32_t seed) noexcept
-{
-    return table{seed, std::make_index_sequence<data_size>{}};
+    state.SetComplexityN(state.range(1));
 }
 
-BOOST_STATIC_VIEWS_FORCEINLINE
-constexpr auto combine(
-    std::uint32_t const high, std::uint32_t const low)
-{
-    return (static_cast<std::uint64_t>(high) << 32) | low;
-}
+constexpr auto N = static_cast<long>(1.5 * data_size);
 
-struct empty_tester {
-    BOOST_STATIC_VIEWS_NOINLINE
-    auto lookup(key_type const key) const
-        -> std::tuple<bool, std::size_t>
-    {
-        /*
-        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2,
-            cycles_high_2;
-        */
+BENCHMARK(benchmark_static_map_lookup)
+    ->Args({123, 1 * N})
+    ->Args({124, 1 * N})
+    ->Args({125, 1 * N})
+    ->Args({126, 1 * N})
+    ->Args({127, 2 * N})
+    ->Args({128, 2 * N})
+    ->Args({129, 2 * N})
+    ->Args({130, 2 * N})
+    ->Args({131, 3 * N})
+    ->Args({132, 3 * N})
+    ->Args({133, 3 * N})
+    ->Args({134, 3 * N})
+    ->Args({135, 6 * N})
+    ->Args({136, 6 * N})
+    ->Args({137, 6 * N})
+    ->Args({138, 6 * N})
+    ->Args({139, 8 * N})
+    ->Args({140, 8 * N})
+    ->Args({141, 8 * N})
+    ->Args({142, 8 * N})
+    ->Complexity();
 
-        /*
-        asm volatile("CPUID\n\t"
-                     "RDTSC\n\t"
-                     "mov %%edx, %0\n\t"
-                     "mov %%eax, %1\n\t"
-                     : "=r"(cycles_high_1), "=r"(cycles_low_1)
-                     :
-                     : "%rax", "%rbx", "%rcx", "%rdx");
-        */
-        auto const start = std::chrono::high_resolution_clock::now();
+BENCHMARK(benchmark_unordered_map_lookup)
+    ->Args({123, 1 * N})
+    ->Args({124, 1 * N})
+    ->Args({125, 1 * N})
+    ->Args({126, 1 * N})
+    ->Args({127, 2 * N})
+    ->Args({128, 2 * N})
+    ->Args({129, 2 * N})
+    ->Args({130, 2 * N})
+    ->Args({131, 3 * N})
+    ->Args({132, 3 * N})
+    ->Args({133, 3 * N})
+    ->Args({134, 3 * N})
+    ->Args({135, 6 * N})
+    ->Args({136, 6 * N})
+    ->Args({137, 6 * N})
+    ->Args({138, 6 * N})
+    ->Args({139, 8 * N})
+    ->Args({140, 8 * N})
+    ->Args({141, 8 * N})
+    ->Args({142, 8 * N})
+    ->Complexity();
 
-        /*
-        asm volatile("RDTSCP\n\t"
-                     "mov %%edx, %0\n\t "
-                     "mov %%eax, %1\n\t "
-                     "CPUID\n\t"
-                     : "=r"(cycles_high_2), "=r"(cycles_low_2)
-                     :
-                     : "%rax", "%rbx", "%rcx", "%rdx");
-        */
-        auto const end = std::chrono::high_resolution_clock::now();
+BENCHMARK_MAIN();
 
-        // auto const start = combine(cycles_high_1, cycles_low_1);
-        // auto const end   = combine(cycles_high_2, cycles_low_2);
-
-        if (end < start) std::terminate();
-        return {false, (end - start).count()};
-    }
-};
-
-static BOOST_STATIC_VIEWS_CONSTEXPR auto const table =
-    make_table(12345);
-static auto const static_map =
-    boost::static_views::static_map::make_static_map<
-        number_of_buckets, bucket_size>(
-        boost::static_views::raw_view(table._data),
-        &field_type::first, &field_type::second, make_key_equal(),
-        make_hasher());
-
-struct static_map_tester {
-    BOOST_STATIC_VIEWS_NOINLINE
-    auto lookup(key_type const key) const
-        -> std::tuple<bool, std::size_t>
-    {
-        /*
-        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2,
-            cycles_high_2;
-        */
-        bool contains;
-
-        /*
-        asm volatile("CPUID\n\t"
-                     "RDTSC\n\t"
-                     "mov %%edx, %0\n\t"
-                     "mov %%eax, %1\n\t"
-                     : "=r"(cycles_high_1), "=r"(cycles_low_1)
-                     :
-                     : "%rax", "%rbx", "%rcx", "%rdx");
-        */
-        auto const start = std::chrono::high_resolution_clock::now();
-
-        contains = (static_map.count(key) == 1);
-
-        /*
-        asm volatile("RDTSCP\n\t"
-                     "mov %%edx, %0\n\t "
-                     "mov %%eax, %1\n\t "
-                     "CPUID\n\t"
-                     : "=r"(cycles_high_2), "=r"(cycles_low_2)
-                     :
-                     : "%rax", "%rbx", "%rcx", "%rdx");
-        */
-        auto const end = std::chrono::high_resolution_clock::now();
-
-        // auto const start = combine(cycles_high_1, cycles_low_1);
-        // auto const end   = combine(cycles_high_2, cycles_low_2);
-
-        if (end < start) std::terminate();
-        return {contains, (end - start).count()};
-    }
-};
-
-BOOST_STATIC_VIEWS_FORCEINLINE
-auto initialise_unordered_map()
-{
-    std::unordered_map<key_type, mapped_type, hasher_type,
-        key_equal_type>
-        map{number_of_buckets, make_hasher(), make_key_equal()};
-    std::for_each(std::begin(table._data), std::end(table._data),
-        [&map](auto const x) {
-            if (!map.insert(x).second) std::terminate();
-        });
-    return map;
-}
-
-auto const unordered_map = initialise_unordered_map();
-
-struct unordered_map_tester {
-    BOOST_STATIC_VIEWS_NOINLINE
-    auto lookup(key_type const key) const
-        -> std::tuple<bool, std::size_t>
-    {
-        /*
-        std::uint32_t cycles_low_1, cycles_high_1, cycles_low_2,
-            cycles_high_2;
-        */
-        bool contains;
-
-        /*
-        asm volatile("CPUID\n\t"
-                     "RDTSC\n\t"
-                     "mov %%edx, %0\n\t"
-                     "mov %%eax, %1\n\t"
-                     : "=r"(cycles_high_1), "=r"(cycles_low_1)
-                     :
-                     : "%rax", "%rbx", "%rcx", "%rdx");
-        */
-        auto const start = std::chrono::high_resolution_clock::now();
-
-        contains = (unordered_map.count(key) == 1);
-
-        /*
-        asm volatile("RDTSCP\n\t"
-                     "mov %%edx, %0\n\t "
-                     "mov %%eax, %1\n\t "
-                     "CPUID\n\t"
-                     : "=r"(cycles_high_2), "=r"(cycles_low_2)
-                     :
-                     : "%rax", "%rbx", "%rcx", "%rdx");
-        */
-        auto const end = std::chrono::high_resolution_clock::now();
-
-        // auto const start = combine(cycles_high_1, cycles_low_1);
-        // auto const end   = combine(cycles_high_2, cycles_low_2);
-
-        if (end < start) std::terminate();
-        return {contains, (end - start).count()};
-    }
-};
-
-struct statistics {
-
-  private:
-    std::vector<entry> _data;
-
-    auto generate_random(std::size_t size)
-    {
-        constexpr_prng g{54321};
-
-        std::vector<entry> entries(size);
-        std::generate(
-            std::begin(entries), std::end(entries), [&g]() -> entry {
-                return {0, mask(g()), 0};
-            });
-        return entries;
-    }
-
-  public:
-    statistics(std::size_t size) : _data{generate_random(size)} {}
-
-    template <class Tester>
-    auto run(Tester const& tester)
-    {
-        std::for_each(
-            std::begin(_data), std::end(_data), [&tester](auto& x) {
-                auto answer = tester.lookup(x.randidx);
-                x.found     = std::get<0>(answer);
-                x.ticks     = std::get<1>(answer);
-            });
-    }
-
-    auto reset()
-    {
-        std::for_each(
-            std::begin(_data), std::end(_data), [](auto& x) {
-                x.ticks = 0;
-                x.found = 0;
-            });
-    }
-
-    auto sum()
-    {
-        return std::accumulate(std::begin(_data), std::end(_data),
-            std::size_t{0}, [](auto const acc, auto const x) {
-                if (acc + x.ticks < acc) std::terminate();
-                return acc + x.ticks;
-            });
-    }
-
-    template <class OStream>
-    auto save(OStream& out)
-    {
-        out << "randidx\tticks\n";
-        std::for_each(std::begin(_data), std::end(_data),
-            [&out](auto const& x) {
-                out << x.randidx << '\t' << x.ticks << '\t' << x.found
-                    << '\n';
-            });
-    }
-};
-
-int main(int argc, char** argv)
-{
-    static_map_tester    sm_tester;
-    unordered_map_tester um_tester;
-    empty_tester         dummy_tester;
-
-    if (argc != 2) {
-        std::cout << "Usage: " << argv[0] << " count\n"
-                  << "    with count -- number of data points.\n";
-        return 1;
-    }
-    statistics stats{std::stoul(argv[1])};
-
-    for (auto bucket : static_map) {
-        std::cout << bucket.size() << '\n';
-    }
-
-    stats.run(dummy_tester);
-    {
-        std::ofstream out{"empty.dat"};
-        stats.save(out);
-    }
-
-    stats.reset();
-
-    stats.run(sm_tester);
-    {
-        std::ofstream out{"static_map.dat"};
-        stats.save(out);
-    }
-
-    stats.reset();
-
-    stats.run(um_tester);
-    {
-        std::ofstream out{"unordered_map.dat"};
-        stats.save(out);
-    }
-    return 0;
-}
