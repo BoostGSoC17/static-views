@@ -22,7 +22,6 @@
 #error "Need BUCKET_COUNT"
 #endif
 
-
 // #define BOOST_STATIC_VIEWS_CONSTEXPR
 
 namespace sv = boost::static_views;
@@ -37,7 +36,7 @@ constexpr auto bucket_size       = BUCKET_SIZE;
 constexpr auto number_of_buckets = BUCKET_COUNT;
 
 static constexpr field_type data_table[] = {
-    #include "test_data.ipp"
+#include "test_data.ipp"
 };
 
 constexpr auto data_size = std::end(data_table) - std::begin(data_table);
@@ -54,15 +53,15 @@ auto generate_lookup_keys(std::size_t const n, double const positive_frac,
             "Fraction of positive samples must be between 0 and 1."};
     }
 
-    std::mt19937 gen(seed);
+    std::mt19937                            gen(seed);
     std::uniform_int_distribution<key_type> dist;
-    std::vector<key_type> keys(n);
+    std::vector<key_type>                   keys(n);
     auto const pos_n = static_cast<std::size_t>(positive_frac * n);
 
     std::transform(std::begin(data_table), std::end(data_table),
         std::begin(keys), [](auto const& x) { return x.first; });
     std::shuffle(std::begin(keys), std::begin(keys) + data_size, gen);
-    // Yes, I know this is extremely slow and even never terminate.
+    // Yes, I know this is extremely slow and may even never terminate.
     // But it's simple! :)
     for (auto i = std::begin(keys) + pos_n; i != std::end(keys); ++i) {
         auto const end = std::begin(keys) + pos_n;
@@ -82,7 +81,7 @@ auto lookup_noop(key_type const k) -> field_type* { return nullptr; }
 auto benchmark_empty_lookup(benchmark::State& state)
 {
     auto const seed = state.range(0);
-    auto const n = state.range(1);
+    auto const n    = state.range(1);
     auto const keys = generate_lookup_keys(n, 0.5, seed);
 
     for (auto _ : state) {
@@ -95,7 +94,7 @@ auto benchmark_empty_lookup(benchmark::State& state)
 auto benchmark_static_map_lookup(benchmark::State& state)
 {
     auto const seed = state.range(0);
-    auto const n = state.range(1);
+    auto const n    = state.range(1);
     auto const keys = generate_lookup_keys(n, 0.5, seed);
 
     static constexpr auto map =
@@ -115,7 +114,7 @@ auto benchmark_static_map_lookup(benchmark::State& state)
 auto benchmark_unordered_map_lookup(benchmark::State& state)
 {
     auto const seed = state.range(0);
-    auto const n = state.range(1);
+    auto const n    = state.range(1);
     auto const keys = generate_lookup_keys(n, 0.5, seed);
 
     auto const map =
@@ -133,6 +132,7 @@ auto benchmark_unordered_map_lookup(benchmark::State& state)
 
 constexpr auto N = static_cast<long>(1.5 * data_size);
 
+// clang-format off
 BENCHMARK(benchmark_static_map_lookup)
     ->Args({123, 1 * N})
     ->Args({124, 1 * N})
@@ -178,6 +178,7 @@ BENCHMARK(benchmark_unordered_map_lookup)
     ->Args({141, 8 * N})
     ->Args({142, 8 * N})
     ->Complexity([](auto const n) -> double { return n; });
+// clang-format on
 
 BENCHMARK_MAIN();
 
