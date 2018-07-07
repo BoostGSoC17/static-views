@@ -17,9 +17,6 @@
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
-template <std::size_t N>
-constexpr auto capacity = std::integral_constant<std::size_t, N>{};
-
 namespace detail {
 
 template <class S
@@ -27,21 +24,20 @@ template <class S
 struct raw_view_impl {
 
   private:
-    using sequence_type = S; // std::remove_cv_t<S>;
-    using traits_type = sequence_traits<sequence_type>;
+    using sequence_type = S;
+    using traits_type   = sequence_traits<sequence_type>;
     S* _xs;
 
   public:
     using value_type      = typename traits_type::value_type;
     using reference       = typename traits_type::reference;
-#if 0
-    using const_reference = typename sequence_traits<
-        std::add_const_t<sequence_type>>::reference;
-#endif
     using size_type       = typename traits_type::size_type;
     using index_type      = typename traits_type::index_type;
     using difference_type = typename traits_type::difference_type;
 
+    // TODO: Enabling a default constructor would make raw_view_impl trivial,
+    // but unsafe. If you have a strong preference for one or another, feel free
+    // to submit an issue.
     // constexpr raw_view_impl() noexcept = default;
 
     BOOST_STATIC_VIEWS_CONSTEXPR
@@ -86,7 +82,7 @@ struct raw_view_impl {
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](index_type const i) const
+    decltype(auto) operator[](index_type const i) const
     {
         if (BOOST_STATIC_VIEWS_UNLIKELY(
                 0 > i || static_cast<size_type>(i) >= size())) {
@@ -101,9 +97,11 @@ struct raw_view_impl {
 /// \cond
 struct raw_view_fn {
   public:
+    // clang-format off
     template <class S
         BOOST_STATIC_VIEWS_REQUIRES(Sequence<S>)
     BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(S& sequence) const
+        // clang-format on
         noexcept
     {
         return raw_view_impl<S>{sequence};

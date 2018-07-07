@@ -142,23 +142,20 @@ using is_invocable = is_detected<detail::invoke_t, Fn, Xs...>;
 
 template <class Fn, class... Xs>
 using is_nothrow_invocable = std::conditional_t<
-    detail::utils::all(
-        is_detected<detail::invoke_t, Fn, Xs...>::value,
+    detail::all(is_detected<detail::invoke_t, Fn, Xs...>::value,
         noexcept(invoke(std::declval<Fn>(), std::declval<Xs>()...))),
     std::true_type, std::false_type>;
 
 template <class R, class Fn, class... Xs>
 using is_invocable_r = std::conditional_t<
-    detail::utils::all(is_invocable<Fn, Xs...>::value,
-        std::is_convertible<detected_t<detail::invoke_t, Fn, Xs...>,
-            R>::value),
+    detail::all(is_invocable<Fn, Xs...>::value,
+        std::is_convertible<detected_t<detail::invoke_t, Fn, Xs...>, R>::value),
     std::true_type, std::false_type>;
 
 template <class R, class Fn, class... Xs>
 using is_nothrow_invocable_r = std::conditional_t<
-    detail::utils::all(is_nothrow_invocable<Fn, Xs...>::value,
-        std::is_convertible<detected_t<detail::invoke_t, Fn, Xs...>,
-            R>::value),
+    detail::all(is_nothrow_invocable<Fn, Xs...>::value,
+        std::is_convertible<detected_t<detail::invoke_t, Fn, Xs...>, R>::value),
     std::true_type, std::false_type>;
 
 #endif

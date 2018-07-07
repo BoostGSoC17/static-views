@@ -1,4 +1,4 @@
-//          Copyright Tom Westerhout 2017.
+//          Copyright Tom Westerhout 2017-2018.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -9,9 +9,9 @@
 #ifndef BOOST_STATIC_VIEWS_SEQUENCE_TRAITS_HPP
 #define BOOST_STATIC_VIEWS_SEQUENCE_TRAITS_HPP
 
-#include "detail/config.hpp"
-#include "detail/utils.hpp"
 #include "concepts.hpp"
+#include "detail/utils.hpp"
+
 #include <array>
 #include <limits>
 #include <tuple>
@@ -109,14 +109,25 @@ struct sequence_traits_default {
         using type     = sequence_traits_default<Derived, Sequence>;
     };
 
-    // template <class> friend struct traits;
+    /// \brief Returns whether U "is similar enough to" S, i.e. U is either equal
+    /// to S or a const of volatile qualified version thereof.
+    ///
+    /// This is a hack to make sequence_traits work with const and volatile
+    /// qualifiers.
+    template <class U, class S>
+    static constexpr auto is_similar_enough_to()
+    {
+        using U2 = std::remove_reference_t<U>;
+        return Same<S,
+                   U2> || Same<S const, U2> || Same<S volatile, U2> || Same<S const volatile, U2>;
+    }
 
     // Derived::extent() is non-negative
     // clang-format off
-    template <class Dummy = void
-        BOOST_STATIC_VIEWS_REQUIRES(traits<Dummy>::derived::extent() >= 0)
-    static constexpr auto size_impl(
-        Sequence const& /*unused*/, int /*unused*/) noexcept
+    template <class U, class Dummy = void
+        BOOST_STATIC_VIEWS_REQUIRES(traits<Dummy>::derived::extent() >= 0
+            && is_similar_enough_to<U, Sequence>())
+    static constexpr auto size_impl(U& /*unused*/, int /*unused*/) noexcept
     // clang-format on
     {
         return static_cast<size_type>(Derived::extent());
@@ -124,15 +135,13 @@ struct sequence_traits_default {
 
     // Sequence::size() exists
     // clang-format on
-    template <class Dummy = void
+    template <class U, class Dummy = void
         BOOST_STATIC_VIEWS_REQUIRES(
-            HasSize<typename traits<Dummy>::sequence>)
-    static constexpr auto size_impl(
-        Sequence const& xs, ... /*unused*/) noexcept
+            HasSize<Sequence> && is_similar_enough_to<U, Sequence>())
+    static constexpr auto size_impl(U& xs, ... /*unused*/) noexcept
     // clang-format off
     {
-        static_assert(noexcept(xs.size()),
-            "Throwing size() is a bad idea :)");
+        static_assert(noexcept(xs.size()), "Throwing size() is a bad idea :)");
         return xs.size();
     }
 
@@ -154,11 +163,9 @@ struct sequence_traits_default {
   public:
     // clang-format off
     template <class IndexType, class S
-        BOOST_STATIC_VIEWS_REQUIRES(HasIndexOperator<S, IndexType>
-           && (std::is_array<Sequence>::value
-                   && Same<Sequence, std::remove_reference_t<S>>
-           || !std::is_array<Sequence>::value
-                   && Same<Sequence, std::remove_cv_t<std::remove_reference_t<S>>>))
+        BOOST_STATIC_VIEWS_REQUIRES(
+            HasIndexOperator<Sequence, IndexType>
+                && is_similar_enough_to<S, Sequence>())
     static constexpr decltype(auto) at(S&& xs, IndexType i)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(std::forward<S>(xs)[i]))
     // clang-format on
@@ -167,17 +174,18 @@ struct sequence_traits_default {
     }
 
     // Only enable if size_impl is available
-    template <class Dummy = void>
-    static constexpr auto size(Sequence const& xs) noexcept
-        -> decltype(traits<Dummy>::type::size_impl(xs, int{}))
+    template <class S>
+    static constexpr auto size(S& xs) noexcept
+        -> decltype(sequence_traits_default::size_impl(xs, int{}))
     {
         return sequence_traits_default::size_impl(xs, int{});
     }
 
-    static constexpr auto extent() noexcept -> std::ptrdiff_t
+    template <class Dummy = void>
+    static constexpr auto extent() noexcept
+        -> decltype(traits<Dummy>::type::extent_impl(int{}))
     {
-        constexpr auto extent =
-            sequence_traits_default::extent_impl(int{});
+        constexpr auto extent = sequence_traits_default::extent_impl(int{});
         static_assert(extent >= 0 || extent == dynamic_extent,
             "Extent of a Sequence cannot be negative.");
         return extent;
@@ -295,8 +303,6 @@ constexpr bool StaticSequence = Sequence<T>&& std::is_same<
     std::true_type>::value;
 #endif
 
-
-
 /// \brief Specialisation of #sequence_traits for C-arrays.
 template <class T, std::size_t N>
 struct sequence_traits<T[N]>
@@ -330,14 +336,12 @@ struct sequence_traits<std::array<T, N>>
     using size_type       = unsigned;
     using difference_type = index_type;
 
-    static constexpr decltype(auto) at(
-        std::array<T, N>& xs, index_type const i) noexcept
-    {
-        return xs.data()[i];
-    }
+    static_assert(std::numeric_limits<index_type>::max() >= N,
+        "Wow! That's one long array! Please, submit a bug report "
+        "here " BOOST_STATIC_VIEWS_ISSUES_LINK);
 
-    static constexpr decltype(auto) at(
-        std::array<T, N> const& xs, index_type const i) noexcept
+    template <class S>
+    static constexpr decltype(auto) at(S& xs, index_type const i) noexcept
     {
         return xs.data()[i];
     }
@@ -346,6 +350,27 @@ struct sequence_traits<std::array<T, N>>
     {
         return static_cast<std::ptrdiff_t>(N);
     }
+};
+
+template <class T, std::size_t N>
+struct sequence_traits<std::array<T, N> const>
+    : sequence_traits<std::array<T, N>> {
+    using value_type      = std::add_const_t<T>;
+    using reference       = std::add_lvalue_reference_t<T>;
+};
+
+template <class T, std::size_t N>
+struct sequence_traits<std::array<T, N> volatile>
+    : sequence_traits<std::array<T, N>> {
+    using value_type      = std::add_volatile_t<T>;
+    using reference       = std::add_lvalue_reference_t<T>;
+};
+
+template <class T, std::size_t N>
+struct sequence_traits<std::array<T, N> const volatile>
+    : sequence_traits<std::array<T, N>> {
+    using value_type      = std::add_volatile_t<std::add_const_t<T>>;
+    using reference       = std::add_lvalue_reference_t<T>;
 };
 
 namespace detail {
@@ -361,11 +386,11 @@ struct sequence_traits_tuple<std::tuple<>> {
 
 template <class T, class... Ts>
 struct sequence_traits_tuple<std::tuple<T, Ts...>,
-    std::enable_if_t<utils::all(std::is_same<T, Ts>::value...)>> {
+    std::enable_if_t<all(std::is_same<T, Ts>::value...)>> {
 
   public:
-    using value_type = T;
-    using reference  = std::add_lvalue_reference_t<T>;
+    using value_type      = T;
+    using reference       = std::add_lvalue_reference_t<T>;
 
   private:
     using tuple_type = std::tuple<T, Ts...>;
@@ -381,21 +406,22 @@ struct sequence_traits_tuple<std::tuple<T, Ts...>,
     using get_type =
         std::decay_t<auto(U)->decltype(dummy_get(std::declval<U>()))>;
 
-    template <class Tuple, std::size_t... Is>
-    static constexpr decltype(auto) at_impl(Tuple&& xs,
-        std::size_t const                           i,
-        std::index_sequence<Is...> /*unused*/) noexcept
+    template <class Tuple, class IndexType, std::size_t... Is>
+    static constexpr decltype(auto) at_impl(
+        Tuple&& xs, IndexType i, std::index_sequence<Is...> /*unused*/) noexcept
     {
         constexpr get_type<Tuple&&> getters[] = {&std::get<Is>...};
         return (*getters[i])(std::forward<Tuple>(xs));
     }
 
   public:
-    template <class Tuple,
-        class = std::enable_if_t<std::is_same<tuple_type,
-            std::remove_cv_t<std::remove_reference_t<Tuple>>>::value>>
-    static constexpr decltype(auto) at(
-        Tuple&& xs, std::size_t const i) noexcept
+    // clang-format off
+    template <class Tuple, class IndexType
+        BOOST_STATIC_VIEWS_REQUIRES(
+            Same<tuple_type, std::remove_cv_t<std::remove_reference_t<Tuple>>>)
+    static constexpr decltype(auto) at(Tuple&& xs, IndexType i)
+        noexcept
+    // clang-format on
     {
         return at_impl(std::forward<Tuple>(xs), i,
             std::make_index_sequence<sizeof...(Ts) + 1>{});
@@ -416,6 +442,33 @@ struct sequence_traits<std::tuple<Ts...>>
     {
         return static_cast<std::ptrdiff_t>(sizeof...(Ts));
     }
+};
+
+template <class... Ts>
+struct sequence_traits<std::tuple<Ts...> const>
+    : sequence_traits<std::tuple<Ts...>> {
+
+    using value_type = std::add_const_t<
+        typename sequence_traits<std::tuple<Ts...>>::value_type>;
+    using reference = std::add_lvalue_reference_t<value_type>;
+};
+
+template <class... Ts>
+struct sequence_traits<std::tuple<Ts...> volatile>
+    : sequence_traits<std::tuple<Ts...>> {
+
+    using value_type = std::add_volatile_t<
+        typename sequence_traits<std::tuple<Ts...>>::value_type>;
+    using reference = std::add_lvalue_reference_t<value_type>;
+};
+
+template <class... Ts>
+struct sequence_traits<std::tuple<Ts...> const volatile>
+    : sequence_traits<std::tuple<Ts...>> {
+
+    using value_type = std::add_cv_t<
+        typename sequence_traits<std::tuple<Ts...>>::value_type>;
+    using reference = std::add_lvalue_reference_t<value_type>;
 };
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
