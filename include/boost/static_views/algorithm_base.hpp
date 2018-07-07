@@ -23,7 +23,7 @@ struct lazy_adaptor_impl : private std::tuple<Function, Args...> {
 
     template <class Dummy>
     struct traits {
-        using base_type = base_type;
+        using base_type = lazy_adaptor_impl::base_type;
     };
 
     template <class... Bools>
