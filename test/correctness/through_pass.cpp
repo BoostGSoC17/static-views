@@ -24,8 +24,13 @@ auto test_make()
     using zs_1_type     = std::remove_cv_t<decltype(zs_1)>;
     STATIC_ASSERT(zs_1_type::extent() == 4, "");
     STATIC_ASSERT(zs_1.size() == 4, "");
-    STATIC_ASSERT(boost::static_views::View<zs_1_type>, "");
     STATIC_ASSERT(zs_1[0] == 4, "");
+    STATIC_ASSERT(zs_1.unsafe_at(1) == 6, "");
+    STATIC_ASSERT(boost::static_views::MoveConstructible<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::HasSizeWithType<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::HasIndexOperatorWithType<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::HasUnsafeAtWithType<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::View<zs_1_type>, "");
 }
 
 

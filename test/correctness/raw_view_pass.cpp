@@ -22,7 +22,8 @@ auto test_construction()
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_assignable<as_view_t>));
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_assignable<as_view_t>));
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_destructible<as_view_t>));
-    BOOST_TEST_TRAIT_TRUE((std::is_trivial<as_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_trivially_copyable<as_view_t>));
+    // BOOST_TEST_TRAIT_TRUE((std::is_trivial<as_view_t>));
     BOOST_TEST_EQ(as_view_t::extent(), 5);
     BOOST_TEST_EQ(as_view.size(), 5);
     BOOST_TEST_EQ(as_view[0], 1);
@@ -41,7 +42,8 @@ auto test_construction()
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_assignable<bs_view_t>));
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_assignable<bs_view_t>));
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_destructible<bs_view_t>));
-    BOOST_TEST_TRAIT_TRUE((std::is_trivial<bs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_trivially_copyable<bs_view_t>));
+    // BOOST_TEST_TRAIT_TRUE((std::is_trivial<bs_view_t>));
     BOOST_TEST_EQ(bs_view_t::extent(), 3);
     BOOST_TEST_EQ(bs_view.size(), 3);
     BOOST_TEST_EQ(bs_view[0], 1);
@@ -62,7 +64,8 @@ auto test_construction()
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_assignable<cs_view_t>));
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_assignable<cs_view_t>));
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_destructible<cs_view_t>));
-    BOOST_TEST_TRAIT_TRUE((std::is_trivial<cs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_trivially_copyable<cs_view_t>));
+    // BOOST_TEST_TRAIT_TRUE((std::is_trivial<cs_view_t>));
     BOOST_TEST_EQ(cs_view_t::extent(), 4);
     STATIC_ASSERT(cs_view.size() == 4, "size() is broken.");
     BOOST_TEST_EQ(cs_view[0], 1);

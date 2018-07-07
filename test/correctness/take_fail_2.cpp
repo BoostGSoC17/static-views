@@ -3,11 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "../../include/boost/static_views/take.hpp"
+#include <boost/static_views/raw_view.hpp>
+#include <boost/static_views/take.hpp>
 
 int main()
 {
     int data[] = {1, 2, 3, 4, 5};
-    // Pass a non-size_t argument
-    auto const view = boost::static_views::take(data);
+    // Out of bound errors should be caught at compile-time.
+    auto const view = boost::static_views::take_exactly(
+        std::integral_constant<int, 8>{})(boost::static_views::raw_view(data));
 }

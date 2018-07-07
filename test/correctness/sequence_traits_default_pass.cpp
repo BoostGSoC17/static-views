@@ -29,7 +29,6 @@ auto test_carray_traits()
                           S>::at(ys, 2)),
             int&>::value),
         "");
-    // STATIC_ASSERT(boost::static_views::detail::SequenceTraitsHaveAt<S>, "");
     STATIC_ASSERT(boost::static_views::StaticSequence<S>,
         "foo[10] does not model the StaticSequence concept.");
     // This one is important!

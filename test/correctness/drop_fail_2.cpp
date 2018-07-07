@@ -3,11 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "../../include/boost/static_views/drop.hpp"
+#include <boost/static_views/drop.hpp>
+#include <boost/static_views/raw_view.hpp>
 
 int main()
 {
     static constexpr int data[] = {1, 2, 3, 4, 5};
-    // Pass a non-size_t argument
-    constexpr auto fn = boost::static_views::drop(data);
+    // Index out of bound error should be caught at compile-time
+    constexpr auto fn = boost::static_views::drop_exactly(
+        std::integral_constant<int, 8>{})(boost::static_views::raw_view(data));
 }
