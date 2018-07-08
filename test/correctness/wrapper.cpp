@@ -109,7 +109,7 @@ auto construction_rvalue_empty()
     BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_constructible<y_type>));
     BOOST_STATIC_VIEWS_UNUSED auto const& y2bar1 = static_cast<bar const&>(y);
     BOOST_STATIC_VIEWS_UNUSED auto const& y2bar2 = static_cast<bar&>(y);
-    BOOST_STATIC_VIEWS_UNUSED auto const& y2bar3 = static_cast<bar>(std::move(y));
+    BOOST_STATIC_VIEWS_UNUSED auto const y2bar3 = static_cast<bar>(std::move(y));
 }
 
 auto construction_rvalue()
