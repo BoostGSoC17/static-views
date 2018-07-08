@@ -40,10 +40,10 @@ alias "slice_view" :
 alias "through_view" :
     [ run through_pass.cpp ]
     ;
-# 
-# alias "find_first" :
-#     [ run find_first_i.cpp ]
-#     ;
+
+alias "find_first" :
+    [ run find_first_i.cpp ]
+    ;
 
 alias "sequence" :
     [ run sequence_traits_default_pass.cpp ]
