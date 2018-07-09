@@ -22,4 +22,4 @@ exe enum_to_string : enum_to_string.cpp
                    : <variant>release
                      <cxxflags>"-DBOOST_STATIC_VIEWS_DISABLE_CHECKS"
                    ;
-exe map : map.cpp ;
+exe static_map : static_map.cpp ;
