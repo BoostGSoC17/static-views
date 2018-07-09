@@ -13,7 +13,7 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 /// \brief Exception that is thrown when an "index out of bounds
 /// error" is encountered.
-class out_of_bound : std::runtime_error {
+class out_of_bound : public std::runtime_error {
   public:
     out_of_bound() : std::runtime_error{"Index out of bounds."} {}
     using std::runtime_error::runtime_error;
@@ -21,7 +21,7 @@ class out_of_bound : std::runtime_error {
 
 /// \brief Exception that is thrown when an insert into a full bucket
 /// is attempted.
-class full_bucket : std::runtime_error {
+class full_bucket : public std::runtime_error {
   public:
     full_bucket() : std::runtime_error{"Bucket is full."} {}
     using std::runtime_error::runtime_error;
