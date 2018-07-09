@@ -1,4 +1,4 @@
-#          Copyright Tom Westerhout 2017.
+#          Copyright Tom Westerhout 2017-2018.
 # Distributed under the Boost Software License, Version 1.0.
 #    (See accompanying file LICENSE_1_0.txt or copy at
 #          http://www.boost.org/LICENSE_1_0.txt)
@@ -16,8 +16,7 @@ project
 
 
 exe using_raw_view : using_raw_view.cpp ;
-# exe using_drop_view : using_drop_view.cpp ;
-# exe using_take_view : using_take_view.cpp ;
+exe using_drop_view : using_drop_view.cpp ;
 # exe support_span : support_span.cpp ;
 exe enum_to_string : enum_to_string.cpp
                    : <variant>release
