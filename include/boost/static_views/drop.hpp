@@ -10,9 +10,9 @@
 #ifndef BOOST_STATIC_VIEWS_DROP_HPP
 #define BOOST_STATIC_VIEWS_DROP_HPP
 
-#include "view_base.hpp"
 #include "algorithm_base.hpp"
 #include "compact_index.hpp"
+#include "view_base.hpp"
 
 #include <algorithm>
 #include <type_traits>
@@ -82,7 +82,9 @@ struct drop_view_impl
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
         return base::extent() == dynamic_extent
                    ? dynamic_extent
-                   : base::extent() - compact_index_type::extent();
+                   : compact_index_type::extent() == dynamic_extent
+                         ? base::extent()
+                         : base::extent() - compact_index_type::extent();
     }
 
     /// \brief "Maps" index \p i to the corresponding index in the
@@ -99,52 +101,6 @@ struct drop_view_impl
         return index() + i;
     }
 };
-
-#if 0
-template <class IndexType>
-struct drop_exactly_lazy_impl : private IndexType {
-
-  private:
-    using IndexType::index;
-
-  public:
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    drop_exactly_lazy_impl(IndexType const b) noexcept
-        : IndexType{b}
-    {
-    }
-
-    // clang-format off
-    constexpr drop_exactly_lazy_impl(
-        drop_exactly_lazy_impl const&) noexcept = default;
-    constexpr drop_exactly_lazy_impl(
-        drop_exactly_lazy_impl&&) noexcept = default;
-    constexpr drop_exactly_lazy_impl& operator=(
-        drop_exactly_lazy_impl const&) noexcept = default;
-    constexpr drop_exactly_lazy_impl& operator=(
-        drop_exactly_lazy_impl&&) noexcept = default;
-    // clang-format on
-
-    // clang-format off
-    template <class Wrapper
-        BOOST_STATIC_VIEWS_REQUIRES(View<typename Wrapper::value_type>)
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(Wrapper xs) const
-        // clang-format on
-        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(std::is_nothrow_constructible<
-            drop_view_impl<Wrapper, IndexType::extent()>, Wrapper&&,
-            IndexType>::value)
-    {
-        using index_type = typename Wrapper::value_type::index_type;
-        BOOST_STATIC_VIEWS_EXPECT(
-            0 <= index() && index() <= static_cast<index_type>(xs.get().size()),
-            "boost::static_views::drop_exactly(b)(xs): Precondition "
-            "`0 <= b <= xs.size()` is not satisfied.");
-        return drop_view_impl<Wrapper, IndexType::extent()>{
-            std::move(xs), static_cast<IndexType const&>(*this)};
-    }
-};
-#endif
 
 struct drop_exactly_impl {
   private:
@@ -242,84 +198,6 @@ struct drop_exactly_impl {
     }
 #endif
 };
-
-#if 0
-struct make_drop_exactly_algo_impl {
-    // clang-format off
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(std::size_t const n) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_drop_exactly_impl{}, std::size_t{n})
-    );
-    // clang-format on
-
-    // clang-format off
-    template <std::size_t N>
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(std::integral_constant<std::size_t, N> /*unused*/) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_drop_exactly_impl{},
-            std::integral_constant<std::size_t, N>{})
-    );
-    // clang-format on
-};
-
-struct make_drop_impl {
-    // clang-format off
-    template <class Wrapper>
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(Wrapper&& xs, std::size_t const b) const
-    BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN
-    (
-        drop_impl<std::decay_t<Wrapper>,
-            Wrapper::type::extent()>{std::forward<Wrapper>(xs), 
-            std::min(xs.get().size(), b)}
-    );
-    // clang-format on
-
-    // clang-format off
-    template <class Wrapper, std::size_t N>
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(Wrapper&& xs,
-        std::integral_constant<std::size_t, N> /*unused*/) const
-    BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN
-    (
-        drop_impl<std::decay_t<Wrapper>,
-            ((Wrapper::type::extent() > N)
-                    ? (Wrapper::type::extent() - N)
-                    : 0)>{std::forward<Wrapper>(xs), std::min(xs.get().size(), N)}
-    );
-    // clang-format on
-};
-
-struct make_drop_algo_impl {
-    // clang-format off
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(std::size_t const n) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_drop_impl{}, std::size_t{n})
-    );
-    // clang-format on
-
-    // clang-format off
-    template <std::size_t N>
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(std::integral_constant<std::size_t, N> /*unused*/) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_drop_impl{},
-            std::integral_constant<std::size_t, N>{})
-    );
-    // clang-format on
-};
-#endif
 
 } // end namespace detail
 

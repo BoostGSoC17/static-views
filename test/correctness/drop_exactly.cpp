@@ -104,8 +104,49 @@ auto test_make()
     }
 }
 
+auto test_size()
+{
+    static constexpr int xs_data[20] = {};
+
+    // construction from an lvalue reference
+    {
+        static constexpr auto xs = boost::static_views::raw_view(xs_data);
+        // Normal function call
+        constexpr auto ys = boost::static_views::drop_exactly(xs, 3);
+        STATIC_ASSERT(
+            ys.size() == xs.size() - 3, "drop_view::size() is broken.");
+        STATIC_ASSERT(
+            ys.extent() == xs.extent(), "drop_view::extent() is broken.");
+        // Curried function call
+        constexpr auto zs = boost::static_views::drop_exactly(3)(xs);
+        STATIC_ASSERT(
+            zs.size() == xs.size() - 3, "drop_view::size() is broken.");
+        STATIC_ASSERT(
+            zs.extent() == xs.extent(), "drop_view::extent() is broken.");
+    }
+
+    // construction with an integral_constant index
+    {
+        static constexpr auto xs = boost::static_views::raw_view(xs_data);
+        // Normal function call
+        constexpr auto ys = boost::static_views::drop_exactly(
+            xs, std::integral_constant<unsigned, 8>{});
+        STATIC_ASSERT(
+            ys.size() == xs.size() - 8, "drop_view::size() is broken.");
+        STATIC_ASSERT(
+            ys.extent() == xs.extent() - 8, "drop_view::extent() is broken.");
+        constexpr auto zs = boost::static_views::drop_exactly(
+            std::integral_constant<int, 1>{})(xs);
+        STATIC_ASSERT(
+            zs.size() == xs.size() - 1, "drop_view::size() is broken.");
+        STATIC_ASSERT(
+            zs.extent() == xs.extent() - 1, "drop_view::extent() is broken.");
+    }
+}
+
 int main()
 {
     test_make();
+    test_size();
     return boost::report_errors();
 }

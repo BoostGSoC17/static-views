@@ -104,8 +104,43 @@ auto test_make()
     }
 }
 
+auto test_size()
+{
+    static constexpr int xs_data[20] = {};
+
+    // construction from an lvalue reference
+    {
+        static constexpr auto xs = boost::static_views::raw_view(xs_data);
+        // Normal function call
+        constexpr auto ys = boost::static_views::take_exactly(xs, 10);
+        STATIC_ASSERT(ys.size() == 10, "take_view::size() is broken.");
+        STATIC_ASSERT(
+            ys.extent() == xs.extent(), "take_view::extent() is broken.");
+        // Curried function call
+        constexpr auto zs = boost::static_views::take_exactly(3)(xs);
+        STATIC_ASSERT(zs.size() == 3, "take_view::size() is broken.");
+        STATIC_ASSERT(
+            zs.extent() == xs.extent(), "take_view::extent() is broken.");
+    }
+
+    // construction with an integral_constant index
+    {
+        static constexpr auto xs = boost::static_views::raw_view(xs_data);
+        // Normal function call
+        constexpr auto ys = boost::static_views::take_exactly(
+            xs, std::integral_constant<unsigned, 8>{});
+        STATIC_ASSERT(ys.size() == 8, "take_view::size() is broken.");
+        STATIC_ASSERT(ys.extent() == 8, "take_view::extent() is broken.");
+        constexpr auto zs = boost::static_views::take_exactly(
+            std::integral_constant<int, 1>{})(xs);
+        STATIC_ASSERT(zs.size() == 1, "take_view::size() is broken.");
+        STATIC_ASSERT(zs.extent() == 1, "take_view::extent() is broken.");
+    }
+}
+
 int main()
 {
     test_make();
+    test_size();
     return boost::report_errors();
 }
