@@ -27,7 +27,7 @@ int main()
     // Size is changed
     static_assert(raw.size() - 3 == v1.size(), "");
     // Though not the extent, because we're passing 3 as a function argument
-    // which implies it's not being constexpr.
+    // which implies its not being constexpr.
     static_assert(raw.extent() == v1.extent(), "");
     // But if you _do_ want the extent to change as well, just pass
     // integral_constant rather than size_t to drop:
