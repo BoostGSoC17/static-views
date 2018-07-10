@@ -69,14 +69,6 @@ matrix:
     #       sources:
     #         - ubuntu-toolchain-r-test
 
-    - os: linux
-      env: TOOLSET=gcc COMPILER=g++-8 CXXFLAGS="-std=c++14" BENCHMARK=false
-      addons:
-        apt:
-          packages:
-            - g++-8
-          sources:
-            - ubuntu-toolchain-r-test
 
     ############################################################################
     # Builds with Clang
@@ -158,6 +150,14 @@ matrix:
   allow_failures:
     - os: linux
       env: COMPILER=clang++-3.9
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-8 CXXFLAGS="-std=c++14" BENCHMARK=false
+      addons:
+        apt:
+          packages:
+            - g++-8
+          sources:
+            - ubuntu-toolchain-r-test
 
 before_install:
   - |
