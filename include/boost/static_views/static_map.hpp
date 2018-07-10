@@ -9,7 +9,7 @@
 #include <exception>
 #include <type_traits>
 
-#include "compose.hpp"
+#include "detail/compose.hpp"
 #include "hash_c.hpp"
 #include "hashed.hpp"
 

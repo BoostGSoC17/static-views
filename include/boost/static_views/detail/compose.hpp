@@ -6,9 +6,9 @@
 #ifndef BOOST_STATIC_VIEWS_COMPOSE_HPP
 #define BOOST_STATIC_VIEWS_COMPOSE_HPP
 
-#include "concepts.hpp"
-#include "detail/invoke.hpp"
-#include "detail/wrapper.hpp"
+#include "../concepts.hpp"
+#include "invoke.hpp"
+#include "wrapper.hpp"
 
 #include <algorithm>
 #include <type_traits>
