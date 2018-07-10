@@ -6,7 +6,7 @@
 #ifndef BOOST_STATIC_VIEWS_DETAIL_FIND_FIRST_HPP
 #define BOOST_STATIC_VIEWS_DETAIL_FIND_FIRST_HPP
 
-#include "../view_base.hpp"
+#include "../view_concept.hpp"
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
