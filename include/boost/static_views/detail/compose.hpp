@@ -96,7 +96,7 @@ struct make_compose {
 
 } // end namespace detail
 
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_compose, compose);
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_compose, compose)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
