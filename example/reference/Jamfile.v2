@@ -7,6 +7,7 @@ project boost/static_views/example/reference
                    <include>$(.additional-includes)
                    <toolset>clang:<cxxflags>"-std=c++17"
                    <toolset>gcc:<cxxflags>"-std=c++17"
+                   <toolset>msvc:<cxxflags>"/std:c++17"
                    <warnings>all
     ;
 
