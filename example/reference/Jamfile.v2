@@ -1,0 +1,18 @@
+#          Copyright Tom Westerhout 2018.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+project boost/static_views/example/reference
+    : requirements <variant>debug
+                   <include>$(.additional-includes)
+                   <toolset>clang:<cxxflags>"-std=c++17"
+                   <toolset>gcc:<cxxflags>"-std=c++17"
+                   <warnings>all
+    ;
+
+import path ;
+
+path-constant HERE : . ;
+.additional-includes = [ path.native "$(HERE)/../../include" ] ;
+
+exe invoke : invoke.cpp ;
