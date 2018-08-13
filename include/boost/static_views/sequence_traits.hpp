@@ -238,7 +238,11 @@ struct _SequenceTraitsHaveExtent<T,
         // std::is_same<detected_t<sequence_traits_have_extent_t, T>,
         //     std::ptrdiff_t>::value
         // Next, make sure it is constexpr
-        && (sequence_traits<T>::extent(), true)>>
+#if !defined(BOOST_STATIC_VIEWS_MSVC)
+        // TODO: I still don't understand why this fails...
+        && (sequence_traits<T>::extent(), true)
+#endif
+    >>
     // Finally, check that the returned value makes sense.
     : std::conditional_t<sequence_traits<T>::extent() >= 0
                              || sequence_traits<T>::extent()
