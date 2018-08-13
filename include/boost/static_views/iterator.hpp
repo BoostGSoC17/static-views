@@ -22,7 +22,7 @@ struct view_iterator {
     using difference_type   = typename V::index_type;
     using value_type        = typename V::value_type;
     using reference         = typename V::reference;
-    using pointer           = typename V::pointer;
+    using pointer           = value_type*;
     using iterator_category = std::random_access_iterator_tag;
 
   private:
@@ -51,7 +51,8 @@ struct view_iterator {
     {
         BOOST_STATIC_VIEWS_EXPECT(
             (view == nullptr && i == 0)
-                || (view != nullptr && 0 <= i && i <= view->size()),
+                || (view != nullptr && 0 <= i
+                       && static_cast<size_type>(i) <= view->size()),
             "It's a bad idea to create an iterator pointing neither "
             "into the view nor to the one-past-the-end element.");
     }
