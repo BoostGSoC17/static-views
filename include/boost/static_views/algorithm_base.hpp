@@ -255,7 +255,7 @@ struct make_lazy_adaptor_impl {
     BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
     (
         lazy_adaptor_impl<std::decay_t<Function>,
-            std::decay_t<Args>...>(std::forward<Function>(fn),
+            Args...>(std::forward<Function>(fn),
                 std::forward<Args>(args)...)
     );
     // clang-format on
