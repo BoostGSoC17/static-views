@@ -229,12 +229,12 @@ class wrapper : public detail::wrapper_base_t<T> {
 
     static_assert(!std::is_rvalue_reference<T>::value,
         "boost::static_views::wrapper: Please, do not use rvalue "
-        "references as template parameter. If you want the `wrapper` "
+        "references as template parameters. If you want a `wrapper` "
         "to own an object of type `T`, use `wrapper<T>` instead.");
 
     static_assert(!std::is_void<std::remove_reference_t<T>>::value,
         "boost::static_views::wrapper: `void` is not supported. If "
-        "you have a problem with that, submit an issue "
+        "you have a problem with that, please, submit an issue "
         "here " BOOST_STATIC_VIEWS_ISSUES_LINK ".");
 
     using base = detail::wrapper_base_t<T>;
