@@ -190,7 +190,7 @@
 #define BOOST_STATIC_VIEWS_JOIN(X, Y)                                \
     BOOST_STATIC_VIEWS_DO_JOIN1(X, Y)
 
-#define BOOST_STATIC_VIEWS_STRINGIFY_DO_STRINGIFY(X) #X
+#define BOOST_STATIC_VIEWS_DO_STRINGIFY(X) #X
 #define BOOST_STATIC_VIEWS_STRINGIFY(X)                              \
     BOOST_STATIC_VIEWS_DO_STRINGIFY(X)
 
@@ -257,31 +257,29 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
 #elif defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
 
 #include <exception>
+#include <stdexcept>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 /// \brief Exception that is thrown when an assert failure is
 /// encountered.
-class assert_failure : std::exception {
-    char const* _msg;
-
+class assertion_failure : public virtual std::runtime_error {
   public:
-    explicit assert_failure(char const* msg) noexcept : _msg{msg} {}
-
-    auto what() const noexcept -> char const* override
+    assertion_failure(char const* file, int const line, char const* cond)
+        : std::runtime_error{std::string{"Assertion failure in '"} + file
+                             + "' on line " + std::to_string(line)
+                             + ": condition " + cond + " not satisfied."}
     {
-        return _msg;
     }
 };
 
-
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
-#define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                         \
-    ((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))                           \
-            ? static_cast<void>(0)                                   \
-            : (throw assert_failure{                                 \
-                  "Assertion failure in '" __FILE__}))
+#define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                                   \
+    ((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))                                     \
+            ? static_cast<void>(0)                                             \
+            : (throw assertion_failure{                                        \
+                  __FILE__, __LINE__, BOOST_STATIC_VIEWS_STRINGIFY(cond)}))
 
 #elif defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)
 
