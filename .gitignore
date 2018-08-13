@@ -1,2 +1,5 @@
+bin
 .*.swp
 __pycache__
+.ycm_extra_conf.py
+Jamroot.jam
