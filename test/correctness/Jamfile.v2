@@ -41,6 +41,10 @@ alias "through_view" :
     [ run through_pass.cpp ]
     ;
 
+alias "transform_view" :
+    [ run transform_pass.cpp ]
+    ;
+
 alias "find_first" :
     [ run find_first_i.cpp ]
     ;
