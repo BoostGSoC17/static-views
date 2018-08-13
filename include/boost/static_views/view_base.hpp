@@ -76,7 +76,7 @@ template <class T
 BOOST_STATIC_VIEWS_CONSTEXPR auto end(T const& xs)
 BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
 (
-    view_iterator<T const>{&xs, xs.size()}
+    view_iterator<T const>{&xs, static_cast<typename view_iterator<T const>::difference_type>(xs.size())}
 );
 
 template <class T
@@ -84,7 +84,7 @@ template <class T
 BOOST_STATIC_VIEWS_CONSTEXPR auto end(T& xs)
 BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
 (
-    view_iterator<T>{&xs, xs.size()}
+    view_iterator<T>{&xs, static_cast<typename view_iterator<T>::difference_type>(xs.size())}
 );
 // clang-format on
 
@@ -100,17 +100,22 @@ struct view_adaptor_base : private Wrapper {
     using wrapper_type = Wrapper;
     using view_type    = typename Wrapper::value_type;
 
-
     template <class Dummy>
     struct traits {
         using derived = derived_type;
     };
 
     BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() const noexcept
+    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() const& noexcept
         -> derived_type const&
     {
         return *static_cast<derived_type const*>(this);
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto derived() && noexcept -> derived_type&&
+    {
+        return static_cast<derived_type&&>(*this);
     }
 
   protected:
@@ -226,7 +231,8 @@ struct view_adaptor_base : private Wrapper {
 
     // clang-format off
     template <class Dummy = void
-        BOOST_STATIC_VIEWS_REQUIRES(HasMap<typename traits<Dummy>::derived>)
+        BOOST_STATIC_VIEWS_REQUIRES(
+            HasUnsafeAt<typename traits<Dummy>::derived const&, index_type>)
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](index_type const i) const&
     // clang-format on
@@ -238,12 +244,13 @@ struct view_adaptor_base : private Wrapper {
                 "boost::static_views::view_base::operator[].");
             BOOST_STATIC_VIEWS_UNREACHABLE;
         }
-        return parent()[derived().map(i)];
+        return derived().unsafe_at(i);
     }
 
     // clang-format off
     template <class Dummy = void
-        BOOST_STATIC_VIEWS_REQUIRES(HasMap<typename traits<Dummy>::derived>)
+        BOOST_STATIC_VIEWS_REQUIRES(
+            HasUnsafeAt<typename traits<Dummy>::derived, index_type>)
     BOOST_STATIC_VIEWS_CONSTEXPR
     BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator[](index_type const i) &&
     // clang-format on
@@ -255,8 +262,7 @@ struct view_adaptor_base : private Wrapper {
                 "boost::static_views::view_base::operator[].");
             BOOST_STATIC_VIEWS_UNREACHABLE;
         }
-        return static_cast<wrapper_type&&>(*this)
-            .get()[derived().map(i)];
+        return static_cast<derived_type&&>(*this).unsafe_at(i);
     }
     /// \}
 
