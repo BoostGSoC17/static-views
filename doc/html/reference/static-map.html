@@ -1,0 +1,273 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>&lt;boost/static_views/static_map.hpp&gt; &#8212; Boost.StaticViews  documentation</title>
+    <link rel="stylesheet" href="../_static/boostbook.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;boost/static_views/detail/invoke.hpp&gt;" href="invoke.html" />
+    <link rel="prev" title="Views and Adaptors" href="views.html" /> 
+  </head><body>
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86"src="../_static/boost-proposed.png"></td>
+</tr></table>
+
+<div class="spirit-nav">
+<a accesskey="p"  href="views.html"><img src="../_static/prev.png" alt="Prev"></a>
+<a accesskey="u" href="../reference.html"><img src="../_static/up.png" alt="Up"></a>
+<a accesskey="h" href="../index.html"><img src="../_static/home.png" alt="Home"></a>
+<a accesskey="n"  href="invoke.html"><img src="../_static/next.png" alt="Next"></a>
+</div>
+  
+
+    <div class="document">
+  <div class="chapter">
+      <div class="body" role="main">
+        
+  <div class="section" id="boost-static-views-static-map-hpp">
+<h1>&lt;boost/static_views/static_map.hpp&gt;<a class="headerlink" href="#boost-static-views-static-map-hpp" title="Permalink to this headline">¶</a></h1>
+<p>Synopsis:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">static_views</span> <span class="p">{</span>
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="cm">/*implementation detail*/</span><span class="o">&gt;</span>
+  <span class="k">class</span> <span class="nc">static_map</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+      <span class="k">using</span> <span class="n">value_type</span>    <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">reference</span>     <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">key_type</span>      <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">mapped_type</span>   <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">size_type</span>     <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">index_type</span>    <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">key_equal</span>     <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">key_hasher</span>    <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">key_getter</span>    <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">mapped_getter</span> <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+      <span class="k">using</span> <span class="n">bucket_type</span>   <span class="o">=</span> <span class="cm">/*implementation detail*/</span><span class="p">;</span>
+
+      <span class="k">constexpr</span> <span class="nf">static_map</span><span class="p">(</span><span class="cm">/*implementation detail*/</span><span class="p">)</span>
+          <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">);</span>
+
+      <span class="n">static_map</span><span class="p">(</span><span class="n">static_map</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+      <span class="n">static_map</span><span class="p">(</span><span class="n">static_map</span><span class="o">&amp;&amp;</span><span class="p">)</span>      <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+      <span class="n">static_map</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">static_map</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+      <span class="n">static_map</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">static_map</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">find</span><span class="p">(</span><span class="n">key_type</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span>
+          <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">value_type</span><span class="o">*</span><span class="p">;</span>
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">count</span><span class="p">(</span><span class="n">key_type</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span>
+          <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">size_type</span><span class="p">;</span>
+
+      <span class="k">constexpr</span> <span class="nf">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">at</span><span class="p">(</span><span class="n">key_type</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+      <span class="k">constexpr</span> <span class="nf">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="k">operator</span><span class="p">[](</span><span class="n">key_type</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">size_type</span><span class="p">;</span>
+      <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">bucket_count</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">size_type</span><span class="p">;</span>
+      <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">bucket_size</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">size_type</span><span class="p">;</span>
+
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">begin</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">end</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">key_equal_fn</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="p">};</span>
+
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">BucketCount</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">BucketSize</span><span class="p">,</span>
+    <span class="k">class</span> <span class="nc">View</span><span class="p">,</span> <span class="k">class</span> <span class="nc">GetKey</span><span class="p">,</span> <span class="k">class</span> <span class="nc">GetMapped</span><span class="p">,</span> <span class="k">class</span> <span class="nc">KeyEqual</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Hasher</span><span class="o">&gt;</span>
+  <span class="k">auto</span> <span class="n">make_static_map</span><span class="p">(</span><span class="n">View</span><span class="o">&amp;&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">GetKey</span> <span class="n">get_key</span><span class="p">,</span> <span class="n">GetMapped</span><span class="o">&amp;&amp;</span> <span class="n">get_mapped</span><span class="p">,</span>
+    <span class="n">KeyEqual</span><span class="o">&amp;&amp;</span> <span class="n">key_equal</span> <span class="o">=</span> <span class="n">KeyEqual</span><span class="p">{},</span> <span class="n">Hasher</span><span class="o">&amp;&amp;</span> <span class="n">hasher</span> <span class="o">=</span> <span class="n">Hasher</span><span class="p">{});</span>
+
+
+  <span class="k">struct</span> <span class="nl">key_not_found_error</span> <span class="p">:</span> <span class="k">public</span> <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">exception</span> <span class="p">{</span>
+    <span class="cm">/*implementation detail*/</span>
+  <span class="p">};</span>
+
+<span class="p">}</span> <span class="c1">// namespace static_views</span>
+<span class="p">}</span> <span class="c1">// namespace boost</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="_CPPv3N5boost12static_views10static_mapE">
+<span id="_CPPv2N5boost12static_views10static_mapE"></span><span id="boost::static_views::static_map"></span><em class="property">class </em><code class="descname">static_map</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_mapE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> hash table.</p>
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map10value_typeE">
+<span id="_CPPv2N5boost12static_views10static_map10value_typeE"></span><span id="boost::static_views::static_map::value_type"></span><em class="property">type </em><code class="descname">value_type</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map10value_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type of elements in the view from which the map was created.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map9referenceE">
+<span id="_CPPv2N5boost12static_views10static_map9referenceE"></span><span id="boost::static_views::static_map::reference"></span><em class="property">type </em><code class="descname">reference</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map9referenceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reference to a element in the underlying view.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map8key_typeE">
+<span id="_CPPv2N5boost12static_views10static_map8key_typeE"></span><span id="boost::static_views::static_map::key_type"></span><em class="property">type </em><code class="descname">key_type</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type of keys in the map.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map11mapped_typeE">
+<span id="_CPPv2N5boost12static_views10static_map11mapped_typeE"></span><span id="boost::static_views::static_map::mapped_type"></span><em class="property">type </em><code class="descname">mapped_type</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map11mapped_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type of values in the map.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map9size_typeE">
+<span id="_CPPv2N5boost12static_views10static_map9size_typeE"></span><span id="boost::static_views::static_map::size_type"></span><em class="property">type </em><code class="descname">size_type</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map9size_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unsigned integral type that represents size.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map10index_typeE">
+<span id="_CPPv2N5boost12static_views10static_map10index_typeE"></span><span id="boost::static_views::static_map::index_type"></span><em class="property">type </em><code class="descname">index_type</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map10index_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Integral type that represents indices.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map9key_equalE">
+<span id="_CPPv2N5boost12static_views10static_map9key_equalE"></span><span id="boost::static_views::static_map::key_equal"></span><em class="property">type </em><code class="descname">key_equal</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map9key_equalE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_type</span></code></a><span class="math notranslate nohighlight">\(\rightarrow\)</span><a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_type</span></code></a><span class="math notranslate nohighlight">\(\rightarrow\)</span><code class="docutils literal notranslate"><span class="pre">bool</span></code>,
+i.e. type of the function that is used to compare keys for equality.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map10key_hasherE">
+<span id="_CPPv2N5boost12static_views10static_map10key_hasherE"></span><span id="boost::static_views::static_map::key_hasher"></span><em class="property">type </em><code class="descname">key_hasher</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map10key_hasherE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A function
+<a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_type</span></code></a><span class="math notranslate nohighlight">\(\rightarrow\)</span><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">std::size_t</span></code> that
+is used for hashing.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map10key_getterE">
+<span id="_CPPv2N5boost12static_views10static_map10key_getterE"></span><span id="boost::static_views::static_map::key_getter"></span><em class="property">type </em><code class="descname">key_getter</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map10key_getterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A function used to extract a <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_type</span></code></a> from a
+<a class="reference internal" href="#_CPPv3N5boost12static_views10static_map10value_typeE" title="boost::static_views::static_map::value_type"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">value_type</span></code></a>.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map13mapped_getterE">
+<span id="_CPPv2N5boost12static_views10static_map13mapped_getterE"></span><span id="boost::static_views::static_map::mapped_getter"></span><em class="property">type </em><code class="descname">mapped_getter</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map13mapped_getterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A function used to extract a <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map11mapped_typeE" title="boost::static_views::static_map::mapped_type"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">mapped_type</span></code></a> from a
+<a class="reference internal" href="#_CPPv3N5boost12static_views10static_map10value_typeE" title="boost::static_views::static_map::value_type"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">value_type</span></code></a>.</p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv3N5boost12static_views10static_map11bucket_typeE">
+<span id="_CPPv2N5boost12static_views10static_map11bucket_typeE"></span><span id="boost::static_views::static_map::bucket_type"></span><em class="property">type </em><code class="descname">bucket_type</code><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map11bucket_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type of a single bucket.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK5boost12static_views10static_map12key_equal_fnEv">
+<span id="_CPPv2NK5boost12static_views10static_map12key_equal_fnEv"></span><span id="boost::static_views::static_map::key_equal_fnCCE"></span><em class="property">constexpr</em> auto <code class="descname">key_equal_fn</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv3NK5boost12static_views10static_map12key_equal_fnEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a function that is used to compare keys for equality.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK5boost12static_views10static_map4findER8key_type">
+<span id="_CPPv2NK5boost12static_views10static_map4findER8key_type"></span><span id="boost::static_views::static_map::find__key_typeCRCCE"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map10value_typeE" title="boost::static_views::static_map::value_type">value_type</a> *<code class="descname">find</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type">key_type</a> <em class="property">const</em> &amp;<em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK5boost12static_views10static_map4findER8key_type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Looks-up the value corresponding to the given key.</p>
+<p>If a key <code class="docutils literal notranslate"><span class="pre">x</span></code> is found in the map such that
+<code class="docutils literal notranslate"><a class="reference internal" href="invoke.html#_CPPv3I0DpE6invokeRR8FunctionDpRR9Arguments" title="invoke"><span class="pre">invoke</span></a><span class="pre">(</span><a class="reference internal" href="#_CPPv3NK5boost12static_views10static_map12key_equal_fnEv" title="boost::static_views::static_map::key_equal_fn"><span class="pre">key_equal_fn</span></a><span class="pre">(</span><span class="pre">)</span><span class="pre">,</span> <span class="pre">x</span><span class="pre">,</span> <span class="pre">k</span><span class="pre">)</span> <span class="pre">==</span> <span class="pre">true</span></code> then a pointer to
+the element is returned, otherwise – a <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>.</p>
+<p>This function is <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> if <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map10key_hasherE" title="boost::static_views::static_map::key_hasher"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_hasher</span></code></a>,
+<a class="reference internal" href="#_CPPv3N5boost12static_views10static_map9key_equalE" title="boost::static_views::static_map::key_equal"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_equal</span></code></a>, and <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map10key_getterE" title="boost::static_views::static_map::key_getter"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_getter</span></code></a> do not throw.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK5boost12static_views10static_map5countER8key_type">
+<span id="_CPPv2NK5boost12static_views10static_map5countER8key_type"></span><span id="boost::static_views::static_map::count__key_typeCRCCE"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map9size_typeE" title="boost::static_views::static_map::size_type">size_type</a> <code class="descname">count</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type">key_type</a> <em class="property">const</em> &amp;<em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK5boost12static_views10static_map5countER8key_type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the number of times the given key occurs in the map. This
+function returns either zero or one.</p>
+<p>This function is <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> if <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map10key_hasherE" title="boost::static_views::static_map::key_hasher"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_hasher</span></code></a>,
+<a class="reference internal" href="#_CPPv3N5boost12static_views10static_map9key_equalE" title="boost::static_views::static_map::key_equal"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_equal</span></code></a>, and <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map10key_getterE" title="boost::static_views::static_map::key_getter"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">key_getter</span></code></a> do not throw.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK5boost12static_views10static_map2atER8key_type">
+<span id="_CPPv2NK5boost12static_views10static_map2atER8key_type"></span><span id="boost::static_views::static_map::at__key_typeCRCCE"></span><em class="property">constexpr</em> decltype(auto) <code class="descname">at</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type">key_type</a> <em class="property">const</em> &amp;<em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK5boost12static_views10static_map2atER8key_type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Looks-up the value corresponding to the given key.</p>
+<p>If a key <code class="docutils literal notranslate"><span class="pre">x</span></code> is found in the map such that
+<code class="docutils literal notranslate"><a class="reference internal" href="invoke.html#_CPPv3I0DpE6invokeRR8FunctionDpRR9Arguments" title="invoke"><span class="pre">invoke</span></a><span class="pre">(</span><a class="reference internal" href="#_CPPv3NK5boost12static_views10static_map12key_equal_fnEv" title="boost::static_views::static_map::key_equal_fn"><span class="pre">key_equal_fn</span></a><span class="pre">(</span><span class="pre">)</span><span class="pre">,</span> <span class="pre">x</span><span class="pre">,</span> <span class="pre">k</span><span class="pre">)</span> <span class="pre">==</span> <span class="pre">true</span></code> then a reference to
+the corresponding value is returned. Otherwise, an exception of type
+<a class="reference internal" href="#_CPPv3N5boost12static_views19key_not_found_errorE" title="boost::static_views::key_not_found_error"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">key_not_found_error</span></code></a> is thrown.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK5boost12static_views10static_mapixER8key_type">
+<span id="_CPPv2NK5boost12static_views10static_mapixER8key_type"></span><span id="boost::static_views::static_map::subscript-operator__key_typeCRCCE"></span><em class="property">constexpr</em> decltype(auto) <code class="descname">operator[]</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv3N5boost12static_views10static_map8key_typeE" title="boost::static_views::static_map::key_type">key_type</a> <em class="property">const</em> &amp;<em>k</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv3NK5boost12static_views10static_mapixER8key_type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Looks-up the value corresponding to the given key.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The behaviour of this function is identical to that of
+<a class="reference internal" href="#_CPPv3NK5boost12static_views10static_map2atER8key_type" title="boost::static_views::static_map::at"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">at()</span></code></a>, i.e. no new elements are inserted into the
+map.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3NK5boost12static_views10static_map4sizeEv">
+<span id="_CPPv2NK5boost12static_views10static_map4sizeEv"></span><span id="boost::static_views::static_map::sizeCCE"></span><em class="property">constexpr</em> <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map9size_typeE" title="boost::static_views::static_map::size_type">size_type</a> <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv3NK5boost12static_views10static_map4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the number of elements in the map.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N5boost12static_views10static_map12bucket_countEv">
+<span id="_CPPv2N5boost12static_views10static_map12bucket_countEv"></span><span id="boost::static_views::static_map::bucket_countCE"></span><em class="property">static</em> <em class="property">constexpr</em> <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map9size_typeE" title="boost::static_views::static_map::size_type">size_type</a> <code class="descname">bucket_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map12bucket_countEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the number of buckets in the map.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3N5boost12static_views10static_map11bucket_sizeEv">
+<span id="_CPPv2N5boost12static_views10static_map11bucket_sizeEv"></span><span id="boost::static_views::static_map::bucket_sizeCE"></span><em class="property">static</em> <em class="property">constexpr</em> <a class="reference internal" href="#_CPPv3N5boost12static_views10static_map9size_typeE" title="boost::static_views::static_map::size_type">size_type</a> <code class="descname">bucket_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">noexcept</em><a class="headerlink" href="#_CPPv3N5boost12static_views10static_map11bucket_sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the capacity of a single bucket.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv3N5boost12static_views19key_not_found_errorE">
+<span id="_CPPv2N5boost12static_views19key_not_found_errorE"></span><span id="boost::static_views::key_not_found_error"></span><em class="property">class </em><code class="descname">key_not_found_error</code><a class="headerlink" href="#_CPPv3N5boost12static_views19key_not_found_errorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Exception type thrown when a key could not be found. See e.g.
+<a class="reference internal" href="#_CPPv3NK5boost12static_views10static_map2atER8key_type" title="boost::static_views::static_map::at"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">static_map::at()</span></code></a> and <a class="reference internal" href="#_CPPv3NK5boost12static_views10static_mapixER8key_type" title="boost::static_views::static_map::operator[]"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">static_map::operator[]()</span></code></a>
+functions.</p>
+</dd></dl>
+
+</div>
+
+
+      </div>
+  </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+    <td align="left"></td>
+    <td align="right"><div class="copyright-footer">
+            &#169; Copyright 2017, Tom Westerhout.
+        
+          Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+          <p>Distributed under the Boost Software License, Version 1.0.
+          (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
+          <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+          </p>
+    </div></td>
+    </tr></table>
+    </div>
+  </body>
+</html>

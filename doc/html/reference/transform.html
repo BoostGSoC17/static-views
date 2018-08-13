@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>&lt;boost/static_views/transform.hpp&gt; &#8212; Boost.StaticViews  documentation</title>
+    <link rel="stylesheet" href="../_static/boostbook.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;boost/static_views/errors.hpp&gt;" href="errors.html" />
+    <link rel="prev" title="&lt;boost/static_views/chunk.hpp&gt;" href="chunk.html" /> 
+  </head><body>
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86"src="../_static/boost-proposed.png"></td>
+</tr></table>
+
+<div class="spirit-nav">
+<a accesskey="p"  href="chunk.html"><img src="../_static/prev.png" alt="Prev"></a>
+<a accesskey="u" href="../reference.html"><img src="../_static/up.png" alt="Up"></a>
+<a accesskey="h" href="../index.html"><img src="../_static/home.png" alt="Home"></a>
+<a accesskey="n"  href="errors.html"><img src="../_static/next.png" alt="Next"></a>
+</div>
+  
+
+    <div class="document">
+  <div class="chapter">
+      <div class="body" role="main">
+        
+  <div class="section" id="boost-static-views-transform-hpp">
+<h1>&lt;boost/static_views/transform.hpp&gt;<a class="headerlink" href="#boost-static-views-transform-hpp" title="Permalink to this headline">¶</a></h1>
+<p>Synopsis:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">static_views</span> <span class="p">{</span>
+
+  <span class="c1">// Exposition only</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">V</span><span class="p">,</span> <span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
+    <span class="n">requires</span> <span class="p">(</span><span class="n">View</span><span class="o">&lt;</span><span class="n">remove_cvref</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span>
+           <span class="o">&amp;&amp;</span> <span class="n">Invocable</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="k">typename</span> <span class="n">remove_cvref</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;::</span><span class="n">reference</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">make_transform_view</span><span class="p">(</span><span class="n">V</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">F</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">);</span>
+
+  <span class="c1">// Exposition only</span>
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
+  <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">make_transform_view</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">whenever</span> <span class="n">possible</span><span class="p">);</span>
+
+
+  <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">transform</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">make_transform_view</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+  <span class="p">};</span>
+
+<span class="p">}</span> <span class="c1">// namespace static_views</span>
+<span class="p">}</span> <span class="c1">// namespace boost</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="_CPPv3I00EN5boost12static_views19make_transform_viewERR1VRR1F">
+<span id="_CPPv2I00EN5boost12static_views19make_transform_viewERR1VRR1F"></span>template&lt;class <code class="descname">V</code>, class <code class="descname">F</code>&gt;<br /><em class="property">constexpr</em> auto <code class="descname">make_transform_view</code><span class="sig-paren">(</span>V &amp;&amp;<em>xs</em>, F &amp;&amp;<em>fn</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3I00EN5boost12static_views19make_transform_viewERR1VRR1F" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function is not real and is provided here for exposition
+pusposes only.</p>
+</div>
+<p>Creates a view of <code class="docutils literal notranslate"><span class="pre">xs</span></code> where each element <code class="docutils literal notranslate"><span class="pre">x</span></code> is transformed to
+<code class="docutils literal notranslate"><span class="pre">invoke(fn,</span> <span class="pre">x)</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>xs</strong> – <p>The view to adapt. It must model the <a class="reference internal" href="view.html#view-concept"><span class="std std-ref">View</span></a> concept.</p>
+<ul>
+<li>If <code class="docutils literal notranslate"><span class="pre">xs</span></code> is an lvalue reference, then the returned view only
+stores a pointer to <code class="docutils literal notranslate"><span class="pre">xs</span></code>.</li>
+<li>If <code class="docutils literal notranslate"><span class="pre">xs</span></code> is an rvalue reference, then the ownership of <code class="docutils literal notranslate"><span class="pre">xs</span></code> is
+transformed to the returned view using <code class="docutils literal notranslate"><span class="pre">xs</span></code>’ move constructor.</li>
+</ul>
+</li>
+<li><strong>fn</strong> – The function to apply to elements of <code class="docutils literal notranslate"><span class="pre">xs</span></code>. It must be
+Invocable with <code class="docutils literal notranslate"><em class="property"><span class="pre">typename</span></em> <span class="pre">V</span><span class="pre">::</span><span class="pre">reference</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Transform view of <code class="docutils literal notranslate"><span class="pre">xs</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv3I0EN5boost12static_views19make_transform_viewERR1F">
+<span id="_CPPv2I0EN5boost12static_views19make_transform_viewERR1F"></span>template&lt;class <code class="descname">F</code>&gt;<br /><em class="property">constexpr</em> auto <code class="descname">make_transform_view</code><span class="sig-paren">(</span>F &amp;&amp;<em>fn</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv3I0EN5boost12static_views19make_transform_viewERR1F" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function is not real and is provided here for exposition
+pusposes only.</p>
+</div>
+<p>This is a flipped (arguments are in reverse order) curried version of
+the above function. Its main purpose is to be used in pipes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fn</strong> – The function to apply to elements of the view.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The function <code class="docutils literal notranslate"></code>.  The lambda here is shown for
+exposition only; the actual implementation is more efficient.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="var">
+<dt id="_CPPv3N5boost12static_views9transformE">
+<span id="_CPPv2N5boost12static_views9transformE"></span><span id="boost::static_views::transform__auto"></span><em class="property">constexpr</em> auto <code class="descname">transform</code> = [] (auto&amp;&amp;... args) {               return make_transform_view(std::forward&lt;decltype(args)&gt;(args)...);           };<a class="headerlink" href="#_CPPv3N5boost12static_views9transformE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A wrapper function with the following signatures:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">View₁,</span> <span class="pre">(View₁::reference</span> <span class="pre">-&gt;</span> <span class="pre">View₂::reference)</span>&#160;&#160;&#160; <span class="pre">-&gt;</span> <span class="pre">View₂</span></code>  <a class="footnote-reference" href="#f1" id="id1">[1]</a></li>
+<li><code class="docutils literal notranslate"><span class="pre">(View₁::reference</span> <span class="pre">-&gt;</span> <span class="pre">View₂::reference)</span> <span class="pre">-&gt;</span> <span class="pre">(View₁</span> <span class="pre">-&gt;</span> <span class="pre">View₂)</span></code> <a class="footnote-reference" href="#f2" id="id2">[2]</a></li>
+</ul>
+</div></blockquote>
+<p>Example usage:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//          Copyright Tom Westerhout 2018.</span>
+<span class="c1">// Distributed under the Boost Software License, Version 1.0.</span>
+<span class="c1">//    (See accompanying file LICENSE_1_0.txt or copy at</span>
+<span class="c1">//          http://www.boost.org/LICENSE_1_0.txt)</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/static_views/pipe.hpp&gt;     // for | syntax</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/static_views/raw_view.hpp&gt; // to get boost::static_views::raw_view</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;boost/static_views/transform.hpp&gt; // to get boost::static_views::transform</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="n">sv</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// First of all, we need some view of the data</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span>  <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">raw</span>    <span class="o">=</span> <span class="n">sv</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+
+    <span class="c1">// Now, let&#39;s create a view of squares of elements of data:</span>
+    <span class="k">struct</span> <span class="n">sqr_fn</span> <span class="p">{</span>
+        <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">()(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">x</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">sqr</span> <span class="o">=</span> <span class="n">sqr_fn</span><span class="p">{};</span>
+    <span class="k">constexpr</span> <span class="k">auto</span>        <span class="n">v1</span>  <span class="o">=</span> <span class="n">sv</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">sqr</span><span class="p">);</span>
+
+    <span class="c1">// The docs promised to return a View</span>
+    <span class="k">using</span> <span class="n">v1_type</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_const_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">static_assert</span><span class="p">(</span>
+        <span class="n">sv</span><span class="o">::</span><span class="n">View</span><span class="o">&lt;</span><span class="n">v1_type</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">&quot;Since when is transform view not a View?&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Check that it works:</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">x</span> <span class="p">:</span> <span class="n">v1</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+
+    <span class="c1">// Alternative syntax (currying)</span>
+    <span class="n">BOOST_STATIC_VIEWS_UNUSED</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">sv</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">sqr</span><span class="p">)(</span><span class="n">raw</span><span class="p">);</span>
+    <span class="c1">// Or even (piping)</span>
+    <span class="n">BOOST_STATIC_VIEWS_UNUSED</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">raw</span> <span class="o">|</span> <span class="n">sv</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">sqr</span><span class="p">);</span>
+
+    <span class="c1">// Empty base optimisation:</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">sv</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                      <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sv</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">|</span> <span class="n">sv</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">sqr_fn</span><span class="p">{})),</span>
+        <span class="s">&quot;Transform view is wasting memory!&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Preserves size and extent</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">raw</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">v1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="s">&quot;Size has changed!?&quot;</span><span class="p">);</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">raw</span><span class="p">.</span><span class="n">extent</span><span class="p">()</span> <span class="o">==</span> <span class="n">v1</span><span class="p">.</span><span class="n">extent</span><span class="p">(),</span> <span class="s">&quot;Extent has changed!?&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>I.e. given a view (<code class="docutils literal notranslate"><span class="pre">View₁</span></code>) and a function working on elements
+of it (<code class="docutils literal notranslate"><span class="pre">View₁::reference</span> <span class="pre">-&gt;</span> <span class="pre">View₂::reference</span></code>), returns a new view
+(<code class="docutils literal notranslate"><span class="pre">View₂</span></code>).</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>I.e. given a function working on elements of a view
+(<code class="docutils literal notranslate"><span class="pre">View₁::reference</span> <span class="pre">-&gt;</span> <span class="pre">View₂::reference</span></code>), returns a function mapping
+one view to another (<code class="docutils literal notranslate"><span class="pre">View₁</span> <span class="pre">-&gt;</span> <span class="pre">View₂</span></code>).</td></tr>
+</tbody>
+</table>
+</div>
+
+
+      </div>
+  </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+    <td align="left"></td>
+    <td align="right"><div class="copyright-footer">
+            &#169; Copyright 2017, Tom Westerhout.
+        
+          Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+          <p>Distributed under the Boost Software License, Version 1.0.
+          (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
+          <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+          </p>
+    </div></td>
+    </tr></table>
+    </div>
+  </body>
+</html>
