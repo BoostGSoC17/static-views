@@ -94,9 +94,9 @@ auto test_make()
         static constexpr auto xs = boost::static_views::raw_view(xs_data);
 #if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
         BOOST_TEST_THROWS(boost::static_views::take_exactly(xs, 21),
-            boost::static_views::assert_failure);
+            boost::static_views::assertion_failure);
         BOOST_TEST_THROWS(boost::static_views::take_exactly(-123)(xs),
-            boost::static_views::assert_failure);
+            boost::static_views::assertion_failure);
 #endif
         // This would fail at compile-time though
         // auto ys = boost::static_views::take_exactly(
