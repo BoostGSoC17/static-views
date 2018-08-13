@@ -17,6 +17,9 @@ project
 
 exe using_raw_view : using_raw_view.cpp ;
 exe using_drop_view : using_drop_view.cpp ;
+exe using_transform_view : using_transform_view.cpp ;
+exe using_chunk_view : using_chunk_view.cpp ;
+exe using_flatten_view : using_flatten_view.cpp ;
 exe static_map : static_map.cpp ;
 exe enum_to_string : enum_to_string.cpp
                    : <variant>release
