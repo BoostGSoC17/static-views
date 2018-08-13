@@ -113,7 +113,6 @@ struct slice_view_impl : DropTake {
 };
 
 struct slice_impl {
-
   private:
     template <class T>
     using index_type_t =
@@ -126,17 +125,24 @@ struct slice_impl {
 
   public:
     // clang-format off
-    template <class V
+    template <class V, class Index1, class Index2
         BOOST_STATIC_VIEWS_REQUIRES(
             View<std::remove_cv_t<std::remove_reference_t<V>>>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(V&& xs, index_type_t<V> const b, index_type_t<V> const e)
+    auto operator()(V&& xs, Index1 const b, Index2 const e)
         // clang-format on
         const BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
             noexcept(std::declval<slice_impl const&>().call_impl(
                 drop_exactly(take_exactly(std::forward<V>(xs), e), b))))
     {
         return call_impl(drop_exactly(take_exactly(std::forward<V>(xs), e), b));
+    }
+
+    template <class Index1, class Index2>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
+        Index1 const b, Index2 const e) const noexcept
+    {
+        return lazy_adaptor(slice_impl{}, copy(b), copy(e));
     }
 };
 
