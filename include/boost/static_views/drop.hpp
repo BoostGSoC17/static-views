@@ -12,6 +12,7 @@
 
 #include "algorithm_base.hpp"
 #include "compact_index.hpp"
+#include "copy.hpp"
 #include "view_base.hpp"
 
 #include <algorithm>
@@ -21,10 +22,13 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
+struct drop_index_tag {};
+
+
 template <class Wrapper, std::ptrdiff_t Extent>
 struct drop_view_impl
     : view_adaptor_base<drop_view_impl<Wrapper, Extent>, Wrapper>
-    , private compact_index<
+    , private compact_index<drop_index_tag,
           typename view_adaptor_base<drop_view_impl<Wrapper, Extent>,
               Wrapper>::index_type,
           Extent> {
@@ -32,7 +36,8 @@ struct drop_view_impl
   private:
     using wrapper_type = Wrapper;
     using base = view_adaptor_base<drop_view_impl<Wrapper, Extent>, Wrapper>;
-    using compact_index_type = compact_index<typename base::index_type, Extent>;
+    using compact_index_type =
+        compact_index<drop_index_tag, typename base::index_type, Extent>;
     using compact_index_type::index;
 
   public:
@@ -133,7 +138,7 @@ struct drop_exactly_impl {
             0 <= b && b <= static_cast<index_type>(xs.size()),
             "boost::static_views::drop_exactly(xs, b): Precondition "
             "`0 <= b <= xs.size()` is not satisfied.");
-        return call_impl(make_wrapper(std::forward<V>(xs)), index(b));
+        return call_impl(make_wrapper(std::forward<V>(xs)), index<drop_index_tag>(b));
     }
 
     // clang-format off
@@ -143,7 +148,7 @@ struct drop_exactly_impl {
     auto operator()(IndexType const b) const noexcept
     // clang-format on
     {
-        return lazy_adaptor(drop_exactly_impl{}, b);
+        return lazy_adaptor(drop_exactly_impl{}, copy(b));
     }
 
     // clang-format off
@@ -170,7 +175,7 @@ struct drop_exactly_impl {
             "boost::static_views::drop_exactly(xs, b): Precondition "
             "`0 <= b <= xs.size()` is not satisfied.");
         return call_impl(make_wrapper(std::forward<V>(xs)),
-            index(std::integral_constant<index_type, I>{}));
+            index<drop_index_tag>(std::integral_constant<index_type, I>{}));
     }
 
     // clang-format off
@@ -179,7 +184,7 @@ struct drop_exactly_impl {
     auto operator()(std::integral_constant<IndexType, I> const b) const noexcept
     // clang-format on
     {
-        return lazy_adaptor(drop_exactly_impl{}, b);
+        return lazy_adaptor(drop_exactly_impl{}, copy(b));
     }
 
 #if !defined(BOOST_STATIC_VIEWS_SFINAE)
