@@ -30,7 +30,7 @@ local .gcc-warnings = -W -Wall -Wextra -pedantic -Wcast-align
                       -Wstrict-overflow=5
                       -Wvariadic-macros 
                       -Wparentheses 
-                      -Wno-noexcept
+                      # -Wno-noexcept
                       -Wno-noexcept-type
                     ;
 
@@ -41,12 +41,15 @@ local .clang-warnings = -W -Weverything
                         -Wno-documentation
                         -Wno-missing-prototypes
                         -Wno-missing-variable-declarations
-                        -Wno-reserved-id-macro
                         -Wno-padded
-                        -Wno-assume
-                        # -Wno-undef
-                        # -Wno-old-style-cast
-                        -Wno-weak-vtables ;
+                        -Wno-weak-vtables
+                        # This one is really puzzling
+# -Wno-assume
+                        # Boost.Core uses these extensively... :(
+                        -Wno-reserved-id-macro
+                        -Wno-old-style-cast
+                        -Wno-zero-as-null-pointer-constant
+                       ;
 
 project
     : requirements <include>../include
@@ -63,7 +66,8 @@ project
     ;
 
 
-alias static_views_tests : headers correctness optimisation ;
+alias static_views_tests : headers correctness ;
+# headers correctness optimisation ;
 
 alias minimal : static_views_tests ;
 alias ful     : static_views_tests ;

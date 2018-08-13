@@ -6,21 +6,22 @@
 #ifndef BOOST_STATIC_VIEWS_HASHED_HPP
 #define BOOST_STATIC_VIEWS_HASHED_HPP
 
-#include "algorithm_base.hpp"
-#include "detail/config.hpp"
+#include "concepts.hpp"
 #include "detail/find_first.hpp"
 #include "detail/invoke.hpp"
+#include "drop.hpp"
 #include "raw_view.hpp"
 #include "slice.hpp"
+#include "take.hpp"
 #include "through.hpp"
-#include "view_base.hpp"
-#include <limits>
 #include <type_traits>
+#include <iostream>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
+#if 0
 template <class View, class Hasher>
 struct Constrains {
 
@@ -64,22 +65,36 @@ struct Constrains {
         return constrains::template check<View>();
     }
 };
+#endif
 
+#if defined(BOOST_STATIC_VIEWS_CONCEPTS)
+template <class H, class T>
+concept bool               Hasher =
+    MoveConstructible<H>&& is_invocable_r<std::size_t, H, T>::value;
+#else
+template <class H, class T>
+constexpr bool             Hasher =
+    MoveConstructible<H>&& is_invocable_r<std::size_t, H, T>::value;
+#endif
+
+
+#if 0
 template <std::size_t BucketSize, std::size_t... Is>
 struct hashed_init_impl {
     std::size_t storage[sizeof...(Is)];
 
     // clang-format off
-    template <class View, class Hasher,
-        class = std::enable_if_t<Constrains<View, Hasher>::test()>>
+    template <class V, class H
+        BOOST_STATIC_VIEWS_REQUIRES(View<V> && Hasher<H, typename V::reference>)
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    explicit hashed_init_impl(View const& xs, Hasher const& h)
+    hashed_init_impl(V const& xs, H const& h)
         : storage{((void)Is, hashed_init_impl::capacity())...}
     {
-        auto const size = xs.size();
-        for (std::size_t i = 0; i < size; ++i) {
-            auto const hash = invoke(h, concepts::View::unsafe_at(xs, i));
+        using index_type = typename V::index_type;
+        auto const size = static_cast<index_type>(xs.size());
+        for (index_type i = 0; i < size; ++i) {
+            auto const hash = invoke(h, xs.unsafe_at(i));
             insert(i, bucket_size() * (hash % bucket_count()));
         }
     }
@@ -160,48 +175,192 @@ BOOST_STATIC_VIEWS_CONSTEXPR auto make_hashed_init_impl(
     return make_hashed_init_impl<BucketSize>(
         xs, h, std::make_index_sequence<BucketCount * BucketSize>{});
 }
+#endif
 
-template <std::size_t BucketCount, std::size_t BucketSize, class View,
+template <std::size_t BucketCount, std::size_t BucketSize, class Wrapper,
     class Hasher>
-struct hashed_impl
+struct hashed_view_impl
     : view_adaptor_base<
-          hashed_impl<BucketCount, BucketSize, View, Hasher>, View> {
+          hashed_view_impl<BucketCount, BucketSize, Wrapper, Hasher>, Wrapper> {
 
   private:
-    using view_type = typename View::type;
+    using view_type = typename Wrapper::value_type;
 
     static_assert(is_wrapper<Hasher>(),
         "[INTERNAL] Invalid use of hashed_impl.");
 
-    using hasher_type = typename Hasher::type;
-
-    using value_type = std::remove_reference_t<decltype(
-        std::declval<view_type const&>().unsafe_at(
-            std::declval<std::size_t>()))>;
+    using base        = view_adaptor_base<
+        hashed_view_impl<BucketCount, BucketSize, Wrapper, Hasher>, Wrapper>;
+    using base_index_type = typename base::index_type;
 
   public:
+    using hasher_type = typename Hasher::value_type;
+    using index_type = std::size_t;
+    using typename base::size_type;
+
+    using base::parent;
+
     /// \brief Returns the number buckets.
     static constexpr auto bucket_count() noexcept
     {
         static_assert(BucketCount > 0,
-            "[INTERNAL] Invalid use of hashed_impl.");
-        return BucketCount;
+            "Zero-sized boost::static_views::hashed_view is not supported.");
+        return static_cast<size_type>(BucketCount);
     }
 
     /// \brief Returns the capacity of each bucket.
     static constexpr auto bucket_size() noexcept
     {
-        static_assert(
-            BucketSize > 0, "[INTERNAL] Invalid use of hashed_impl.");
-        return BucketSize;
+        static_assert(BucketSize > 0, "Zero-sized buckets are not supported by "
+                                      "boost::static_views::hashed_view.");
+        return static_cast<size_type>(BucketSize);
     }
 
   private:
+    using storage_type = base_index_type[bucket_count() * bucket_size()];
+    struct array_wrapper {
+        storage_type unpack;
+    };
+
+    std::tuple<array_wrapper, Hasher> _data;
+
+    // Returns whether a bucket at given index is empty.
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    static auto empty(std::size_t const x) noexcept -> bool
+    static auto empty(base_index_type const x) noexcept -> bool
     {
-        return x == bucket_count() * bucket_size();
+        return x
+               == static_cast<base_index_type>(bucket_count() * bucket_size());
+    }
+
+    struct is_empty {
+        constexpr auto operator()(base_index_type const x) const noexcept
+            -> bool
+        {
+            return empty(x);
+        }
+    };
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto storage() const & noexcept -> storage_type const&
+    {
+        return std::get<0>(_data).unpack;
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto storage() & noexcept -> storage_type&
+    {
+        return std::get<0>(_data).unpack;
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto bucket(base_index_type const i) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
+    {
+        // Note that i absolutely must not exceed the size of storage.
+        return take_exactly(drop_exactly(raw_view(storage()), i),
+            std::integral_constant<base_index_type, bucket_size()>{});
+    }
+
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto insert(typename base::index_type const i,
+        typename base::index_type const         guess) -> void
+    {
+        auto const p = find_first_i(bucket(guess), is_empty{});
+        if (p != bucket_size()) {
+            storage()[guess + p] = i;
+        }
+        else {
+            make_full_bucket_error("Bucket is full.");
+        }
+    }
+
+    /// \brief Finds an element in a bucket at the given index which satisfies
+    /// the given predicate.
+    // clang-format off
+    template <class Predicate
+        BOOST_STATIC_VIEWS_REQUIRES(
+            is_invocable_r<bool, Predicate, typename base::reference>::value)
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto find_in_bucket(typename base::index_type const h, Predicate&& p)
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            noexcept(invoke(p, std::declval<typename base::reference>())))
+        -> typename base::value_type*
+    {
+        auto const xs = bucket(h);
+        for (typename base::index_type i = 0;
+             i < bucket_size() && !empty(xs.unsafe_at(i)); ++i) {
+            // i -- index in the bucket
+            // xs.unsafe_at(i) -- index in the parent view
+            // parent().unsafe_at(xs.unsafe_at(i)) -- element in the parent
+            // view.
+            auto& x = parent().unsafe_at(xs.unsafe_at(i));
+            if (invoke(p, x)) return &x;
+        }
+        return nullptr;
+    }
+
+    // clang-format off
+    template <class Equal>
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto insert(typename base::index_type const i,
+        typename base::index_type const guess, Equal& equal) -> void
+    // clang-format on
+    {
+        struct Predicate {
+            Equal&                                     _equal;
+            std::add_const_t<typename base::reference> _value;
+
+            constexpr auto operator()(typename base::reference x)
+            {
+                return invoke(_equal, _value, x);
+            }
+        };
+
+        if (find_in_bucket(guess, Predicate{equal, parent().unsafe_at(i)})
+            != nullptr) {
+            // We already have this element.
+            return;
+        }
+        auto const p = find_first_i(bucket(guess), is_empty{});
+        if (p != bucket_size()) {
+            storage()[guess + p] = i;
+        }
+        else {
+            make_full_bucket_error("Bucket is full.");
+        }
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR auto initialise_storage()
+    {
+        using I = typename base::index_type;
+        for (std::size_t i = 0; i < bucket_count() * bucket_size(); ++i)
+            storage()[i] = bucket_count() * bucket_size();
+
+        for (I i = 0, size = static_cast<I>(parent().size()); i < size;
+             ++i) {
+            auto const hash = invoke(hash_function(), parent().unsafe_at(i));
+            insert(i, static_cast<I>(bucket_size() * (hash % bucket_count())));
+        }
+    }
+
+    template <class Equal>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto initialise_storage(Equal&& equal)
+    {
+        using I = typename base::index_type;
+        for (std::size_t i = 0; i < bucket_count() * bucket_size(); ++i)
+            storage()[i] = bucket_count() * bucket_size();
+
+        for (I i = 0, size = static_cast<I>(parent().size()); i < size;
+             ++i) {
+            auto const hash = invoke(hash_function(), parent().unsafe_at(i));
+            insert(i, static_cast<I>(bucket_size() * (hash % bucket_count())),
+                equal);
+        }
     }
 
   public:
@@ -233,20 +392,19 @@ struct hashed_impl
     ///   be used explicitly, use the :cpp:var:`hashed` factory
     ///   function instead.
     /// \endverbatim
-    template <std::size_t... Is>
-    BOOST_STATIC_VIEWS_CONSTEXPR hashed_impl(View&& xs, Hasher&& hf,
-        std::size_t (&storage)[hashed_impl::bucket_count()
-                               * hashed_impl::bucket_size()],
-        std::index_sequence<Is...> /*unused*/)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_constructible<
-                typename hashed_impl::view_adaptor_base_type,
-                View&&>::value,
-            std::is_nothrow_move_constructible<Hasher>::value))
-        : hashed_impl::view_adaptor_base_type{std::move(xs)}
-        , _hf{std::move(hf)}
-        , _storage{storage[Is]...}
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    hashed_view_impl(Wrapper&& xs, Hasher&& hf)
+        : base{std::move(xs)}, _data{array_wrapper{}, std::move(hf)}
     {
+        initialise_storage();
+    }
+
+    template <class Equal>
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    hashed_view_impl(Wrapper&& xs, Hasher&& hf, Equal&& equal)
+        : base{std::move(xs)}, _data{array_wrapper{}, std::move(hf)}
+    {
+        initialise_storage(std::forward<Equal>(equal));
     }
 
     /// \brief Returns the capacity of the view.
@@ -265,12 +423,9 @@ struct hashed_impl
 
     /// \brief Returns a reference to the hash function.
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO hash_function() const noexcept
+    auto const& hash_function() const& noexcept
     {
-        static_assert(noexcept(_hf.get()),
-            "[INTERNAL] hashed_impl assumes that _hf has a noexcept "
-            "get().");
-        return _hf.get();
+        return std::get<1>(_data).get();
     }
 
     /// \brief Returns the bucket corresponding to \p hash.
@@ -282,62 +437,61 @@ struct hashed_impl
     /// will have size zero. \endverbatim
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator[](std::size_t const hash) const
-    // noexcept /* TODO add specifiers */
+    auto operator[](index_type const hash)
+        const& BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
     {
-#if defined(__cpp_constexpr) && __cpp_constexpr >= 201603
-        constexpr auto is_empty = [](auto const x) noexcept
-        {
-            return x == bucket_count() * bucket_size();
-        };
-#else
-        struct is_empty_impl {
-            BOOST_STATIC_VIEWS_CONSTEXPR
-            auto operator()(std::size_t const x) const noexcept
-            {
-                return x == bucket_count() * bucket_size();
-            }
-        };
-        constexpr is_empty_impl is_empty{};
-#endif
-        auto const i = bucket_size() * (hash % bucket_count());
-        auto const n = find_first_i(
-            slice(i, i + bucket_size())(raw_view(_storage)),
-            is_empty);
-        return through(slice(i, i + n)(raw_view(_storage)))(
-            this->parent());
+        auto const i = static_cast<typename base::index_type>(
+            bucket_size() * (hash % bucket_count()));
+        auto const n = find_first_i(bucket(i), is_empty{});
+        return through(parent(), slice(raw_view(storage()), i, i + n));
     }
 
-    template <class Predicate>
-    BOOST_STATIC_VIEWS_FORCEINLINE   //
-        BOOST_STATIC_VIEWS_CONSTEXPR //
-        auto
-        lookup(std::size_t h, Predicate&& p) const noexcept
-        -> value_type*
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto unsafe_at(index_type const hash)
+        const& BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
     {
-        auto const bucket =
-            slice(h, h + bucket_size())(raw_view(_storage));
+        return this->operator[](hash);
+    }
 
-        for (std::size_t i = 0;
-             (i < bucket_size()) && !empty(bucket.unsafe_at(i));
-             ++i) {
+    using reference = decltype(
+        std::declval<hashed_view_impl const&>()[std::declval<index_type>()]);
+    using value_type = std::remove_reference_t<reference>;
 
-            auto* const x =
-                &this->parent().unsafe_at(bucket.unsafe_at(i));
-            if (invoke(p, *x)) {
-                return x;
-            }
+    template <class Predicate>
+    BOOST_STATIC_VIEWS_FORCEINLINE
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto lookup(index_type h, Predicate&& p) const noexcept
+        -> typename value_type::value_type*
+    {
+        auto const xs = bucket(h);
+        for (typename base::index_type i = 0;
+             i < bucket_size() && !empty(xs.unsafe_at(i)); ++i) {
+
+            auto* const x = &parent().unsafe_at(xs.unsafe_at(i));
+            if (invoke(p, *x)) return x;
         }
         return nullptr;
     }
 
-  private:
-    Hasher      _hf;
-    std::size_t _storage[bucket_count() * bucket_size()];
 };
 
-template <std::size_t BucketCount, std::size_t BucketSize>
-struct make_hashed_impl {
+template <std::size_t BucketCount, std::size_t BucketSize = 4u>
+struct hashed_impl {
+
+  private:
+    template <class Wrapper, class Hasher>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(Wrapper xs, Hasher hf) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            hashed_view_impl<BucketCount, BucketSize, Wrapper, Hasher>{
+                std::move(xs), std::move(hf)});
+
+    template <class Wrapper, class Hasher, class Equal>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(
+        Wrapper xs, Hasher hf, Equal&& equal) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            hashed_view_impl<BucketCount, BucketSize, Wrapper, Hasher>{
+                std::move(xs), std::move(hf), std::forward<Equal>(equal)});
 
     static_assert(BucketCount > 0,
         "`boost::static_views::hashed<BucketCount, BucketSize>` "
@@ -346,36 +500,37 @@ struct make_hashed_impl {
         "`boost::static_views::hashed<BucketCount, BucketSize>` "
         "requires BucketSize to be greater than zero.");
 
+  public:
     // clang-format off
-    template <class View, class Hasher>
-    BOOST_STATIC_VIEWS_FORCEINLINE
+    template <class V, class H
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>
+         && Hasher<H, typename std::remove_cv_t<
+                          std::remove_reference_t<V>>::reference>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(View&& xs, Hasher&& hf) const
-    {
-        static_assert(is_wrapper<std::decay_t<View>>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        static_assert(is_wrapper<std::decay_t<Hasher>>::value,
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        using view_type = typename std::decay_t<View>::type;
-        using hasher_type = typename std::decay_t<Hasher>::type;
-        concepts::View::check<view_type>();
-        Constrains<view_type, hasher_type>::check();
-
-        auto const& xs_ref = xs.get();
-        auto const& hf_ref = hf.get();
-        auto init = detail::make_hashed_init_impl<
-            BucketCount, BucketSize>(xs_ref, hf_ref);
-        return detail::hashed_impl<BucketCount, BucketSize,
-            std::decay_t<View>,
-            decltype(make_wrapper(std::forward<Hasher>(hf).get()))>{
-            std::forward<View>(xs),
-            make_wrapper(std::forward<Hasher>(hf).get()),
-            init.storage,
-            std::make_index_sequence<BucketCount * BucketSize>{}};
-    }
+    auto operator()(V&& xs, H&& hf) const
     // clang-format on
+    {
+        return call_impl(make_wrapper(std::forward<V>(xs)),
+            make_wrapper(std::forward<H>(hf)));
+    }
+
+    // clang-format off
+    template <class V, class H, class Equal
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>
+         && Hasher<H, typename std::remove_cv_t<
+                          std::remove_reference_t<V>>::reference>)
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    auto operator()(V&& xs, H&& hf, Equal&& equal) const
+    // clang-format on
+    {
+        return call_impl(make_wrapper(std::forward<V>(xs)),
+            make_wrapper(std::forward<H>(hf)), std::forward<Equal>(equal));
+    }
 };
 
+#if 0
 template <std::size_t BucketCount, std::size_t BucketSize>
 struct make_hashed_algo_impl {
     template <class Hasher>
@@ -390,7 +545,7 @@ struct make_hashed_algo_impl {
            make_wrapper(std::forward<Proxy>(proxy))}*/
     }
 };
-
+#endif
 } // end namespace detail
 
 /// \brief A functor for creating "hashed views"
@@ -423,10 +578,10 @@ template <std::size_t BucketCount, std::size_t BucketSize>
 constexpr auto hashed = implementation detail;
 #else
 inline namespace {
-template <std::size_t BucketCount, std::size_t BucketSize>
+template <std::size_t BucketCount, std::size_t BucketSize = 4u>
 BOOST_STATIC_VIEWS_CONSTEXPR auto const& hashed =
     ::BOOST_STATIC_VIEWS_NAMESPACE::_static_const<
-        detail::make_hashed_algo_impl<BucketCount, BucketSize>>;
+        detail::hashed_impl<BucketCount, BucketSize>>;
 } // anonymous namespace
 #endif
 

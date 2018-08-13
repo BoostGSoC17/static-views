@@ -7,6 +7,7 @@
 #define BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP
 
 #include <cassert>
+#include <cstddef>
 
 // Define the following macro if you want to use StaticViews as part
 // of Boost.
@@ -20,13 +21,13 @@
 /// instead.
 #define BOOST_STATIC_VIEWS_NEGLECT_STD_TUPLE
 
-#define BOOST_DISABLE_ASSERTS
-
+// #define BOOST_DISABLE_CHECKS
 // #define BOOST_STATIC_VIEWS_THROW_ON_FAILURES
 // #define BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES
 
-#if !defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)                   \
-    && !defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)
+#if !defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)                                \
+    && !defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)                      \
+    && !defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
 #define BOOST_STATIC_VIEWS_THROW_ON_FAILURES
 #endif
 
@@ -116,6 +117,8 @@
 
 #define BOOST_STATIC_VIEWS_UNREACHABLE __builtin_unreachable()
 
+#define BOOST_STATIC_VIEWS_PURE __attribute__((__pure__))
+
 #elif defined(__GNUC__)
 // ===========================================================================
 // We're being compiled with GCC
@@ -143,6 +146,8 @@
 
 #define BOOST_STATIC_VIEWS_UNREACHABLE __builtin_unreachable()
 
+#define BOOST_STATIC_VIEWS_PURE __attribute__((__pure__))
+
 #elif defined(_MSC_VER)
 // ===========================================================================
 // We're being compiled with Microsoft Visual C++
@@ -166,6 +171,7 @@
 
 #define BOOST_STATIC_VIEWS_UNREACHABLE __assume(0)
 
+#define BOOST_STATIC_VIEWS_PURE
 #else
 // clang-format off
 #   error "Unsupported compiler. Please, submit a request to https://github.com/boostgsoc17/static-views/issues."
@@ -175,13 +181,16 @@
 
 #endif // use Boost.Config
 
+#define BOOST_STATIC_VIEWS_ISSUES_LINK                               \
+    "https://github.com/BoostGSoC17/static-views/issues"
+
 #define BOOST_STATIC_VIEWS_DO_JOIN2(X, Y) X##Y
 #define BOOST_STATIC_VIEWS_DO_JOIN1(X, Y)                            \
     BOOST_STATIC_VIEWS_DO_JOIN2(X, Y)
 #define BOOST_STATIC_VIEWS_JOIN(X, Y)                                \
     BOOST_STATIC_VIEWS_DO_JOIN1(X, Y)
 
-#define BOOST_STATIC_VIEWS_STRINGIFY_DO_STRINGIFY(X) #X
+#define BOOST_STATIC_VIEWS_DO_STRINGIFY(X) #X
 #define BOOST_STATIC_VIEWS_STRINGIFY(X)                              \
     BOOST_STATIC_VIEWS_DO_STRINGIFY(X)
 
@@ -242,36 +251,35 @@ constexpr T _static_const{};
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
-#if defined(BOOST_DISABLE_ASSERTS)
+#if defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)
 #define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                         \
     BOOST_STATIC_VIEWS_ASSUME(cond)
 #elif defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
 
 #include <exception>
+#include <stdexcept>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 /// \brief Exception that is thrown when an assert failure is
 /// encountered.
-class assert_failure : std::exception {
-    char const* _msg;
-
+class assertion_failure : public virtual std::runtime_error {
   public:
-    explicit assert_failure(char const* msg) noexcept : _msg{msg} {}
-
-    auto what() const noexcept -> char const* override
+    assertion_failure(char const* file, int const line, char const* cond)
+        : std::runtime_error{std::string{"Assertion failure in '"} + file
+                             + "' on line " + std::to_string(line)
+                             + ": condition " + cond + " not satisfied."}
     {
-        return _msg;
     }
 };
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 
-#define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                         \
-    ((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))                           \
-            ? static_cast<void>(0)                                   \
-            : (throw assert_failure{                                 \
-                  "Assertion failure in '" __FILE__}))
+#define BOOST_STATIC_VIEWS_EXPECT(cond, msg)                                   \
+    ((BOOST_STATIC_VIEWS_LIKELY(!!(cond)))                                     \
+            ? static_cast<void>(0)                                             \
+            : (throw assertion_failure{                                        \
+                  __FILE__, __LINE__, BOOST_STATIC_VIEWS_STRINGIFY(cond)}))
 
 #elif defined(BOOST_STATIC_VIEWS_TERMINATE_ON_FAILURES)
 
@@ -281,7 +289,7 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
 
 #else
 
-#error "No error handling pocily chosen."
+#error "No error handling policy chosen."
 
 #endif
 
@@ -297,5 +305,13 @@ BOOST_STATIC_VIEWS_END_NAMESPACE
     constexpr auto name = type{};                                    \
 /**/
 #endif
+
+BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
+
+/// \brief Special value of that indicates that the size of a sequence
+/// is unknown at compile-time.
+constexpr std::ptrdiff_t dynamic_extent = -1;
+
+BOOST_STATIC_VIEWS_END_NAMESPACE
 
 #endif // BOOST_STATIC_VIEWS_DETAIL_CONFIG_HPP

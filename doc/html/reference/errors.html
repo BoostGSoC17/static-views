@@ -1,0 +1,111 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>&lt;boost/static_views/errors.hpp&gt; &#8212; Boost.StaticViews  documentation</title>
+    <link rel="stylesheet" href="../_static/boostbook.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;boost/static_views/detail/invoke.hpp&gt;" href="invoke.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+  </head><body>
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86"src="../_static/boost-proposed.png"></td>
+</tr></table>
+
+<div class="spirit-nav">
+<a accesskey="p"  href="configuration.html"><img src="../_static/prev.png" alt="Prev"></a>
+<a accesskey="u" href="../reference.html"><img src="../_static/up.png" alt="Up"></a>
+<a accesskey="h" href="../index.html"><img src="../_static/home.png" alt="Home"></a>
+<a accesskey="n"  href="invoke.html"><img src="../_static/next.png" alt="Next"></a>
+</div>
+  
+
+    <div class="document">
+  <div class="chapter">
+      <div class="body" role="main">
+        
+  <div class="section" id="boost-static-views-errors-hpp">
+<h1>&lt;boost/static_views/errors.hpp&gt;<a class="headerlink" href="#boost-static-views-errors-hpp" title="Permalink to this headline">¶</a></h1>
+<p>Synopsis:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">boost</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="n">static_views</span> <span class="p">{</span>
+
+  <span class="cp">#if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)</span>
+  <span class="k">class</span> <span class="nc">assertion_failure</span> <span class="o">:</span> <span class="k">public</span> <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span> <span class="p">{</span>
+    <span class="cm">/* implementation details */</span>
+  <span class="p">};</span>
+  <span class="cp">#endif</span>
+
+  <span class="k">class</span> <span class="nc">full_bucket</span> <span class="o">:</span> <span class="k">public</span> <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+      <span class="n">full_bucket</span><span class="p">();</span>
+      <span class="n">full_bucket</span><span class="p">(</span><span class="kt">char</span> <span class="k">const</span><span class="o">*</span><span class="p">);</span>
+      <span class="n">full_bucket</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="k">class</span> <span class="nc">out_of_bound</span> <span class="o">:</span> <span class="k">public</span> <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+      <span class="n">out_of_bound</span><span class="p">();</span>
+      <span class="n">out_of_bound</span><span class="p">(</span><span class="kt">char</span> <span class="k">const</span><span class="o">*</span><span class="p">);</span>
+      <span class="n">out_of_bound</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="p">};</span>
+
+<span class="p">}</span> <span class="c1">// namespace boost</span>
+<span class="p">}</span> <span class="c1">// namespace static_views</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="_CPPv3N5boost12static_views17assertion_failureE">
+<span id="_CPPv2N5boost12static_views17assertion_failureE"></span><span id="boost::static_views::assertion_failure"></span><em class="property">class </em><code class="descname">assertion_failure</code><a class="headerlink" href="#_CPPv3N5boost12static_views17assertion_failureE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Exception type that is thrown in when an assertion failure occurs if
+<a class="reference internal" href="configuration.html#c.BOOST_STATIC_VIEWS_THROW_ON_FAILURES" title="BOOST_STATIC_VIEWS_THROW_ON_FAILURES"><code class="xref c c-macro docutils literal notranslate"><span class="pre">BOOST_STATIC_VIEWS_THROW_ON_FAILURES</span></code></a> is defined.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv3N5boost12static_views11full_bucketE">
+<span id="_CPPv2N5boost12static_views11full_bucketE"></span><span id="boost::static_views::full_bucket"></span><em class="property">class </em><code class="descname">full_bucket</code><a class="headerlink" href="#_CPPv3N5boost12static_views11full_bucketE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Exception type that is thrown when an insertion into a full bucket is
+attempted.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv3N5boost12static_views12out_of_boundE">
+<span id="_CPPv2N5boost12static_views12out_of_boundE"></span><span id="boost::static_views::out_of_bound"></span><em class="property">class </em><code class="descname">out_of_bound</code><a class="headerlink" href="#_CPPv3N5boost12static_views12out_of_boundE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Exception type that is thrown when an out of bounds access is
+attempted.</p>
+</dd></dl>
+
+</div>
+
+
+      </div>
+  </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+    <td align="left"></td>
+    <td align="right"><div class="copyright-footer">
+            &#169; Copyright 2017, Tom Westerhout.
+        
+          Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+          <p>Distributed under the Boost Software License, Version 1.0.
+          (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
+          <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+          </p>
+    </div></td>
+    </tr></table>
+    </div>
+  </body>
+</html>

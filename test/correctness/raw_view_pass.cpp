@@ -3,112 +3,84 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "../../include/boost/static_views/detail/config.hpp"
-#include "../../include/boost/static_views/raw_view.hpp"
-#include <utility>
-#include <boost/core/lightweight_test.hpp>
-#include <boost/core/lightweight_test_trait.hpp>
+#include "testing.hpp"
+#include <boost/static_views/raw_view.hpp>
+#include <boost/static_views/view_concept.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
-#define CONSTEXPR /* no constexpr for MSVC */
-#define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
-#else
-#define CONSTEXPR constexpr
-#define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
-#endif
+auto test_construction()
+{
+    int as[]                  = {1, 2, 3, 4, 5};
+    int const volatile bs[]   = {1, 2, 3};
+    static constexpr int cs[] = {1, 2, 3, 4};
+    constexpr int        ds[] = {1, 2, 3, 4};
 
-struct ObscureSequence {
-};
+    auto as_view    = boost::static_views::raw_view(as);
+    using as_view_t = decltype(as_view);
+    BOOST_TEST_EQ(boost::static_views::View<as_view_t>, true);
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_constructible<as_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_constructible<as_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_assignable<as_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_assignable<as_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_destructible<as_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_trivially_copyable<as_view_t>));
+    // BOOST_TEST_TRAIT_TRUE((std::is_trivial<as_view_t>));
+    BOOST_TEST_EQ(as_view_t::extent(), 5);
+    BOOST_TEST_EQ(as_view.size(), 5);
+    BOOST_TEST_EQ(as_view[0], 1);
+    BOOST_TEST_EQ(as_view[4], 5);
+    BOOST_TEST_THROWS(as_view[5], boost::static_views::out_of_bound);
+    BOOST_TEST_THROWS(as_view[-1], boost::static_views::out_of_bound);
+    BOOST_TEST_EQ(as_view.unsafe_at(2), 3);
+    as_view[3] = -8;
+    BOOST_TEST_EQ(as_view.unsafe_at(3), -8);
 
-namespace boost {
-namespace static_views {
+    auto bs_view    = boost::static_views::raw_view(bs);
+    using bs_view_t = decltype(bs_view);
+    BOOST_TEST_EQ(boost::static_views::View<bs_view_t>, true);
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_constructible<bs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_constructible<bs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_assignable<bs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_assignable<bs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_destructible<bs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_trivially_copyable<bs_view_t>));
+    // BOOST_TEST_TRAIT_TRUE((std::is_trivial<bs_view_t>));
+    BOOST_TEST_EQ(bs_view_t::extent(), 3);
+    BOOST_TEST_EQ(bs_view.size(), 3);
+    BOOST_TEST_EQ(bs_view[0], 1);
+    BOOST_TEST_EQ(bs_view[2], 3);
+    BOOST_TEST_THROWS(BOOST_STATIC_VIEWS_UNUSED auto b1 = bs_view[3],
+        boost::static_views::out_of_bound);
+    BOOST_TEST_THROWS(BOOST_STATIC_VIEWS_UNUSED auto b2 = bs_view[-1],
+        boost::static_views::out_of_bound);
+    BOOST_TEST_EQ(bs_view.unsafe_at(1), 2);
+    BOOST_TEST_TRAIT_TRUE(
+        (std::is_same<bs_view_t::reference, int const volatile&>));
 
-    template <>
-    struct sequence_traits<ObscureSequence>
-        : sequence_traits_default<sequence_traits<ObscureSequence>,
-              ObscureSequence> {
+    constexpr auto cs_view = boost::static_views::raw_view(cs);
+    using cs_view_t        = std::remove_const_t<decltype(cs_view)>;
+    BOOST_TEST_EQ(boost::static_views::View<cs_view_t>, true);
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_constructible<cs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_constructible<cs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_copy_assignable<cs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_move_assignable<cs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_nothrow_destructible<cs_view_t>));
+    BOOST_TEST_TRAIT_TRUE((std::is_trivially_copyable<cs_view_t>));
+    // BOOST_TEST_TRAIT_TRUE((std::is_trivial<cs_view_t>));
+    BOOST_TEST_EQ(cs_view_t::extent(), 4);
+    STATIC_ASSERT(cs_view.size() == 4, "size() is broken.");
+    BOOST_TEST_EQ(cs_view[0], 1);
+    STATIC_ASSERT(cs_view[2] == 3, "operator[] is broken.");
+    STATIC_ASSERT(cs_view.unsafe_at(1) == 2, "unsafe_at() is broken.");
+    BOOST_TEST_TRAIT_TRUE((std::is_same<cs_view_t::reference, int const&>));
 
-        static constexpr auto at(ObscureSequence const& /*unused*/,
-            std::size_t /*unused*/) noexcept -> int
-        {
-            return 12345;
-        }
-
-        static constexpr auto extent() noexcept
-            // something convertible to ptrdiff_t, but not really
-            // ptrdiff_t
-            -> int
-        {
-            return 20;
-        }
-
-        static constexpr auto size(ObscureSequence const&) noexcept
-        {
-            return extent();
-        }
-    };
-
-} // namespace static_views
-} // namespace boost
+    // No constexpr here, because ds has no "address" during
+    // compilation.
+    BOOST_STATIC_VIEWS_UNUSED auto const ds_view =
+        boost::static_views::raw_view(ds);
+}
 
 int main(void)
 {
-    int                              as[]  = {1, 2, 3, 4, 5};
-    int const                        bs[]  = {1, 2, 3};
-    static constexpr int             cs[]  = {1, 2, 3, 4};
-    constexpr int                    cs2[] = {1, 2, 3, 4};
-    static constexpr ObscureSequence ds    = {};
-
-    static_assert(
-        boost::static_views::sequence_traits<int[5]>::size(as) == 5,
-        "");
-
-    auto const     as_view = boost::static_views::raw_view(as);
-    auto const     bs_view = boost::static_views::raw_view(bs);
-    CONSTEXPR auto cs_view = boost::static_views::raw_view(cs);
-    CONSTEXPR auto ds_view = boost::static_views::raw_view(ds);
-
-    BOOST_TEST_EQ(as_view.size(), 5);
-    BOOST_TEST_EQ(bs_view.size(), 3);
-    STATIC_ASSERT(cs_view.size() == 4, "size() is broken.");
-    STATIC_ASSERT(boost::static_views::raw_view(cs2).size() == 4,
-        "size() is broken.");
-    // Even though ObscureSequence's size() returns int, raw_view's
-    // size() and extent() should still return size_t.
-    BOOST_TEST_TRAIT_TRUE(
-        (std::is_same<decltype(ds_view.size()), std::size_t>));
-    BOOST_TEST_TRAIT_TRUE(
-        (std::is_same<decltype(ds_view.extent()), std::ptrdiff_t>));
-
-    BOOST_TEST_EQ(as_view.size(), decltype(as_view)::extent());
-    BOOST_TEST_EQ(bs_view.size(), decltype(bs_view)::extent());
-    STATIC_ASSERT(cs_view.size() == decltype(cs_view)::extent(),
-        "size() is broken.");
-
-    for (std::size_t i = 0; i < as_view.size(); ++i) {
-        BOOST_TEST_EQ(as_view[i], i + 1);
-    }
-    BOOST_TEST_THROWS(
-        as_view[as_view.size()], boost::static_views::out_of_bound);
-    BOOST_TEST_THROWS(as_view[as_view.size() + 1],
-        boost::static_views::out_of_bound);
-    // unsafe_at() still provides _unsafe_ noexcept access, no bounds
-    // checking
-    STATIC_ASSERT(noexcept(as_view.unsafe_at(as_view.size())),
-        "unsafe_at() not noexcept");
-    STATIC_ASSERT(cs_view[0] == 1, "operator[] is broken.");
-    STATIC_ASSERT(
-        cs_view.unsafe_at(2) == cs_view[2], "operator[] is broken.");
-    STATIC_ASSERT(cs_view[3] == 4, "operator[] is broken.");
-    STATIC_ASSERT(boost::static_views::raw_view(cs2)[0] == 1,
-        "operator[] is broken.");
-    STATIC_ASSERT(boost::static_views::raw_view(cs2)[3] == 4,
-        "operator[] is broken.");
-
-    BOOST_TEST_TRAIT_TRUE((std::is_same<decltype(as_view[1]), int&>));
-    BOOST_TEST_TRAIT_TRUE(
-        (std::is_same<decltype(bs_view[2]), int const&>));
-    BOOST_TEST_TRAIT_TRUE((std::is_same<decltype(ds_view[2]), int>));
-
+    test_construction();
     return boost::report_errors();
 }

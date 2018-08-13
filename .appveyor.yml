@@ -14,12 +14,12 @@ platform: x64
 
 environment:
   matrix:
-    - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
+    - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017 Preview
       TOOLSET: msvc
-      VERSION: 14.1
-      CORRECTNESS: true
-      OPTIMISATION: true
-      BENCHMARKS: false
+      # VERSION: 14.1
+      # CORRECTNESS: true
+      # OPTIMISATION: false
+      # BENCHMARKS: false
       COMMAND:
       OPTIONS: ^<cxxflags^>/std:c++14
     - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
@@ -27,9 +27,9 @@ environment:
       VERSION: 14.1
       COMMAND: ^"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ClangC2\bin\amd64\clang.exe^"
       OPTIONS: <cxxflags>-std=c++14 <linkflags>-v <linkflags>-use-ld="link.exe"
-      CORRECTNESS: true
-      OPTIMISATION: true
-      BENCHMARKS: true
+      # CORRECTNESS: true
+      # OPTIMISATION: true
+      # BENCHMARKS: true
     - APPVEYOR_BUILWORKER_IMAGE: Visual Studio 2017
       TOOLSET: clang
       VERSION: 4.0.0
@@ -39,9 +39,9 @@ environment:
           ^<cxxflags^>-std=c++14
           ^<linkflags^>-v
           ^<linkflags^>-fuse-ld=lld
-      CORRECTNESS: true
-      OPTIMISATION: true
-      BENCHMARKS: false
+      # CORRECTNESS: true
+      # OPTIMISATION: true
+      # BENCHMARKS: false
 
 install:
   # Install Gnuplot
@@ -67,6 +67,7 @@ install:
   - xcopy /E /H /Y C:\projects\static-views %BOOST_ROOT%\libs\
   - .\bootstrap.bat
   - .\b2 headers
+  - dir "C:\Program Files (x86)"
   - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ClangC2\bin\amd64"
   - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
@@ -78,10 +79,5 @@ build: off
 
 test_script:
   - cd %BOOST_ROOT%
-  - if %CORRECTNESS%=="true" .\b2 libs\static-views\test\correctness
-  - if %OPTIMISATION%=="true" .\b2 libs\static-views\test\optimisation
-  - cmd: |
-      if %BENCHMARKS%=="true" (
-        .\b2 libs\static-views\test\benchmarks
-      )
+  - .\b2 libs\static-views\test
 

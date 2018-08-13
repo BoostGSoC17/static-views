@@ -6,7 +6,6 @@
 #ifndef BOOST_STATIC_VIEWS_SLICE_HPP
 #define BOOST_STATIC_VIEWS_SLICE_HPP
 
-#include "detail/config.hpp"
 #include "drop.hpp"
 #include "take.hpp"
 #include <type_traits>
@@ -15,10 +14,20 @@ BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
 
-template <class DropTake>
-struct slice_impl : DropTake {
+template <class DropTake
+    BOOST_STATIC_VIEWS_REQUIRES(View<DropTake>)
+struct slice_view_impl : DropTake {
+
+  private:
+    using self_type = slice_view_impl;
+    using base = DropTake;
 
   public:
+    using typename base::index_type;
+    using typename base::reference;
+    using typename base::size_type;
+    using typename base::value_type;
+
     /// \brief Converts \p xs to "slice view".
 
     /// \tparam View
@@ -39,17 +48,19 @@ struct slice_impl : DropTake {
     ///   :cpp:var:`slice` factory function is provided. Use it
     ///   instead to construct slice views.
     /// \endverbatim
-    template <class View,
-        // avoid clashes with copy/move constructors
-        class = std::enable_if_t<!std::is_same<std::decay_t<View>,
-            slice_impl<DropTake>>::value>>
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR slice_impl(View&& xs)
+    BOOST_STATIC_VIEWS_CONSTEXPR slice_view_impl(DropTake&& xs)
         BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            std::is_nothrow_constructible<DropTake, View&&>::value)
-        : DropTake{std::forward<View>(xs)}
+            std::is_nothrow_move_constructible<DropTake>::value)
+        : DropTake{std::move(xs)}
     {
     }
 
+    slice_view_impl(slice_view_impl const&) = default;
+    slice_view_impl(slice_view_impl&&)      = default;
+    slice_view_impl& operator=(slice_view_impl const&) = default;
+    slice_view_impl& operator=(slice_view_impl&&) = default;
+
+#if 0
     /// \brief "Maps" index \p i to the corresponding index in the
     /// parent view.
 
@@ -65,7 +76,7 @@ struct slice_impl : DropTake {
     /// this function goes two steps up and thus makes the rest of the
     /// library think that slice is a single view.
     BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
+    BOOST_STATIC_VIEWS_CONSTEXPR auto map(index_type const i) const
         noexcept
     {
         static_assert(
@@ -98,23 +109,44 @@ struct slice_impl : DropTake {
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
         return static_cast<DropTake const*>(this)->parent().parent();
     }
+#endif
 };
 
-struct make_slice_impl {
+struct slice_impl {
+  private:
+    template <class T>
+    using index_type_t =
+        typename std::remove_cv_t<std::remove_reference_t<T>>::index_type;
+
+    template <class DropTake>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(DropTake xs) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            slice_view_impl<DropTake>{std::move(xs)});
+
+  public:
     // clang-format off
-    template <class View>
-    BOOST_STATIC_VIEWS_FORCEINLINE
+    template <class V, class Index1, class Index2
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(View&& xs, std::size_t const b, std::size_t const e) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        slice_impl<std::decay_t<decltype(
-            drop_exactly(b)(take_exactly(e)(std::forward<View>(xs).get())))>>{
-            drop_exactly(b)(take_exactly(e)(std::forward<View>(xs).get()))}
-    );
-    // clang-format on
+    auto operator()(V&& xs, Index1 const b, Index2 const e)
+        // clang-format on
+        const BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            noexcept(std::declval<slice_impl const&>().call_impl(
+                drop_exactly(take_exactly(std::forward<V>(xs), e), b))))
+    {
+        return call_impl(drop_exactly(take_exactly(std::forward<V>(xs), e), b));
+    }
+
+    template <class Index1, class Index2>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto operator()(
+        Index1 const b, Index2 const e) const noexcept
+    {
+        return lazy_adaptor(slice_impl{}, copy(b), copy(e));
+    }
 };
 
+#if 0
 struct make_slice_algo_impl {
     // clang-format off
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -128,6 +160,7 @@ struct make_slice_algo_impl {
     );
     // clang-format on
 };
+#endif
 
 } // end namespace detail
 
@@ -138,8 +171,7 @@ struct make_slice_algo_impl {
 /// :math:`e \in \mathbb{N}` and a :ref:`view <view-concept>`
 /// :math:`xs`, creates a view of elements of :math:`xs` with indices
 /// :math:`i \in \mathbb{N} \cap [b, e)`. \endverbatim
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(
-    detail::make_slice_algo_impl, slice)
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::slice_impl, slice)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

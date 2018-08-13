@@ -4,49 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../../include/boost/static_views/detail/config.hpp"
+#include "../../include/boost/static_views/detail/utils.hpp"
 #include "../../include/boost/static_views/raw_view.hpp"
 #include "../../include/boost/static_views/slice.hpp"
+#include "testing.hpp"
 #include <utility>
-#include <boost/config.hpp>
-#include <boost/core/lightweight_test.hpp>
-#include <boost/core/lightweight_test_trait.hpp>
-#include <boost/detail/workaround.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
-#define CONSTEXPR /* no constexpr for MSVC */
-#define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
-// #elif BOOST_WORKAROUND(BOOST_GCC, BOOST_TESTED_AT(BOOST_GCC))
-// #define CONSTEXPR /* no constexpr for GCC due to this bug \
 //                      https://gcc.gnu.org/bugzilla/show_bug.cgi?id=71504
-//                      \
-//                    */
-// #define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
-#else
-#define CONSTEXPR BOOST_STATIC_VIEWS_CONSTEXPR
-#define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
-#endif
-
-class non_copyable_int {
-  public:
-    constexpr non_copyable_int(int const x) noexcept : _payload{x} {}
-
-    non_copyable_int(non_copyable_int const&) = delete;
-
-    constexpr non_copyable_int(non_copyable_int&& other) noexcept
-        : _payload{other._payload}
-    {
-    }
-
-    non_copyable_int& operator         =(
-        non_copyable_int const& other) = delete;
-    non_copyable_int& operator=(non_copyable_int&& other) = delete;
-
-    explicit constexpr operator int() noexcept { return _payload; }
-
-  private:
-    int _payload;
-};
-
 #define MAKE_SLICE(x)                                                \
     boost::static_views::slice(std::declval<std::size_t>(),          \
         std::declval<std::size_t>())(std::declval<x>())
@@ -54,22 +18,16 @@ class non_copyable_int {
 template <class T>
 using compile_make_slice_t = decltype(MAKE_SLICE(T));
 
-#if defined(BOOST_STATIC_VIEWS_THROW_ON_FAILURES)
-#define NOEXCEPT(...) true
-#else
-#define NOEXCEPT(...) noexcept(__VA_ARGS__)
-#endif
-
 #define TEST_MAKE_IMPL(view_type, q)                                 \
-    static_assert(boost::static_views::detail::is_detected<          \
-                      compile_make_slice_t, view_type q>::value,     \
+    static_assert(                                                   \
+        boost::static_views::is_detected<compile_make_slice_t,       \
+            view_type q>::value,                                     \
         "passing `" #view_type " " #q "` to `slice` doesn't work."); \
     static_assert(NOEXCEPT(MAKE_SLICE(view_type q)),                 \
         "passing `" #view_type " " #q                                \
         "` to `slice` is not noexcept.");                            \
-    boost::static_views::concepts::View::check<                      \
-        boost::static_views::detail::detected_t<                     \
-            compile_make_slice_t, view_type q>>();
+    boost::static_views::concepts::View::check<boost::static_views:: \
+            detected_t<compile_make_slice_t, view_type q>>();
 
 #define TEST_MAKE(view_type)                                         \
     do {                                                             \
@@ -79,28 +37,48 @@ using compile_make_slice_t = decltype(MAKE_SLICE(T));
         TEST_MAKE_IMPL(view_type, const&&)                           \
     } while (false)
 
-auto test_make()
+// Construction
+// -------------------------------------------------------------------
+
+template <class Data>
+struct construct_slice {
+  private:
+    using DataRef = std::add_lvalue_reference_t<Data>;
+    using RawView = std::decay_t<decltype(
+        boost::static_views::raw_view(std::declval<DataRef>()))>;
+
+  public:
+    using type = boost::static_views::detected_t<compile_make_slice_t,
+        RawView>;
+};
+
+template <class Data>
+using construct_slice_t = typename construct_slice<Data>::type;
+
+template <class Data>
+auto test_make_impl()
 {
     using namespace boost::static_views;
-    using detail::detected_t;
 
-    using data_1_t = std::add_lvalue_reference_t<int[20]>;
-    using raw_view_1_t =
-        std::decay_t<decltype(raw_view(std::declval<data_1_t>()))>;
-    TEST_MAKE(raw_view_1_t);
-    using slice_view_1_t =
-        detected_t<compile_make_slice_t, raw_view_1_t>;
-    TEST_MAKE(slice_view_1_t);
-
-    using data_2_t =
-        std::add_lvalue_reference_t<non_copyable_int[20]>;
-    using raw_view_2_t =
-        std::decay_t<decltype(raw_view(std::declval<data_2_t>()))>;
-    TEST_MAKE(raw_view_2_t);
-    using slice_view_2_t =
-        detected_t<compile_make_slice_t, raw_view_2_t>;
-    TEST_MAKE(slice_view_2_t);
+    using DataRef = std::add_lvalue_reference_t<Data>;
+    using RawView =
+        std::decay_t<decltype(raw_view(std::declval<DataRef>()))>;
+    TEST_MAKE(RawView);
+    using TakeView =
+        detected_t<compile_make_slice_t, RawView>;
+    TEST_MAKE(TakeView);
 }
+
+auto test_make()
+{
+    test_make_impl<int[20]>();
+    test_make_impl<std::tuple<int, int, int>>();
+    test_make_impl<non_copyable[5]>();
+}
+
+
+// Size
+// -------------------------------------------------------------------
 
 template <class T, std::size_t b, std::size_t e, std::size_t expected,
     std::size_t... Is>
@@ -131,6 +109,29 @@ auto test_size()
     test_size_impl<int,         7,        5,       7,            2>();
     // clang-format on
 }
+
+
+// Extent
+// -------------------------------------------------------------------
+
+template <class Data, std::ptrdiff_t Expected>
+auto test_extent_impl()
+{
+    using SliceView =
+        construct_slice_t<Data>;
+    STATIC_ASSERT(
+        SliceView::extent() == Expected, "extent() is broken.");
+}
+
+auto test_extent()
+{
+    test_extent_impl<int[20], 20>();
+    test_extent_impl<std::tuple<int, int, int>, 3>();
+}
+
+
+// Access
+// -------------------------------------------------------------------
 
 auto test_access()
 {
@@ -163,13 +164,11 @@ auto test_access()
     BOOST_TEST_EQ(v2[0], 6);
     v2[3] = 78;
     BOOST_TEST_EQ(v2.unsafe_at(3), 78);
-
-    // BOOST_TEST_TRAIT_TRUE(
-    //     (std::is_same<decltype(std::move(data_2)[0]), int&&>));
-    // But should the following hold too?
-    // BOOST_TEST_TRAIT_TRUE(
-    //    (std::is_same<decltype(std::move(v2)[0]), int&&>));
 }
+
+
+// Copy, Move, Assignment
+// -------------------------------------------------------------------
 
 auto test_copy_move()
 {
@@ -177,16 +176,18 @@ auto test_copy_move()
 
     auto const v1 = boost::static_views::slice(1, 4)(
         boost::static_views::raw_view(data_1));
-    decltype(v1) v2{v1};
-    auto         v3 = v1;
-    auto         v4 = std::move(v3);
-    decltype(v1) v5{std::move(v4)};
+    BOOST_STATIC_VIEWS_UNUSED decltype(v1) v2{v1};
+    auto                                   v3 = v1;
+    auto                                   v4 = std::move(v3);
+    BOOST_STATIC_VIEWS_UNUSED decltype(v1) v5{std::move(v4)};
 }
+
 
 int main()
 {
     test_make();
     test_size();
+    test_extent();
     test_access();
     test_copy_move();
     return boost::report_errors();

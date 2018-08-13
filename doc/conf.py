@@ -21,6 +21,7 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import sphinx_boost
 
 # -- General configuration ------------------------------------------------
 
@@ -40,7 +41,6 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    'sphinxcontrib.inlinesyntaxhighlight',
     'breathe']
 
 # Add any paths that contain templates here, relative to this directory.
@@ -101,6 +101,7 @@ todo_include_todos = True
 
 html_theme = 'boost'
 html_theme_path = [ './_static/theme' ]
+# html_theme_path = [sphinx_boost.get_html_theme_path()] 
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

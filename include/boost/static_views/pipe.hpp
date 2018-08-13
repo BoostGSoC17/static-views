@@ -8,23 +8,31 @@
 
 #include "detail/config.hpp"
 #include "detail/invoke.hpp"
-#include "detail/utils.hpp"
-#include "view_base.hpp"
-#include <type_traits>
+#include "view_concept.hpp"
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
+// namespace detail here is needed to make ADL work. Functions like raw_view
+// return structs from boost::static_views::detail namespace rather than
+// boost::static_views.
+namespace detail {
+
 // clang-format off
-template <class View, class Function,
-    class = std::enable_if_t<concepts::View::template test<View>()>>
+template <class V, class F
+    BOOST_STATIC_VIEWS_REQUIRES(
+        View<std::remove_cv_t<std::remove_reference_t<V>>>)
 BOOST_STATIC_VIEWS_FORCEINLINE
 BOOST_STATIC_VIEWS_CONSTEXPR
-auto operator|(View&& xs, Function&& pipe)
+auto operator|(V&& xs, F&& pipe)
     BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN
 (
-    invoke(std::forward<Function>(pipe), std::forward<View>(xs))
+    invoke(std::forward<F>(pipe), std::forward<V>(xs))
 );
 // clang-format on
+
+} // namespace detail
+
+using detail::operator|;
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

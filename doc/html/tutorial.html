@@ -1,0 +1,637 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Tutorial &#8212; Boost.StaticViews  documentation</title>
+    <link rel="stylesheet" href="_static/boostbook.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="prev" title="Boost.StaticViews" href="index.html" /> 
+  </head><body>
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86"src="_static/boost-proposed.png"></td>
+</tr></table>
+
+<div class="spirit-nav">
+<a accesskey="p"  href="index.html"><img src="_static/prev.png" alt="Prev"></a>
+<a accesskey="u" href="index.html"><img src="_static/up.png" alt="Up"></a>
+<a accesskey="h" href="index.html"><img src="_static/home.png" alt="Home"></a>
+<a accesskey="n"  href="reference.html"><img src="_static/next.png" alt="Next"></a>
+</div>
+  
+
+    <div class="document">
+  <div class="chapter">
+      <div class="body" role="main">
+        
+  <div class="section" id="tutorial">
+<span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#installing" id="id11">Installing</a></li>
+<li><a class="reference internal" href="#sequences" id="id12">Sequences</a></li>
+<li><a class="reference internal" href="#views" id="id13">Views</a><ul>
+<li><a class="reference internal" href="#creating-views" id="id14">Creating Views</a></li>
+<li><a class="reference internal" href="#using-views" id="id15">Using Views</a></li>
+<li><a class="reference internal" href="#advanced-usage" id="id16">Advanced Usage</a></li>
+<li><a class="reference internal" href="#towards-static-map" id="id17">Towards static_map</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#static-map" id="id18">Static Map</a></li>
+<li><a class="reference internal" href="#a-note-on-performance" id="id19">A Note on Performance</a></li>
+<li><a class="reference internal" href="#a-note-on-error-messages" id="id20">A Note on Error Messages</a></li>
+</ul>
+</div>
+<div class="section" id="installing">
+<span id="id2"></span><h2><a class="toc-backref" href="#id11">Installing</a><a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>The simplest way to get started with the library is to use its single
+header edition. Just one call to <code class="docutils literal notranslate"><span class="pre">wget</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/BoostGSoC17/static-views/single-header/static_views.hpp
+</pre></div>
+</div>
+<p>and you’re done! Alternatively, clone the <a class="reference external" href="https://github.com/BoostGSoC17/static-views">repo</a> and point your compiler to
+the <code class="docutils literal notranslate"><span class="pre">include/</span></code> directory.</p>
+<p>The library has two modes of operation: “standalone” and “part of Boost”.
+The first one is chosen by default. Static Views then only relies on
+<code class="docutils literal notranslate"><span class="pre">STL</span></code>. To use the second instead, define the
+<a class="reference internal" href="reference/configuration.html#c.BOOST_STATIC_VIEWS_USE_BOOST" title="BOOST_STATIC_VIEWS_USE_BOOST"><code class="xref c c-macro docutils literal notranslate"><span class="pre">BOOST_STATIC_VIEWS_USE_BOOST</span></code></a> macro before the inclusion of the
+headers. Static Views will then use <a class="reference external" href="http://www.boost.org/doc/libs/develop/libs/config/doc/html/index.html">Boost.Config</a> macros instead of
+reinventing the wheel.</p>
+</div>
+<div class="section" id="sequences">
+<span id="id3"></span><h2><a class="toc-backref" href="#id12">Sequences</a><a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
+<p>Very rarely do we deal with compile-time data of infinite size. Usually,
+when we decide on hard-coding some data into the program, we store it as a
+<code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">static</span></span></code> <code class="docutils literal notranslate"><span class="pre">C</span></code>-style array or a tuple. These data structures not only
+have finite size which is part of the type, they also provide random
+access to elements. Let’s call such data structures <em>StaticSequences</em>. If,
+however, number of elements is not part of the type, we drop the word
+“Static” and just call the data structure a <em>Sequence</em>.
+<a class="reference external" href="https://en.cppreference.com/w/cpp/utility/initializer_list"><code class="docutils literal notranslate"><span class="pre">std::initializer_list</span></code></a> and <a class="reference external" href="https://en.cppreference.com/w/cpp/container/vector"><code class="docutils literal notranslate"><span class="pre">std::vector</span></code></a> are examples of (non-Static)
+Sequences.</p>
+<p>Sequences only specify the amount of data and how to access it. They are
+never copied, moved or otherwise touched. It is common practice to declare
+a Sequence as a global <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">static</span></span></code> variable.</p>
+<p>The library defines StaticSequence and Sequence concepts. For example, you
+can ask the library whether some type <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">T</span></span></code> is considered a Sequence
+using the following syntax:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">T_is_a_Sequence</span> <span class="o">=</span> <span class="n">sv</span><span class="o">::</span><span class="n">Sequence</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The syntax resembles Concepts TS and indeed if Concepts are supported by
+the compiler, Static_views will use them.</p>
+</div>
+<div class="section" id="views">
+<span id="id4"></span><h2><a class="toc-backref" href="#id13">Views</a><a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
+<p>The core building blocks of the library are <em>Views</em>. Just like the name
+suggests, views let you have a look at your data, modify it if you want,
+but never ever do they own the data. Views can change the way you see
+your data without changing the data itself. That’s the main idea of having
+views in the first place.</p>
+<p>Suppose you want to do something to the second half of your data. In the
+world of iterators, you obtain an iterator to the middle, an iterator to
+the end and pass them to your algorithm of choice. Something along the
+lines</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">find</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">end</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In the world of views, however, we create a view containing the second
+half of the data. This can be accomplished by, for example, “throwing
+away” the first half of the data:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">find</span><span class="p">(</span><span class="n">drop</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The two approaches are very similar so far. The disadvantage of using
+iterators lies in the inability to easily compose algorithms. For example,
+suppose we add a requirement that only every third element is to be
+examined. Using views, this problem is easily solved:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">find</span><span class="p">(</span><span class="n">xs</span> <span class="o">|</span> <span class="n">drop</span><span class="p">(</span><span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="n">stride</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This syntax should be familiar to anyone who has written a shell script or
+two in their lives:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><code class="docutils literal notranslate"><span class="pre">C++</span></code></th>
+<th class="head"><code class="docutils literal notranslate"><span class="pre">Bash</span></code></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span> <span class="operator"><span class="pre">|</span></span> <span class="name"><span class="pre">drop</span></span><span class="punctuation"><span class="pre">(</span></span><span class="literal number integer"><span class="pre">123</span></span><span class="punctuation"><span class="pre">)</span></span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">&quot;xs&quot;</span> <span class="pre">|</span> <span class="pre">tail</span> <span class="pre">-n</span> <span class="pre">+123</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>And with iterators:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assume stride returns a stride iterator.</span>
+<span class="n">find</span><span class="p">(</span><span class="n">stride</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">stride</span><span class="p">(</span><span class="n">end</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Notice how we essentially do the work twice. “Neither readable nor
+maintainable this code is.”</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If the pipe syntax seems too radical, it’s okay. You’re not required to
+use it. <em>Piping</em> is equivalent to a function call, so the previous
+example could very well have been written as:</p>
+<div class="last highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">find</span><span class="p">(</span><span class="n">stride</span><span class="p">(</span><span class="mi">3</span><span class="p">)(</span><span class="n">drop</span><span class="p">(</span><span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)(</span><span class="n">xs</span><span class="p">)),</span> <span class="n">element</span><span class="p">);</span>
+<span class="c1">// or</span>
+<span class="n">find</span><span class="p">(</span><span class="n">stride</span><span class="p">(</span><span class="n">drop</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="n">element</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-views">
+<span id="id5"></span><h3><a class="toc-backref" href="#id14">Creating Views</a><a class="headerlink" href="#creating-views" title="Permalink to this headline">¶</a></h3>
+<p>So you can see that views are easily composable, i.e. you create views of
+views of views etc. We need a base case to terminate the recursion,
+though. There’s a special views for that – <a class="reference internal" href="reference/views.html#raw-view"><span class="std std-ref">raw_view</span></a>. It
+is the only view that can be constructed from a <a class="reference internal" href="#sequences"><span class="std std-ref">sequence</span></a>. <strong>All other views can only be constructed from views!</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">static_views</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="p">;</span>
+
+<span class="c1">// A Sequence</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">maintainers_phone_number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">};</span>
+<span class="c1">// xs is a View</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">maintainers_phone_number</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>So you pass a reference to a Sequence to <a class="reference internal" href="reference/views.html#raw-view"><span class="std std-ref">raw_view</span></a> and
+get a View back. Mathematically speaking</p>
+<div class="math notranslate nohighlight">
+\[\mathtt{raw\_view}: \mathtt{Sequence} \to \mathtt{View} \,.\]</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Such notation will be used throughout the documentation, because it would
+be a lie to say that <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">raw_view</span></span></code> is a function. It is a functor the
+type of which is an implementation detail. So as a quick recap, this
+<span class="math notranslate nohighlight">\(f: \mathtt{View} \times \mathbb{N} \to \mathtt{char\ const*}\)</span> means
+that <span class="math notranslate nohighlight">\(f\)</span> is a function taking a View and a natural number (i.e.
+unsigned integral type) and returning a pointer to <code class="code cpp c++ docutils literal notranslate"><span class="keyword type"><span class="pre">char</span></span> <span class="keyword"><span class="pre">const</span></span></code>; this
+<span class="math notranslate nohighlight">\(g: (\mathbb{N} \to \mathbb{N}) \to \mathtt{View} \to \mathtt{View}\)</span>
+means that <span class="math notranslate nohighlight">\(g\)</span> is a function that takes a function mapping natural
+numbers to themselves, and returns a function taking a View and returning
+another View.</p>
+<p>So <a class="reference internal" href="reference/views.html#drop-view"><span class="std std-ref">drop</span></a> that we’ve already encountered has the
+following signature:</p>
+<div class="last math notranslate nohighlight">
+\[\mathtt{drop}: \mathbb{N} \to \mathtt{View} \to \mathtt{View} \,.\]</div>
+</div>
+<p>After you’ve created a raw view of your data, you can move on to create
+other views:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">char</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;h&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">};</span>
+<span class="c1">// drop(n) drops the first n elements</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_bad</span>  <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">data</span><span class="p">);</span> <span class="c1">// Error! A Sequence rather</span>
+                                                        <span class="c1">// than a View is passed</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_good</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span>       <span class="c1">// OK</span>
+    <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Notice how in the example above an <em>rvalue</em> is passed to <a class="reference internal" href="reference/views.html#drop-view"><span class="std std-ref">drop</span></a>. This is not the only supported use case. <em>Lvalues</em> can be
+passed, too:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_tuple</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs</span>   <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">xs</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The library then automatically decides what to store. It’s similar to
+lambdas where you choose whether to capture a variable by value or by
+reference. There’s one important thing to note – the use of
+<code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">static</span></span></code>. “Normal” <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">constexpr</span></span></code> variables live only in the mind
+of the compiler. You simply <strong>can’t take their address inside constant
+expressions</strong> as specified in section 5.20 of the Standard:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">if the value is of pointer type, it contains the</div>
+<div class="line">address of an object with static storage duration,</div>
+<div class="line">the address past the end of such an object (5.7),</div>
+<div class="line">the address of a function, or a null pointer value</div>
+</div>
+</div></blockquote>
+<p>There is, unfortunately, no way issue <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">static_assert</span></span></code>’s on such
+errors. So that’s probably the only “rule” you really need to remember
+when using the library. Compilers try to be helpful though:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>test.cpp:16:20: error: constexpr variable &#39;view&#39; must be initialized by
+a constant expression
+    constexpr auto view = static_views::drop(2)(xs);
+                   ^      ~~~~~~~~~~~~~~~~~~~~~~~~~
+test.cpp:16:20: note: pointer to &#39;xs&#39; is not a constant expression
+test.cpp:15:20: note: declared here
+    constexpr auto xs   = static_views::raw_view(data);
+</pre></div>
+</div>
+<p>Says Clang, if you forget to make <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span></code> static.</p>
+</div>
+<div class="section" id="using-views">
+<span id="id6"></span><h3><a class="toc-backref" href="#id15">Using Views</a><a class="headerlink" href="#using-views" title="Permalink to this headline">¶</a></h3>
+<p>By now you should have an idea of what Views are and how to create them.
+The only remaining question is what to do with them later. Here’s a
+synopsis of a general view:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">View</span> <span class="p">{</span>
+    <span class="n">View</span><span class="p">(</span><span class="n">View</span><span class="o">&amp;&amp;</span><span class="p">);</span>
+
+    <span class="c1">// Returns the number of elements viewed.</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+
+    <span class="c1">// Return the element at the specified index. These versions</span>
+    <span class="c1">// are optimised for performance and perform no error checking.</span>
+    <span class="c1">// Use them when implementing optimised algorithms etc.</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">unsafe_at</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+
+    <span class="c1">// Return the element at the specified index. An exception is</span>
+    <span class="c1">// thrown if the index is out of bounds.</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">);</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">[](</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+
+    <span class="c1">// Returns either dynamic_extent to indicate that the size</span>
+    <span class="c1">// is unknown until run-time or a non-negative number that is</span>
+    <span class="c1">// at least as big as size().</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">extent</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span><span class="p">;</span>
+
+    <span class="c1">// Iterators</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">begin</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">end</span><span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The interface is very similar to an array. You obtain the number of
+elements using the <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">size</span></span><span class="punctuation"><span class="pre">()</span></span></code> member function. You then access elements
+using <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">operator</span></span><span class="punctuation"><span class="pre">[]</span></span></code>. For the case that you want to use Views with
+algorithms that work with iterators, <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">begin</span></span><span class="punctuation"><span class="pre">()</span></span></code> and <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">end</span></span><span class="punctuation"><span class="pre">()</span></span></code>
+member functions returning iterators are provided.</p>
+<p>For starters, let’s implement a straightforward linear search using views:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">View</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Predicate</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">find_first_i</span><span class="p">(</span><span class="n">View</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">Predicate</span><span class="o">&amp;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>We accept a view and a predicate and return the smallest index <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">i</span></span></code> for
+which <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">p</span></span><span class="punctuation"><span class="pre">(</span></span><span class="name"><span class="pre">xs</span></span><span class="punctuation"><span class="pre">[</span></span><span class="name"><span class="pre">i</span></span><span class="punctuation"><span class="pre">])</span></span></code> returns <code class="code cpp c++ docutils literal notranslate"><span class="name builtin"><span class="pre">true</span></span></code>. To indicate that there’s no
+such index, we can just return <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span><span class="punctuation"><span class="pre">.</span></span><span class="name"><span class="pre">size</span></span><span class="punctuation"><span class="pre">()</span></span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">View</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Predicate</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">find_first_i</span><span class="p">(</span><span class="n">View</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">Predicate</span><span class="o">&amp;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span>
+<span class="p">{</span>
+    <span class="k">using</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">invoke</span><span class="p">;</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">n</span> <span class="o">=</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span>       <span class="n">i</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">invoke</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">;</span>
+    <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Notice the use of <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">invoke</span></span></code>. It allows us to pass <em>any</em> callable
+objects. So, for example, pointers to member data will just work.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Why not <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">std</span></span><span class="operator"><span class="pre">::</span></span><span class="name"><span class="pre">invoke</span></span></code>? First of all, <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">std</span></span><span class="operator"><span class="pre">::</span></span><span class="name"><span class="pre">invoke</span></span></code> is not part
+of <code class="docutils literal notranslate"><span class="pre">C++14</span></code> while the library is <code class="docutils literal notranslate"><span class="pre">C++14</span></code>-compatible. Then,
+<code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">std</span></span><span class="operator"><span class="pre">::</span></span><span class="name"><span class="pre">invoke</span></span></code> is not <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">constexpr</span></span></code>! It’s crazy and I really hope
+it will be fixed in <code class="docutils literal notranslate"><span class="pre">C++20</span></code>, but for now we’re stuck with hand-rolled
+implementations.</p>
+</div>
+<p>Although, the function above will work as expected, it is not really
+consistent with how the rest of StaticViews is implemented. All free
+“functions” are actually not functions at all. They are references to
+functor objects. The advantage of such approach is that it significantly
+simplifies passing functions to higher order functions (and <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">sizeof</span></span></code>
+empty <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">struct</span></span></code> is 1 byte while <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">sizeof</span></span></code> a function pointer is 4
+or 8 bytes <strong>;-)</strong>). Just remember the last time you had a vector of
+tuples and you wanted to create a vector of third elements of the tuples.
+What we’d like to write is</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">source</span><span class="p">),</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">destination</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>while what we have to write is</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">source</span><span class="p">),</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">destination</span><span class="p">),</span>
+    <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>And we just hope that we don’t forget that extra <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">decltype</span></span><span class="punctuation"><span class="pre">(</span></span><span class="keyword"><span class="pre">auto</span></span><span class="punctuation"><span class="pre">)</span></span></code> to
+make sure we return a reference rather than a copy… I hope, it’s clear
+from this example that if we want to promote clear functional style of
+programming in C++, functors are the way to go. So the StaticViews way of
+implementing <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">find_first_i</span></span></code> is</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">detail</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">find_first_i_impl</span> <span class="p">{</span>
+      <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">View</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Predicate</span><span class="o">&gt;</span>
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">()(</span><span class="n">View</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">Predicate</span><span class="o">&amp;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="k">const</span>
+          <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span>
+      <span class="p">{</span>
+          <span class="k">using</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">invoke</span><span class="p">;</span>
+
+          <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">n</span> <span class="o">=</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+          <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span>       <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">for</span> <span class="p">(;</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">invoke</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+              <span class="p">;</span>
+          <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span> <span class="c1">// namespace detail</span>
+
+<span class="n">BOOST_STATIC_VIEWS_INLINE_VARIABLE</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">find_first_i_impl</span><span class="p">,</span> <span class="n">find_first_i</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">BOOST_STATIC_VIEWS_INLINE_VARIABLE</span></span><span class="punctuation"><span class="pre">(</span></span><span class="name"><span class="pre">type</span></span><span class="punctuation"><span class="pre">,</span></span> <span class="name"><span class="pre">name</span></span><span class="punctuation"><span class="pre">)</span></span></code> expands to
+(almost) <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">constexpr</span></span> <span class="keyword"><span class="pre">auto</span></span> <span class="name"><span class="pre">name</span></span> <span class="operator"><span class="pre">=</span></span> <span class="name"><span class="pre">type</span></span><span class="punctuation"><span class="pre">{};</span></span></code>. So we still use the normal
+function call syntax.</p>
+</div>
+<div class="section" id="advanced-usage">
+<span id="id7"></span><h3><a class="toc-backref" href="#id16">Advanced Usage</a><a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h3>
+<p>There are still a couple of issues with our implementation of the search.
+The core <code class="docutils literal notranslate"><span class="pre">C++</span></code> philosophy is to provide abstractions with no performance
+overhead. Although we have an <span class="math notranslate nohighlight">\(\mathcal{O}(N)\)</span> solution, just like
+we should, it is terribly inefficient. We call <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">operator</span></span><span class="punctuation"><span class="pre">[]</span></span></code>, which is
+“safe”, i.e. it checks that <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">i</span></span> <span class="operator"><span class="pre">&lt;</span></span> <span class="name"><span class="pre">xs</span></span><span class="punctuation"><span class="pre">.</span></span><span class="name"><span class="pre">size</span></span><span class="punctuation"><span class="pre">()</span></span></code>. But we know that this
+condition is satisfied, so why check twice? Specifically for this reason
+Views have <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">unsafe_at</span></span></code> member function which behaves just like
+<code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">operator</span></span><span class="punctuation"><span class="pre">[]</span></span></code> except that it performs no bounds checking. So
+<code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span><span class="punctuation"><span class="pre">[</span></span><span class="name"><span class="pre">i</span></span><span class="punctuation"><span class="pre">]</span></span></code> <span class="math notranslate nohighlight">\(\mapsto\)</span> <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span><span class="punctuation"><span class="pre">.</span></span><span class="name"><span class="pre">unsafe_at</span></span><span class="punctuation"><span class="pre">(</span></span><span class="name"><span class="pre">i</span></span><span class="punctuation"><span class="pre">)</span></span></code>.</p>
+<p>Then there are constrains. Not every type maybe passed as the first
+argument. We want <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span></code> to model the View concept. Just like you can
+check whether some type is a Sequence, the library provides a way to check
+whether a particular type <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">T</span></span></code> models the View concept:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check whether T is a View</span>
+<span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">T_is_a_View</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">View</span><span class="o">::</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="c1">// Assert the T is a View</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">View</span><span class="o">::</span><span class="n">check</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>So if we want to be SFINAE friendly, we can do something like:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">View</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Predicate</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Dummy</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
+    <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">View</span><span class="o">::</span><span class="n">test</span><span class="o">&lt;</span><span class="n">View</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;&gt;</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">()(</span><span class="n">View</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">Predicate</span><span class="o">&amp;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If we don’t care about SFINAE, just insert the call to <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">check</span></span></code> into
+the function body. And finally, we might want to check for noexcept-ness.
+So an acceptable version looks like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">detail</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">find_first_i_impl</span> <span class="p">{</span>
+      <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">View</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Predicate</span><span class="o">&gt;</span>
+      <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">()(</span><span class="n">View</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">xs</span><span class="p">,</span> <span class="n">Predicate</span><span class="o">&amp;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="k">const</span>
+          <span class="k">noexcept</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">invoke</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">xs</span><span class="p">.</span><span class="n">unsafe_at</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span>
+          <span class="o">-&gt;</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span>
+      <span class="p">{</span>
+          <span class="k">using</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">invoke</span><span class="p">;</span>
+          <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">View</span><span class="o">::</span><span class="n">check</span><span class="o">&lt;</span><span class="n">View</span><span class="o">&gt;</span><span class="p">();</span>
+
+          <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">const</span> <span class="n">n</span> <span class="o">=</span> <span class="n">xs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+          <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span>       <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="k">for</span> <span class="p">(;</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">invoke</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">xs</span><span class="p">.</span><span class="n">unsafe_at</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+              <span class="p">;</span>
+          <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span> <span class="c1">// namespace detail</span>
+
+<span class="n">BOOST_STATIC_VIEWS_INLINE_VARIABLE</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">find_first_i_impl</span><span class="p">,</span> <span class="n">find_first_i</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="towards-static-map">
+<span id="id8"></span><h3><a class="toc-backref" href="#id17">Towards static_map</a><a class="headerlink" href="#towards-static-map" title="Permalink to this headline">¶</a></h3>
+<p>There is a slice view in the library which allows you to view an interval
+of your data. So if <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span></code> is some view, <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">slice</span></span><span class="punctuation"><span class="pre">(</span></span><span class="name"><span class="pre">b</span></span><span class="punctuation"><span class="pre">,</span></span> <span class="name"><span class="pre">e</span></span><span class="punctuation"><span class="pre">)(</span></span><span class="name"><span class="pre">xs</span></span><span class="punctuation"><span class="pre">)</span></span></code> will
+contain elements of <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">xs</span></span></code> at indices <span class="math notranslate nohighlight">\(i \in \{\mathtt{b},
+\mathtt{b} + 1, \dots, \mathtt{e} - 1\}\)</span>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+                                <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                                <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                                <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">row_size</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="cp">#if defined(__cpp_constexpr) &amp;&amp; __cpp_constexpr &gt;= 201603</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">is_8</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="k">const</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">8</span> <span class="p">};</span>
+<span class="cp">#else</span>
+<span class="k">struct</span> <span class="n">is_8_impl</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="k">operator</span><span class="p">()(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">x</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">8</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">constexpr</span> <span class="n">is_8_impl</span> <span class="n">is_8</span><span class="p">{};</span>
+<span class="cp">#endif</span>
+
+<span class="c1">// We can now search for 8 is a certain row</span>
+<span class="k">constexpr</span> <span class="n">row_3_has_8</span> <span class="o">=</span> <span class="n">find_first_i</span><span class="p">(</span>
+    <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">slice</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">row_size</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">row_size</span><span class="p">)(</span><span class="n">xs</span><span class="p">),</span> <span class="n">is_8</span><span class="p">)</span>
+    <span class="o">!=</span> <span class="n">row_size</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This is very similar to how a bucket-based hash table performs a lookup,
+right? It computes the hash, jumps to a specific bucket and does a linear
+search there. How about we implement it?</p>
+<p>Notice how we didn’t need the <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">is_8</span></span></code> function until the very lookup.
+This suggests that we can separate the tasks:</p>
+<ul class="simple">
+<li>A special view, called <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">hashed</span></span></code> view takes care of the hashing. Its
+<code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">operator</span></span><span class="punctuation"><span class="pre">[]</span></span></code> returns a <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">slice</span></span></code> view of the data containing all
+elements with the specified hash.</li>
+<li>Hash table, called <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">static_map</span></span></code> in the library, takes care of
+comparing the elements so that we can search for a particular key.</li>
+</ul>
+<p>Data is not always ordered nicely as in the previous example. Usually,
+elements with the same hash are all over the place. We need a way to
+change the order without touching the data. There’s a view for that. It’s
+called the <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">through</span></span></code> view, and it just uses an array of indices to
+define the order:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="p">;</span>
+
+<span class="c1">// Suppose we have some data that&#39;s nor ordered the way we want it to be.</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+<span class="c1">// We create an array of indices that defines the new ordering.</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">indices</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">correctly_ordered</span> <span class="o">=</span> <span class="n">through</span><span class="p">(</span><span class="n">raw_view</span><span class="p">(</span><span class="n">indices</span><span class="p">))(</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">correctly_ordered</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">correctly_ordered</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">ostream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&quot;, &quot;</span><span class="p">});</span>
+<span class="c1">// Prints &#39;1, 2, 3, 4, 5, &#39;</span>
+</pre></div>
+</div>
+<p>So now even if the data is not ordered correctly, <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">hashed</span></span></code> view can
+reorder elements into groups with the same hash. <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">operator</span></span><span class="punctuation"><span class="pre">[]</span></span></code> can
+then give us all the elements that correspond to a particular hash.</p>
+<p><code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">static_map</span></span></code> then only needs to call our <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">find_first_i</span></span></code> function
+to search for an element. Except for some minor details this is the way
+things are implemented in the library.</p>
+</div>
+</div>
+<div class="section" id="static-map">
+<span id="static-map-tutorial"></span><h2><a class="toc-backref" href="#id18">Static Map</a><a class="headerlink" href="#static-map" title="Permalink to this headline">¶</a></h2>
+<p>So we’ve seen how one could implement a hash table using StaticViews. But
+why would we need one?</p>
+<p>Consider the following scenario. You have some data that’s very unlikely
+to change, so you’ve hard-coded it:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*&gt;</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="mi">123</span><span class="p">,</span> <span class="s">&quot;apple&quot;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="mi">456</span><span class="p">,</span> <span class="s">&quot;pear&quot;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="mi">789</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Now some time later you need to get the fruit by code. You write the
+following function</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">get_fruit</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">code</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span>
+<span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">n</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span> <span class="o">==</span> <span class="n">code</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">throw</span> <span class="n">some_error</span><span class="p">{</span><span class="s">&quot;Key not found&quot;</span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and use it at compile-time happily ever after:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">fruit</span> <span class="o">=</span> <span class="n">get_fruit</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then one day you need to get the fruit without knowing the <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">code</span></span></code> at
+compile-time. Not a big deal for small datasets, right? But what to do
+when data has a couple thousands of elements? You can, of course, feed
+<code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">data</span></span></code> to <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">std</span></span><span class="operator"><span class="pre">::</span></span><span class="name"><span class="pre">unordered_map</span></span></code> (assuming codes are hashable).
+But you lose the <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">constexpr</span></span></code>’ness of <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">get_fruit</span></span></code>, and the
+dreadful dynamic memory allocations…</p>
+<p>So for users who are too lazy to write their own stack allocators every
+time the need to search some static data, there is <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">static_map</span></span></code>. You
+create a view of the data, choose which fields should be used as keys and
+mapped values, and feed all that to <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">make_static_map</span></span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">static_map</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">static_map</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">fruits</span> <span class="o">=</span> <span class="n">static_map</span><span class="o">::</span><span class="n">make_static_map</span><span class="p">(</span>
+    <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+    <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">first</span><span class="p">;</span> <span class="p">},</span>
+    <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">second</span><span class="p">;</span> <span class="p">});</span>
+
+<span class="c1">// ... later ...</span>
+
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">fruit</span> <span class="o">=</span> <span class="n">fruits</span><span class="p">[</span><span class="mi">123</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>OK, this will only work in <code class="docutils literal notranslate"><span class="pre">C++17</span></code>. We can, however, come with an
+equally elegant solution in <code class="docutils literal notranslate"><span class="pre">C++14</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">data_type</span> <span class="p">{</span>
+    <span class="kt">int</span>         <span class="n">code</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">fruit</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="k">constexpr</span> <span class="n">data_type</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="mi">123</span><span class="p">,</span> <span class="s">&quot;apple&quot;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="mi">456</span><span class="p">,</span> <span class="s">&quot;pear&quot;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="mi">789</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">fruits</span> <span class="o">=</span> <span class="n">static_map</span><span class="o">::</span><span class="n">make_static_map</span><span class="p">(</span>
+    <span class="n">boost</span><span class="o">::</span><span class="n">static_views</span><span class="o">::</span><span class="n">raw_view</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+    <span class="o">&amp;</span><span class="n">field</span><span class="o">::</span><span class="n">code</span><span class="p">,</span>
+    <span class="o">&amp;</span><span class="n">field</span><span class="o">::</span><span class="n">fruit</span><span class="p">);</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="n">equal_c</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">456</span><span class="p">],</span> <span class="s">&quot;pear&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">);</span> <span class="c1">// Assume that equal_c</span>
+                                                 <span class="c1">// compares strings at</span>
+                                                 <span class="c1">// compile-time.</span>
+</pre></div>
+</div>
+<p><code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">static_map</span></span></code> is a hash map, so lookups are <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span>,
+both at compile-time and at run-time. At most <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">fruits</span></span><span class="punctuation"><span class="pre">.</span></span><span class="name"><span class="pre">bucket_size</span></span><span class="punctuation"><span class="pre">()</span></span></code>
+comparisons of keys are performed, where the bucket size is <code class="docutils literal notranslate"><span class="pre">2</span></code> by
+default, but can be set explicitly if you feel your hash function isn’t
+that good. Custom comparison and hash functions are supported, too. The
+feature that distinguishes <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">static_map</span></span></code> from a common hash map is the
+fact that you choose which field it used as a key and which as a value. It
+is thus not required for <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">data_type</span></span></code> to only have two fields. You can
+use arbitrary types, as long as they have <code class="code cpp c++ docutils literal notranslate"><span class="keyword"><span class="pre">constexpr</span></span></code> constructors.</p>
+</div>
+<div class="section" id="a-note-on-performance">
+<span id="id9"></span><h2><a class="toc-backref" href="#id19">A Note on Performance</a><a class="headerlink" href="#a-note-on-performance" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="a-note-on-error-messages">
+<span id="id10"></span><h2><a class="toc-backref" href="#id20">A Note on Error Messages</a><a class="headerlink" href="#a-note-on-error-messages" title="Permalink to this headline">¶</a></h2>
+<p>Consider a simple example from above:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">constexpr</span> <span class="kt">char</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;h&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;l&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">};</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">view_bad</span>  <span class="o">=</span> <span class="n">static_views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="n">data</span><span class="p">);</span> <span class="c1">// Error!</span>
+</pre></div>
+</div>
+<p>Here, we forgot to create a <a class="reference internal" href="reference/views.html#raw-view"><span class="std std-ref">raw_view</span></a> of <code class="code cpp c++ docutils literal notranslate"><span class="name"><span class="pre">data</span></span></code>
+before passing it to <a class="reference internal" href="reference/views.html#drop-view"><span class="std std-ref">drop</span></a>. And here’s the error message
+Clang produces:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>In file included from test.cpp:8:
+In file included from ./include/boost/static_views/drop.hpp:13:
+./include/boost/static_views/algorithm_base.hpp:174:9: error: static_assert failed &quot;I&#39;m sorry, but `View` must model the View concept!&quot;
+        static_assert(
+        ^
+test.cpp:15:52: note: in instantiation of function template specialization
+      &#39;boost::static_views::detail::algorithm_impl&lt;boost::static_views::detail::make_drop_impl, unsigned long&gt;::operator()&lt;char const (&amp;)[5], void, void&gt;&#39;
+      requested here
+    constexpr auto view_bad = static_views::drop(2)(data); // Error!
+                                                   ^
+... [snip] ...
+
+In file included from test.cpp:7:
+In file included from ./include/boost/static_views/raw_view.hpp:17:
+./include/boost/static_views/view_base.hpp:82:5: error: static_assert failed &quot;`T` doesn&#39;t derive from `boost::static_views::view_base`, which is,
+      unfortunately, required by the View concept. Hence, the error.&quot;
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Derives_from_view_base, T,
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+... [snip] ...
+
+In file included from test.cpp:7:
+In file included from ./include/boost/static_views/raw_view.hpp:17:
+./include/boost/static_views/view_base.hpp:88:5: error: static_assert failed &quot;`T` doesn&#39;t model the MoveConstructible concept, which it should, to have a
+      chance at modeling the View concept. Hence, the error.&quot;
+    BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_move_constructible, T,
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+... [snip] ...
+</pre></div>
+</div>
+<p>So Clang first tells you that data isn’t a view. In such simple cases as
+above it’s obvious that <code class="code cpp c++ docutils literal notranslate"><span class="keyword type"><span class="pre">char</span></span> <span class="keyword"><span class="pre">const</span></span><span class="punctuation"><span class="pre">[</span></span><span class="literal number integer"><span class="pre">5</span></span><span class="punctuation"><span class="pre">]</span></span></code> is a sequence rather than a
+view. If, however, you’ve made a mistake while implementing your own
+complex view, it may not immediately be obvious what went wrong. For that
+reason the library also tells you exactly which requirements aren’t
+satisfied.</p>
+</div>
+</div>
+
+
+      </div>
+  </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer" role="contentinfo">
+    <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+    <td align="left"></td>
+    <td align="right"><div class="copyright-footer">
+            &#169; Copyright 2017, Tom Westerhout.
+        
+          Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
+          <p>Distributed under the Boost Software License, Version 1.0.
+          (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
+          <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+          </p>
+    </div></td>
+    </tr></table>
+    </div>
+  </body>
+</html>

@@ -7,29 +7,27 @@
 #define BOOST_STATIC_VIEWS_ITERATOR_HPP
 
 #include "detail/config.hpp"
-#include "detail/utils.hpp"
+#include "view_concept.hpp"
 #include <iterator>
-#include <limits>
 #include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
-namespace detail {
-
-template <class View>
+template <class V
+    BOOST_STATIC_VIEWS_REQUIRES(View<V>)
 struct view_iterator {
 
-    using size_type         = std::size_t;
-    using difference_type   = std::ptrdiff_t;
-    using reference         = decltype(std::declval<
-        std::decay_t<View>>()[std::declval<size_type>()]);
-    using value_type        = std::remove_reference_t<reference>;
-    using pointer           = std::add_pointer_t<reference>;
+    using view_type         = V;
+    using size_type         = typename V::size_type;
+    using difference_type   = typename V::index_type;
+    using value_type        = typename V::value_type;
+    using reference         = typename V::reference;
+    using pointer           = value_type*;
     using iterator_category = std::random_access_iterator_tag;
 
   private:
-    View*          _view;
-    std::ptrdiff_t _i;
+    view_type*      _view;
+    difference_type _i;
 
     BOOST_STATIC_VIEWS_CONSTEXPR auto is_dereferenceable() const
         noexcept -> bool
@@ -38,108 +36,50 @@ struct view_iterator {
                && static_cast<size_type>(_i) <= _view->size();
     }
 
-    struct Impl {
-
-      private:
-        template <class T>
-        using has_unsafe_at_t = decltype(
-            std::declval<T>().unsafe_at(std::declval<std::size_t>()));
-
-        BOOST_STATIC_VIEWS_DEFINE_CHECK(Has_unsafe_at, T,
-            (is_detected<has_unsafe_at_t, T>::value), "");
-
-        BOOST_STATIC_VIEWS_DEFINE_CHECK(Is_noexcept_unsafe_at, T,
-            (noexcept(std::declval<T>().unsafe_at(
-                std::declval<std::size_t>()))),
-            "");
-
-        // clang-format off
-        template <class T,
-            class = std::enable_if_t<concepts::and_<Has_unsafe_at,
-                Is_noexcept_unsafe_at>::template test<T>()>,
-            class = void>
-        BOOST_STATIC_VIEWS_FORCEINLINE
-        static BOOST_STATIC_VIEWS_CONSTEXPR
-        BOOST_STATIC_VIEWS_DECLTYPE_AUTO unsafe_at_impl(T&& xs,
-            std::size_t const i) noexcept
-        {
-            return std::forward<T>(xs).unsafe_at(i);
-        }
-        // clang-format on
-
-        // clang-format off
-        template <class T,
-            class = std::enable_if_t<!concepts::and_<Has_unsafe_at,
-                Is_noexcept_unsafe_at>::template test<T>()>>
-        BOOST_STATIC_VIEWS_FORCEINLINE
-        static BOOST_STATIC_VIEWS_CONSTEXPR
-        auto unsafe_at_impl(T&& xs, std::size_t const i)
-        BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-        (
-            std::forward<T>(xs)[i]
-        );
-        // clang-format on
-
-      public:
-        // clang-format off
-        template <class T>
-        static BOOST_STATIC_VIEWS_CONSTEXPR
-        auto unsafe_at(T&& xs, std::size_t const i)
-        BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-        (
-            unsafe_at_impl(std::forward<T>(xs), i)
-        );
-    };
-
+    static constexpr auto unsafe_at_is_noexcept() noexcept -> bool
+    {
+        return noexcept(std::declval<view_type&>().unsafe_at(
+            std::declval<difference_type>()));
+    }
 
   public:
-    BOOST_STATIC_VIEWS_CONSTEXPR view_iterator(
-        View* view = nullptr, size_type const i = 0)
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    explicit view_iterator(
+        view_type* const view = nullptr, difference_type const i = 0)
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
-        : _view{view}, _i{static_cast<difference_type>(i)}
+        : _view{view}, _i{i}
     {
         BOOST_STATIC_VIEWS_EXPECT(
-            i < static_cast<size_type>(
-                    std::numeric_limits<difference_type>::max()),
-            "Overflow detected.");
-        BOOST_STATIC_VIEWS_EXPECT(
-            view == nullptr && i == 0
-                || view != nullptr && i <= view->size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+            (view == nullptr && i == 0)
+                || (view != nullptr && 0 <= i
+                       && static_cast<size_type>(i) <= view->size()),
+            "It's a bad idea to create an iterator pointing neither "
+            "into the view nor to the one-past-the-end element.");
     }
 
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    view_iterator(view_iterator const&) noexcept = default;
-
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    view_iterator(view_iterator&&) noexcept = default;
-
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    view_iterator& operator=(view_iterator const&) noexcept = default;
-
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    view_iterator& operator=(view_iterator&&) noexcept = default;
+    view_iterator(view_iterator const&) = default;
+    view_iterator(view_iterator&&)      = default;
+    view_iterator& operator=(view_iterator const&) = default;
+    view_iterator& operator=(view_iterator&&) = default;
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto* operator-> () const BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
-        noexcept(std::declval<View&>().unsafe_at(
-            std::declval<size_type>())))
+    auto* operator-> () const
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(unsafe_at_is_noexcept())
     {
         BOOST_STATIC_VIEWS_EXPECT(is_dereferenceable(),
             "Nah, this iterator is not dereferenceable.");
-        return &Impl::unsafe_at(*_view, static_cast<size_type>(_i));
+        return &_view->unsafe_at(_i);
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    BOOST_STATIC_VIEWS_DECLTYPE_AUTO
-    operator*() const BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(noexcept(
-        std::declval<View&>().unsafe_at(std::declval<size_type>())))
+    BOOST_STATIC_VIEWS_DECLTYPE_AUTO operator*() const
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(unsafe_at_is_noexcept())
     {
         BOOST_STATIC_VIEWS_EXPECT(is_dereferenceable(),
             "Nah, this iterator is not dereferenceable.");
-        return Impl::unsafe_at(*_view, static_cast<size_type>(_i));
+        return _view->unsafe_at(_i);
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
@@ -206,40 +146,37 @@ struct view_iterator {
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    friend auto operator+(view_iterator const& x,
-        difference_type const n) noexcept -> view_iterator
+    friend auto operator+(view_iterator x,
+        difference_type const           n) noexcept -> view_iterator
     {
-        view_iterator temp{x};
-        temp += n;
-        return temp;
+        return x += n;
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    friend auto operator-(view_iterator const& x,
-        difference_type const n) noexcept -> view_iterator
+    friend auto operator-(view_iterator x,
+        difference_type const           n) noexcept -> view_iterator
     {
-        view_iterator temp{x};
-        temp -= n;
-        return temp;
+        return x -= n;
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
     friend auto operator+(difference_type const n,
-        view_iterator const& x) noexcept -> view_iterator
+        view_iterator x) noexcept -> view_iterator
     {
-        return x + n;
+        return x += n;
     }
 
     BOOST_STATIC_VIEWS_FORCEINLINE
     BOOST_STATIC_VIEWS_CONSTEXPR
-    friend auto operator-(view_iterator const& x,
-        view_iterator const& y) noexcept -> difference_type
+    friend auto operator-(
+        view_iterator const& x, view_iterator const& y)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> difference_type
     {
         BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
-            "It's a bad idea to subtract iterators to different "
-            "objects.");
+            "It's a bad idea to subtract "
+            "iterators to different views.");
         return x._i - y._i;
     }
 
@@ -249,9 +186,9 @@ struct view_iterator {
         view_iterator const& x, view_iterator const& y)
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
     {
-        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
-            "It's a bad idea to compare iterators to different "
-            "objects.");
+        BOOST_STATIC_VIEWS_EXPECT(
+            x._view == y._view, "It's a bad idea to compare "
+                                "iterators to different views.");
         return x._i == y._i;
     }
 
@@ -261,9 +198,9 @@ struct view_iterator {
         view_iterator const& x, view_iterator const& y)
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
     {
-        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
-            "It's a bad idea to compare iterators to different "
-            "objects.");
+        BOOST_STATIC_VIEWS_EXPECT(
+            x._view == y._view, "It's a bad idea to compare "
+                                "iterators to different views.");
         return x._i != y._i;
     }
 
@@ -273,9 +210,9 @@ struct view_iterator {
         view_iterator const& x, view_iterator const& y)
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
     {
-        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
-            "It's a bad idea to compare iterators to different "
-            "objects.");
+        BOOST_STATIC_VIEWS_EXPECT(
+            x._view == y._view, "It's a bad idea to compare "
+                                "iterators to different views.");
         return x._i < y._i;
     }
 
@@ -297,9 +234,9 @@ struct view_iterator {
         view_iterator const& x, view_iterator const& y)
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
     {
-        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
-            "It's a bad idea to compare iterators to different "
-            "objects.");
+        BOOST_STATIC_VIEWS_EXPECT(
+            x._view == y._view, "It's a bad idea to compare "
+                                "iterators to different views.");
         return x._i <= y._i;
     }
 
@@ -309,14 +246,12 @@ struct view_iterator {
         view_iterator const& x, view_iterator const& y)
         BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true) -> bool
     {
-        BOOST_STATIC_VIEWS_EXPECT(x._view == y._view,
-            "It's a bad idea to compare iterators to different "
-            "objects.");
+        BOOST_STATIC_VIEWS_EXPECT(
+            x._view == y._view, "It's a bad idea to compare "
+                                "iterators to different views.");
         return x._i >= y._i;
     }
 };
-
-} // namespace detail
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

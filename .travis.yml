@@ -11,7 +11,7 @@ sudo: false
 # We need Ubuntu 14.04 rather than 12.04 to get latest compilers
 dist: trusty
 
-python: "3.4"
+python: "3.6"
 
 
 os:
@@ -69,61 +69,17 @@ matrix:
     #       sources:
     #         - ubuntu-toolchain-r-test
 
-    # - os: linux
-    #   env: TOOLSET=gcc COMPILER=g++-7 CXXFLAGS="-std=c++1z" BENCHMARK=false
-    #   addons:
-    #     apt:
-    #       packages:
-    #         - g++-7
-    #       sources:
-    #         - ubuntu-toolchain-r-test
 
     ############################################################################
     # Builds with Clang
     ############################################################################
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.8 CXXFLAGS="-std=c++14" BENCHMARK=true
-      addons:
-        apt:
-          packages:
-            - clang-3.8
-            - g++-7
-            - gnuplot
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.8
-
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++14" BENCHMARK=true
-      addons:
-        apt:
-          packages:
-            - clang-3.9
-            - g++-7
-            - gnuplot
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.9
-
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++-3.9 CXXFLAGS="-std=c++1z" BENCHMARK=false
-      addons:
-        apt:
-          packages:
-            - clang-3.9
-            - g++-7
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.9
-
-    - os: linux
-      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-4.0 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
             - clang-4.0
-            - g++-7
-            - gnuplot
+            - g++-8
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-4.0
@@ -141,24 +97,34 @@ matrix:
     #         - llvm-toolchain-trusty-4.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
             - clang-5.0
-            - g++-7
-            - gnuplot
+            - g++-8
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty
+            - llvm-toolchain-trusty-5.0
 
     - os: linux
-      env: TOOLSET=clang COMPILER=clang++-5.0 CXXFLAGS="-std=c++1z" BENCHMARK=false
+      env: TOOLSET=clang COMPILER=clang++-6.0 CXXFLAGS="-std=c++14" BENCHMARK=false
       addons:
         apt:
           packages:
-            - clang-5.0
-            - g++-7
+            - clang-6.0
+            - g++-8
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-6.0
+
+    - os: linux
+      env: TOOLSET=clang COMPILER=clang++-7 CXXFLAGS="-std=c++14" BENCHMARK=false
+      addons:
+        apt:
+          packages:
+            - clang-7
+            - g++-8
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty
@@ -167,12 +133,12 @@ matrix:
     # Builds with XCode
     ############################################################################
     - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
+      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=false
       osx_image: xcode9
 
-    - os: osx
-      env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
-      osx_image: xcode9
+    # - os: osx
+    #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++1z" BENCHMARK=false
+    #   osx_image: xcode9
     # - os: osx
     #   env: TOOLSET=clang COMPILER=clang++ CXXFLAGS="-std=c++14" BENCHMARK=true
     #   osx_image: xcode8.3
@@ -184,13 +150,23 @@ matrix:
   allow_failures:
     - os: linux
       env: COMPILER=clang++-3.9
+    - os: linux
+      env: TOOLSET=gcc COMPILER=g++-8 CXXFLAGS="-std=c++14" BENCHMARK=false
+      addons:
+        apt:
+          packages:
+            - g++-8
+          sources:
+            - ubuntu-toolchain-r-test
 
 before_install:
   - |
-    if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
-      brew install python3
+    if [[ ${TRAVIS_OS_NAME} != "osx" ]]; then
+      python3 --version
+      pip install --user sphinx
+      apt-cache search llvm-
+      apt-cache search clang-
     fi
-  - pip3 install --user sphinx
   # - >
   #   git clone --recursive -b stable
   #   https://github.com/sphinx-doc/sphinx ${SPHINX_ROOT}
@@ -198,16 +174,16 @@ before_install:
   # - python3 setup.py build
   # - export PYTHONPATH="${SPHINX_ROOT}/build/lib:${PYTHONPATH}"
 
-  - >
-    git clone --recursive -b master
-    https://github.com/michaeljones/breathe ${BREATHE_ROOT}
-  - cd ${BREATHE_ROOT}
-  - python3 setup.py build
-  - export PYTHONPATH="${BREATHE_ROOT}/build/lib:${PYTHONPATH}"
+  # - >
+  # - git clone --recursive -b master
+  # - https://github.com/michaeljones/breathe ${BREATHE_ROOT}
+  # - cd ${BREATHE_ROOT}
+  # - python3 setup.py build
+  # - export PYTHONPATH="${BREATHE_ROOT}/build/lib:${PYTHONPATH}"
 
   - git clone --depth 1 https://github.com/boostorg/boost.git ${BOOST_ROOT}
   - cd ${BOOST_ROOT}
-    # For now, let StaticViews explicitely depend on two libraries: Boost.Core 
+    # For now, let StaticViews explicitly depend on two libraries: Boost.Core 
     # and Boost.Config. We thus get the following dependency "tree"
     # 
     # boost/config <--+-- boost/detail

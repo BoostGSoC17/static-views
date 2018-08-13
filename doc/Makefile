@@ -3,10 +3,10 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = python3 -msphinx
-SPHINXPROJ    = BoostStaticViews
+SPHINXBUILD   = sphinx-build
+SPHINXPROJ    = BoostStatic_views
 SOURCEDIR     = .
-BUILDDIR      = _build
+BUILDDIR      = .
 
 # Put it first so that "make" without argument is like "make help".
 help:

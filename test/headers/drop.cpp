@@ -1,3 +1,3 @@
 #include <boost/static_views/drop.hpp>
 
-int main(void) {}
+int main() {}

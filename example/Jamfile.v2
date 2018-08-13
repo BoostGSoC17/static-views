@@ -1,4 +1,4 @@
-#          Copyright Tom Westerhout 2017.
+#          Copyright Tom Westerhout 2017-2018.
 # Distributed under the Boost Software License, Version 1.0.
 #    (See accompanying file LICENSE_1_0.txt or copy at
 #          http://www.boost.org/LICENSE_1_0.txt)
@@ -9,12 +9,21 @@ path-constant HERE : . ;
 .additional-includes = [ path.native "$(HERE)/../include" ] ;
 
 project
-    : requirements <include>$(.additional-includes)
+    : requirements <variant>debug
+                   <include>$(.additional-includes)
                    <warnings>all
     ;
 
 
 exe using_raw_view : using_raw_view.cpp ;
 exe using_drop_view : using_drop_view.cpp ;
-exe using_take_view : using_take_view.cpp ;
+exe using_transform_view : using_transform_view.cpp ;
+exe using_chunk_view : using_chunk_view.cpp ;
+exe using_flatten_view : using_flatten_view.cpp ;
+exe static_map : static_map.cpp ;
+exe enum_to_string : enum_to_string.cpp
+                   : <variant>release
+                     <cxxflags>"-DBOOST_STATIC_VIEWS_DISABLE_CHECKS"
+                   ;
 exe support_span : support_span.cpp ;
+explicit support_span ;

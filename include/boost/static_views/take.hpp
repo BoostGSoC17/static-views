@@ -1,4 +1,4 @@
-//          Copyright Tom Westerhout 2017.
+//          Copyright Tom Westerhout 2017-2018.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -11,57 +11,78 @@
 #define BOOST_STATIC_VIEWS_TAKE_HPP
 
 #include "algorithm_base.hpp"
-#include "detail/config.hpp"
-#include "detail/utils.hpp"
-#include "sequence_traits.hpp"
+#include "compact_index.hpp"
+#include "copy.hpp"
 #include "view_base.hpp"
+
 #include <algorithm>
 #include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
-template <class View, std::ptrdiff_t Extent>
-struct take_impl : view_adaptor_base<take_impl<View, Extent>, View> {
+
+template <class Wrapper, std::ptrdiff_t Extent>
+struct take_view_impl
+    : view_adaptor_base<take_view_impl<Wrapper, Extent>, Wrapper>
+    , private compact_index<void,
+          typename view_adaptor_base<take_view_impl<Wrapper, Extent>,
+              Wrapper>::index_type,
+          Extent> {
+
+  private:
+    using wrapper_type = Wrapper;
+    using base = view_adaptor_base<take_view_impl<Wrapper, Extent>, Wrapper>;
+    using compact_index_type =
+        compact_index<void, typename base::index_type, Extent>;
+    using compact_index_type::index;
+
+  public:
+    using typename base::index_type;
+    using typename base::reference;
+    using typename base::size_type;
+    using typename base::value_type;
+
+    using base::parent;
 
     /// \brief Constructs a view of \p xs consisting of at most \p n
     /// elements of \p xs.
 
     /// \param xs **Rvalue** reference to a wrapper around a view.
-    /// \param n  Number of elements to take. The resulting view will
-    ///           contain `min(xs.get().size(), n)` elements.
-    ///
-    /// \exception Never throws, unless the initialisation of
-    /// #view_adaptor_base with `Wrapper&&` throws.
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR take_impl(
-        View&& xs, std::size_t const n)
-#if defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(std::is_nothrow_constructible<
-            typename take_impl::view_adaptor_base_type, View&&>::value
-            // This is formally wrong, but come on,
-            // std::min(size_t, size_t) _should_ be noexcept.
-            )
-#endif
-        : take_impl::view_adaptor_base_type{std::move(xs)}, _n{n}
+    /// \param n  Number of elements to take. `n` must not exceed the size of
+    ///           `xs`.
+    BOOST_STATIC_VIEWS_CONSTEXPR take_view_impl(
+        wrapper_type&& xs, compact_index_type const n)
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            std::is_nothrow_constructible<base, Wrapper&&>::value)
+        : base{std::move(xs)}, compact_index_type{n}
     {
-        BOOST_STATIC_VIEWS_EXPECT(n <= this->parent().size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
         BOOST_STATIC_VIEWS_EXPECT(
-            extent() == dynamic_extent || extent() >= size(),
+            0 <= n && n <= static_cast<index_type>(parent().size()),
             BOOST_STATIC_VIEWS_BUG_MESSAGE);
     }
+
+    take_view_impl(take_view_impl const&) = default;
+    take_view_impl(take_view_impl&&)      = default;
+    take_view_impl& operator=(take_view_impl const&) = default;
+    take_view_impl& operator=(take_view_impl&&) = default;
 
     /// \brief Returns the number of elements viewed.
-    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
-        -> std::size_t
+    BOOST_STATIC_VIEWS_PURE
+    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept -> size_type
     {
-        return _n;
+        return static_cast<size_type>(index());
     }
 
-    BOOST_STATIC_VIEWS_CONSTEXPR static auto extent() noexcept
-        -> std::ptrdiff_t
+    static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
-        return Extent;
+        static_assert(base::extent() == dynamic_extent
+                          || compact_index_type::extent() == dynamic_extent
+                          || base::extent() >= compact_index_type::extent(),
+            BOOST_STATIC_VIEWS_BUG_MESSAGE);
+        return compact_index_type::extent() == dynamic_extent
+                   ? base::extent()
+                   : compact_index_type::extent();
     }
 
     /// \brief "Maps" index \p i to the corresponding index in the
@@ -69,146 +90,111 @@ struct take_impl : view_adaptor_base<take_impl<View, Extent>, View> {
 
     /// For \f$ i \geq \text{xs.size}()\f$ behavior of this function
     /// is undefined
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
-        noexcept
+    BOOST_STATIC_VIEWS_CONSTEXPR auto map(index_type const i) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(true)
     {
-        BOOST_STATIC_VIEWS_EXPECT(i < size(),
-            "Which part of `map: [0, size()) --> N` you didn't "
-            "understand?");
+        BOOST_STATIC_VIEWS_EXPECT(0 <= i && i < static_cast<index_type>(size()),
+            "boost::static_views::take_view_impl::map: Precondition "
+            "`0 <= i < size()` is not satisfied.");
         return i;
     }
+};
 
+struct take_exactly_impl {
   private:
-    std::size_t _n;
-};
+    template <class Wrapper, class IndexType>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(
+        Wrapper xs, IndexType const n) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            take_view_impl<Wrapper, IndexType::extent()>{std::move(xs), n});
 
-struct make_take_exactly_impl {
+    template <class T>
+    using index_t =
+        typename std::remove_cv_t<std::remove_reference_t<T>>::index_type;
+
+  public:
     // clang-format off
-    template <class View, std::size_t N>
+    template <class V
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(View&& xs,
-        std::integral_constant<std::size_t, N> /*unused*/) const
-    // clang-format on
-#if defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            take_impl<std::decay_t<View>, View::type::extent()>{
-                std::forward<View>(xs), N}))
-#endif
+    auto operator()(V&& xs,
+        typename std::remove_cv_t<
+                 std::remove_reference_t<V>>::index_type const n) const
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            noexcept(std::declval<take_exactly_impl const&>().call_impl(
+                make_wrapper(std::forward<V>(xs)), index(n))))
     {
-        BOOST_STATIC_VIEWS_EXPECT(N <= xs.get().size(),
-            "take_exactly(n)(xs) expects `n <= xs.size()`.");
+        using index_type = index_t<V>;
         BOOST_STATIC_VIEWS_EXPECT(
-            View::type::extent() == dynamic_extent
-                || View::type::extent() >= xs.get().size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        return take_impl<std::decay_t<View>,
-            ((View::type::extent() > static_cast<std::ptrdiff_t>(N))
-                    ? static_cast<std::ptrdiff_t>(N)
-                    : View::type::extent())>{
-            std::forward<View>(xs), N};
+            0 <= n && n <= static_cast<index_type>(xs.size()),
+            "boost::static_views::take_exactly(xs, n): Precondition "
+            "`0 <= n <= xs.size()` is not satisfied.");
+        return call_impl(make_wrapper(std::forward<V>(xs)), index(n));
     }
 
     // clang-format off
-    template <class View>
+    template <class IndexType
+        BOOST_STATIC_VIEWS_REQUIRES(std::is_integral<IndexType>::value)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(View&& xs, std::size_t const n) const
-#if defined(BOOST_STATIC_VIEWS_DISABLE_CHECKS)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(noexcept(
-            take_impl<std::decay_t<View>, View::type::extent()>{
-                std::forward<View>(xs), n}))
-#endif
+    auto operator()(IndexType const n) const noexcept
+    // clang-format on
     {
-        BOOST_STATIC_VIEWS_EXPECT(n <= xs.get().size(),
-            "take_exactly(n)(xs) expects `n <= xs.size()`.");
-        BOOST_STATIC_VIEWS_EXPECT(
-            View::type::extent() == dynamic_extent
-                || View::type::extent() >= xs.get().size(),
-            BOOST_STATIC_VIEWS_BUG_MESSAGE);
-        return take_impl<std::decay_t<View>,
-            View::type::extent()>{std::forward<View>(xs), n};
+        return lazy_adaptor(take_exactly_impl{}, copy(n));
     }
-    // clang-format on
-};
-
-struct make_take_exactly_algo_impl {
-    // clang-format off
-    template <std::size_t N>
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(
-        std::integral_constant<std::size_t, N> /*unused*/) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_take_exactly_impl{},
-            std::integral_constant<std::size_t, N>{})
-    );
-    // clang-format on
 
     // clang-format off
-    BOOST_STATIC_VIEWS_FORCEINLINE
+    template <class V, class Int, Int I
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(std::size_t const n) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_take_exactly_impl{}, std::size_t{n})
-    );
-    // clang-format on
-};
-
-struct make_take_impl {
-    // clang-format off
-    template <class View, std::size_t N>
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(View&& xs,
-        std::integral_constant<std::size_t, N> /*unused*/) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        take_impl<std::decay_t<View>,
-            ((View::type::extent() == dynamic_extent
-                 || static_cast<std::size_t>(View::type::extent()) > N)
-                    ? static_cast<std::ptrdiff_t>(N)
-                    : View::type::extent())>{
-            std::forward<View>(xs), std::min(xs.get().size(), N)}
-    );
-    // clang-format on
-
-    // clang-format off
-    template <class View>
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(View&& xs, std::size_t const n) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        take_impl<std::decay_t<View>,
-            View::type::extent()>{std::forward<View>(xs),
-                std::min(n, xs.get().size())}
-    );
-    // clang-format on
-};
-
-struct make_take_algo_impl {
-    // clang-format off
-    template <std::size_t N>
-    BOOST_STATIC_VIEWS_FORCEINLINE
-    BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(
-        std::integral_constant<std::size_t, N> /*unused*/) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_take_impl{},
-            std::integral_constant<std::size_t, N>{})
-    );
-    // clang-format on
+    auto operator()(V&& xs, std::integral_constant<Int, I> /*unused*/) const
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            noexcept(std::declval<take_exactly_impl const&>().call_impl(
+                make_wrapper(std::forward<V>(xs)),
+                index(std::integral_constant<index_t<V>, I>{}))))
+    {
+        using index_type = index_t<V>;
+        using view_type = std::remove_cv_t<std::remove_reference_t<V>>;
+        constexpr auto n = static_cast<index_type>(I);
+        static_assert(
+            view_type::extent() == dynamic_extent || view_type::extent() >= n,
+            "boost::static_views::take_exactly(xs, n): Can't take more "
+            "elements than there are in the view.");
+        BOOST_STATIC_VIEWS_EXPECT(
+            0 <= n && n <= static_cast<index_type>(xs.size()),
+            "boost::static_views::take_exactly(xs, b): Precondition "
+            "`0 <= n <= xs.size()` is not satisfied.");
+        return call_impl(make_wrapper(std::forward<V>(xs)),
+            index(std::integral_constant<index_type, I>{}));
+    }
 
     // clang-format off
-    BOOST_STATIC_VIEWS_FORCEINLINE
+    template <class IndexType, IndexType I>
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(std::size_t const n) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        algorithm(make_take_impl{}, std::size_t{n})
-    );
+    auto operator()(std::integral_constant<IndexType, I> const n) const noexcept
     // clang-format on
+    {
+        return lazy_adaptor(take_exactly_impl{}, copy(n));
+    }
+
+#if !defined(BOOST_STATIC_VIEWS_SFINAE)
+    // clang-format off
+    template <class V, class IndexType
+        BOOST_STATIC_VIEWS_REQUIRES(
+            !View<std::remove_cv_t<std::remove_reference_t<V>>>)
+    constexpr auto operator()(V&& /*unused*/, IndexType /*unused*/) const noexcept
+    // clang-format on
+    {
+        static_assert(View<std::remove_cv_t<std::remove_reference_t<V>>>,
+            "`boost::static_views::take_exactly(xs, n)` requires xs to model "
+            "the View concept.");
+        return why_is_my_argument_not_a_view<
+            std::remove_cv_t<std::remove_reference_t<V>>>();
+    }
+#endif
 };
 
 } // end namespace detail
@@ -221,10 +207,9 @@ struct make_take_algo_impl {
 /// first :math:`n` elements of :math:`xs`. If the size of :math:`xs`
 /// is less than :math:`n`, view of the whole :math:`xs` is returned.
 /// \endverbatim
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_take_algo_impl, take)
+// BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::make_take_algo_impl, take)
 
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(
-    detail::make_take_exactly_algo_impl, take_exactly)
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::take_exactly_impl, take_exactly)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

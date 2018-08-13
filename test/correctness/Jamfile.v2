@@ -5,8 +5,8 @@
 
 import testing ;
 
-
 run invoke.cpp ;
+run wrapper.cpp ;
 
 alias "raw_view" :
     [ run raw_view_pass.cpp ]
@@ -18,25 +18,46 @@ alias "raw_view" :
     [ compile-fail raw_view_fail_6.cpp ]
     [ compile-fail raw_view_fail_7.cpp ]
     ;
-
+ 
 alias "drop_view" :
-    [ run drop_pass.cpp ]
+    [ run drop_exactly.cpp : : : <cxxflags>"-DBOOST_STATIC_VIEWS_THROW_ON_FAILURES" ]
     [ compile-fail drop_fail_1.cpp ]
     [ compile-fail drop_fail_2.cpp ]
     ;
 
 alias "take_view" :
-    [ run take_pass.cpp ]
+    [ run take_exactly.cpp : : : <cxxflags>"-DBOOST_STATIC_VIEWS_THROW_ON_FAILURES" ]
     [ compile-fail take_fail_1.cpp ]
     [ compile-fail take_fail_2.cpp ]
     ;
 
 alias "slice_view" :
-    [ run slice_pass.cpp ]
-    [ compile-fail slice_fail_1.cpp ]
-    [ compile-fail slice_fail_2.cpp ]
+    [ run slice.cpp ]
+#     [ compile-fail slice_fail_1.cpp ]
+#     [ compile-fail slice_fail_2.cpp ]
+    ;
+# 
+alias "through_view" :
+    [ run through_pass.cpp ]
     ;
 
-run wrapper.cpp ;
-run hashed.cpp ;
-explicit hashed ;
+alias "transform_view" :
+    [ run transform_pass.cpp ]
+    ;
+
+alias "find_first" :
+    [ run find_first_i.cpp ]
+    ;
+
+alias "sequence" :
+    [ run sequence_traits_default_pass.cpp ]
+    ;
+
+alias "view" :
+    [ run view_concept.cpp ]
+    ;
+
+alias "hashed_view" :
+    [ run hashed.cpp ]
+    ;
+

@@ -1,4 +1,4 @@
-//          Copyright Tom Westerhout 2017.
+//          Copyright Tom Westerhout 2017-2018.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -6,17 +6,48 @@
 #ifndef BOOST_STATIC_VIEWS_THROUGH_HPP
 #define BOOST_STATIC_VIEWS_THROUGH_HPP
 
-#include "algorithm_base.hpp"
-#include "detail/config.hpp"
 #include "view_base.hpp"
 #include <type_traits>
 
 BOOST_STATIC_VIEWS_BEGIN_NAMESPACE
 
 namespace detail {
-template <class View, class Proxy>
-struct through_impl
-    : view_adaptor_base<through_impl<View, Proxy>, View> {
+template <class Wrapper, class Proxy>
+struct through_view_impl
+    : public view_adaptor_base<through_view_impl<Wrapper, Proxy>, Wrapper>
+    // TODO: I'm not sure if this is safe, i.e. could the user come up with a
+    // really tricky combination of views such that view_adaptor_base<...> would
+    // end up deriving from Proxy too?
+    , private Proxy {
+
+  private:
+    using wrapper_type    = Wrapper;
+    using proxy_type      = Proxy;
+    using proxy_view_type = typename proxy_type::value_type;
+    using base = view_adaptor_base<through_view_impl<Wrapper, Proxy>, Wrapper>;
+
+    BOOST_STATIC_VIEWS_CONSTEXPR auto const& proxy() const& noexcept
+    {
+        return static_cast<Proxy const&>(*this).get();
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR auto& proxy() & noexcept
+    {
+        return static_cast<Proxy&>(*this).get();
+    }
+
+    BOOST_STATIC_VIEWS_CONSTEXPR auto proxy()
+        && BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+               std::is_nothrow_move_constructible<proxy_view_type>::value)
+    {
+        return static_cast<Proxy&&>(*this).get();
+    }
+
+  public:
+    using index_type = typename proxy_view_type::index_type;
+    using typename base::reference;
+    using typename base::size_type;
+    using typename base::value_type;
 
     /// \brief Constructs a view of \p xs through \p proxy.
 
@@ -52,15 +83,12 @@ struct through_impl
     ///   instead
     ///   to construct views through other views.
     /// \endverbatim
-    explicit BOOST_STATIC_VIEWS_CONSTEXPR through_impl(
-        View&& xs, Proxy&& proxy)
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(utils::all(
-            std::is_nothrow_constructible<
-                typename through_impl::view_adaptor_base_type,
-                View&&>::value,
-            std::is_nothrow_move_constructible<Proxy>::value))
-        : through_impl::view_adaptor_base_type{std::move(xs)}
-        , _proxy{std::move(proxy)}
+    BOOST_STATIC_VIEWS_CONSTEXPR
+    through_view_impl(Wrapper&& xs, Proxy&& proxy)
+        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
+            std::is_nothrow_constructible<base, Wrapper&&>::value&&
+                std::is_nothrow_move_constructible<Proxy>::value)
+        : base{std::move(xs)}, proxy_type{std::move(proxy)}
     {
     }
 
@@ -73,7 +101,7 @@ struct through_impl
     /// \endverbatim
     static constexpr auto extent() noexcept -> std::ptrdiff_t
     {
-        return Proxy::type::extent();
+        return proxy_view_type::extent();
     }
 
     /// \brief Returns the number of elements viewed.
@@ -84,11 +112,9 @@ struct through_impl
     /// function never fails unless a call to ``proxy.size()``
     /// fails.
     /// \endverbatim
-    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(std::declval<Proxy const&>().get().size()))
+    BOOST_STATIC_VIEWS_CONSTEXPR auto size() const noexcept
     {
-        return _proxy.get().size();
+        return proxy().size();
     }
 
     /// \brief "Maps" index \p i to the corresponding index in the
@@ -102,41 +128,47 @@ struct through_impl
     /// `ys.` #map `(i) = proxy[i],`
     ///     \f$\forall i \in \{0, 1, \dots,
     ///     \text{proxy.size}()-1\}.\f$
-    BOOST_STATIC_VIEWS_CONSTEXPR auto map(std::size_t const i) const
-        noexcept
-    /*
-        BOOST_STATIC_VIEWS_NOEXCEPT_IF(
-            noexcept(concepts::View::unsafe_at(
-                std::declval<Proxy const&>().get(),
-                std::declval<std::size_t>()))) -> std::size_t
-    */
+    BOOST_STATIC_VIEWS_CONSTEXPR auto map(index_type const i) const
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            noexcept(std::declval<proxy_view_type const&>().unsafe_at(
+                std::declval<index_type>())))
     {
-        static_assert(noexcept(_proxy.get().unsafe_at(i)), "");
-        return _proxy.get().unsafe_at(
-            i); // concepts::View::unsafe_at(_proxy.get(), i);
+        BOOST_STATIC_VIEWS_EXPECT(0 <= i && i < static_cast<index_type>(size()),
+            "boost::static_views::through_impl::map: Precondition "
+            "`0 <= i < size()` is not satisfied.");
+        return proxy().unsafe_at(i);
     }
+};
 
+struct through_impl {
   private:
-    // friend struct
-    // BOOST_STATIC_VIEWS_NAMESPACE::view_adaptor_core_access;
-    Proxy _proxy;
-};
+    template <class Wrapper, class Proxy>
+    BOOST_STATIC_VIEWS_CONSTEXPR auto call_impl(Wrapper xs, Proxy ys) const
+        BOOST_STATIC_VIEWS_AUTO_NOEXCEPT_RETURN(
+            through_view_impl<Wrapper, Proxy>{std::move(xs), std::move(ys)});
 
-struct make_through_impl {
+  public:
+    // TODO; Should through_view be checking that operator[] of P actually
+    // returns something convertible to V::index_type?
     // clang-format off
-    template <class View, class Proxy>
+    template <class V, class P
+        BOOST_STATIC_VIEWS_REQUIRES(
+            View<std::remove_cv_t<std::remove_reference_t<V>>>
+         && View<std::remove_cv_t<std::remove_reference_t<P>>>)
     BOOST_STATIC_VIEWS_CONSTEXPR
-    auto operator()(View&& xs, Proxy&& proxy) const
-    BOOST_STATIC_VIEWS_DECLTYPE_NOEXCEPT_RETURN
-    (
-        through_impl<std::decay_t<View>,
-            decltype(make_wrapper(std::forward<Proxy>(proxy).get()))>{
-                std::forward<View>(xs),
-                make_wrapper(std::forward<Proxy>(proxy).get())}
-    );
-    // clang-format on
+    auto operator()(V&& xs, P&& proxy) const
+        // clang-format on
+        BOOST_STATIC_VIEWS_NOEXCEPT_CHECKS_IF(
+            noexcept(std::declval<through_impl const&>().call_impl(
+                make_wrapper(std::forward<V>(xs)),
+                make_wrapper(std::forward<P>(proxy)))))
+    {
+        return call_impl(make_wrapper(std::forward<V>(xs)),
+                make_wrapper(std::forward<P>(proxy)));
+    }
 };
 
+#if 0
 struct make_through_algo_impl {
     // clang-format off
     template <class Proxy>
@@ -154,7 +186,7 @@ struct make_through_algo_impl {
     );
     // clang-format on
 };
-
+#endif
 } // end namespace detail
 
 /// \brief A functor for creating "through views"
@@ -179,8 +211,7 @@ struct make_through_algo_impl {
 ///   concept.
 ///
 /// \endverbatim
-BOOST_STATIC_VIEWS_INLINE_VARIABLE(
-    detail::make_through_algo_impl, through)
+BOOST_STATIC_VIEWS_INLINE_VARIABLE(detail::through_impl, through)
 
 BOOST_STATIC_VIEWS_END_NAMESPACE
 

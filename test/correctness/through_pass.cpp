@@ -6,37 +6,36 @@
 #include "../../include/boost/static_views/detail/config.hpp"
 #include "../../include/boost/static_views/detail/utils.hpp"
 #include "../../include/boost/static_views/raw_view.hpp"
-#include "../../include/boost/static_views/slice.hpp"
 #include "../../include/boost/static_views/through.hpp"
+#include "testing.hpp"
 #include <utility>
-#include <boost/config.hpp>
-#include <boost/core/lightweight_test.hpp>
-#include <boost/core/lightweight_test_trait.hpp>
-#include <boost/detail/workaround.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(BOOST_MSVC))
-#define CONSTEXPR /* no constexpr for MSVC */
-#define STATIC_ASSERT(expr, msg) BOOST_TEST(expr&& msg)
-#else
-#define CONSTEXPR BOOST_STATIC_VIEWS_CONSTEXPR
-#define STATIC_ASSERT(expr, msg) static_assert(expr, msg)
-#endif
+// Construction
+// -------------------------------------------------------------------
+
+auto test_make()
+{
+    static constexpr int  xs_data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    static constexpr auto xs_lvalue   = boost::static_views::raw_view(xs_data);
+
+    static constexpr std::size_t ys_data[4] = {3, 5, 2, 8};
+    static constexpr auto ys_lvalue = boost::static_views::raw_view(ys_data);
+    constexpr auto zs_1 = boost::static_views::through(xs_lvalue, ys_lvalue);
+    using zs_1_type     = std::remove_cv_t<decltype(zs_1)>;
+    STATIC_ASSERT(zs_1_type::extent() == 4, "");
+    STATIC_ASSERT(zs_1.size() == 4, "");
+    STATIC_ASSERT(zs_1[0] == 4, "");
+    STATIC_ASSERT(zs_1.unsafe_at(1) == 6, "");
+    STATIC_ASSERT(boost::static_views::MoveConstructible<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::HasSizeWithType<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::HasIndexOperatorWithType<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::HasUnsafeAtWithType<zs_1_type>, "");
+    STATIC_ASSERT(boost::static_views::View<zs_1_type>, "");
+}
+
 
 int main()
 {
-    static constexpr std::size_t data_1[] = {1, 0, 1, 2, 5};
-    static constexpr auto proxy = boost::static_views::slice(1, 4)(
-        boost::static_views::raw_view(data_1));
-
-    static constexpr int data_2[] = {1, 2, 3, 4, 5};
-    constexpr auto       xs =
-        boost::static_views::through(boost::static_views::slice(1, 4)(
-            boost::static_views::raw_view(data_1)))(
-            boost::static_views::raw_view(data_2));
-
-    static_assert(xs[0] == 1, "");
-    static_assert(xs.unsafe_at(0) == 1, "");
-    static_assert(noexcept(xs.unsafe_at(0)), "");
-
+    test_make();
     return boost::report_errors();
 }
