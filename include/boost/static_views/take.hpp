@@ -12,6 +12,7 @@
 
 #include "algorithm_base.hpp"
 #include "compact_index.hpp"
+#include "copy.hpp"
 #include "view_base.hpp"
 
 #include <algorithm>
@@ -24,7 +25,7 @@ namespace detail {
 template <class Wrapper, std::ptrdiff_t Extent>
 struct take_view_impl
     : view_adaptor_base<take_view_impl<Wrapper, Extent>, Wrapper>
-    , private compact_index<
+    , private compact_index<void,
           typename view_adaptor_base<take_view_impl<Wrapper, Extent>,
               Wrapper>::index_type,
           Extent> {
@@ -32,7 +33,8 @@ struct take_view_impl
   private:
     using wrapper_type = Wrapper;
     using base = view_adaptor_base<take_view_impl<Wrapper, Extent>, Wrapper>;
-    using compact_index_type = compact_index<typename base::index_type, Extent>;
+    using compact_index_type =
+        compact_index<void, typename base::index_type, Extent>;
     using compact_index_type::index;
 
   public:
@@ -139,7 +141,7 @@ struct take_exactly_impl {
     auto operator()(IndexType const n) const noexcept
     // clang-format on
     {
-        return lazy_adaptor(take_exactly_impl{}, n);
+        return lazy_adaptor(take_exactly_impl{}, copy(n));
     }
 
     // clang-format off
@@ -175,7 +177,7 @@ struct take_exactly_impl {
     auto operator()(std::integral_constant<IndexType, I> const n) const noexcept
     // clang-format on
     {
-        return lazy_adaptor(take_exactly_impl{}, n);
+        return lazy_adaptor(take_exactly_impl{}, copy(n));
     }
 
 #if !defined(BOOST_STATIC_VIEWS_SFINAE)
